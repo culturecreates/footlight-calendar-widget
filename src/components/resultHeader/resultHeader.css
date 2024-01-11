@@ -1,0 +1,8 @@
+#calendar-widget > .widget-layout .result-panel-wrapper > .result-header {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: var(--primary-black);
+}
