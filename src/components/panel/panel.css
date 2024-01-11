@@ -1,0 +1,4 @@
+#calendar-widget > .widget-layout .result-panel {
+  display: flex;
+  gap: 8px;
+}
