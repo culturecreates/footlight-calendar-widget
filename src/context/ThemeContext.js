@@ -15,23 +15,18 @@ const ThemeProvider = ({ color, children }) => {
       100: "--dynamic-color-100",
       500: "--dynamic-color-500",
       600: "--dynamic-color-600",
-      700: "--dynamic-color-700",
+      700: "--dynamic-color-700"
     };
 
     Object.keys(dynamicColorVariableNames).forEach((key) => {
-      document.documentElement.style.setProperty(
-        dynamicColorVariableNames[key],
-        palette[key],
-      );
+      document.documentElement.style.setProperty(dynamicColorVariableNames[key], palette[key]);
     });
 
     return dynamicColorVariableNames;
   };
 
   return (
-    <ThemeContext.Provider
-      value={dynamicCssColorInjector(createPalette(color))}
-    >
+    <ThemeContext.Provider value={dynamicCssColorInjector(createPalette(color))}>
       {children}
     </ThemeContext.Provider>
   );

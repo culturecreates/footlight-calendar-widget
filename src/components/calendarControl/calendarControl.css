@@ -37,22 +37,14 @@
 }
 
 /* Text color for the label */
-#calendar-widget
-  > .widget-layout
-  .calendar-control
-  input[type="checkbox"]
-  + span {
+#calendar-widget > .widget-layout .calendar-control input[type="checkbox"] + span {
   cursor: pointer;
   font: 16px sans-serif;
   color: var(--primary-black);
 }
 
 /* Checkbox un-checked style */
-#calendar-widget
-  > .widget-layout
-  .calendar-control
-  input[type="checkbox"]
-  + span:before {
+#calendar-widget > .widget-layout .calendar-control input[type="checkbox"] + span:before {
   content: "";
   background: #ffffff01;
   border-radius: 2px;
@@ -64,11 +56,7 @@
 }
 
 /* Checked checkbox style (in this case the background is green #e7ffba, change this to change the color) */
-#calendar-widget
-  > .widget-layout
-  .calendar-control
-  input[type="checkbox"]:checked
-  + span:before {
+#calendar-widget > .widget-layout .calendar-control input[type="checkbox"]:checked + span:before {
   background-image: url("https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/collection/build/ionicons/svg/ios-checkmark.svg");
   background-repeat: no-repeat;
   background-position: center;
@@ -78,11 +66,7 @@
 }
 
 /* Disabled checkbox styles */
-#calendar-widget
-  > .widget-layout
-  .calendar-control
-  input[type="checkbox"]:disabled
-  + span {
+#calendar-widget > .widget-layout .calendar-control input[type="checkbox"]:disabled + span {
   cursor: default;
   color: black;
   opacity: 0.5;

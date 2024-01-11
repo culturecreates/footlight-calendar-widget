@@ -11,7 +11,7 @@ const CalendarControl = ({ setCalendarKey, setView, setActiveStartDate }) => {
     setStartDateSpan,
     setIsSingleDate,
     setEndDateSpan,
-    isSingleDate,
+    isSingleDate
   } = useContext(WidgetContext);
 
   const { t } = useTranslation();
@@ -61,9 +61,7 @@ const CalendarControl = ({ setCalendarKey, setView, setActiveStartDate }) => {
         </label>
       </div>
 
-      <button onClick={handleDateErase}>
-        {t("datepicker.eraseButtonLabel")}
-      </button>
+      <button onClick={handleDateErase}>{t("datepicker.eraseButtonLabel")}</button>
     </div>
   );
 };

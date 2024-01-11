@@ -38,11 +38,7 @@
   gap: 4px;
 }
 
-#calendar-widget
-  > .widget-layout
-  .footer
-  .provided-by-container
-  > .calendar-name {
+#calendar-widget > .widget-layout .footer .provided-by-container > .calendar-name {
   box-shadow: 0px -1px 0px 0px var(--dynamic-color-700) inset;
   border-bottom: 1px solid var(--dynamic-color-700);
   color: var(--dynamic-color-700);

@@ -1,6 +1,7 @@
 import { createContext, useCallback, useEffect, useState } from "react";
-import { entityTypes } from "../constants/entityTypes";
+import { entityTypes } from "../constants/generalConstants";
 import { sessionStorageVariableNames } from "../constants/sessionStorageVariableNames";
+import { useSize } from "../hooks/useSize";
 import { generateUrl } from "../utils/generateUrl";
 import { transformData } from "../utils/transformData";
 
@@ -20,8 +21,9 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   const [endDateSpan, setEndDateSpan] = useState(
     sessionStorage.getItem(sessionStorageVariableNames.WidgetEndDate),
   );
-
   const [isSingleDate, setIsSingleDate] = useState();
+
+  const displayType = useSize();
 
   const getData = useCallback(async () => {
     try {
@@ -59,6 +61,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
         startDateSpan,
         endDateSpan,
         isSingleDate,
+        displayType,
         getData,
         setSearchKeyWord,
         setSearchDate,

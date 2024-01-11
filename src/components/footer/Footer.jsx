@@ -6,9 +6,8 @@ import "./footer.css";
 const Footer = () => {
   const { t } = useTranslation();
   const { widgetProps } = useContext(WidgetContext);
-  const calendarName = widgetProps?.calendar.replace(
-    /(?:^|-)([a-z])/g,
-    (_, group) => group.toUpperCase(),
+  const calendarName = widgetProps?.calendar.replace(/(?:^|-)([a-z])/g, (_, group) =>
+    group.toUpperCase()
   );
   return (
     <footer className="footer">

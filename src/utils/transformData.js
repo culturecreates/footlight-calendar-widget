@@ -3,16 +3,11 @@ export const transformData = ({ data, locale }) => {
     let place = eventData.location || {};
     // If place is an array then extract first object of type 'Place'
     if (Array.isArray(place)) {
-      place =
-        eventData.location.filter((place) => place.type === "Place")[0] || {};
+      place = eventData.location.filter((place) => place.type === "Place")[0] || {};
     }
 
     // Fallback to English and then French if the locale-specific name is not available
-    const title =
-      eventData.name?.[locale] ||
-      eventData.name?.en ||
-      eventData.name?.fr ||
-      "";
+    const title = eventData.name?.[locale] || eventData.name?.en || eventData.name?.fr || "";
 
     const addressLocality =
       place.address?.addressLocality?.[locale] ||
@@ -39,7 +34,7 @@ export const transformData = ({ data, locale }) => {
       image: eventData.image?.thumbnail || "",
       place: place.name?.[locale] || place.name?.en || place.name?.fr || "",
       city: addressLocality,
-      streetAddress: streetAddress,
+      streetAddress: streetAddress
     };
   });
   return transformedData;

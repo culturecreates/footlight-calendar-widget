@@ -11,10 +11,7 @@ function App(props) {
   return (
     <ThemeProvider color={color}>
       <WidgetContextProvider widgetProps={widgetProps}>
-        <div
-          className="widget-layout"
-          style={{ maxHeight: window.screen.height }}
-        >
+        <div className="widget-layout" style={{ maxHeight: window.screen.height }}>
           <Search />
           <ResultPanel />
           <Footer />

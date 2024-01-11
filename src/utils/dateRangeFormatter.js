@@ -8,7 +8,7 @@ export function dateRangeFormatter(startdate, enddate) {
   const formattedStartDate = startDateObj.toLocaleDateString("en-GB", {
     day: "2-digit",
     month: "short",
-    year: "numeric",
+    year: "numeric"
   });
 
   if (enddate) {
@@ -21,7 +21,7 @@ export function dateRangeFormatter(startdate, enddate) {
     const formattedEndDate = endDateObj.toLocaleDateString("en-GB", {
       day: "2-digit",
       month: "short",
-      year: "numeric",
+      year: "numeric"
     });
     return `${formattedStartDate.toUpperCase()} to ${formattedEndDate.toUpperCase()}`;
   }

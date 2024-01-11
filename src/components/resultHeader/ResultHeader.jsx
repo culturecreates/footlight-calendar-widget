@@ -4,8 +4,7 @@ import { dateRangeFormatter } from "../../utils/dateRangeFormatter";
 import "./resultHeader.css";
 
 const ResultHeader = () => {
-  const { searchKeyWord, startDateSpan, endDateSpan, totalCount } =
-    useContext(WidgetContext);
+  const { searchKeyWord, startDateSpan, endDateSpan, totalCount } = useContext(WidgetContext);
   const isSearchEmpty = !searchKeyWord || searchKeyWord.trim() === "";
 
   const isDateRangePresent = startDateSpan && endDateSpan;
@@ -21,11 +20,7 @@ const ResultHeader = () => {
     <>
       <div className="result-header">
         {isSearchEmpty && (
-          <p>
-            {totalCount > 0
-              ? `Upcoming ${totalCount} events`
-              : "No events present"}
-          </p>
+          <p>{totalCount > 0 ? `Upcoming ${totalCount} events` : "No events present"}</p>
         )}
 
         {!isSearchEmpty && (

@@ -7,10 +7,7 @@
   border: none;
 }
 
-#calendar-widget
-  > .widget-layout
-  .react-calendar-wrapper
-  .react-calendar__navigation {
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation {
   display: flex;
   align-items: center;
   margin: 8px;
@@ -26,10 +23,7 @@
   background-color: #ffffff;
 }
 
-#calendar-widget
-  > .widget-layout
-  .react-calendar-wrapper
-  .react-calendar__tile--active {
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__tile--active {
   background: var(--dynamic-color-600) !important;
   color: var(--primary-white-opaque) !important;
   border-radius: 4px;
@@ -55,10 +49,7 @@
   text-align: center;
 }
 
-#calendar-widget
-  > .widget-layout
-  .react-calendar-wrapper
-  .react-calendar__navigation__label {
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation__label {
   text-transform: capitalize;
   font-size: 16px;
   font-weight: 700;
@@ -67,10 +58,7 @@
   text-align: center;
 }
 
-#calendar-widget
-  > .widget-layout
-  .react-calendar-wrapper
-  .react-calendar__tile--now {
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__tile--now {
   background-color: inherit;
 }
 
@@ -81,10 +69,7 @@
   color: var(--tertiary-grey) !important;
 }
 
-#calendar-widget
-  > .widget-layout
-  .react-calendar-wrapper
-  .react-calendar__tile {
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__tile {
   font-family: Roboto;
   font-size: 12px;
   font-weight: 400;
@@ -102,10 +87,7 @@
   color: #222732;
 }
 
-#calendar-widget
-  > .widget-layout
-  .react-calendar-wrapper
-  .react-calendar__navigation__prev2-button,
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation__prev2-button,
 #calendar-widget
   > .widget-layout
   .react-calendar-wrapper
@@ -136,24 +118,14 @@
 }
 
 @media screen and (max-width: 820px) {
-  #calendar-widget
-    > .widget-layout
-    .react-calendar-wrapper
-    .react-calendar__navigation__label {
+  #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation__label {
     font-size: 18px;
   }
-  #calendar-widget
-    > .widget-layout
-    .react-calendar-wrapper
-    .react-calendar__navigation {
+  #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation {
     margin: 1em 0px;
   }
 
-  #calendar-widget
-    > .widget-layout
-    .react-calendar-wrapper
-    .react-calendar__navigation
-    button {
+  #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation button {
     min-width: 35px;
   }
 
@@ -170,25 +142,15 @@
 }
 
 @media screen and (max-width: 767px) {
-  #calendar-widget
-    > .widget-layout
-    .react-calendar-wrapper
-    .react-calendar__navigation__label {
+  #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation__label {
     font-size: 20px;
   }
 
-  #calendar-widget
-    > .widget-layout
-    .react-calendar-wrapper
-    .react-calendar__navigation {
+  #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation {
     margin: 1em 8px;
   }
 
-  #calendar-widget
-    > .widget-layout
-    .react-calendar-wrapper
-    .react-calendar__navigation
-    button {
+  #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation button {
     min-width: 44px;
   }
 
@@ -205,16 +167,10 @@
 }
 
 @media screen and (max-width: 375px) {
-  #calendar-widget
-    > .widget-layout
-    .react-calendar-wrapper
-    .react-calendar__navigation__label {
+  #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation__label {
     font-size: 18px;
   }
-  #calendar-widget
-    > .widget-layout
-    .react-calendar-wrapper
-    .react-calendar__navigation {
+  #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation {
     display: flex;
     align-items: center;
     margin: 1em 0;

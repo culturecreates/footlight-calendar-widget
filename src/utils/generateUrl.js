@@ -12,7 +12,7 @@ export const generateUrl = (urlComponents) => {
     limit,
     query,
     "start-date-range": startDateSpan,
-    "end-date-range": endDateSpan,
+    "end-date-range": endDateSpan
   });
 
   const apiUrl = new URL(`${baseUrl}${calendar}/${searchEntityType}`);

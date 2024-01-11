@@ -21,14 +21,8 @@ const dateConverter = (date) => {
 };
 
 export const CustomCalendar = () => {
-  const {
-    searchDate,
-    setSearchDate,
-    setStartDateSpan,
-    setEndDateSpan,
-    isSingleDate,
-    widgetProp,
-  } = useContext(WidgetContext);
+  const { searchDate, setSearchDate, setStartDateSpan, setEndDateSpan, isSingleDate, widgetProp } =
+    useContext(WidgetContext);
 
   const [activeStartDate, setActiveStartDate] = useState();
   const [view, setView] = useState("month");
@@ -52,26 +46,20 @@ export const CustomCalendar = () => {
     if (!isSingleDate) {
       const selectedDate = dateConverter(new Date(value));
       setStartDateSpan(selectedDate);
-      sessionStorage.setItem(
-        sessionStorageVariableNames.WidgetStartDate,
-        selectedDate,
-      );
+      sessionStorage.setItem(sessionStorageVariableNames.WidgetStartDate, selectedDate);
       setEndDateSpan(selectedDate);
-      sessionStorage.setItem(
-        sessionStorageVariableNames.WidgetEndDate,
-        selectedDate,
-      );
+      sessionStorage.setItem(sessionStorageVariableNames.WidgetEndDate, selectedDate);
     } else {
       if (value[0] !== null) {
         setStartDateSpan(dateConverter(new Date(value[0])));
         setEndDateSpan(dateConverter(new Date(value[1])));
         sessionStorage.setItem(
           sessionStorageVariableNames.WidgetStartDate,
-          dateConverter(new Date(value[0])),
+          dateConverter(new Date(value[0]))
         );
         sessionStorage.setItem(
           sessionStorageVariableNames.WidgetEndDate,
-          dateConverter(new Date(value[1])),
+          dateConverter(new Date(value[1]))
         );
       } else {
         sessionStorage.setItem(sessionStorageVariableNames.WidgetStartDate, "");
@@ -113,15 +101,9 @@ export const CustomCalendar = () => {
         defaultValue={searchDate}
         value={searchDate}
         activeStartDate={activeStartDate}
-        onDrillDown={({ activeStartDate, view }) =>
-          drillDownHandler(activeStartDate, view)
-        }
-        onDrillUp={({ activeStartDate, view }) =>
-          drillUpHandler(activeStartDate, view)
-        }
-        onActiveStartDateChange={({ activeStartDate }) =>
-          handleNavigation(activeStartDate)
-        }
+        onDrillDown={({ activeStartDate, view }) => drillDownHandler(activeStartDate, view)}
+        onDrillUp={({ activeStartDate, view }) => drillUpHandler(activeStartDate, view)}
+        onActiveStartDateChange={({ activeStartDate }) => handleNavigation(activeStartDate)}
         goToRangeStartOnSelect={true}
         view={view}
         selectRange={isSingleDate}

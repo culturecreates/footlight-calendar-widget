@@ -8,8 +8,8 @@ i18n.use(initReactI18next).init({
   debug: true,
   lng: "en",
   interpolation: {
-    escapeValue: false,
-  },
+    escapeValue: false
+  }
 });
 
 export default i18n;

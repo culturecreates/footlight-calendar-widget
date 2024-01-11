@@ -17,5 +17,5 @@ root.render(
       color={calendarWidget.dataset.color}
       limit={calendarWidget.dataset.limit}
     />
-  </React.StrictMode>,
+  </React.StrictMode>
 );
