@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { displayTypes } from '../constants/generalConstants';
+import { displayTypes } from '../../constants/generalConstants';
 
 export const useSize = () => {
   const [size, setSize] = useState(window.innerWidth);
