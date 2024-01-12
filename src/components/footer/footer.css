@@ -43,3 +43,11 @@
   border-bottom: 1px solid var(--dynamic-color-700);
   color: var(--dynamic-color-700);
 }
+
+#calendar-widget > .widget-layout .footer .provided-by-container .calendar-logo {
+  margin-left: 3px;
+}
+
+#calendar-widget > .widget-layout .footer .provided-by-container .calendar-logo > img {
+  width: 16px;
+}

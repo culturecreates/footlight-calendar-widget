@@ -16,6 +16,7 @@ root.render(
       calendar={calendarWidget.dataset.calendar}
       color={calendarWidget.dataset.color}
       limit={calendarWidget.dataset.limit}
+      calendarLogo={calendarWidget.dataset.logo}
     />
   </React.StrictMode>,
 );
