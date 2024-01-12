@@ -1,21 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
-import Calendar from "react-calendar";
-import WidgetContext from "../../context/WidgetContext";
-import "./customCalendar.css";
-import "react-calendar/dist/Calendar.css";
-import { sessionStorageVariableNames } from "../../constants/sessionStorageVariableNames";
-import CalendarControl from "../calendarControl/CalendarControl";
-import prevButton from "../../assets/Chevron-Left.svg";
-import prev2Button from "../../assets/ChevronDouble-Left.svg";
-import next2Button from "../../assets/ChevronDouble-Right.svg";
-import nextButton from "../../assets/Chevron-Right.svg";
+import React, { useContext, useEffect, useState } from 'react';
+import Calendar from 'react-calendar';
+import WidgetContext from '../../context/WidgetContext';
+import './customCalendar.css';
+import 'react-calendar/dist/Calendar.css';
+import { sessionStorageVariableNames } from '../../constants/sessionStorageVariableNames';
+import CalendarControl from '../calendarControl/CalendarControl';
+import prevButton from '../../assets/Chevron-Left.svg';
+import prev2Button from '../../assets/ChevronDouble-Left.svg';
+import next2Button from '../../assets/ChevronDouble-Right.svg';
+import nextButton from '../../assets/Chevron-Right.svg';
 
 const dateConverter = (date) => {
   const day = date.getDate();
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
-  const paddedDay = String(day).padStart(2, "0");
-  const paddedMonth = String(month).padStart(2, "0");
+  const paddedDay = String(day).padStart(2, '0');
+  const paddedMonth = String(month).padStart(2, '0');
   const formattedDate = `${year}-${paddedMonth}-${paddedDay}`;
   return formattedDate;
 };
@@ -25,16 +25,16 @@ export const CustomCalendar = () => {
     useContext(WidgetContext);
 
   const [activeStartDate, setActiveStartDate] = useState();
-  const [view, setView] = useState("month");
+  const [view, setView] = useState('month');
   const [calendarKey, setCalendarKey] = useState(1); // Added to forcefully reset the selected date during range selection.
 
   useEffect(() => {
-    let savedDate = sessionStorage.getItem("widgetSearchDate");
+    let savedDate = sessionStorage.getItem('widgetSearchDate');
 
-    if (savedDate?.includes(",")) {
-      savedDate = savedDate?.split(",");
+    if (savedDate?.includes(',')) {
+      savedDate = savedDate?.split(',');
     }
-    if (savedDate !== null && savedDate !== "null") {
+    if (savedDate !== null && savedDate !== 'null') {
       setSearchDate(savedDate);
     }
   }, []);
@@ -55,17 +55,17 @@ export const CustomCalendar = () => {
         setEndDateSpan(dateConverter(new Date(value[1])));
         sessionStorage.setItem(
           sessionStorageVariableNames.WidgetStartDate,
-          dateConverter(new Date(value[0]))
+          dateConverter(new Date(value[0])),
         );
         sessionStorage.setItem(
           sessionStorageVariableNames.WidgetEndDate,
-          dateConverter(new Date(value[1]))
+          dateConverter(new Date(value[1])),
         );
       } else {
-        sessionStorage.setItem(sessionStorageVariableNames.WidgetStartDate, "");
-        sessionStorage.setItem(sessionStorageVariableNames.WidgetEndDate, "");
-        setStartDateSpan("");
-        setEndDateSpan("");
+        sessionStorage.setItem(sessionStorageVariableNames.WidgetStartDate, '');
+        sessionStorage.setItem(sessionStorageVariableNames.WidgetEndDate, '');
+        setStartDateSpan('');
+        setEndDateSpan('');
       }
     }
   };
@@ -85,7 +85,7 @@ export const CustomCalendar = () => {
   };
 
   const formatShortWeekday = (locale, date) => {
-    return date.toLocaleDateString(locale, { weekday: "short" }).charAt(0);
+    return date.toLocaleDateString(locale, { weekday: 'short' }).charAt(0);
   };
 
   return (

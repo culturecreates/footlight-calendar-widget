@@ -1,8 +1,8 @@
 export const entityTypes = {
-  EVENTS: "events",
+  EVENTS: 'events',
 };
 
 export const displayTypes = {
-  MOBILE: "mobile",
-  DESKTOP: "desktop",
+  MOBILE: 'mobile',
+  DESKTOP: 'desktop',
 };

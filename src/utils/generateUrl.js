@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 export const generateUrl = (urlComponents) => {
   const baseUrl = process.env.REACT_APP_API_URL;
   const calendar = urlComponents.calendar;
@@ -11,8 +12,8 @@ export const generateUrl = (urlComponents) => {
     page: 1,
     limit,
     query,
-    "start-date-range": startDateSpan,
-    "end-date-range": endDateSpan
+    'start-date-range': startDateSpan,
+    'end-date-range': endDateSpan,
   });
 
   const apiUrl = new URL(`${baseUrl}${calendar}/${searchEntityType}`);

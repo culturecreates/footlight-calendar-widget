@@ -1,13 +1,15 @@
 export const en = {
   search: {
-    placeholder: "Search event"
+    placeholder: 'Search event',
   },
   footer: {
-    text: "See all events",
-    providedBy: "Calendar provided by"
+    text: 'See all events',
+    providedBy: 'Calendar provided by',
   },
   datepicker: {
-    rangeSelectLabel: "Search a date range",
-    eraseButtonLabel: "Clear"
-  }
+    rangeSelectLabel: 'Search a date range',
+    eraseButtonLabel: 'Clear',
+  },
+  date: 'Date',
+  noResults: 'No result found.',
 };

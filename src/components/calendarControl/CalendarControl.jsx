@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { useTranslation } from "react-i18next";
-import { sessionStorageVariableNames } from "../../constants/sessionStorageVariableNames";
-import WidgetContext from "../../context/WidgetContext";
-import "./calendarControl.css";
+import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
+import { sessionStorageVariableNames } from '../../constants/sessionStorageVariableNames';
+import WidgetContext from '../../context/WidgetContext';
+import './calendarControl.css';
 
 const CalendarControl = ({ setCalendarKey, setView, setActiveStartDate }) => {
   const {
@@ -11,7 +11,7 @@ const CalendarControl = ({ setCalendarKey, setView, setActiveStartDate }) => {
     setStartDateSpan,
     setIsSingleDate,
     setEndDateSpan,
-    isSingleDate
+    isSingleDate,
   } = useContext(WidgetContext);
 
   const { t } = useTranslation();
@@ -22,12 +22,12 @@ const CalendarControl = ({ setCalendarKey, setView, setActiveStartDate }) => {
     }
     setSearchDate(null);
     sessionStorage.setItem(sessionStorageVariableNames.WidgetSearchDate, null);
-    sessionStorage.setItem(sessionStorageVariableNames.WidgetStartDate, "");
-    sessionStorage.setItem(sessionStorageVariableNames.WidgetEndDate, "");
+    sessionStorage.setItem(sessionStorageVariableNames.WidgetStartDate, '');
+    sessionStorage.setItem(sessionStorageVariableNames.WidgetEndDate, '');
     setIsSingleDate(e.target.checked);
-    setStartDateSpan("");
-    setEndDateSpan("");
-    setView("month");
+    setStartDateSpan('');
+    setEndDateSpan('');
+    setView('month');
     setActiveStartDate(new Date());
   };
 
@@ -37,12 +37,12 @@ const CalendarControl = ({ setCalendarKey, setView, setActiveStartDate }) => {
     }
     setSearchDate(null);
     sessionStorage.setItem(sessionStorageVariableNames.WidgetSearchDate, null);
-    sessionStorage.setItem(sessionStorageVariableNames.WidgetStartDate, "");
-    sessionStorage.setItem(sessionStorageVariableNames.WidgetEndDate, "");
-    setStartDateSpan("");
-    setEndDateSpan("");
+    sessionStorage.setItem(sessionStorageVariableNames.WidgetStartDate, '');
+    sessionStorage.setItem(sessionStorageVariableNames.WidgetEndDate, '');
+    setStartDateSpan('');
+    setEndDateSpan('');
     setActiveStartDate(new Date());
-    setView("month");
+    setView('month');
   };
 
   return (
@@ -52,16 +52,16 @@ const CalendarControl = ({ setCalendarKey, setView, setActiveStartDate }) => {
           <input
             type="checkbox"
             id="single-date-control"
-            style={{ height: "24px", width: "24px" }}
+            style={{ height: '24px', width: '24px' }}
             checked={isSingleDate}
             onChange={(e) => handleDateSelectionTypeChange(e)}
           />
           <span></span>
-          {t("datepicker.rangeSelectLabel")}
+          {t('datepicker.rangeSelectLabel')}
         </label>
       </div>
 
-      <button onClick={handleDateErase}>{t("datepicker.eraseButtonLabel")}</button>
+      <button onClick={handleDateErase}>{t('datepicker.eraseButtonLabel')}</button>
     </div>
   );
 };

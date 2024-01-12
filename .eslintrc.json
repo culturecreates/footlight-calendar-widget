@@ -2,8 +2,7 @@
   "env": {
     "browser": true,
     "es2021": true,
-    "jest": true,
-    "node": true
+    "jest": true
   },
   "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:prettier/recommended"],
   "overrides": [],
@@ -17,7 +16,10 @@
     "prettier/prettier": [
       "error",
       {
-        "endOfLine": "auto"
+        "endOfLine": "auto",
+        "singleQuote": true,
+        "printWidth": 100,
+        "jsxBracketSameLine": false
       }
     ],
     "react/prop-types": "off"

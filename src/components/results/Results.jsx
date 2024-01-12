@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import WidgetContext from "../../context/WidgetContext";
-import Card from "../card/Card";
+import React, { useContext } from 'react';
+import WidgetContext from '../../context/WidgetContext';
+import Card from '../card/Card';
 
-import "./results.css";
+import './results.css';
 
 const Results = () => {
   const { data } = useContext(WidgetContext);

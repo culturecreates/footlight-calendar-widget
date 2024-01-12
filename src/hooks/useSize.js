@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { displayTypes } from "../constants/generalConstants";
+import { useState, useEffect } from 'react';
+import { displayTypes } from '../constants/generalConstants';
 
 export const useSize = () => {
   const [size, setSize] = useState(window.innerWidth);
@@ -12,13 +12,13 @@ export const useSize = () => {
     handleResize();
 
     // Event listener for window resize
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     // Cleanup
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
-  return size < 600 ? displayTypes.MOBILE : displayTypes.DESKTOP;
+  return size < 768 ? displayTypes.MOBILE : displayTypes.DESKTOP;
 };
