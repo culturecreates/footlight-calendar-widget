@@ -7,7 +7,12 @@ import './card.css';
 const Card = ({ name, place, image, startDate, endDate }) => {
   const [imgError, setImgError] = useState(false);
   return (
-    <li className="card">
+    <li
+      className="card"
+      onClick={() => {
+        console.log('laks');
+      }}
+    >
       <div className="image-column">
         {!imgError ? (
           <img

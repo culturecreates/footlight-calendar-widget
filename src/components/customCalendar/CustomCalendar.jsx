@@ -9,6 +9,7 @@ import prevButton from '../../assets/Chevron-Left.svg';
 import prev2Button from '../../assets/ChevronDouble-Left.svg';
 import next2Button from '../../assets/ChevronDouble-Right.svg';
 import nextButton from '../../assets/Chevron-Right.svg';
+import { displayTypes } from '../../constants/generalConstants';
 
 const dateConverter = (date) => {
   const day = date.getDate();
@@ -21,8 +22,17 @@ const dateConverter = (date) => {
 };
 
 export const CustomCalendar = () => {
-  const { searchDate, setSearchDate, setStartDateSpan, setEndDateSpan, isSingleDate, widgetProp } =
-    useContext(WidgetContext);
+  const {
+    searchDate,
+    setSearchDate,
+    setStartDateSpan,
+    setEndDateSpan,
+    isSingleDate,
+    widgetProp,
+    displayType,
+    calendarModalToggle,
+    setCalendarModalToggle,
+  } = useContext(WidgetContext);
 
   const [activeStartDate, setActiveStartDate] = useState();
   const [view, setView] = useState('month');
@@ -43,6 +53,8 @@ export const CustomCalendar = () => {
   const searchDateHandler = (value) => {
     sessionStorage.setItem(sessionStorageVariableNames.WidgetSearchDate, value);
     setSearchDate(value);
+
+    setCalendarModalToggle(!calendarModalToggle);
     if (!isSingleDate) {
       const selectedDate = dateConverter(new Date(value));
       setStartDateSpan(selectedDate);
@@ -89,7 +101,10 @@ export const CustomCalendar = () => {
   };
 
   return (
-    <div className="custom-calendar-wrapper">
+    <div
+      className="custom-calendar-wrapper"
+      style={displayType === displayTypes.MOBILE ? { borderRadius: '4px 4px 8px 8px' } : {}}
+    >
       <CalendarControl
         setCalendarKey={setCalendarKey}
         setView={setView}

@@ -29,6 +29,13 @@
   border-radius: 4px;
 }
 
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__tile--now:enabled:hover,
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__tile--now:enabled:focus,
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__tile:enabled:hover,
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__tile:enabled:focus {
+  background: var(--dynamic-color-100);
+}
+
 #calendar-widget
   > .widget-layout
   .react-calendar-wrapper
@@ -85,6 +92,11 @@
   .react-calendar-wrapper
   .react-calendar__month-view__days__day--weekend {
   color: #222732;
+}
+
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__tile--hasActive {
+  background: var(--dynamic-color-600) !important;
+  color: var(--primary-white-opaque) !important;
 }
 
 #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation__prev2-button,
