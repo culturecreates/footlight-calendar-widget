@@ -17,6 +17,9 @@ const Footer = () => {
       <div className="provided-by-container">
         <span className="text">{t('footer.providedBy')}</span>
         <span className="calendar-name">{calendarName}</span>
+        <div className="calendar-logo">
+          <img src={widgetProps?.calendarLogo} />
+        </div>
       </div>
     </footer>
   );
