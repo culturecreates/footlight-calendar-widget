@@ -1,4 +1,27 @@
 #calendar-widget > .widget-layout .result-panel {
   display: flex;
   gap: 8px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+#calendar-widget > .widget-layout .result-panel-wrapper .button-container {
+  width: 100%;
+  padding: 16px 0;
+}
+
+#calendar-widget > .widget-layout .result-panel-wrapper .button-container > button {
+  color: var(--dynamic-color-500);
+  width: 100%;
+  height: 40px;
+  background-color: var(--primary-white);
+  border: 2px solid var(--dynamic-color-500);
+  border-radius: 4px;
+
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: center;
 }

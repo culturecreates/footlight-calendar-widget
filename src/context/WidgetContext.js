@@ -1,8 +1,9 @@
-import { createContext, useCallback, useEffect, useState } from "react";
-import { entityTypes } from "../constants/entityTypes";
-import { sessionStorageVariableNames } from "../constants/sessionStorageVariableNames";
-import { generateUrl } from "../utils/generateUrl";
-import { transformData } from "../utils/transformData";
+import { createContext, useCallback, useEffect, useState } from 'react';
+import { entityTypes } from '../constants/generalConstants';
+import { sessionStorageVariableNames } from '../constants/sessionStorageVariableNames';
+import { useSize } from '../hooks/useSize';
+import { generateUrl } from '../utils/generateUrl';
+import { transformData } from '../utils/transformData';
 
 const WidgetContext = createContext(undefined);
 
@@ -11,7 +12,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   const [data, setData] = useState();
   const [totalCount, setTotalCount] = useState();
   const [error, setError] = useState();
-  const [searchKeyWord, setSearchKeyWord] = useState();
+  const [searchKeyWord, setSearchKeyWord] = useState('');
 
   const [searchDate, setSearchDate] = useState();
   const [startDateSpan, setStartDateSpan] = useState(
@@ -20,8 +21,9 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   const [endDateSpan, setEndDateSpan] = useState(
     sessionStorage.getItem(sessionStorageVariableNames.WidgetEndDate),
   );
-
   const [isSingleDate, setIsSingleDate] = useState();
+
+  const displayType = useSize();
 
   const getData = useCallback(async () => {
     try {
@@ -35,11 +37,11 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
       const response = await fetch(url);
       const { data, meta } = await response.json();
 
-      setData(transformData({ data, locale: widgetProps?.locale || "en" }));
+      setData(transformData({ data, locale: widgetProps?.locale || 'en' }));
       setTotalCount(meta?.totalCount);
     } catch (error) {
-      setError("Error fetching data");
-      console.error("Error fetching data:", error);
+      setError('Error fetching data');
+      console.error('Error fetching data:', error);
     }
   }, [widgetProps, searchKeyWord, startDateSpan, endDateSpan]);
 
@@ -59,6 +61,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
         startDateSpan,
         endDateSpan,
         isSingleDate,
+        displayType,
         getData,
         setSearchKeyWord,
         setSearchDate,

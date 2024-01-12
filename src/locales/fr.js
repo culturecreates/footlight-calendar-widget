@@ -1,13 +1,15 @@
 export const fr = {
   search: {
-    placeholder: "Search event",
+    placeholder: 'Recherche événements',
   },
   footer: {
-    text: "See all events",
-    providedBy: "Calendar provided by",
+    text: 'Voir tous les événements',
+    providedBy: 'Calendrier des événements fourni par',
   },
   datepicker: {
-    rangeSelectLabel: "Rechercher dans une période",
-    eraseButtonLabel: "Effacer",
+    rangeSelectLabel: 'Rechercher dans une période',
+    eraseButtonLabel: 'Effacer',
   },
+  date: 'Date',
+  noResults: 'Aucun résultat trouvé',
 };

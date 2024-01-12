@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { dateRangeFormatter } from "../../utils/dateRangeFormatter";
-import placeImg from "../../assets/Location.svg";
-import { ReactComponent as DefaultImg } from "../../assets/Vector.svg";
-import "./card.css";
+import React, { useState } from 'react';
+import { dateRangeFormatter } from '../../utils/dateRangeFormatter';
+import placeImg from '../../assets/Location.svg';
+import { ReactComponent as DefaultImg } from '../../assets/Vector.svg';
+import './card.css';
 
 const Card = ({ name, place, image, startDate, endDate }) => {
   const [imgError, setImgError] = useState(false);

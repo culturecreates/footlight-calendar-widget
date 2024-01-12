@@ -29,6 +29,13 @@
   place-content: center;
 }
 
+#calendar-widget > .widget-layout input:-internal-autofill-selected {
+  appearance: inherit;
+  background-image: none !important;
+  background-color: var(--primary-white-opaque) !important;
+  color: fieldtext !important;
+}
+
 #calendar-widget > .widget-layout .search-container .search-icon {
   width: 24px;
   height: 24px;
