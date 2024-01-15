@@ -1,0 +1,30 @@
+#calendar-widget > .widget-layout {
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#calendar-widget > .widget-layout,
+#calendar-widget > .widget-layout * {
+  box-sizing: border-box !important;
+}
+
+#calendar-widget > .widget-layout ::-webkit-scrollbar {
+  width: 8px;
+}
+
+#calendar-widget > .widget-layout ::-webkit-scrollbar-track {
+  background: var(--primary-white);
+}
+
+#calendar-widget > .widget-layout ::-webkit-scrollbar-thumb {
+  background: var(--tertiary-grey);
+  height: 64px;
+  border-radius: 34px;
+}
+
+#calendar-widget > .widget-layout ::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-grey);
+}

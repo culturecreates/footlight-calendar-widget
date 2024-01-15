@@ -1,0 +1,73 @@
+#calendar-widget > .widget-layout .calendar-control {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 16px 4px 8px;
+}
+
+#calendar-widget > .widget-layout .calendar-control button {
+  border: none;
+  cursor: pointer;
+  background: none;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: var(--dynamic-color-700);
+}
+
+#calendar-widget > .widget-layout .calendar-control div > label {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 8px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: var(--primary-black);
+}
+
+#calendar-widget > .widget-layout .calendar-control input[type='checkbox'] {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+  accent-color: rgb(143, 31, 31);
+}
+
+/* Text color for the label */
+#calendar-widget > .widget-layout .calendar-control input[type='checkbox'] + span {
+  cursor: pointer;
+  font: 16px sans-serif;
+  color: var(--primary-black);
+}
+
+/* Checkbox un-checked style */
+#calendar-widget > .widget-layout .calendar-control input[type='checkbox'] + span:before {
+  content: '';
+  background: #ffffff01;
+  border-radius: 2px;
+  display: inline-block;
+  width: 13.33px;
+  height: 13.33px;
+  vertical-align: -2px;
+  border: 1px solid var(--tertiary-grey);
+}
+
+/* Checked checkbox style (in this case the background is green #e7ffba, change this to change the color) */
+#calendar-widget > .widget-layout .calendar-control input[type='checkbox']:checked + span:before {
+  background-image: url('https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/collection/build/ionicons/svg/ios-checkmark.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 27px;
+  border-radius: 0px;
+  border: 1px solid var(--tertiary-grey);
+}
+
+/* Disabled checkbox styles */
+#calendar-widget > .widget-layout .calendar-control input[type='checkbox']:disabled + span {
+  cursor: default;
+  color: black;
+  opacity: 0.5;
+}
