@@ -1,0 +1,214 @@
+#calendar-widget > .widget-layout .custom-calendar-wrapper {
+  padding: 0px 8px 8px 8px;
+  border-left: 1px solid var(--secondary-grey);
+}
+
+#calendar-widget > .widget-layout .react-calendar-wrapper {
+  border: none;
+}
+
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation {
+  display: flex;
+  align-items: center;
+  margin: 8px;
+  border-bottom: 1px solid var(--tertiary-grey);
+  height: 48px;
+}
+
+#calendar-widget
+  > .widget-layout
+  .react-calendar-wrapper
+  .react-calendar__navigation
+  button:enabled:focus {
+  background-color: #ffffff;
+}
+
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__tile--active {
+  background: var(--dynamic-color-600) !important;
+  color: var(--primary-white-opaque) !important;
+  border-radius: 4px;
+}
+
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__tile--now:enabled:hover,
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__tile--now:enabled:focus,
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__tile:enabled:hover,
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__tile:enabled:focus {
+  background: var(--dynamic-color-100);
+}
+
+#calendar-widget
+  > .widget-layout
+  .react-calendar-wrapper
+  .react-calendar__month-view__weekdays__weekday
+  abbr[title] {
+  text-decoration: none;
+}
+
+#calendar-widget
+  > .widget-layout
+  .react-calendar-wrapper
+  .react-calendar__month-view__weekdays__weekday {
+  color: #646d7b;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: center;
+}
+
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation__label {
+  text-transform: capitalize;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: center;
+}
+
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__tile--now {
+  background-color: inherit;
+}
+
+#calendar-widget
+  > .widget-layout
+  .react-calendar-wrapper
+  .react-calendar__month-view__days__day--neighboringMonth {
+  color: var(--tertiary-grey) !important;
+}
+
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__tile {
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #222732;
+  height: 50px;
+}
+
+#calendar-widget
+  > .widget-layout
+  .react-calendar-wrapper
+  .react-calendar__month-view__days__day--weekend {
+  color: #222732;
+}
+
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__tile--hasActive {
+  background: var(--dynamic-color-600) !important;
+  color: var(--primary-white-opaque) !important;
+}
+
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation__prev2-button,
+#calendar-widget
+  > .widget-layout
+  .react-calendar-wrapper
+  .react-calendar__navigation__next2-button {
+  margin: 0 8px;
+}
+
+#calendar-widget
+  > .widget-layout
+  .react-calendar-wrapper
+  .react-calendar__year-view
+  .react-calendar__tile,
+#calendar-widget
+  > .widget-layout
+  .react-calendar-wrapper
+  .react-calendar__century-view
+  .react-calendar__tile,
+#calendar-widget
+  > .widget-layout
+  .react-calendar-wrapper
+  .react-calendar__decade-view
+  .react-calendar__tile {
+  font-size: 16px;
+}
+
+#calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar {
+  border: none;
+}
+
+@media screen and (max-width: 820px) {
+  #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation__label {
+    font-size: 18px;
+  }
+  #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation {
+    margin: 1em 0px;
+  }
+
+  #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation button {
+    min-width: 35px;
+  }
+
+  #calendar-widget
+    > .widget-layout
+    .react-calendar-wrapper
+    .react-calendar__navigation__prev2-button,
+  #calendar-widget
+    > .widget-layout
+    .react-calendar-wrapper
+    .react-calendar__navigation__next2-button {
+    margin: 0 0px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation__label {
+    font-size: 20px;
+  }
+
+  #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation {
+    margin: 1em 8px;
+  }
+
+  #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation button {
+    min-width: 44px;
+  }
+
+  #calendar-widget
+    > .widget-layout
+    .react-calendar-wrapper
+    .react-calendar__navigation__prev2-button,
+  #calendar-widget
+    > .widget-layout
+    .react-calendar-wrapper
+    .react-calendar__navigation__next2-button {
+    margin: 0 8px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation__label {
+    font-size: 18px;
+  }
+  #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__navigation {
+    display: flex;
+    align-items: center;
+    margin: 1em 0;
+  }
+}
+
+@media screen and (min-width: 2300px) {
+  #calendar-widget
+    > .widget-layout
+    .react-calendar-wrapper
+    .react-calendar__year-view
+    .react-calendar__tile {
+    font-size: 21px;
+  }
+  #calendar-widget
+    > .widget-layout
+    .react-calendar-wrapper
+    .react-calendar__decade-view
+    .react-calendar__tile {
+    font-size: 21px;
+  }
+  #calendar-widget
+    > .widget-layout
+    .react-calendar-wrapper
+    .react-calendar__century-view
+    .react-calendar__tile {
+    font-size: 21px;
+  }
+}
