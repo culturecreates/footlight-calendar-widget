@@ -1,25 +1,32 @@
 name: Build and deploy develop branch to S3 Staging
+
 on:
   push:
     branches:
       - main
+
 jobs:
   deploy:
     runs-on: ubuntu-22.04
     container:
       image: sleavely/node-awscli:14.x
     steps:
-      - uses: actions/checkout@v2
-      - run: npm install
-      - run: npm run build
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm install
+      - name: Build project
+        run: npm run build
+
   copytos3:
-    uses: keithweaver/aws-s3-github-action@v1.0.0
-    with:
-      command: cp
-      source: ./build
-      destination: s3://staging.cms-widget.footlight.io/
-    secrets:
-      aws_access_key_id: ${{ secrets.S3_ACCESS_KEY_ID}}
-      aws_secret_access_key: ${{ secrets.S3_SECRET_ACCESS_KEY }}
-      aws_region: ca-central-1
-      flags: --acl public-read --delete --cache-control max-age=3600
+    runs-on: ubuntu-22.04
+    needs: deploy
+    steps:
+      - name: Copy to S3
+        uses: keithweaver/aws-s3-github-action@v1.0.0
+        with:
+          command: cp
+          source: ./build
+          destination: s3://staging.cms-widget.footlight.io/
+          AWS_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
