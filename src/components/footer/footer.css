@@ -1,0 +1,53 @@
+#calendar-widget > .widget-layout .footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#calendar-widget > .widget-layout .footer > .button-container {
+  display: grid;
+  place-content: center;
+}
+#calendar-widget > .widget-layout .footer > .button-container button {
+  height: 32px;
+  padding: 8px 12px 8px 12px;
+  border-radius: 4px;
+  gap: 8px;
+
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: center;
+
+  background-color: var(--dynamic-color-600);
+  color: var(--primary-white-opaque);
+  border: none;
+  z-index: 2;
+}
+
+#calendar-widget > .widget-layout .footer .provided-by-container {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
+  display: flex;
+  gap: 4px;
+}
+
+#calendar-widget > .widget-layout .footer .provided-by-container > .calendar-name {
+  box-shadow: 0px -1px 0px 0px var(--dynamic-color-700) inset;
+  border-bottom: 1px solid var(--dynamic-color-700);
+  color: var(--dynamic-color-700);
+}
+
+#calendar-widget > .widget-layout .footer .provided-by-container .calendar-logo {
+  margin-left: 3px;
+}
+
+#calendar-widget > .widget-layout .footer .provided-by-container .calendar-logo > img {
+  width: 16px;
+}
