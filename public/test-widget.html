@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>Test Calendar Widget</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <div id="calendar-widget"></div>
+
+    <form id="form">
+      <label for="api">API:</label>
+      <input type="text" id="api" value="api.footlight.io" />
+
+      <label for="locale">Locale:</label>
+      <input type="text" id="locale" value="fr" />
+
+      <label for="calendar">Calendar:</label>
+      <input type="text" id="calendar" value="tout-culture" />
+
+      <label for="color">Color:</label>
+      <input type="text" id="color" value="#047857" />
+
+      <label for="limit">Limit:</label>
+      <input type="text" id="limit" value="9" />
+
+      <label for="logo">Logo:</label>
+      <input
+        type="text"
+        id="logo"
+        value="https://cdn.footlight.io/iiif/3/tout-culture-logo.png/0,0,1620,1080/400,/0/default.png"
+      />
+
+      <button type="button" onclick="updateCalendar()">Submit</button>
+    </form>
+
+    <script>
+      function updateCalendar() {
+        const calendarWidget = document.getElementById('calendar-widget');
+        const form = document.getElementById('form');
+
+        const api = document.getElementById('api').value;
+        const locale = document.getElementById('locale').value;
+        const calendar = document.getElementById('calendar').value;
+        const color = document.getElementById('color').value;
+        const limit = document.getElementById('limit').value;
+        const logo = document.getElementById('logo').value;
+
+        calendarWidget.dataset.api = api;
+        calendarWidget.dataset.locale = locale;
+        calendarWidget.dataset.calendar = calendar;
+        calendarWidget.dataset.color = color;
+        calendarWidget.dataset.limit = limit;
+        calendarWidget.dataset.logo = logo;
+      }
+    </script>
+  </body>
+</html>
