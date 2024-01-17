@@ -12,13 +12,15 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   const [data, setData] = useState();
   const [totalCount, setTotalCount] = useState();
   const [error, setError] = useState();
-  const [searchKeyWord, setSearchKeyWord] = useState('');
+  const [searchKeyWord, setSearchKeyWord] = useState(
+    sessionStorage.getItem(sessionStorageVariableNames.WidgetSearchKeyWord) || '',
+  );
   const [searchDate, setSearchDate] = useState();
   const [startDateSpan, setStartDateSpan] = useState(
-    sessionStorage.getItem(sessionStorageVariableNames.WidgetStartDate),
+    sessionStorage.getItem(sessionStorageVariableNames.WidgetStartDate) || '',
   );
   const [endDateSpan, setEndDateSpan] = useState(
-    sessionStorage.getItem(sessionStorageVariableNames.WidgetEndDate),
+    sessionStorage.getItem(sessionStorageVariableNames.WidgetEndDate) || '',
   );
   const [isSingleDate, setIsSingleDate] = useState();
   const [calendarModalToggle, setCalendarModalToggle] = useState(false); // controls calendar as modal for mobile view
