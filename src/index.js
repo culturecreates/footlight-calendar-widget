@@ -16,13 +16,11 @@ const defaultProps = {
   calendarLogo: calendarWidget.dataset.logo,
 };
 
-if (Object.keys(calendarWidget.dataset).length === 0) {
-  const extractedProps = extractPropsFromSearchParams(defaultProps);
+let extractedProps = extractPropsFromSearchParams(defaultProps);
 
-  const root = createRoot(calendarWidget);
-  root.render(
-    <React.StrictMode>
-      <App {...extractedProps} />
-    </React.StrictMode>,
-  );
-}
+const root = createRoot(calendarWidget);
+root.render(
+  <React.StrictMode>
+    <App {...extractedProps} />
+  </React.StrictMode>,
+);
