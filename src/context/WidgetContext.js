@@ -1,4 +1,5 @@
 import { createContext, useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { entityTypes } from '../constants/generalConstants';
 import { sessionStorageVariableNames } from '../constants/sessionStorageVariableNames';
 import { generateUrl } from '../utils/generateUrl';
@@ -27,6 +28,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const displayType = useSize();
+  const { i18n } = useTranslation();
 
   const getData = useCallback(async () => {
     try {
@@ -57,6 +59,10 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   useEffect(() => {
     calendarModalToggle && setCalendarModalToggle(false);
   }, [startDateSpan, endDateSpan]);
+
+  useEffect(() => {
+    i18n.changeLanguage(widgetProps?.locale);
+  }, [i18n, widgetProps?.locale]);
 
   return (
     <WidgetContext.Provider
