@@ -2,7 +2,7 @@ name: Build and deploy develop branch to S3 Staging
 on:
   push:
     branches:
-    - develop
+      - develop
 jobs:
   deploy:
     env:
@@ -14,7 +14,7 @@ jobs:
     container:
       image: sleavely/node-awscli:14.x
     steps:
-    - uses: actions/checkout@v2
-    - run: npm install
-    - run: npm run build
-    - run: aws s3 sync ./build s3://${{env.WEBHOSTING_BUCKET_NAME}}/ --acl public-read --delete --cache-control max-age=3600
+      - uses: actions/checkout@v2
+      - run: npm install
+      - run: npm run build
+      - run: aws s3 sync ./build s3://${{env.WEBHOSTING_BUCKET_NAME}}/ --acl public-read --delete --cache-control max-age=3600
