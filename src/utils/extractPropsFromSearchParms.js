@@ -7,6 +7,8 @@ export function extractPropsFromSearchParams(defaultProps) {
   const color = searchParams.get('color') || defaultProps.color;
   const limit = searchParams.get('limit') || defaultProps.limit;
   const calendarLogo = searchParams.get('logo') || defaultProps.calendarLogo;
+  const eventUrl = searchParams.get('eventUrl') || defaultProps.eventUrl;
+  const searchEventsUrl = searchParams.get('searchEventsUrl') || defaultProps.searchEventsUrl;
 
   return {
     api,
@@ -15,5 +17,7 @@ export function extractPropsFromSearchParams(defaultProps) {
     color,
     limit,
     calendarLogo,
+    eventUrl,
+    searchEventsUrl,
   };
 }

@@ -2,6 +2,7 @@
   display: flex;
   padding: 0 16px 0 0;
   gap: 16px;
+  cursor: pointer;
 }
 
 #calendar-widget > .widget-layout .card .image-column {

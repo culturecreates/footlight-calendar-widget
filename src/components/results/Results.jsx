@@ -15,6 +15,7 @@ const Results = () => {
         data.map((item, index) => (
           <Card
             key={index}
+            id={item?.id}
             name={item?.title}
             startDate={item?.startDate}
             endDate={item?.endDate}

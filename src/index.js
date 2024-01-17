@@ -8,12 +8,14 @@ import { extractPropsFromSearchParams } from './utils/extractPropsFromSearchParm
 const calendarWidget = document.getElementById('calendar-widget');
 
 const defaultProps = {
-  api: calendarWidget.dataset.api,
-  locale: calendarWidget.dataset.locale,
-  calendar: calendarWidget.dataset.calendar,
-  color: calendarWidget.dataset.color,
-  limit: calendarWidget.dataset.limit,
-  calendarLogo: calendarWidget.dataset.logo,
+  api: calendarWidget.dataset?.api,
+  locale: calendarWidget.dataset?.locale,
+  calendar: calendarWidget.dataset?.calendar,
+  color: calendarWidget.dataset?.color,
+  limit: calendarWidget.dataset?.limit,
+  calendarLogo: calendarWidget.dataset?.logo,
+  eventUrl: calendarWidget.dataset?.eventUrl,
+  searchEventsUrl: calendarWidget.dataset?.searchEventsUrl,
 };
 
 let extractedProps = extractPropsFromSearchParams(defaultProps);

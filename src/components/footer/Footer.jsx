@@ -2,16 +2,40 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import WidgetContext from '../../context/WidgetContext';
 import './footer.css';
+import { redirectionHandler } from '../../utils/redirectionHandler';
 
 const Footer = () => {
   const { t } = useTranslation();
-  const { widgetProps } = useContext(WidgetContext);
+  const { widgetProps, searchKeyWord, startDateSpan, endDateSpan } = useContext(WidgetContext);
+
+  const { searchEventsUrl } = widgetProps;
+
   const calendarName = widgetProps?.calendar.replace(/(?:^|-)([a-z])/g, (_, group) =>
     group.toUpperCase(),
   );
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    const searchParams = new URLSearchParams();
+
+    searchParams.append('limit', 100);
+    if (searchKeyWord !== '' && searchKeyWord) {
+      searchParams.append('query', searchKeyWord);
+    }
+    if (startDateSpan) {
+      searchParams.append('start-date-range', startDateSpan);
+    }
+    if (endDateSpan) {
+      searchParams.append('end-date-range', endDateSpan);
+    }
+
+    let url = searchEventsUrl + '?' + searchParams.toString();
+    redirectionHandler({ url: url });
+  };
+
   return (
     <footer className="footer">
-      <div className="button-container">
+      <div className="button-container" onClick={submitHandler}>
         <button>{t('footer.text')}</button>
       </div>
       <div className="provided-by-container">
