@@ -4,6 +4,7 @@ export const fr = {
   },
   footer: {
     text: 'Voir tous les événements',
+    noItems: 'Aucun résultat trouvé',
     providedBy: 'Calendrier des événements fourni par',
   },
   datepicker: {
@@ -12,4 +13,10 @@ export const fr = {
   },
   date: 'Date',
   noResults: 'Aucun résultat trouvé',
+  events: 'événements',
+  resultHeader: {
+    eventsContaining: 'événements contenant',
+    noEvents: 'Aucun événement présent',
+    upcoming: 'Prochainement',
+  },
 };

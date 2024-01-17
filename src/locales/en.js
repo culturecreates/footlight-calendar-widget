@@ -5,6 +5,7 @@ export const en = {
   footer: {
     text: 'See all events',
     providedBy: 'Calendar provided by',
+    noItems: 'No results found',
   },
   datepicker: {
     rangeSelectLabel: 'Search a date range',
@@ -12,4 +13,10 @@ export const en = {
   },
   date: 'Date',
   noResults: 'No result found.',
+  events: 'events',
+  resultHeader: {
+    eventsContaining: 'events containing',
+    noEvents: 'No events present',
+    upcoming: 'Upcoming',
+  },
 };

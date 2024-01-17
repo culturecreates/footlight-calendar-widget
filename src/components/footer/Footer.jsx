@@ -6,7 +6,8 @@ import { redirectionHandler } from '../../utils/redirectionHandler';
 
 const Footer = () => {
   const { t } = useTranslation();
-  const { widgetProps, searchKeyWord, startDateSpan, endDateSpan } = useContext(WidgetContext);
+  const { widgetProps, searchKeyWord, startDateSpan, endDateSpan, totalCount } =
+    useContext(WidgetContext);
 
   const { searchEventsUrl } = widgetProps;
 
@@ -36,7 +37,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="button-container" onClick={submitHandler}>
-        <button>{t('footer.text')}</button>
+        <button>{totalCount > 0 ? t('footer.text') : t('footer.noItems')}</button>
       </div>
       <div className="provided-by-container">
         <span className="text">{t('footer.providedBy')}</span>
