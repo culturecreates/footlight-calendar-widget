@@ -87,12 +87,6 @@
         cursor: pointer;
         border: none;
       }
-
-      #calendarIframe {
-        frameborder: 0;
-        width: 1000px;
-        height: 700px;
-      }
     </style>
   </head>
   <body>
@@ -114,6 +108,12 @@
         <label for="limit">Limit:</label>
         <input type="text" id="limit" value="9" />
 
+        <label for="width">Width:</label>
+        <input type="text" id="width" value="100%" />
+
+        <label for="height">Height:</label>
+        <input type="text" id="height" value="1000px" />
+
         <label for="logo">Logo:</label>
         <input
           type="text"
@@ -130,7 +130,7 @@
       </div>
     </div>
 
-    <iframe id="calendarIframe" frameborder="0" width="1000px" height="700px"></iframe>
+    <iframe id="calendarIframe" frameborder="0"></iframe>
 
     <script>
       function updateAndLoadCalendar() {
@@ -140,6 +140,8 @@
         const color = document.getElementById('color').value;
         const limit = document.getElementById('limit').value;
         const logo = document.getElementById('logo').value;
+        const width = document.getElementById('width').value;
+        const height = document.getElementById('height').value;
 
         const url = new URL(
           'https://s3.ca-central-1.amazonaws.com/staging.cms-widget.footlight.io/index.html',
@@ -152,11 +154,11 @@
         url.searchParams.set('logo', logo);
 
         const generatedUrlInput = document.getElementById('generatedUrl');
-        generatedUrlInput.value = url.href;
-
-        console.log(url.href);
+        generatedUrlInput.value = `<iframe src="${url.href}" frameborder="0"></iframe>`;
 
         const calendarIframe = document.getElementById('calendarIframe');
+        calendarIframe.width = width;
+        calendarIframe.height = height;
         calendarIframe.src = url.href;
       }
 
