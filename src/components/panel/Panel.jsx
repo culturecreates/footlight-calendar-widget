@@ -48,7 +48,7 @@ const ResultPanel = () => {
   return (
     <section
       className="result-panel-wrapper"
-      style={{ height: `${parseInt(widgetProps?.height?.replace(/px/g, ''), 10) - 132}px` }}
+      style={{ height: `${parseInt(widgetProps?.height?.replace(/px/g, ''), 10) - 140}px` }}
     >
       <ResultHeader />
 
@@ -64,7 +64,19 @@ const ResultPanel = () => {
           )}
         </div>
       )}
-      <div className="result-panel" style={totalCount > 0 ? {} : { alignItems: 'center' }}>
+      <div
+        className="result-panel"
+        style={
+          totalCount > 0
+            ? {
+                maxHeight: `${parseInt(widgetProps?.height?.replace(/px/g, ''), 10) - 160}px`,
+              }
+            : {
+                alignItems: 'center',
+                maxHeight: `${parseInt(widgetProps?.height?.replace(/px/g, ''), 10) - 160}px`,
+              }
+        }
+      >
         {!isLoading ? (
           <div className="results">{totalCount > 0 ? <Results /> : <NoResult />}</div>
         ) : (
