@@ -16,7 +16,7 @@ const defaultProps = {
   calendarLogo: calendarWidget.dataset?.logo,
   eventUrl: calendarWidget.dataset?.eventUrl,
   searchEventsUrl: calendarWidget.dataset?.searchEventsUrl,
-  dataSearchEventsFilters: calendarWidget.dataset?.searchEventsFilter,
+  searchEventsFilters: calendarWidget.dataset?.searchEventsFilter,
   height: calendarWidget.dataset?.height,
 };
 

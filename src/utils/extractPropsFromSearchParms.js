@@ -10,7 +10,7 @@ export function extractPropsFromSearchParams(defaultProps) {
   const eventUrl = searchParams.get('eventUrl') || defaultProps?.eventUrl;
   const searchEventsUrl = searchParams.get('searchEventsUrl') || defaultProps?.searchEventsUrl;
   const searchEventsFilters =
-    searchParams.get('searchEventsFilters') || defaultProps?.searchEventsUrl;
+    searchParams.get('searchEventsFilters') || defaultProps?.searchEventsFilters;
   const height = searchParams.get('height') || defaultProps?.height;
 
   return {
