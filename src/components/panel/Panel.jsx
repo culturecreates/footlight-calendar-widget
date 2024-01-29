@@ -12,8 +12,14 @@ import './panel.css';
 const ResultPanel = () => {
   const calendarModalRef = useRef(null);
 
-  const { displayType, totalCount, calendarModalToggle, setCalendarModalToggle, isLoading } =
-    useContext(WidgetContext);
+  const {
+    displayType,
+    totalCount,
+    calendarModalToggle,
+    setCalendarModalToggle,
+    isLoading,
+    widgetProps,
+  } = useContext(WidgetContext);
 
   const { t } = useTranslation();
 
@@ -40,7 +46,10 @@ const ResultPanel = () => {
   }, [calendarModalToggle]);
 
   return (
-    <section className="result-panel-wrapper">
+    <section
+      className="result-panel-wrapper"
+      style={{ height: `${parseInt(widgetProps?.height?.replace(/px/g, ''), 10) - 132}px` }}
+    >
       <ResultHeader />
 
       {displayType === displayTypes.MOBILE && (

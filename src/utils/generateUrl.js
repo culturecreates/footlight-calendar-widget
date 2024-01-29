@@ -7,6 +7,7 @@ export const generateUrl = (urlComponents) => {
   const query = urlComponents?.searchKeyWord;
   const startDateSpan = urlComponents?.startDateSpan;
   const endDateSpan = urlComponents?.endDateSpan;
+  const filters = decodeURIComponent(urlComponents?.searchEventsFilters);
 
   const queryParams = new URLSearchParams({
     page: 1,
@@ -18,5 +19,6 @@ export const generateUrl = (urlComponents) => {
 
   const apiUrl = new URL(`${baseUrl}${calendar}/${searchEntityType}`);
   apiUrl.search = queryParams.toString();
+  apiUrl.search += filters;
   return apiUrl.toString();
 };

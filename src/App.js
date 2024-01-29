@@ -11,10 +11,9 @@ function App(props) {
 
   const palette = getColors(color);
   dynamicCssColorInjector(palette);
-
   return (
     <WidgetContextProvider widgetProps={widgetProps}>
-      <div className="widget-layout" style={{ maxHeight: window.screen.height }}>
+      <div className="widget-layout" style={{ height: widgetProps.height, maxHeight: '100vh' }}>
         <Search />
         <ResultPanel />
         <Footer />

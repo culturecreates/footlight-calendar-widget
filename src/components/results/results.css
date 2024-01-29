@@ -1,4 +1,5 @@
 #calendar-widget > .widget-layout .card-container {
   overflow-y: scroll;
   flex: 1;
+  height: 100%;
 }

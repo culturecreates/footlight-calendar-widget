@@ -16,6 +16,8 @@ const defaultProps = {
   calendarLogo: calendarWidget.dataset?.logo,
   eventUrl: calendarWidget.dataset?.eventUrl,
   searchEventsUrl: calendarWidget.dataset?.searchEventsUrl,
+  searchEventsFilters: calendarWidget.dataset?.searchEventsFilter,
+  height: calendarWidget.dataset?.height,
 };
 
 let extractedProps = extractPropsFromSearchParams(defaultProps);
