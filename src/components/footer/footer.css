@@ -4,6 +4,7 @@
   align-items: center;
   flex-direction: column;
   gap: 8px;
+  height: 60px;
 }
 
 #calendar-widget > .widget-layout .footer > .button-container {
