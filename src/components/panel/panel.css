@@ -8,6 +8,11 @@
   height: 100%;
 }
 
+#calendar-widget > .widget-layout .result-panel-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 #calendar-widget > .widget-layout .result-panel-wrapper .button-container {
   width: 100%;
   padding: 16px 0;
