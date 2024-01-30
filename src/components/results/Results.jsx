@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { displayTypes } from '../../constants/generalConstants';
 import WidgetContext from '../../context/WidgetContext';
 import Card from '../card/Card';
 
