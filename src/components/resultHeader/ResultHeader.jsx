@@ -25,7 +25,7 @@ const ResultHeader = () => {
         {isSearchEmpty && isDateRangePresent && (
           <p>
             {totalCount > 0
-              ? ` ${t('resultHeader.upcoming')} ${totalCount} ${t('events')} "${dateText}`
+              ? ` ${t('resultHeader.upcoming')} ${totalCount} ${t('events')} - ${dateText}`
               : `${t('resultHeader.noEvents')}`}
           </p>
         )}
@@ -37,12 +37,12 @@ const ResultHeader = () => {
           </p>
         )}
 
-        {!isSearchEmpty && !isDateRangePresent && (
+        {!isSearchEmpty && isDateRangePresent && (
           <p>
             {totalCount > 0
               ? ` ${totalCount} ${t(
                   'resultHeader.eventsContaining',
-                )} "${searchKeyWord}" ${dateText}`
+                )} "${searchKeyWord}" - ${dateText}`
               : `${t('resultHeader.noEvents')}`}
           </p>
         )}
