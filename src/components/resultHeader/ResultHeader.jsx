@@ -22,7 +22,14 @@ const ResultHeader = () => {
   return (
     <>
       <div className="result-header">
-        {isSearchEmpty && (
+        {isSearchEmpty && isDateRangePresent && (
+          <p>
+            {totalCount > 0
+              ? ` ${t('resultHeader.upcoming')} ${totalCount} ${t('events')} "${dateText}`
+              : `${t('resultHeader.noEvents')}`}
+          </p>
+        )}
+        {isSearchEmpty && !isDateRangePresent && (
           <p>
             {totalCount > 0
               ? `${t('resultHeader.upcoming')} ${totalCount} ${t('events')}`
@@ -30,7 +37,7 @@ const ResultHeader = () => {
           </p>
         )}
 
-        {!isSearchEmpty && (
+        {!isSearchEmpty && !isDateRangePresent && (
           <p>
             {totalCount > 0
               ? ` ${totalCount} ${t(
