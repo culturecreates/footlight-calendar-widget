@@ -46,6 +46,14 @@ const ResultHeader = () => {
               : `${t('resultHeader.noEvents')}`}
           </p>
         )}
+
+        {!isSearchEmpty && !isDateRangePresent && (
+          <p>
+            {totalCount > 0
+              ? ` ${totalCount} ${t('resultHeader.eventsContaining')} "${searchKeyWord}"`
+              : `${t('resultHeader.noEvents')}`}
+          </p>
+        )}
       </div>
     </>
   );
