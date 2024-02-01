@@ -11,13 +11,19 @@ const Card = ({ id, name, place, image, startDate, endDate }) => {
   const { widgetProps } = useContext(WidgetContext);
   const { eventUrl, locale } = widgetProps;
 
+  let url = eventUrl.replace('${locale}', locale).replace('${eventId}', id);
+
+  if (url.includes('${eventName}')) {
+    url = url.replace('${eventName}', name);
+  }
+
   return (
     <li
       className="card"
       onClick={(e) => {
         e.preventDefault();
         redirectionHandler({
-          url: eventUrl.replace('${locale}', locale).replace('${eventId}', id),
+          url,
         });
       }}
     >
