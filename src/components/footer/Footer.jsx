@@ -9,7 +9,7 @@ const Footer = () => {
   const { widgetProps, searchKeyWord, startDateSpan, endDateSpan, totalCount } =
     useContext(WidgetContext);
 
-  const { searchEventsUrl } = widgetProps;
+  const { searchEventsUrl, locale } = widgetProps;
 
   const calendarName = widgetProps?.calendar.replace(/(?:^|-)([a-z])/g, (_, group) =>
     group.toUpperCase(),
@@ -30,7 +30,8 @@ const Footer = () => {
       searchParams.append('end-date-range', endDateSpan);
     }
 
-    let url = searchEventsUrl + '?' + searchParams.toString();
+    let url = searchEventsUrl.replace('${locale}', locale);
+    +'?' + searchParams.toString();
     redirectionHandler({ url: url });
   };
 

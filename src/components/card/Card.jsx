@@ -9,13 +9,15 @@ import WidgetContext from '../../context/WidgetContext';
 const Card = ({ id, name, place, image, startDate, endDate }) => {
   const [imgError, setImgError] = useState(false);
   const { widgetProps } = useContext(WidgetContext);
+  const { eventUrl, locale } = widgetProps;
+
   return (
     <li
       className="card"
       onClick={(e) => {
         e.preventDefault();
         redirectionHandler({
-          url: widgetProps?.eventUrl + id,
+          url: eventUrl.replace('${locale}', locale).replace('${eventId}', id),
         });
       }}
     >
