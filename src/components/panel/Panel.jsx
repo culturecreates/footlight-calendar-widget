@@ -48,7 +48,10 @@ const ResultPanel = () => {
   return (
     <section
       className="result-panel-wrapper"
-      style={{ height: `${parseInt(widgetProps?.height?.replace(/px/g, ''), 10) - 140}px` }}
+      style={{
+        maxHeight: `${parseInt(widgetProps?.height?.replace(/px/g, ''), 10) - 140}px`,
+        ...(displayType === displayTypes.DESKTOP ? { minHeight: '410px' } : { minHeight: '500px' }),
+      }}
     >
       <ResultHeader />
 
@@ -70,10 +73,16 @@ const ResultPanel = () => {
           totalCount > 0
             ? {
                 maxHeight: `${parseInt(widgetProps?.height?.replace(/px/g, ''), 10) - 160}px`,
+                ...(displayType === displayTypes.DESKTOP
+                  ? { minHeight: '384px' }
+                  : { minHeight: '390px' }),
               }
             : {
                 alignItems: 'center',
                 maxHeight: `${parseInt(widgetProps?.height?.replace(/px/g, ''), 10) - 160}px`,
+                ...(displayType === displayTypes.DESKTOP
+                  ? { minHeight: '384px' }
+                  : { minHeight: '390px' }),
               }
         }
       >

@@ -24,6 +24,7 @@ export const transformData = ({ data, locale }) => {
     return {
       id: eventData.id,
       title: title,
+      slug: eventData.slug?.[locale],
       startDate:
         eventData.subEventDetails.upcomingSubEventCount === 0
           ? eventData?.startDate || eventData?.startDateTime || ''

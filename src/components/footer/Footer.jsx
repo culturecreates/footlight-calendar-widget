@@ -9,7 +9,7 @@ const Footer = () => {
   const { widgetProps, searchKeyWord, startDateSpan, endDateSpan, totalCount } =
     useContext(WidgetContext);
 
-  const { searchEventsUrl } = widgetProps;
+  const { searchEventsUrl, locale } = widgetProps;
 
   const calendarName = widgetProps?.calendar.replace(/(?:^|-)([a-z])/g, (_, group) =>
     group.toUpperCase(),
@@ -21,7 +21,9 @@ const Footer = () => {
 
     searchParams.append('limit', 100);
     if (searchKeyWord !== '' && searchKeyWord) {
-      searchParams.append('query', searchKeyWord);
+      widgetProps?.calendar == 'signe-laval'
+        ? searchParams.append('q', searchKeyWord)
+        : searchParams.append('query', searchKeyWord);
     }
     if (startDateSpan) {
       searchParams.append('start-date-range', startDateSpan);
@@ -30,7 +32,7 @@ const Footer = () => {
       searchParams.append('end-date-range', endDateSpan);
     }
 
-    let url = searchEventsUrl + '?' + searchParams.toString();
+    let url = searchEventsUrl.replace('${locale}', locale).trim() + '?' + searchParams.toString();
     redirectionHandler({ url: url });
   };
 
