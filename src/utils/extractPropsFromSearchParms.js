@@ -12,6 +12,7 @@ export function extractPropsFromSearchParams(defaultProps) {
   const searchEventsFilters =
     searchParams.get('searchEventsFilters') || defaultProps?.searchEventsFilters;
   const height = searchParams.get('height') || defaultProps?.height;
+  const index = searchParams.get('index') || defaultProps?.index;
 
   return {
     api,
@@ -24,5 +25,6 @@ export function extractPropsFromSearchParams(defaultProps) {
     searchEventsUrl: decodeURIComponent(searchEventsUrl),
     height,
     searchEventsFilters,
+    index,
   };
 }

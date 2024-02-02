@@ -3,7 +3,6 @@ import Calendar from 'react-calendar';
 import WidgetContext from '../../context/WidgetContext';
 import './customCalendar.css';
 import 'react-calendar/dist/Calendar.css';
-import { sessionStorageVariableNames } from '../../constants/sessionStorageVariableNames';
 import CalendarControl from '../calendarControl/CalendarControl';
 import prevButton from '../../assets/Chevron-Left.svg';
 import prev2Button from '../../assets/ChevronDouble-Left.svg';
@@ -32,6 +31,7 @@ export const CustomCalendar = () => {
     displayType,
     calendarModalToggle,
     setCalendarModalToggle,
+    indexedSessionStorageVariableNames,
   } = useContext(WidgetContext);
 
   const [activeStartDate, setActiveStartDate] = useState();
@@ -51,31 +51,31 @@ export const CustomCalendar = () => {
 
   // handlers
   const searchDateHandler = (value) => {
-    sessionStorage.setItem(sessionStorageVariableNames.WidgetSearchDate, value);
+    sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetSearchDate, value);
     setSearchDate(value);
 
     setCalendarModalToggle(!calendarModalToggle);
     if (!isSingleDate) {
       const selectedDate = dateConverter(new Date(value));
       setStartDateSpan(selectedDate);
-      sessionStorage.setItem(sessionStorageVariableNames.WidgetStartDate, selectedDate);
+      sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetStartDate, selectedDate);
       setEndDateSpan(selectedDate);
-      sessionStorage.setItem(sessionStorageVariableNames.WidgetEndDate, selectedDate);
+      sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetEndDate, selectedDate);
     } else {
       if (value[0] !== null) {
         setStartDateSpan(dateConverter(new Date(value[0])));
         setEndDateSpan(dateConverter(new Date(value[1])));
         sessionStorage.setItem(
-          sessionStorageVariableNames.WidgetStartDate,
+          indexedSessionStorageVariableNames.WidgetStartDate,
           dateConverter(new Date(value[0])),
         );
         sessionStorage.setItem(
-          sessionStorageVariableNames.WidgetEndDate,
+          indexedSessionStorageVariableNames.WidgetEndDate,
           dateConverter(new Date(value[1])),
         );
       } else {
-        sessionStorage.setItem(sessionStorageVariableNames.WidgetStartDate, '');
-        sessionStorage.setItem(sessionStorageVariableNames.WidgetEndDate, '');
+        sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetStartDate, '');
+        sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetEndDate, '');
         setStartDateSpan('');
         setEndDateSpan('');
       }

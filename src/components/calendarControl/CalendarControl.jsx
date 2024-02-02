@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { sessionStorageVariableNames } from '../../constants/sessionStorageVariableNames';
 import WidgetContext from '../../context/WidgetContext';
 import './calendarControl.css';
 
@@ -12,6 +11,7 @@ const CalendarControl = ({ setCalendarKey, setView, setActiveStartDate }) => {
     setIsSingleDate,
     setEndDateSpan,
     isSingleDate,
+    indexedSessionStorageVariableNames,
   } = useContext(WidgetContext);
 
   const { t } = useTranslation();
@@ -21,9 +21,9 @@ const CalendarControl = ({ setCalendarKey, setView, setActiveStartDate }) => {
       setCalendarKey((prevState) => prevState + 1); // So reset button can reset date when in the middle of selection.
     }
     setSearchDate(null);
-    sessionStorage.setItem(sessionStorageVariableNames.WidgetSearchDate, null);
-    sessionStorage.setItem(sessionStorageVariableNames.WidgetStartDate, '');
-    sessionStorage.setItem(sessionStorageVariableNames.WidgetEndDate, '');
+    sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetSearchDate, null);
+    sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetStartDate, '');
+    sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetEndDate, '');
     setIsSingleDate(e.target.checked);
     setStartDateSpan('');
     setEndDateSpan('');
@@ -36,9 +36,9 @@ const CalendarControl = ({ setCalendarKey, setView, setActiveStartDate }) => {
       setCalendarKey((prevState) => prevState + 1); // So reset button can reset date when in the middle of selection.
     }
     setSearchDate(null);
-    sessionStorage.setItem(sessionStorageVariableNames.WidgetSearchDate, null);
-    sessionStorage.setItem(sessionStorageVariableNames.WidgetStartDate, '');
-    sessionStorage.setItem(sessionStorageVariableNames.WidgetEndDate, '');
+    sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetSearchDate, null);
+    sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetStartDate, '');
+    sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetEndDate, '');
     setStartDateSpan('');
     setEndDateSpan('');
     setActiveStartDate(new Date());
