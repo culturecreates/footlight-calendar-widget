@@ -15,6 +15,7 @@ const Results = () => {
             key={index}
             id={item?.id}
             name={item?.title}
+            slug={item?.slug}
             startDate={item?.startDate}
             endDate={item?.endDate}
             place={item?.streetAddress}

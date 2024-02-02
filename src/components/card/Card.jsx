@@ -6,7 +6,7 @@ import './card.css';
 import { redirectionHandler } from '../../utils/redirectionHandler';
 import WidgetContext from '../../context/WidgetContext';
 
-const Card = ({ id, name, place, image, startDate, endDate }) => {
+const Card = ({ id, slug, name, place, image, startDate, endDate }) => {
   const [imgError, setImgError] = useState(false);
   const { widgetProps } = useContext(WidgetContext);
   const { eventUrl, locale } = widgetProps;
@@ -14,7 +14,7 @@ const Card = ({ id, name, place, image, startDate, endDate }) => {
   let url = eventUrl.replace('${locale}', locale).replace('${eventId}', id);
 
   if (url.includes('${eventName}')) {
-    url = url.replace('${eventName}', name);
+    url = url.replace('${eventName}', slug);
   }
 
   return (
