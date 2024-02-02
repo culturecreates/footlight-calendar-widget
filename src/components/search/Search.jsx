@@ -6,7 +6,6 @@ import './search.css';
 import { ReactComponent as SearchIcon } from '../../assets/Search.svg';
 import { ReactComponent as ClearIcon } from '../../assets/close-Circle.svg';
 // import { ReactComponent as FilterIcon } from '../../assets/Custom.svg';
-import { sessionStorageVariableNames } from '../../constants/sessionStorageVariableNames';
 
 const Search = () => {
   const { t } = useTranslation();
