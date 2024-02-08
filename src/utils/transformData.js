@@ -3,7 +3,10 @@ export const transformData = ({ data, locale }) => {
     let place = eventData.location || {};
     // If place is an array then extract first object of type 'Place'
     if (Array.isArray(place)) {
-      place = eventData.location.filter((place) => place.type === 'Place')[0] || {};
+      place =
+        eventData.location.filter(
+          (place) => place.type === 'Place' || place.type === 'VirtualLocation',
+        )[0] || {};
     }
 
     // Fallback to English and then French if the locale-specific name is not available

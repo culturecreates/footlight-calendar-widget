@@ -18,7 +18,7 @@ const Results = () => {
             slug={item?.slug}
             startDate={item?.startDate}
             endDate={item?.endDate}
-            place={item?.streetAddress}
+            place={item?.place}
             image={item?.image}
           />
         ))}
