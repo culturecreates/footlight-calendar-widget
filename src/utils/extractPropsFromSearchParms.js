@@ -20,7 +20,7 @@ export function extractPropsFromSearchParams(defaultProps) {
     calendar,
     color,
     limit,
-    calendarLogo,
+    calendarLogo: decodeURIComponent(calendarLogo),
     eventUrl: decodeURIComponent(eventUrl),
     searchEventsUrl: decodeURIComponent(searchEventsUrl),
     height,
