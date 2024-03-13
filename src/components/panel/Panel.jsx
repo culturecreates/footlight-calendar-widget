@@ -49,8 +49,7 @@ const ResultPanel = () => {
     <section
       className="result-panel-wrapper"
       style={{
-        maxHeight: `${parseInt(widgetProps?.height?.replace(/px/g, ''), 10) - 140}px`,
-        ...(displayType === displayTypes.DESKTOP ? { minHeight: '410px' } : { minHeight: '500px' }),
+        height: `${parseInt(widgetProps?.height?.replace(/px/g, ''), 10) - 132}px`,
       }}
     >
       <ResultHeader />
@@ -67,25 +66,7 @@ const ResultPanel = () => {
           )}
         </div>
       )}
-      <div
-        className="result-panel"
-        style={
-          totalCount > 0
-            ? {
-                maxHeight: `${parseInt(widgetProps?.height?.replace(/px/g, ''), 10) - 160}px`,
-                ...(displayType === displayTypes.DESKTOP
-                  ? { minHeight: '384px' }
-                  : { minHeight: '390px' }),
-              }
-            : {
-                alignItems: 'center',
-                maxHeight: `${parseInt(widgetProps?.height?.replace(/px/g, ''), 10) - 160}px`,
-                ...(displayType === displayTypes.DESKTOP
-                  ? { minHeight: '384px' }
-                  : { minHeight: '390px' }),
-              }
-        }
-      >
+      <div className="result-panel">
         {!isLoading ? (
           <div className="results">{totalCount > 0 ? <Results /> : <NoResult />}</div>
         ) : (

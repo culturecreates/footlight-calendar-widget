@@ -37,6 +37,8 @@
   text-align: left;
   display: flex;
   gap: 4px;
+  height: 17px;
+  justify-content: center;
 }
 
 #calendar-widget > .widget-layout .footer .provided-by-container > .calendar-name {
@@ -50,5 +52,5 @@
 }
 
 #calendar-widget > .widget-layout .footer .provided-by-container .calendar-logo > img {
-  width: 16px;
+  height: 100%;
 }
