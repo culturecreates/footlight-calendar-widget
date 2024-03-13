@@ -5,6 +5,7 @@ import { getDefaultSessionStorageVariableNames } from '../constants/sessionStora
 import { generateUrl } from '../utils/generateUrl';
 import { useSize } from '../utils/hooks/useSize';
 import { transformData } from '../utils/transformData';
+import { useDebounce } from '../utils/useDebounce';
 
 const WidgetContext = createContext(undefined);
 
@@ -55,9 +56,11 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
     }
   }, [widgetProps, searchKeyWord, startDateSpan, endDateSpan]);
 
+  const getDataDebounced = useDebounce(getData, 500);
+
   useEffect(() => {
     setIsLoading(true);
-    getData();
+    getDataDebounced();
   }, [widgetProps, searchKeyWord, startDateSpan, endDateSpan]);
 
   useEffect(() => {
