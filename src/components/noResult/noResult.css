@@ -4,8 +4,8 @@
   min-height: 96px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
+  margin-top: 100px;
 }
 
 #calendar-widget > .widget-layout .no-content > span {
