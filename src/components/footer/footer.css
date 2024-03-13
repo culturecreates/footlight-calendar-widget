@@ -49,6 +49,7 @@
 
 #calendar-widget > .widget-layout .footer .provided-by-container .calendar-logo {
   margin-left: 3px;
+  width: 25px;
 }
 
 #calendar-widget > .widget-layout .footer .provided-by-container .calendar-logo > img {
