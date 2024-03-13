@@ -1,6 +1,5 @@
 #calendar-widget {
   height: 100%;
-  overflow: hidden;
 }
 
 #calendar-widget > .widget-layout {
