@@ -31,7 +31,7 @@
   fill: var(--dynamic-color-500);
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 480px) {
   #calendar-widget > .widget-layout .no-content > span {
     font-size: 12px;
   }
