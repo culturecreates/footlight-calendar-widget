@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+    <script defer="defer" src="./dist/index.js"></script>
+    <link href="./dist/index.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>Test Calendar Widget</title>
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        margin: 20px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      #widget-control {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        gap: 50px;
+        margin-bottom: 50px;
+      }
+
+      #form {
+        display: flex;
+        flex-direction: column;
+        max-width: 500px;
+        min-width: 300px;
+        margin: 0 auto;
+      }
+
+      label {
+        margin-bottom: 8px;
+      }
+
+      input {
+        margin-bottom: 12px;
+        padding: 8px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        background-color: #047857;
+        color: #fff;
+        cursor: pointer;
+        border: none;
+        text-align: center;
+        margin: auto;
+        width: 100%;
+      }
+
+      button img {
+        margin-right: 8px;
+      }
+
+      #generatedUrlContainer {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        max-width: 300px;
+        margin: auto;
+      }
+
+      #generatedUrl {
+        flex-grow: 1;
+        margin-right: 10px;
+      }
+
+      #copyButton {
+        padding: 10px;
+        background-color: #047857;
+        color: #fff;
+        cursor: pointer;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="widget-control">
+      <form id="form">
+        <label for="api">API:</label>
+        <input type="text" id="api" value="api.footlight.io" />
+
+        <label for="locale">Locale:</label>
+        <input type="text" id="locale" value="fr" />
+
+        <label for="calendar">Calendar:</label>
+        <input type="text" id="calendar" value="tout-culture" />
+
+        <label for="color">Color:</label>
+        <input type="text" id="color" value="#047857" />
+
+        <label for="limit">Limit:</label>
+        <input type="text" id="limit" value="9" />
+
+        <label for="width">Width:</label>
+        <input type="text" id="width" value="100%" />
+
+        <label for="height">Height:</label>
+        <input type="text" id="height" value="1000px" />
+
+        <label for="logo">Logo:</label>
+        <input
+          type="text"
+          id="logo"
+          value="https://cdn.footlight.io/iiif/3/tout-culture-logo.png/0,0,1620,1080/400,/0/default.png"
+        />
+
+        <button type="button" onclick="updateAndLoadCalendar()">Submit</button>
+      </form>
+
+      <div id="generatedUrlContainer">
+        <input type="text" id="generatedUrl" readonly />
+        <button id="copyButton" onclick="copyToClipboard()">Copy URL</button>
+      </div>
+    </div>
+
+    <iframe id="calendarIframe" frameborder="0"></iframe>
+
+    <script>
+      function updateAndLoadCalendar() {
+        const api = document.getElementById('api').value;
+        const locale = document.getElementById('locale').value;
+        const calendar = document.getElementById('calendar').value;
+        const color = document.getElementById('color').value;
+        const limit = document.getElementById('limit').value;
+        const logo = document.getElementById('logo').value;
+        const width = document.getElementById('width').value;
+        const height = document.getElementById('height').value;
+
+        const url = new URL(
+          'https://s3.ca-central-1.amazonaws.com/staging.cms-widget.footlight.io/index.html',
+        );
+        url.searchParams.set('api', api);
+        url.searchParams.set('locale', locale);
+        url.searchParams.set('calendar', calendar);
+        url.searchParams.set('color', color);
+        url.searchParams.set('limit', limit);
+        url.searchParams.set('logo', logo);
+
+        const generatedUrlInput = document.getElementById('generatedUrl');
+        generatedUrlInput.value = `<iframe src="${url.href}" frameborder="0"></iframe>`;
+
+        const calendarIframe = document.getElementById('calendarIframe');
+        calendarIframe.width = width;
+        calendarIframe.height = height;
+        calendarIframe.src = url.href;
+      }
+
+      function copyToClipboard() {
+        const generatedUrlInput = document.getElementById('generatedUrl');
+        generatedUrlInput.select();
+        document.execCommand('copy');
+      }
+    </script>
+  </body>
+</html>

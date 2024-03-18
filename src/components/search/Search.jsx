@@ -5,14 +5,16 @@ import WidgetContext from '../../context/WidgetContext';
 import './search.css';
 import { ReactComponent as SearchIcon } from '../../assets/Search.svg';
 import { ReactComponent as ClearIcon } from '../../assets/close-Circle.svg';
-import { ReactComponent as FilterIcon } from '../../assets/Custom.svg';
+// import { ReactComponent as FilterIcon } from '../../assets/Custom.svg';
 
 const Search = () => {
   const { t } = useTranslation();
-  const { setSearchKeyWord, searchKeyWord } = useContext(WidgetContext);
+  const { setSearchKeyWord, searchKeyWord, indexedSessionStorageVariableNames } =
+    useContext(WidgetContext);
 
   const clearSearch = () => {
     setSearchKeyWord('');
+    sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetSearchKeyWord, '');
   };
 
   return (
@@ -26,14 +28,20 @@ const Search = () => {
         className="widget-search-bar"
         autoComplete="new-password"
         value={searchKeyWord}
-        onChange={(e) => setSearchKeyWord(e.target.value)}
+        onChange={(e) => {
+          setSearchKeyWord(e.target.value);
+          sessionStorage.setItem(
+            indexedSessionStorageVariableNames.WidgetSearchKeyWord,
+            e.target.value,
+          );
+        }}
       />
-      <div
+      {/* <div
         className="filter-icon-container"
         style={searchKeyWord ? { right: '40px' } : { right: '10px' }}
       >
         <FilterIcon className="filter-icon" />
-      </div>
+      </div> */}
       {searchKeyWord && (
         <div className="clear-icon-container" onClick={clearSearch}>
           <ClearIcon className="clear-icon" />

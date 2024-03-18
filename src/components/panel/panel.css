@@ -4,6 +4,14 @@
   width: 100%;
   justify-content: center;
   min-height: 100px;
+  flex: 1;
+  height: 100%;
+}
+
+#calendar-widget > .widget-layout .result-panel-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 #calendar-widget > .widget-layout .result-panel-wrapper .button-container {

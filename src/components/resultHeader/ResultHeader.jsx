@@ -1,12 +1,15 @@
 import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import WidgetContext from '../../context/WidgetContext';
 import { dateRangeFormatter } from '../../utils/dateRangeFormatter';
 import './resultHeader.css';
 
 const ResultHeader = () => {
   const { searchKeyWord, startDateSpan, endDateSpan, totalCount } = useContext(WidgetContext);
-  const isSearchEmpty = !searchKeyWord || searchKeyWord.trim() === '';
 
+  const { t } = useTranslation();
+
+  const isSearchEmpty = !searchKeyWord || searchKeyWord.trim() === '';
   const isDateRangePresent = startDateSpan && endDateSpan;
 
   let dateText = '';
@@ -19,15 +22,36 @@ const ResultHeader = () => {
   return (
     <>
       <div className="result-header">
-        {isSearchEmpty && (
-          <p>{totalCount > 0 ? `Upcoming ${totalCount} events` : 'No events present'}</p>
-        )}
-
-        {!isSearchEmpty && (
+        {isSearchEmpty && isDateRangePresent && (
           <p>
             {totalCount > 0
-              ? ` ${totalCount} events containing "${searchKeyWord}" ${dateText}`
-              : 'No events present'}
+              ? ` ${t('resultHeader.upcoming')} ${totalCount} ${t('events')} - ${dateText}`
+              : `${t('resultHeader.noEvents')}`}
+          </p>
+        )}
+        {isSearchEmpty && !isDateRangePresent && (
+          <p>
+            {totalCount > 0
+              ? `${t('resultHeader.upcoming')} ${totalCount} ${t('events')}`
+              : `${t('resultHeader.noEvents')} `}
+          </p>
+        )}
+
+        {!isSearchEmpty && isDateRangePresent && (
+          <p>
+            {totalCount > 0
+              ? ` ${totalCount} ${t(
+                  'resultHeader.eventsContaining',
+                )} "${searchKeyWord}" - ${dateText}`
+              : `${t('resultHeader.noEvents')}`}
+          </p>
+        )}
+
+        {!isSearchEmpty && !isDateRangePresent && (
+          <p>
+            {totalCount > 0
+              ? ` ${totalCount} ${t('resultHeader.eventsContaining')} "${searchKeyWord}"`
+              : `${t('resultHeader.noEvents')}`}
           </p>
         )}
       </div>

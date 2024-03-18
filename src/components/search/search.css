@@ -18,6 +18,7 @@
   display: flex;
   width: 100%;
   position: relative;
+  height: 40px;
 }
 
 #calendar-widget > .widget-layout .search-icon-container {

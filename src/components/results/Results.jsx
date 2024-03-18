@@ -1,24 +1,24 @@
 import React, { useContext } from 'react';
-import { displayTypes } from '../../constants/generalConstants';
 import WidgetContext from '../../context/WidgetContext';
 import Card from '../card/Card';
 
 import './results.css';
 
 const Results = () => {
-  const { data, displayType } = useContext(WidgetContext);
-  const screenHeight =
-    displayType === displayTypes.DESKTOP ? window.screen.height - 275 : window.screen.height - 350;
+  const { data } = useContext(WidgetContext);
+
   return (
-    <ul className="card-container" style={{ maxHeight: screenHeight }}>
+    <ul className="card-container">
       {data?.length > 0 &&
         data.map((item, index) => (
           <Card
             key={index}
+            id={item?.id}
             name={item?.title}
+            slug={item?.slug}
             startDate={item?.startDate}
             endDate={item?.endDate}
-            place={item?.streetAddress}
+            place={item?.place}
             image={item?.image}
           />
         ))}

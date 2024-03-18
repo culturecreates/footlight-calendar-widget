@@ -1,30 +1,39 @@
 import { createContext, useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { entityTypes } from '../constants/generalConstants';
-import { sessionStorageVariableNames } from '../constants/sessionStorageVariableNames';
+import { getDefaultSessionStorageVariableNames } from '../constants/sessionStorageVariableNames';
 import { generateUrl } from '../utils/generateUrl';
 import { useSize } from '../utils/hooks/useSize';
 import { transformData } from '../utils/transformData';
+import { useDebounce } from '../utils/useDebounce';
 
 const WidgetContext = createContext(undefined);
 
 export const WidgetContextProvider = ({ widgetProps, children }) => {
+  const indexedSessionStorageVariableNames = getDefaultSessionStorageVariableNames(
+    widgetProps?.index || 1,
+  );
+
   // states
   const [data, setData] = useState();
   const [totalCount, setTotalCount] = useState();
   const [error, setError] = useState();
-  const [searchKeyWord, setSearchKeyWord] = useState('');
+  const [searchKeyWord, setSearchKeyWord] = useState(
+    sessionStorage.getItem(indexedSessionStorageVariableNames.WidgetSearchKeyWord) || '',
+  );
   const [searchDate, setSearchDate] = useState();
   const [startDateSpan, setStartDateSpan] = useState(
-    sessionStorage.getItem(sessionStorageVariableNames.WidgetStartDate),
+    sessionStorage.getItem(indexedSessionStorageVariableNames.WidgetStartDate) || '',
   );
   const [endDateSpan, setEndDateSpan] = useState(
-    sessionStorage.getItem(sessionStorageVariableNames.WidgetEndDate),
+    sessionStorage.getItem(indexedSessionStorageVariableNames.WidgetEndDate) || '',
   );
   const [isSingleDate, setIsSingleDate] = useState();
   const [calendarModalToggle, setCalendarModalToggle] = useState(false); // controls calendar as modal for mobile view
   const [isLoading, setIsLoading] = useState(true);
 
   const displayType = useSize();
+  const { i18n } = useTranslation();
 
   const getData = useCallback(async () => {
     try {
@@ -47,14 +56,20 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
     }
   }, [widgetProps, searchKeyWord, startDateSpan, endDateSpan]);
 
+  const getDataDebounced = useDebounce(getData, 500);
+
   useEffect(() => {
     setIsLoading(true);
-    getData();
+    getDataDebounced();
   }, [widgetProps, searchKeyWord, startDateSpan, endDateSpan]);
 
   useEffect(() => {
     calendarModalToggle && setCalendarModalToggle(false);
   }, [startDateSpan, endDateSpan]);
+
+  useEffect(() => {
+    i18n.changeLanguage(widgetProps?.locale);
+  }, [i18n, widgetProps?.locale]);
 
   return (
     <WidgetContext.Provider
@@ -69,8 +84,9 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
         endDateSpan,
         isSingleDate,
         displayType,
-        calendarModalToggle,
         isLoading,
+        calendarModalToggle,
+        indexedSessionStorageVariableNames,
         getData,
         setSearchKeyWord,
         setSearchDate,

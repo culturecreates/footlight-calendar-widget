@@ -1,16 +1,30 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { dateRangeFormatter } from '../../utils/dateRangeFormatter';
 import placeImg from '../../assets/Location.svg';
 import { ReactComponent as DefaultImg } from '../../assets/Vector.svg';
 import './card.css';
+import { redirectionHandler } from '../../utils/redirectionHandler';
+import WidgetContext from '../../context/WidgetContext';
 
-const Card = ({ name, place, image, startDate, endDate }) => {
+const Card = ({ id, slug, name, place, image, startDate, endDate }) => {
   const [imgError, setImgError] = useState(false);
+  const { widgetProps } = useContext(WidgetContext);
+  const { eventUrl, locale } = widgetProps;
+
+  let url = eventUrl.replace('${locale}', locale).replace('${eventId}', id);
+
+  if (url.includes('${eventName}')) {
+    url = url.replace('${eventName}', slug);
+  }
+
   return (
     <li
       className="card"
-      onClick={() => {
-        console.log('laks');
+      onClick={(e) => {
+        e.preventDefault();
+        redirectionHandler({
+          url,
+        });
       }}
     >
       <div className="image-column">
