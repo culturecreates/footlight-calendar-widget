@@ -6,6 +6,7 @@ import { generateUrl } from '../utils/generateUrl';
 import { useSize } from '../utils/hooks/useSize';
 import { transformData } from '../utils/transformData';
 import { useDebounce } from '../utils/useDebounce';
+import { searchDateFormatter } from '../utils/dateRangeFormatter';
 
 const WidgetContext = createContext(undefined);
 
@@ -21,7 +22,11 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   const [searchKeyWord, setSearchKeyWord] = useState(
     sessionStorage.getItem(indexedSessionStorageVariableNames.WidgetSearchKeyWord) || '',
   );
-  const [searchDate, setSearchDate] = useState();
+  const [searchDate, setSearchDate] = useState(
+    searchDateFormatter(
+      sessionStorage.getItem(indexedSessionStorageVariableNames.WidgetSearchDate),
+    ) || '',
+  );
   const [startDateSpan, setStartDateSpan] = useState(
     sessionStorage.getItem(indexedSessionStorageVariableNames.WidgetStartDate) || '',
   );

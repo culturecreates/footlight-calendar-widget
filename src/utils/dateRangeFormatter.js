@@ -1,12 +1,10 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
 
 dayjs.extend(utc);
-dayjs.extend(timezone);
 
 export function dateRangeFormatter(startdate, enddate) {
-  const startDateObj = dayjs(startdate).tz('Canada/Eastern');
+  const startDateObj = dayjs(startdate);
 
   if (!startDateObj.isValid()) {
     return 'Invalid date format';
@@ -17,9 +15,9 @@ export function dateRangeFormatter(startdate, enddate) {
   if (enddate) {
     let endDateObj = '';
     if (enddate.includes('T')) {
-      endDateObj = dayjs(enddate).tz('Canada/Eastern');
+      endDateObj = dayjs(enddate);
     } else {
-      endDateObj = dayjs(enddate).endOf('day').tz('Canada/Eastern');
+      endDateObj = dayjs(enddate).endOf('day');
     }
 
     if (!endDateObj.isValid()) {
@@ -34,3 +32,13 @@ export function dateRangeFormatter(startdate, enddate) {
 
   return formattedStartDate.toUpperCase();
 }
+
+export const searchDateFormatter = (date) => {
+  if (date) {
+    if (date.includes(',')) {
+      return date.split(',');
+    } else {
+      return date;
+    }
+  }
+};
