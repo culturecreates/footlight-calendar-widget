@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import WidgetContext from '../../context/WidgetContext';
 import './footer.css';
@@ -9,11 +9,11 @@ const Footer = () => {
   const { widgetProps, searchKeyWord, startDateSpan, endDateSpan, totalCount } =
     useContext(WidgetContext);
 
-  const { searchEventsUrl, locale } = widgetProps;
+  const { searchEventsUrl, locale, calendarName } = widgetProps;
 
-  const calendarName = widgetProps?.calendar.replace(/(?:^|-)([a-z])/g, (_, group) =>
-    group.toUpperCase(),
-  );
+  useEffect(() => {
+    console.log(calendarName);
+  }, [calendarName]);
 
   const submitHandler = (event) => {
     event.preventDefault();

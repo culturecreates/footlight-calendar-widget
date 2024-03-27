@@ -11,6 +11,7 @@ const defaultProps = {
   api: calendarWidget.dataset?.api,
   locale: calendarWidget.dataset?.locale,
   calendar: calendarWidget.dataset?.calendar,
+  calendarName: calendarWidget.dataset?.calendarName,
   color: calendarWidget.dataset?.color,
   limit: calendarWidget.dataset?.limit,
   calendarLogo: calendarWidget.dataset?.logo,
