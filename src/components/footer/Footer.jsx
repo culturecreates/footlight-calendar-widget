@@ -9,11 +9,7 @@ const Footer = () => {
   const { widgetProps, searchKeyWord, startDateSpan, endDateSpan, totalCount } =
     useContext(WidgetContext);
 
-  const { searchEventsUrl, locale } = widgetProps;
-
-  const calendarName = widgetProps?.calendar.replace(/(?:^|-)([a-z])/g, (_, group) =>
-    group.toUpperCase(),
-  );
+  const { searchEventsUrl, locale, calendarName } = widgetProps;
 
   const submitHandler = (event) => {
     event.preventDefault();

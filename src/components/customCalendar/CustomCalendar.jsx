@@ -28,7 +28,7 @@ export const CustomCalendar = () => {
     setStartDateSpan,
     setEndDateSpan,
     isSingleDate,
-    widgetProp,
+    widgetProps,
     displayType,
     calendarModalToggle,
     setCalendarModalToggle,
@@ -125,7 +125,7 @@ export const CustomCalendar = () => {
         selectRange={isSingleDate}
         formatShortWeekday={formatShortWeekday}
         className="react-calendar-wrapper"
-        locale={widgetProp?.locale}
+        locale={widgetProps?.locale}
         prevLabel={<img src={prevButton} alt=""></img>}
         prev2Label={<img src={prev2Button} alt=""></img>}
         next2Label={<img src={next2Button} alt=""></img>}

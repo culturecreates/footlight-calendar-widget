@@ -4,6 +4,7 @@ export function extractPropsFromSearchParams(defaultProps) {
   const api = searchParams.get('api') || defaultProps?.api;
   const locale = searchParams.get('locale') || defaultProps?.locale;
   const calendar = searchParams.get('calendar') || defaultProps?.calendar;
+  const calendarName = searchParams.get('calendarName') || defaultProps?.calendarName;
   const color = searchParams.get('color') || defaultProps?.color;
   const limit = searchParams.get('limit') || defaultProps?.limit;
   const calendarLogo = searchParams.get('logo') || defaultProps?.calendarLogo;
@@ -18,6 +19,7 @@ export function extractPropsFromSearchParams(defaultProps) {
     api,
     locale,
     calendar,
+    calendarName,
     color,
     limit,
     calendarLogo: decodeURIComponent(calendarLogo),
