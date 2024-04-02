@@ -9,6 +9,7 @@ import prev2Button from '../../assets/ChevronDouble-Left.svg';
 import next2Button from '../../assets/ChevronDouble-Right.svg';
 import nextButton from '../../assets/Chevron-Right.svg';
 import { displayTypes } from '../../constants/generalConstants';
+import { getDefaultSessionStorageVariableNames } from '../../constants/sessionStorageVariableNames';
 
 const dateConverter = (date) => {
   const day = date.getDate();
@@ -27,7 +28,7 @@ export const CustomCalendar = () => {
     setStartDateSpan,
     setEndDateSpan,
     isSingleDate,
-    widgetProp,
+    widgetProps,
     displayType,
     calendarModalToggle,
     setCalendarModalToggle,
@@ -39,7 +40,7 @@ export const CustomCalendar = () => {
   const [calendarKey, setCalendarKey] = useState(1); // Added to forcefully reset the selected date during range selection.
 
   useEffect(() => {
-    let savedDate = sessionStorage.getItem('widgetSearchDate');
+    let savedDate = sessionStorage.getItem(getDefaultSessionStorageVariableNames.WidgetSearchDate);
 
     if (savedDate?.includes(',')) {
       savedDate = savedDate?.split(',');
@@ -124,7 +125,7 @@ export const CustomCalendar = () => {
         selectRange={isSingleDate}
         formatShortWeekday={formatShortWeekday}
         className="react-calendar-wrapper"
-        locale={widgetProp?.locale}
+        locale={widgetProps?.locale}
         prevLabel={<img src={prevButton} alt=""></img>}
         prev2Label={<img src={prev2Button} alt=""></img>}
         next2Label={<img src={next2Button} alt=""></img>}
