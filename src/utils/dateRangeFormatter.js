@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
+import { Translation } from 'react-i18next';
 
 dayjs.extend(utc);
 
@@ -27,7 +28,12 @@ export function dateRangeFormatter(startdate, enddate) {
     const formattedEndDate = endDateObj.format('DD MMM YYYY');
     if (formattedEndDate.toUpperCase() === formattedStartDate.toUpperCase())
       return formattedStartDate.toUpperCase();
-    return `${formattedStartDate.toUpperCase()} to ${formattedEndDate.toUpperCase()}`;
+    return (
+      <>
+        {formattedStartDate.toUpperCase()} <Translation>{(t) => t('to')}</Translation>{' '}
+        {formattedEndDate.toUpperCase()}
+      </>
+    );
   }
 
   return formattedStartDate.toUpperCase();

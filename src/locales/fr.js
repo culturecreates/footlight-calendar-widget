@@ -12,6 +12,7 @@ export const fr = {
     eraseButtonLabel: 'Effacer',
   },
   date: 'Date',
+  to: ' au ',
   noResults: 'Aucun résultat trouvé',
   events: 'événements',
   resultHeader: {
