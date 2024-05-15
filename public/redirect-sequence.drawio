@@ -1,0 +1,67 @@
+<mxfile host="app.diagrams.net" modified="2024-05-15T20:15:24.122Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15" etag="fq9q0qreMeUkRN5pqHqZ" version="24.4.1" type="github">
+  <diagram name="Page-1" id="C6yEUAlt5K05PQXQP3jS">
+    <mxGraphModel dx="1149" dy="765" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eeJ4Tpy6JcS0nw0dHXFJ-2" value="click event link" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" edge="1" target="eeJ4Tpy6JcS0nw0dHXFJ-1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="70" y="185" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eeJ4Tpy6JcS0nw0dHXFJ-3" value="view webpage" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="69.5" y="440" as="targetPoint" />
+            <mxPoint x="195" y="440" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="100" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eeJ4Tpy6JcS0nw0dHXFJ-4" value="" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;" vertex="1" parent="1">
+          <mxGeometry x="60" y="110" width="20" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="eeJ4Tpy6JcS0nw0dHXFJ-6" value="Browser" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="150" y="110" width="100" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="eeJ4Tpy6JcS0nw0dHXFJ-1" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="eeJ4Tpy6JcS0nw0dHXFJ-6">
+          <mxGeometry x="45" y="70" width="10" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="eeJ4Tpy6JcS0nw0dHXFJ-7" value="CMS Backend API" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="480" y="110" width="100" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="eeJ4Tpy6JcS0nw0dHXFJ-10" value="Client Website" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="650" y="110" width="100" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="eeJ4Tpy6JcS0nw0dHXFJ-12" value="303 REDIRECT //toutculture.ca/evenement/{UUID}&amp;nbsp;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;align=left;" edge="1" parent="1">
+          <mxGeometry x="0.9076" y="-10" relative="1" as="geometry">
+            <mxPoint x="205" y="270" as="targetPoint" />
+            <mxPoint x="529.5" y="270" as="sourcePoint" />
+            <mxPoint x="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eeJ4Tpy6JcS0nw0dHXFJ-19" value="GET //toutculture.ca/evenement/{UUID}" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;align=left;" edge="1" parent="1">
+          <mxGeometry x="-0.9389" y="10" relative="1" as="geometry">
+            <mxPoint x="203" y="340" as="sourcePoint" />
+            <mxPoint x="699.5" y="340" as="targetPoint" />
+            <mxPoint y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eeJ4Tpy6JcS0nw0dHXFJ-11" value="GET //api.footlight.io/resource/{UUID}?calendar=tout-culture" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;align=left;" edge="1" parent="1">
+          <mxGeometry x="-0.9076" y="10" relative="1" as="geometry">
+            <mxPoint x="205" y="220" as="sourcePoint" />
+            <mxPoint x="529.5" y="220" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eeJ4Tpy6JcS0nw0dHXFJ-20" value="200 OK HTML Webpage" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;align=left;" edge="1" parent="1" target="eeJ4Tpy6JcS0nw0dHXFJ-1">
+          <mxGeometry x="0.9268" y="-10" relative="1" as="geometry">
+            <mxPoint x="310" y="380" as="targetPoint" />
+            <mxPoint x="700" y="380" as="sourcePoint" />
+            <mxPoint x="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
