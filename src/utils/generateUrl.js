@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 export const generateUrl = (urlComponents) => {
-  const baseUrl = process.env.REACT_APP_API_URL;
+  const baseUrl = process.env.REACT_APP_API_URL + 'calendars/';
   const calendar = urlComponents.calendar;
   const searchEntityType = urlComponents?.searchEntityType;
   const limit = urlComponents?.limit || 10;
