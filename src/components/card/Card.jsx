@@ -6,16 +6,12 @@ import './card.css';
 import { redirectionHandler } from '../../utils/redirectionHandler';
 import WidgetContext from '../../context/WidgetContext';
 
-const Card = ({ id, slug, name, place, image, startDate, endDate }) => {
+const Card = ({ id, name, place, image, startDate, endDate }) => {
   const [imgError, setImgError] = useState(false);
   const { widgetProps } = useContext(WidgetContext);
-  const { eventUrl, locale } = widgetProps;
+  const { locale, calendar } = widgetProps;
 
-  let url = eventUrl.replace('${locale}', locale).replace('${eventId}', id);
-
-  if (url.includes('${eventName}')) {
-    url = url.replace('${eventName}', slug);
-  }
+  let redirectionUrl = `${process.env.REACT_APP_API_URL}resource/${id}?calendar=${calendar}&locale=${locale}`;
 
   return (
     <li
@@ -23,7 +19,7 @@ const Card = ({ id, slug, name, place, image, startDate, endDate }) => {
       onClick={(e) => {
         e.preventDefault();
         redirectionHandler({
-          url,
+          url: redirectionUrl,
         });
       }}
     >
