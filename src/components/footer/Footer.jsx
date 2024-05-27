@@ -6,30 +6,29 @@ import { redirectionHandler } from '../../utils/redirectionHandler';
 
 const Footer = () => {
   const { t } = useTranslation();
-  const { widgetProps, searchKeyWord, startDateSpan, endDateSpan, totalCount } =
-    useContext(WidgetContext);
+  const { widgetProps, totalCount } = useContext(WidgetContext);
 
-  const { searchEventsUrl, locale, calendarName } = widgetProps;
+  const { locale, calendar, calendarName } = widgetProps;
+  let redirectionUrl = `${process.env.REACT_APP_API_URL}resource?calendar=${calendar}&locale=${locale}`;
 
   const submitHandler = (event) => {
     event.preventDefault();
-    const searchParams = new URLSearchParams();
 
-    searchParams.append('limit', 100);
-    if (searchKeyWord !== '' && searchKeyWord) {
-      widgetProps?.calendar == 'signe-laval'
-        ? searchParams.append('q', searchKeyWord)
-        : searchParams.append('query', searchKeyWord);
-    }
-    if (startDateSpan) {
-      searchParams.append('start-date-range', startDateSpan);
-    }
-    if (endDateSpan) {
-      searchParams.append('end-date-range', endDateSpan);
-    }
+    // const searchParams = new URLSearchParams();
 
-    let url = searchEventsUrl.replace('${locale}', locale).trim() + '?' + searchParams.toString();
-    redirectionHandler({ url: url });
+    // searchParams.append('limit', 100);
+    // if (searchKeyWord !== '' && searchKeyWord) {
+    //   widgetProps?.calendar == 'signe-laval'
+    //     ? searchParams.append('q', searchKeyWord)
+    //     : searchParams.append('query', searchKeyWord);
+    // }
+    // if (startDateSpan) {
+    //   searchParams.append('start-date-range', startDateSpan);
+    // }
+    // if (endDateSpan) {
+    //   searchParams.append('end-date-range', endDateSpan);
+    // }
+    redirectionHandler({ url: redirectionUrl });
   };
 
   return (
