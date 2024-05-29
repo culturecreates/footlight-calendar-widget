@@ -9,9 +9,9 @@ import WidgetContext from '../../context/WidgetContext';
 const Card = ({ id, name, place, image, startDate, endDate }) => {
   const [imgError, setImgError] = useState(false);
   const { widgetProps } = useContext(WidgetContext);
-  const { locale, calendar } = widgetProps;
+  const { calendar } = widgetProps;
 
-  let redirectionUrl = `${process.env.REACT_APP_API_URL}resource/${id}?calendar=${calendar}&locale=${locale}`;
+  let redirectionUrl = `${process.env.REACT_APP_API_URL}resource/${id}?calendar=${calendar}`;
 
   return (
     <li
