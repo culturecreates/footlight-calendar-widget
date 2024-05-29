@@ -6,30 +6,14 @@ import { redirectionHandler } from '../../utils/redirectionHandler';
 
 const Footer = () => {
   const { t } = useTranslation();
-  const { widgetProps, searchKeyWord, startDateSpan, endDateSpan, totalCount } =
-    useContext(WidgetContext);
+  const { widgetProps, totalCount } = useContext(WidgetContext);
 
-  const { searchEventsUrl, locale, calendarName } = widgetProps;
+  const { calendar, calendarName } = widgetProps;
+  let redirectionUrl = `${process.env.REACT_APP_API_URL}calendars/${calendar}/events/redirect`;
 
   const submitHandler = (event) => {
     event.preventDefault();
-    const searchParams = new URLSearchParams();
-
-    searchParams.append('limit', 100);
-    if (searchKeyWord !== '' && searchKeyWord) {
-      widgetProps?.calendar == 'signe-laval'
-        ? searchParams.append('q', searchKeyWord)
-        : searchParams.append('query', searchKeyWord);
-    }
-    if (startDateSpan) {
-      searchParams.append('start-date-range', startDateSpan);
-    }
-    if (endDateSpan) {
-      searchParams.append('end-date-range', endDateSpan);
-    }
-
-    let url = searchEventsUrl.replace('${locale}', locale).trim() + '?' + searchParams.toString();
-    redirectionHandler({ url: url });
+    redirectionHandler({ url: redirectionUrl });
   };
 
   return (
