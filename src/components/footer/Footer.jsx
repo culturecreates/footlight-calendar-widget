@@ -2,33 +2,31 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import WidgetContext from '../../context/WidgetContext';
 import './footer.css';
-import { redirectionHandler } from '../../utils/redirectionHandler';
 
 const Footer = () => {
   const { t } = useTranslation();
   const { widgetProps, totalCount } = useContext(WidgetContext);
 
   const { locale, calendar, calendarName } = widgetProps;
-  let redirectionUrl = `${process.env.REACT_APP_API_URL}resource?calendar=${calendar}&locale=${locale}`;
+  let redirectionUrl = `${process.env.REACT_APP_API_URL}calendars/${calendar}/events/redirect`;
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
 
-    // const searchParams = new URLSearchParams();
+    try {
+      const response = await fetch(redirectionUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          locale,
+          id: calendar,
+        },
+      });
 
-    // searchParams.append('limit', 100);
-    // if (searchKeyWord !== '' && searchKeyWord) {
-    //   widgetProps?.calendar == 'signe-laval'
-    //     ? searchParams.append('q', searchKeyWord)
-    //     : searchParams.append('query', searchKeyWord);
-    // }
-    // if (startDateSpan) {
-    //   searchParams.append('start-date-range', startDateSpan);
-    // }
-    // if (endDateSpan) {
-    //   searchParams.append('end-date-range', endDateSpan);
-    // }
-    redirectionHandler({ url: redirectionUrl });
+      console.log(response);
+    } catch (error) {
+      console.error('Error during redirection:', error);
+    }
   };
 
   return (
