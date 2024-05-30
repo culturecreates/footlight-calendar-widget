@@ -8,8 +8,8 @@ const Footer = () => {
   const { t } = useTranslation();
   const { widgetProps, totalCount } = useContext(WidgetContext);
 
-  const { calendar, calendarName } = widgetProps;
-  let redirectionUrl = `${process.env.REACT_APP_API_URL}calendars/${calendar}/events/redirect`;
+  const { calendar, calendarName, locale } = widgetProps;
+  let redirectionUrl = `${process.env.REACT_APP_API_URL}calendars/${calendar}/events/redirect?locale=${locale}`;
 
   const submitHandler = (event) => {
     event.preventDefault();
