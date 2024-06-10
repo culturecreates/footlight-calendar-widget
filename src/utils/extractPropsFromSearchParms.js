@@ -14,19 +14,21 @@ export function extractPropsFromSearchParams(defaultProps) {
     searchParams.get('searchEventsFilters') || defaultProps?.searchEventsFilters;
   const height = searchParams.get('height') || defaultProps?.height;
   const index = searchParams.get('index') || defaultProps?.index;
+  const font = searchParams.get('font') || defaultProps?.font;
 
   return {
     api,
+    font,
+    index,
+    limit,
+    color,
+    height,
     locale,
     calendar,
     calendarName,
-    color,
-    limit,
+    searchEventsFilters,
     calendarLogo: calendarLogo,
     eventUrl: eventUrl,
     searchEventsUrl: searchEventsUrl,
-    height,
-    searchEventsFilters,
-    index,
   };
 }

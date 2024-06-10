@@ -20,6 +20,7 @@ const defaultProps = {
   searchEventsFilters: calendarWidget.dataset?.searchEventsFilter,
   height: calendarWidget.dataset?.height,
   index: calendarWidget.dataset?.index,
+  font: calendarWidget.dataset?.font,
 };
 
 let extractedProps = extractPropsFromSearchParams(defaultProps);
