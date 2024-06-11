@@ -18,7 +18,7 @@ function App(props) {
   }, [font]);
 
   return (
-    <WidgetContextProvider widgetProps={widgetProps}>
+    <WidgetContextProvider widgetProps={{ ...widgetProps, font }}>
       <div className="widget-layout" style={{ height: widgetProps.height + 'px' }}>
         <Search />
         <ResultPanel />
