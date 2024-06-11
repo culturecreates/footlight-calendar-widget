@@ -15,7 +15,7 @@ function App(props) {
 
   useEffect(() => {
     dynamicFontInjector(font);
-  }, []);
+  }, [font]);
 
   return (
     <WidgetContextProvider widgetProps={widgetProps}>
