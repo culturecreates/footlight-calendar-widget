@@ -11,3 +11,17 @@ export const dynamicCssColorInjector = (palette) => {
     document.documentElement.style.setProperty(dynamicColorVariableNames[key], palette[key]);
   });
 };
+
+export const dynamicFontInjector = (fontName) => {
+  if (fontName === 'Roboto') return;
+
+  const fontLink = document.createElement('link');
+  fontLink.rel = 'stylesheet';
+  fontLink.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(
+    /\s+/g,
+    '+',
+  )}&display=swap`;
+
+  document.head.appendChild(fontLink);
+  document.body.style.fontFamily = `'${fontName}', sans-serif`;
+};

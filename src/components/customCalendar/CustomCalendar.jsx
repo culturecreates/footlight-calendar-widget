@@ -35,6 +35,8 @@ export const CustomCalendar = () => {
     indexedSessionStorageVariableNames,
   } = useContext(WidgetContext);
 
+  const { locale, font } = widgetProps;
+
   const [activeStartDate, setActiveStartDate] = useState();
   const [view, setView] = useState('month');
   const [calendarKey, setCalendarKey] = useState(1); // Added to forcefully reset the selected date during range selection.
@@ -49,6 +51,15 @@ export const CustomCalendar = () => {
       setSearchDate(savedDate);
     }
   }, []);
+
+  useEffect(() => {
+    if (font) {
+      const calendarWrapper = document.querySelector('.react-calendar-wrapper');
+      if (calendarWrapper) {
+        calendarWrapper.style.fontFamily = font;
+      }
+    }
+  }, [font]);
 
   // handlers
   const searchDateHandler = (value) => {
@@ -125,7 +136,7 @@ export const CustomCalendar = () => {
         selectRange={isSingleDate}
         formatShortWeekday={formatShortWeekday}
         className="react-calendar-wrapper"
-        locale={widgetProps?.locale}
+        locale={locale}
         prevLabel={<img src={prevButton} alt=""></img>}
         prev2Label={<img src={prev2Button} alt=""></img>}
         next2Label={<img src={next2Button} alt=""></img>}

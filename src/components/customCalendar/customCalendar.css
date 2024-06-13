@@ -77,7 +77,6 @@
 }
 
 #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__tile {
-  font-family: Roboto;
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;
@@ -127,6 +126,10 @@
 
 #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar {
   border: none;
+}
+
+#calendar-widget > .widget-layout .react-calendar-wrapper * {
+  font-family: inherit !important;
 }
 
 @media screen and (max-width: 820px) {

@@ -32,6 +32,10 @@ p {
   display: block;
 }
 
+button {
+  font-family: inherit;
+}
+
 * :focus-visible {
   outline: none;
 }
