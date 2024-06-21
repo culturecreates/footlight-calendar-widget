@@ -1,19 +1,24 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 import { Translation } from 'react-i18next';
 
 dayjs.extend(utc);
+dayjs.extend(timezone);
 
-export function dateRangeFormatter(startdate, enddate) {
-  const startDateObj = dayjs(startdate);
+export function dateRangeFormatter(startdate, enddate, scheduleTimezone) {
+  const startDateTimeObj = dayjs.tz(startdate, scheduleTimezone);
+  const noEndDateFlag = !enddate || enddate == '' || enddate == null;
 
-  if (!startDateObj.isValid()) {
+  if (!startDateTimeObj.isValid()) {
     return 'Invalid date format';
   }
 
-  const formattedStartDate = startDateObj.format('DD MMM YYYY');
+  const formattedStartDate = noEndDateFlag
+    ? startDateTimeObj.format('DD MMM YYYY - h:mm a')
+    : startDateTimeObj.format('DD MMM YYYY');
 
-  if (enddate) {
+  if (!noEndDateFlag) {
     let endDateObj = '';
     if (enddate.includes('T')) {
       endDateObj = dayjs(enddate);
@@ -22,6 +27,7 @@ export function dateRangeFormatter(startdate, enddate) {
     }
 
     if (!endDateObj.isValid()) {
+      console.log(endDateObj);
       return 'Invalid end date format';
     }
 

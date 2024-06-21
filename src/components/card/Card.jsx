@@ -6,7 +6,7 @@ import './card.css';
 import { redirectionHandler } from '../../utils/redirectionHandler';
 import WidgetContext from '../../context/WidgetContext';
 
-const Card = ({ id, name, place, image, startDate, endDate }) => {
+const Card = ({ id, name, place, image, startDate, endDate, scheduleTimezone }) => {
   const [imgError, setImgError] = useState(false);
   const { widgetProps } = useContext(WidgetContext);
   const { locale, calendar } = widgetProps;
@@ -39,7 +39,7 @@ const Card = ({ id, name, place, image, startDate, endDate }) => {
       </div>
       <div className="info-column">
         <div className="name">{name}</div>
-        <div className="date">{dateRangeFormatter(startDate, endDate)}</div>
+        <div className="date">{dateRangeFormatter(startDate, endDate, scheduleTimezone)}</div>
         {place ? (
           <div className="place">
             <img src={placeImg} alt="place"></img>
