@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import WidgetContext from '../../context/WidgetContext';
-import { dateRangeFormatter } from '../../utils/dateRangeFormatter';
+import { getSelectedDatesAsText } from '../../utils/dateRangeFormatter';
 import './resultHeader.css';
 
 const ResultHeader = () => {
@@ -14,19 +14,18 @@ const ResultHeader = () => {
 
   let dateText = '';
   if (isDateRangePresent) {
-    dateText =
-      ' - ' + endDateSpan && startDateSpan !== endDateSpan
-        ? dateRangeFormatter(startDateSpan, endDateSpan)
-        : dateRangeFormatter(startDateSpan);
+    dateText = <>{getSelectedDatesAsText(startDateSpan, endDateSpan, t)}</>;
   }
+
   return (
     <>
       <div className="result-header">
         {isSearchEmpty && isDateRangePresent && (
           <p>
             {totalCount > 0
-              ? ` ${t('resultHeader.upcoming')} ${totalCount} ${t('events')} - ${dateText}`
+              ? `${t('resultHeader.upcoming')} ${totalCount} ${t('events')} - `
               : `${t('resultHeader.noEvents')}`}
+            {totalCount > 0 && dateText}
           </p>
         )}
         {isSearchEmpty && !isDateRangePresent && (
@@ -40,17 +39,16 @@ const ResultHeader = () => {
         {!isSearchEmpty && isDateRangePresent && (
           <p>
             {totalCount > 0
-              ? ` ${totalCount} ${t(
-                  'resultHeader.eventsContaining',
-                )} "${searchKeyWord}" - ${dateText}`
+              ? `${totalCount} ${t('resultHeader.eventsContaining')} "${searchKeyWord}" - `
               : `${t('resultHeader.noEvents')}`}
+            {totalCount > 0 && dateText}
           </p>
         )}
 
         {!isSearchEmpty && !isDateRangePresent && (
           <p>
             {totalCount > 0
-              ? ` ${totalCount} ${t('resultHeader.eventsContaining')} "${searchKeyWord}"`
+              ? `${totalCount} ${t('resultHeader.eventsContaining')} "${searchKeyWord}"`
               : `${t('resultHeader.noEvents')}`}
           </p>
         )}

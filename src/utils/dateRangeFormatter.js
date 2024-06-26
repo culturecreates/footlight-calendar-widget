@@ -39,6 +39,24 @@ export function dateRangeFormatter(startdate, enddate, scheduleTimezone = 'Canad
   return formattedStartDate.toUpperCase();
 }
 
+export function getSelectedDatesAsText(startDateSpan, endDateSpan) {
+  const startDate = dayjs(startDateSpan).format('DD MMM YYYY');
+
+  if (!endDateSpan || startDateSpan === endDateSpan) {
+    return startDate;
+  }
+
+  const endDate = dayjs(endDateSpan).format('DD MMM YYYY');
+
+  return (
+    <>
+      {`${startDate}`}
+      <Translation>{(t) => t('to')}</Translation>
+      {`${endDate}`}
+    </>
+  );
+}
+
 export const searchDateFormatter = (date) => {
   if (date) {
     if (date.includes(',')) {
