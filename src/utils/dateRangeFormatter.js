@@ -6,8 +6,8 @@ import { Translation } from 'react-i18next';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-export function dateRangeFormatter(startdate, enddate, scheduleTimezone) {
-  const startDateTimeObj = dayjs.tz(startdate, scheduleTimezone);
+export function dateRangeFormatter(startdate, enddate, scheduleTimezone = 'Canada/Eastern') {
+  const startDateTimeObj = dayjs.utc(startdate).tz(scheduleTimezone);
   const noEndDateFlag = !enddate || enddate == '' || enddate == null;
 
   if (!startDateTimeObj.isValid()) {
@@ -19,15 +19,9 @@ export function dateRangeFormatter(startdate, enddate, scheduleTimezone) {
     : startDateTimeObj.format('DD MMM YYYY');
 
   if (!noEndDateFlag) {
-    let endDateObj = '';
-    if (enddate.includes('T')) {
-      endDateObj = dayjs(enddate);
-    } else {
-      endDateObj = dayjs(enddate).endOf('day');
-    }
+    let endDateObj = dayjs.utc(enddate).tz(scheduleTimezone);
 
     if (!endDateObj.isValid()) {
-      console.log(endDateObj);
       return 'Invalid end date format';
     }
 
