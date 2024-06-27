@@ -28,6 +28,7 @@ export const transformData = ({ data, locale }) => {
       id: eventData.id,
       title: title,
       slug: eventData.slug?.[locale],
+      scheduleTimezone: eventData?.scheduleTimezone,
       startDate:
         eventData.subEventDetails.upcomingSubEventCount === 0
           ? eventData?.startDate || eventData?.startDateTime || ''
