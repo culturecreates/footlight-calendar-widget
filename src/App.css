@@ -2,6 +2,13 @@
   height: 100%;
 }
 
+#calendar-widget .loader-wrapper {
+  width: 100%;
+  min-height: 100%;
+  display: grid;
+  place-content: center;
+}
+
 #calendar-widget > .widget-layout {
   width: 100%;
   /* padding: 16px; */
