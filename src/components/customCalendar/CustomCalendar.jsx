@@ -4,10 +4,10 @@ import WidgetContext from '../../context/WidgetContext';
 import './customCalendar.css';
 import 'react-calendar/dist/Calendar.css';
 import CalendarControl from '../calendarControl/CalendarControl';
-import { ReactComponent as prevButton } from '../../assets/Chevron-Left.svg';
-import { ReactComponent as prev2Button } from '../../assets/ChevronDouble-Left.svg';
-import { ReactComponent as next2Button } from '../../assets/ChevronDouble-Right.svg';
-import { ReactComponent as nextButton } from '../../assets/Chevron-Right.svg';
+import { ReactComponent as PrevButton } from '../../assets/Chevron-Left.svg';
+import { ReactComponent as Prev2Button } from '../../assets/ChevronDouble-Left.svg';
+import { ReactComponent as Next2Button } from '../../assets/ChevronDouble-Right.svg';
+import { ReactComponent as NextButton } from '../../assets/Chevron-Right.svg';
 import { displayTypes } from '../../constants/generalConstants';
 import { getDefaultSessionStorageVariableNames } from '../../constants/sessionStorageVariableNames';
 
@@ -137,10 +137,10 @@ export const CustomCalendar = () => {
         formatShortWeekday={formatShortWeekday}
         className="react-calendar-wrapper"
         locale={locale}
-        prevLabel={<img src={prevButton} alt=""></img>}
-        prev2Label={<img src={prev2Button} alt=""></img>}
-        next2Label={<img src={next2Button} alt=""></img>}
-        nextLabel={<img src={nextButton} alt=""></img>}
+        prevLabel={<PrevButton />}
+        prev2Label={<Prev2Button />}
+        next2Label={<Next2Button />}
+        nextLabel={<NextButton />}
       />
     </div>
   );
