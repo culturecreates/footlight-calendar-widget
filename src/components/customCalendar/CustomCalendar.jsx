@@ -4,10 +4,10 @@ import WidgetContext from '../../context/WidgetContext';
 import './customCalendar.css';
 import 'react-calendar/dist/Calendar.css';
 import CalendarControl from '../calendarControl/CalendarControl';
-import prevButton from '../../assets/Chevron-Left.svg';
-import prev2Button from '../../assets/ChevronDouble-Left.svg';
-import next2Button from '../../assets/ChevronDouble-Right.svg';
-import nextButton from '../../assets/Chevron-Right.svg';
+import { ReactComponent as prevButton } from '../../assets/Chevron-Left.svg';
+import { ReactComponent as prev2Button } from '../../assets/ChevronDouble-Left.svg';
+import { ReactComponent as next2Button } from '../../assets/ChevronDouble-Right.svg';
+import { ReactComponent as nextButton } from '../../assets/Chevron-Right.svg';
 import { displayTypes } from '../../constants/generalConstants';
 import { getDefaultSessionStorageVariableNames } from '../../constants/sessionStorageVariableNames';
 
