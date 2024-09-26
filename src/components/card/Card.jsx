@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { dateRangeFormatter } from '../../utils/dateRangeFormatter';
-import placeImg from '../../assets/Location.svg';
+import { ReactComponent as PlaceImg } from '../../assets/Location.svg';
 import { ReactComponent as DefaultImg } from '../../assets/Vector.svg';
 import './card.css';
 import { redirectionHandler } from '../../utils/redirectionHandler';
@@ -42,7 +42,7 @@ const Card = ({ id, name, place, image, startDate, endDate, scheduleTimezone }) 
         <div className="date">{dateRangeFormatter(startDate, endDate, scheduleTimezone)}</div>
         {place ? (
           <div className="place">
-            <img src={placeImg} alt="place"></img>
+            <PlaceImg />
             {place}
           </div>
         ) : (
