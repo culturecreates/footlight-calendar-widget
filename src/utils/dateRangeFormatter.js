@@ -6,9 +6,19 @@ import { Translation } from 'react-i18next';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
+function isSameDay(date1, date2) {
+  if (!date1 || !date2) return false;
+
+  const day1 = date1.substring(8, 10);
+  const day2 = date2.substring(8, 10);
+
+  return day1 === day2;
+}
+
 export function dateRangeFormatter(startdate, enddate, scheduleTimezone = 'Canada/Eastern') {
   // Check if the startdate has a time component by checking the format
   const hasStartTime = startdate.includes('T') || startdate.includes(' ');
+  const isStartAndEndDaySame = isSameDay(startdate, enddate);
 
   const startDateTimeObj = hasStartTime
     ? dayjs.utc(startdate).tz(scheduleTimezone)
@@ -35,7 +45,7 @@ export function dateRangeFormatter(startdate, enddate, scheduleTimezone = 'Canad
     }
 
     // Check if startdate and enddate are on the same day
-    if (startDateTimeObj.isSame(endDateObj, 'day')) {
+    if (isStartAndEndDaySame) {
       const formattedStartDateTime = startDateTimeObj.format('DD MMM YYYY - h:mm a');
       // const formattedEndTime = endDateObj.format('h:mm a');
 
