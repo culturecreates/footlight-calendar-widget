@@ -7,25 +7,29 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 export function dateRangeFormatter(startdate, enddate, scheduleTimezone = 'Canada/Eastern') {
-  const startDateTimeObj = dayjs.utc(startdate).tz(scheduleTimezone);
+  // Check if the startdate has a time component by checking the format
+  const hasStartTime = startdate.includes('T') || startdate.includes(' ');
+
+  const startDateTimeObj = hasStartTime
+    ? dayjs.utc(startdate).tz(scheduleTimezone)
+    : dayjs(startdate);
   const noEndDateFlag = !enddate || enddate === '' || enddate == null;
 
   if (!startDateTimeObj.isValid()) {
     return 'Invalid date format';
   }
 
-  // Check if the startdate has a time component by checking the format
-  const hasTime = startdate.includes('T') || startdate.includes(' ');
-
   // Format start date based on whether it has a time component
   const formattedStartDate = noEndDateFlag
-    ? hasTime
+    ? hasStartTime
       ? startDateTimeObj.format('DD MMM YYYY - h:mm a')
       : startDateTimeObj.format('DD MMM YYYY')
     : startDateTimeObj.format('DD MMM YYYY');
 
   if (!noEndDateFlag) {
-    let endDateObj = dayjs.utc(enddate).tz(scheduleTimezone);
+    // Check if the startdate has a time component by checking the format
+    const hasEndTime = enddate.includes('T') || enddate.includes(' ');
+    let endDateObj = hasEndTime ? dayjs.utc(enddate).tz(scheduleTimezone) : dayjs(enddate);
     if (!endDateObj.isValid()) {
       return 'Invalid end date format';
     }
@@ -33,18 +37,18 @@ export function dateRangeFormatter(startdate, enddate, scheduleTimezone = 'Canad
     // Check if startdate and enddate are on the same day
     if (startDateTimeObj.isSame(endDateObj, 'day')) {
       const formattedStartDateTime = startDateTimeObj.format('DD MMM YYYY - h:mm a');
-      const formattedEndTime = endDateObj.format('h:mm a');
+      // const formattedEndTime = endDateObj.format('h:mm a');
 
-      if (startDateTimeObj.isSame(endDateObj, 'minute')) {
-        return formattedStartDateTime.toUpperCase();
-      }
+      // if (startDateTimeObj.isSame(endDateObj, 'minute')) {
+      return formattedStartDateTime.toUpperCase();
+      // }
 
-      return (
-        <>
-          {formattedStartDateTime.toUpperCase()} <Translation>{(t) => t('to')}</Translation>{' '}
-          {formattedEndTime.toUpperCase()}
-        </>
-      );
+      // return (
+      //   <>
+      //     {formattedStartDateTime.toUpperCase()} <Translation>{(t) => t('to')}</Translation>{' '}
+      //     {formattedEndTime.toUpperCase()}
+      //   </>
+      // );
     }
 
     const formattedEndDate = endDateObj.format('DD MMM YYYY');
