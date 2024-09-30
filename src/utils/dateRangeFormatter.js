@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import { Translation } from 'react-i18next';
+import i18next from 'i18next';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -19,6 +20,9 @@ export function dateRangeFormatter(startdate, enddate, scheduleTimezone = 'Canad
   // Check if the startdate has a time component by checking the format
   const hasStartTime = startdate.includes('T') || startdate.includes(' ');
   const isStartAndEndDaySame = isSameDay(startdate, enddate);
+  const locale = i18next.language;
+
+  const dateTimeFormat = locale === 'fr' ? 'DD MMM YYYY - HH:mm' : 'DD MMM YYYY - h:mm a';
 
   const startDateTimeObj = hasStartTime
     ? dayjs.utc(startdate).tz(scheduleTimezone)
@@ -32,7 +36,7 @@ export function dateRangeFormatter(startdate, enddate, scheduleTimezone = 'Canad
   // Format start date based on whether it has a time component
   const formattedStartDate = noEndDateFlag
     ? hasStartTime
-      ? startDateTimeObj.format('DD MMM YYYY - h:mm a')
+      ? startDateTimeObj.format(dateTimeFormat)
       : startDateTimeObj.format('DD MMM YYYY')
     : startDateTimeObj.format('DD MMM YYYY');
 
@@ -46,7 +50,7 @@ export function dateRangeFormatter(startdate, enddate, scheduleTimezone = 'Canad
 
     // Check if startdate and enddate are on the same day
     if (isStartAndEndDaySame) {
-      const formattedStartDateTime = startDateTimeObj.format('DD MMM YYYY - h:mm a');
+      const formattedStartDateTime = startDateTimeObj.format(dateTimeFormat);
       // const formattedEndTime = endDateObj.format('h:mm a');
 
       // if (startDateTimeObj.isSame(endDateObj, 'minute')) {
