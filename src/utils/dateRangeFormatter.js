@@ -2,49 +2,67 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import { Translation } from 'react-i18next';
+import i18next from 'i18next';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
+function isSameDay(date1, date2) {
+  if (!date1 || !date2) return false;
+
+  const day1 = date1.substring(8, 10);
+  const day2 = date2.substring(8, 10);
+
+  return day1 === day2;
+}
+
 export function dateRangeFormatter(startdate, enddate, scheduleTimezone = 'Canada/Eastern') {
-  const startDateTimeObj = dayjs.utc(startdate).tz(scheduleTimezone);
+  // Check if the startdate has a time component by checking the format
+  const hasStartTime = startdate.includes('T') || startdate.includes(' ');
+  const isStartAndEndDaySame = isSameDay(startdate, enddate);
+  const locale = i18next.language;
+
+  const dateTimeFormat = locale === 'fr' ? 'DD MMM YYYY - HH:mm' : 'DD MMM YYYY - h:mm a';
+
+  const startDateTimeObj = hasStartTime
+    ? dayjs.utc(startdate).tz(scheduleTimezone)
+    : dayjs(startdate);
   const noEndDateFlag = !enddate || enddate === '' || enddate == null;
 
   if (!startDateTimeObj.isValid()) {
     return 'Invalid date format';
   }
 
-  // Check if the startdate has a time component by checking the format
-  const hasTime = startdate.includes('T') || startdate.includes(' ');
-
   // Format start date based on whether it has a time component
   const formattedStartDate = noEndDateFlag
-    ? hasTime
-      ? startDateTimeObj.format('DD MMM YYYY - h:mm a')
+    ? hasStartTime
+      ? startDateTimeObj.format(dateTimeFormat)
       : startDateTimeObj.format('DD MMM YYYY')
     : startDateTimeObj.format('DD MMM YYYY');
 
   if (!noEndDateFlag) {
-    let endDateObj = dayjs.utc(enddate).tz(scheduleTimezone);
+    // Check if the startdate has a time component by checking the format
+    const hasEndTime = enddate.includes('T') || enddate.includes(' ');
+    let endDateObj = hasEndTime ? dayjs.utc(enddate).tz(scheduleTimezone) : dayjs(enddate);
     if (!endDateObj.isValid()) {
       return 'Invalid end date format';
     }
 
     // Check if startdate and enddate are on the same day
-    if (startDateTimeObj.isSame(endDateObj, 'day')) {
-      const formattedStartDateTime = startDateTimeObj.format('DD MMM YYYY - h:mm a');
-      const formattedEndTime = endDateObj.format('h:mm a');
+    if (isStartAndEndDaySame) {
+      const formattedStartDateTime = startDateTimeObj.format(dateTimeFormat);
+      // const formattedEndTime = endDateObj.format('h:mm a');
 
-      if (startDateTimeObj.isSame(endDateObj, 'minute')) {
-        return formattedStartDateTime.toUpperCase();
-      }
+      // if (startDateTimeObj.isSame(endDateObj, 'minute')) {
+      return formattedStartDateTime.toUpperCase();
+      // }
 
-      return (
-        <>
-          {formattedStartDateTime.toUpperCase()} <Translation>{(t) => t('to')}</Translation>{' '}
-          {formattedEndTime.toUpperCase()}
-        </>
-      );
+      // return (
+      //   <>
+      //     {formattedStartDateTime.toUpperCase()} <Translation>{(t) => t('to')}</Translation>{' '}
+      //     {formattedEndTime.toUpperCase()}
+      //   </>
+      // );
     }
 
     const formattedEndDate = endDateObj.format('DD MMM YYYY');
