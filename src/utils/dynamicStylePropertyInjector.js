@@ -23,5 +23,9 @@ export const dynamicFontInjector = (fontName) => {
   )}&display=swap`;
 
   document.head.appendChild(fontLink);
-  document.body.style.fontFamily = `'${fontName}', sans-serif`;
+
+  const calendarWidget = document.getElementById('calendar-widget');
+  if (calendarWidget) {
+    calendarWidget.style.fontFamily = `'${fontName}', sans-serif`;
+  }
 };
