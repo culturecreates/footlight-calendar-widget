@@ -29,7 +29,7 @@ function App(props) {
       }
     }
 
-    loadLocale();
+    locale && loadLocale();
   }, [locale]);
 
   useEffect(() => {
