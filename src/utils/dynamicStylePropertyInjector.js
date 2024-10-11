@@ -13,19 +13,42 @@ export const dynamicCssColorInjector = (palette) => {
 };
 
 export const dynamicFontInjector = (fontName) => {
-  if (fontName === 'Roboto') return;
+  const fallbackFont = 'Roboto';
 
-  const fontLink = document.createElement('link');
-  fontLink.rel = 'stylesheet';
-  fontLink.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(
-    /\s+/g,
-    '+',
-  )}&display=swap`;
+  try {
+    // Inject Google Fonts link
+    const fontLink = document.createElement('link');
+    fontLink.rel = 'stylesheet';
+    fontLink.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(
+      /\s+/g,
+      '+',
+    )}&display=swap`;
 
-  document.head.appendChild(fontLink);
+    fontLink.onerror = () => {
+      console.error(`Failed to load the font: ${fontName}. Falling back to ${fallbackFont}.`);
+      setFallbackFont();
+    };
 
-  const calendarWidget = document.getElementById('calendar-widget');
-  if (calendarWidget) {
-    calendarWidget.style.fontFamily = `'${fontName}', sans-serif`;
+    document.head.appendChild(fontLink);
+
+    // Apply the font to the #calendar-widget as a CSS variable
+    const calendarWidget = document.getElementById('calendar-widget');
+    if (calendarWidget) {
+      calendarWidget.style.setProperty('--calendar-font-family', `'${fontName}', sans-serif`);
+    } else {
+      console.error('Calendar widget not found.');
+      setFallbackFont();
+    }
+  } catch (error) {
+    console.error('Error during font injection:', error);
+    setFallbackFont();
   }
+
+  // Function to apply fallback font
+  const setFallbackFont = () => {
+    const calendarWidget = document.getElementById('calendar-widget');
+    if (calendarWidget) {
+      calendarWidget.style.setProperty('--calendar-font-family', `'${fallbackFont}', sans-serif`);
+    }
+  };
 };

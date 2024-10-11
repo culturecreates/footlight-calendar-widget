@@ -23,18 +23,24 @@ body {
   --primary-black: #222732;
 }
 
-ul,
-li,
-p {
+#calendar-widget ul,
+#calendar-widget li,
+#calendar-widget p {
   all: unset;
   display: block;
 }
 
-button {
-  font-family: inherit;
+#calendar-widget button,
+#calendar-widget ul,
+#calendar-widget li,
+#calendar-widget p,
+#calendar-widget span,
+#calendar-widget input,
+#calendar-widget div {
+  font-family: var(--calendar-font-family);
 }
 
-* :focus-visible {
+#calendar-widget * :focus-visible {
   outline: none;
 }
 
