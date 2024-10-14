@@ -8,11 +8,8 @@ import { dynamicCssColorInjector, dynamicFontInjector } from './utils/dynamicSty
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import Loader from './components/loader/Loader';
-
-const locales = {
-  en: () => import('dayjs/locale/en'),
-  fr: () => import('dayjs/locale/fr'),
-};
+require('dayjs/locale/en');
+require('dayjs/locale/fr');
 
 function App(props) {
   const { color, font, ...widgetProps } = props;
@@ -20,18 +17,15 @@ function App(props) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (locales[locale]) {
-      locales[locale]()
-        .then(() => {
-          dayjs.locale(locale);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error(`Failed to load locale: ${locale}`, error);
-          dayjs.locale('en'); // Fallback to 'en'
-          setLoading(false);
-        });
-    } else {
+    try {
+      if (locale) {
+        dayjs.locale(locale);
+      } else {
+        dayjs.locale('en');
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error(`Failed to set locale: ${locale}`, error);
       dayjs.locale('en');
       setLoading(false);
     }
