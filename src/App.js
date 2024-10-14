@@ -9,28 +9,36 @@ import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import Loader from './components/loader/Loader';
 
+const locales = {
+  en: () => import('dayjs/locale/en'),
+  fr: () => import('dayjs/locale/fr'),
+};
+
 function App(props) {
   const { color, font, ...widgetProps } = props;
   const locale = widgetProps.locale;
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    if (locales[locale]) {
+      locales[locale]()
+        .then(() => {
+          dayjs.locale(locale);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error(`Failed to load locale: ${locale}`, error);
+          dayjs.locale('en'); // Fallback to 'en'
+          setLoading(false);
+        });
+    } else {
+      dayjs.locale('en');
+      setLoading(false);
+    }
+  }, [locale]);
+
   const palette = getColors(color);
   dynamicCssColorInjector(palette);
-
-  useEffect(() => {
-    async function loadLocale() {
-      try {
-        await import(`dayjs/locale/${locale}.js`);
-        dayjs.locale(widgetProps.locale);
-      } catch (error) {
-        console.error(`Failed to load locale: ${locale}`, error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    locale && loadLocale();
-  }, [locale]);
 
   useEffect(() => {
     dynamicFontInjector(font);
