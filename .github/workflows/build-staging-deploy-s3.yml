@@ -4,6 +4,25 @@ on:
     branches:
       - develop
 jobs:
+  release:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
   deploy:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
@@ -18,3 +37,4 @@ jobs:
       - run: npm install
       - run: npm run build:staging
       - run: aws s3 sync ./build s3://${{env.WEBHOSTING_BUCKET_NAME}}/ --acl public-read --delete --cache-control max-age=3600
+      
