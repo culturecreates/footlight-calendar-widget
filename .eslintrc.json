@@ -7,7 +7,7 @@
   "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:prettier/recommended"],
   "overrides": [
     {
-      "files": ["config-overrides.js", "renameBuildFiles.js"],
+      "files": ["config-overrides.js"],
       "rules": {
         "no-undef": "off",
         "no-unused-vars": "off"
