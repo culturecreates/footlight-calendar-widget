@@ -28,3 +28,6 @@ jobs:
           if [ "$previous_major_version" -ge 0 ]; then
               aws s3 rm s3://${{env.WEBHOSTING_BUCKET_NAME}}/v${previous_major_version}/ --recursive || true
           fi
+
+          # Delete everything else in the bucket except the current and previous major version folders
+          aws s3 ls s3://${{env.WEBHOSTING_BUCKET_NAME}}/ | grep -vE "v${major_version}/|v${previous_major_version}/" | awk '{print $2}' | xargs -I {} aws s3 rm s3://${{env.WEBHOSTING_BUCKET_NAME}}/{}
