@@ -5,7 +5,15 @@
     "jest": true
   },
   "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:prettier/recommended"],
-  "overrides": [],
+  "overrides": [
+    {
+      "files": ["config-overrides.js", "renameBuildFiles.js"],
+      "rules": {
+        "no-undef": "off",
+        "no-unused-vars": "off"
+      }
+    }
+  ],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"

@@ -1,9 +1,16 @@
-/* eslint-disable no-undef */
 const { version } = require('./package.json');
+
+const [major] = version.split('.');
+
 module.exports = function override(config, env) {
-  if (env === 'production') {
-    config.output.filename = `static/js/widget-${version}.js`;
-    config.plugins[5].options.filename = `static/css/widget-${version}.css`;
+  config.output.filename = `static/js/widget-${major}.js`;
+
+  const miniCssExtractPlugin = config.plugins.find(
+    (plugin) => plugin.constructor.name === 'MiniCssExtractPlugin',
+  );
+  if (miniCssExtractPlugin) {
+    miniCssExtractPlugin.options.filename = `static/css/widget-${major}.css`;
   }
+
   return config;
 };
