@@ -21,10 +21,4 @@ jobs:
           current_version=$(node -p "require('./package.json').version")
           major_version=$(echo $current_version | cut -d. -f1)
 
-          aws s3 sync ./build s3://${{env.WEBHOSTING_BUCKET_NAME}}/v${major_version}/ --acl public-read --cache-control max-age=3600
-
-          previous_major_version=$((major_version - 2))
-
-          if [ "$previous_major_version" -ge 0 ]; then
-              aws s3 rm s3://${{env.WEBHOSTING_BUCKET_NAME}}/v${previous_major_version}/ --recursive || true
-          fi
+          aws s3 sync ./build s3://${{env.WEBHOSTING_BUCKET_NAME}}/v${major_version}/ --acl public-read --cache-control max-age=3600 --delete 

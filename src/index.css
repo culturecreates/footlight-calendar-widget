@@ -1,17 +1,4 @@
-html {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  max-width: 100vw !important;
-  height: 100%;
-}
-
-:root {
+#calendar-widget {
   --primary-grey: #646d7b;
   --secondary-grey: #d8d8d8;
   --tertiary-grey: #b6c1c9;
@@ -21,6 +8,12 @@ body {
   --primary-white-opaque: #ffffff;
 
   --primary-black: #222732;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  margin: 0;
+  padding: 0;
 }
 
 #calendar-widget ul,
