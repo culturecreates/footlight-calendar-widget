@@ -7,8 +7,8 @@ This is the widget used by Footlight CMS to display a list of events. The widget
 * div integration example:
 ```
 <head>
-  <script defer="defer" src="https://cms-widget.footlight.io/v0/static/js/widget.js"></script>
-  <link href="https://cms-widget.footlight.io/v0/static/css/widget.css" rel="stylesheet" />
+  <script defer="defer" src="https://listing-widget.footlight.io/v0/static/js/widget.js"></script>
+  <link href="https://listing-widget.footlight.io/v0/static/css/widget.css" rel="stylesheet" />
 </head>
 
 <body style="margin: 20px; font-family: 'Roboto', 'Helvetica', sans-serif">
@@ -48,8 +48,8 @@ Each new major release of the widget will be available under a new version direc
 * Update the JavaScript and CSS file references to point to the new major version:
 ```
 <head>
-  <script defer="defer" src="https://cms-widget.footlight.io/v1/static/js/widget.js"></script>
-  <link href="https://cms-widget.footlight.io/v1/static/css/widget.css" rel="stylesheet" />
+  <script defer="defer" src="https://listing-widget.footlight.io/v1/static/js/widget.js"></script>
+  <link href="https://listing-widget.footlight.io/v1/static/css/widget.css" rel="stylesheet" />
 </head>
 ```
 
