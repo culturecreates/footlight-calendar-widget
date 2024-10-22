@@ -12,8 +12,6 @@ This is the widget used by Footlight CMS to display a list of events. The widget
 </head>
 
 <body style="margin: 20px; font-family: 'Roboto', 'Helvetica', sans-serif">
-  <h1>Destination Canada Test</h1>
-
   <div
     id="calendar-widget"
     data-api="api.footlight.io"
@@ -23,7 +21,7 @@ This is the widget used by Footlight CMS to display a list of events. The widget
     data-color="#fc6060"
     data-limit="6"
     data-height="600px"
-    data-font="Poppins"
+    data-font="Roboto"
   ></div>
 </body>
 ```
