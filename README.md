@@ -31,7 +31,7 @@ This is the widget used by Footlight CMS to display a list of events. The widget
 * Iframe integration example
 ```
 <iframe
-  src="https://s3.ca-central-1.amazonaws.com/staging.cms-widget.footlight.io/v0/index.html"
+  src="https://listing-widget.footlight.io/v0/index.html"
   width="100%"
   height="600px"
   frameborder="0">
@@ -56,7 +56,7 @@ Each new major release of the widget will be available under a new version direc
 ### for iframe method
 * Update the iframe src URL to reflect the new version:
 ```
-src="https://s3.ca-central-1.amazonaws.com/staging.cms-widget.footlight.io/v1/index.html"
+src="https://listing-widget.footlight.io/v1/index.html"
 ```
 
 ### Versioning Format
