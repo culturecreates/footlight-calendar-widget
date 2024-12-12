@@ -6,3 +6,8 @@ export const displayTypes = {
   MOBILE: 'mobile',
   DESKTOP: 'desktop',
 };
+
+export const redirectionModes = {
+  NONE: 'NONE',
+  EXTERNAL: 'EXTERNAL',
+};

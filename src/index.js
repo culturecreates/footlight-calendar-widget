@@ -21,9 +21,11 @@ const defaultProps = {
   height: calendarWidget.dataset?.height,
   index: calendarWidget.dataset?.index,
   font: calendarWidget.dataset?.font,
+  redirectionMode: calendarWidget.dataset?.redirectionMode,
 };
 
 let extractedProps = extractPropsFromSearchParams(defaultProps);
+console.log('extractedProps:', extractedProps);
 
 const root = createRoot(calendarWidget);
 root.render(
