@@ -1,3 +1,5 @@
+import { redirectionModes } from '../constants/generalConstants';
+
 export function extractPropsFromSearchParams(defaultProps) {
   const searchParams = new URLSearchParams(window.location.search);
 
@@ -15,6 +17,10 @@ export function extractPropsFromSearchParams(defaultProps) {
   const height = searchParams.get('height') || defaultProps?.height;
   const index = searchParams.get('index') || defaultProps?.index;
   const font = searchParams.get('font') || defaultProps?.font;
+  const redirectionMode =
+    searchParams.get('redirectionMode') ||
+    defaultProps?.redirectionMode ||
+    redirectionModes.EXTERNAL;
 
   return {
     api,
@@ -27,8 +33,9 @@ export function extractPropsFromSearchParams(defaultProps) {
     calendar,
     calendarName,
     searchEventsFilters,
-    calendarLogo: calendarLogo,
-    eventUrl: eventUrl,
-    searchEventsUrl: searchEventsUrl,
+    calendarLogo,
+    redirectionMode,
+    eventUrl,
+    searchEventsUrl,
   };
 }
