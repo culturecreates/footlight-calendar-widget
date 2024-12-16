@@ -2,19 +2,20 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import WidgetContext from '../../context/WidgetContext';
 import './footer.css';
-import { redirectionHandler } from '../../utils/redirectionHandler';
-import { redirectionModes } from '../../constants/generalConstants';
+import { getRedirectionUrl, redirectionHandler } from '../../utils/redirectionHandler';
+import { redirectionModes, urlTypes } from '../../constants/generalConstants';
 
 const Footer = () => {
   const { t } = useTranslation();
   const { widgetProps, totalCount } = useContext(WidgetContext);
 
   const { calendar, calendarName, locale, redirectionMode } = widgetProps;
-  let redirectionUrl = `${process.env.REACT_APP_API_URL}calendars/${calendar}/events/redirect?locale=${locale}`;
 
   const submitHandler = (event) => {
     event.preventDefault();
-    redirectionHandler({ url: redirectionUrl });
+    redirectionHandler({
+      url: getRedirectionUrl({ id: null, type: urlTypes.SEARCH_EVENTS, locale, calendar }),
+    });
   };
 
   return (
