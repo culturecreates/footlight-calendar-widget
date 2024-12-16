@@ -8,6 +8,7 @@ import { dynamicCssColorInjector, dynamicFontInjector } from './utils/dynamicSty
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import Loader from './components/loader/Loader';
+
 require('dayjs/locale/en');
 require('dayjs/locale/fr');
 
