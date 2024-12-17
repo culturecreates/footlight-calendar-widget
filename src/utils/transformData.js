@@ -25,7 +25,10 @@ export const transformData = ({ data, locale }) => {
       '';
 
     const performers = eventData?.performers?.map((performer) => {
-      return performer?.name?.[locale] || performer?.name?.en || performer?.name?.fr || '';
+      return {
+        name: performer?.name?.[locale] || performer?.name?.en || performer?.name?.fr || '',
+        image: performer?.image?.thumbnail || '',
+      };
     });
     const description =
       eventData?.description?.[locale] ||

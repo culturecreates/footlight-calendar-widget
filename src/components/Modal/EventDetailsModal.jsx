@@ -29,6 +29,23 @@ const EventDetailsModal = ({
   const iframeAdjustedHeight = window.innerHeight * 0.8;
   const modalHeight = height ? Math.min(height * 0.8, iframeAdjustedHeight) : iframeAdjustedHeight;
 
+  // Default icon as a CSS-styled box
+  const defaultIcon = (
+    <Box
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      borderRadius="full"
+      boxSize="40px"
+      bg="gray.200"
+      fontSize="20px"
+      color="gray.500"
+      fontWeight="bold"
+    >
+      👤
+    </Box>
+  );
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(5px)" />
@@ -86,27 +103,41 @@ const EventDetailsModal = ({
             display="flex"
             m={['20px', '30px 0 30px 30px']}
             flexDirection="column"
-            gap="8px"
+            gap="12px"
             height="fit-content"
           >
-            <Text fontSize="md">
+            <Text fontSize="lg" fontWeight="bold">
               <strong>Date:</strong> {date}
             </Text>
             <Divider borderColor="gray.300" />
-            <Text fontSize="md">
+            <Text fontSize="lg" fontWeight="bold">
               <strong>Place:</strong> {place}
             </Text>
             <Divider borderColor="gray.300" />
             {performers?.length > 0 && (
               <>
-                <Text fontSize="md">
+                <Text fontSize="lg" fontWeight="bold">
                   <strong>Performers:</strong>
                 </Text>
                 <Box>
                   {performers.map((performer, index) => (
-                    <Text key={index} fontSize="md">
-                      {performer}
-                    </Text>
+                    <Box key={index} display="flex" alignItems="center" gap="12px">
+                      {performer?.image ? (
+                        <Image
+                          src={performer.image}
+                          alt={performer.name}
+                          borderRadius="full"
+                          boxSize="40px"
+                          objectFit="cover"
+                          onError={(e) => (e.target.style.display = 'none')}
+                        />
+                      ) : (
+                        defaultIcon
+                      )}
+                      <Text fontSize="lg" fontWeight="medium" color="gray.800">
+                        {performer?.name || 'Unknown'}
+                      </Text>
+                    </Box>
                   ))}
                 </Box>
               </>
@@ -116,14 +147,17 @@ const EventDetailsModal = ({
           <Box flex="2" borderRadius="8px">
             <Box
               as="p"
-              fontSize="md"
-              color="gray.700"
+              fontSize="lg"
+              color="gray.800"
               whiteSpace="pre-wrap"
-              lineHeight="1.5"
+              lineHeight="1.8"
               pt={[0, 30]}
               px={30}
               pb={30}
             >
+              <Text as="span" fontWeight="bold" color="gray.600">
+                About the Event:{' '}
+              </Text>
               {description}
             </Box>
           </Box>
