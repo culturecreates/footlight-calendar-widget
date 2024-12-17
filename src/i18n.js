@@ -5,7 +5,7 @@ import { fr } from './locales/fr';
 
 i18n.use(initReactI18next).init({
   resources: { en: { translation: en }, fr: { translation: fr } },
-  debug: true,
+  debug: process.env.NODE_ENV === 'development',
   lng: 'en',
   fallbackLng: 'en',
   interpolation: {

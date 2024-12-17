@@ -8,41 +8,40 @@ export const dynamicCssColorInjector = (palette) => {
 
 export const dynamicFontInjector = (fontName) => {
   const fallbackFont = 'Roboto';
+  const sanitizedFontName = fontName.replace(/\s+/g, '+');
+  const fontLinkId = 'dynamic-font-link';
 
-  try {
-    // Inject Google Fonts link
-    const fontLink = document.createElement('link');
-    fontLink.rel = 'stylesheet';
-    fontLink.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(
-      /\s+/g,
-      '+',
-    )}&display=swap`;
-
-    fontLink.onerror = () => {
-      console.error(`Failed to load the font: ${fontName}. Falling back to ${fallbackFont}.`);
-      setFallbackFont();
-    };
-
-    document.head.appendChild(fontLink);
-
-    // Apply the font to the #calendar-widget as a CSS variable
+  // Function to set font-family
+  const setFontFamily = (font) => {
     const calendarWidget = document.getElementById('calendar-widget');
     if (calendarWidget) {
-      calendarWidget.style.setProperty('--calendar-font-family', `'${fontName}', sans-serif`);
+      calendarWidget.style.setProperty('--calendar-font-family', `'${font}', sans-serif`);
     } else {
       console.error('Calendar widget not found.');
-      setFallbackFont();
-    }
-  } catch (error) {
-    console.error('Error during font injection:', error);
-    setFallbackFont();
-  }
-
-  // Function to apply fallback font
-  const setFallbackFont = () => {
-    const calendarWidget = document.getElementById('calendar-widget');
-    if (calendarWidget) {
-      calendarWidget.style.setProperty('--calendar-font-family', `'${fallbackFont}', sans-serif`);
     }
   };
+
+  // Check if the font link is already injected
+  if (!document.getElementById(fontLinkId)) {
+    try {
+      const fontLink = document.createElement('link');
+      fontLink.id = fontLinkId;
+      fontLink.rel = 'stylesheet';
+      fontLink.href = `https://fonts.googleapis.com/css2?family=${sanitizedFontName}&display=swap`;
+
+      fontLink.onerror = () => {
+        console.error(`Failed to load the font: ${fontName}. Falling back to ${fallbackFont}.`);
+        setFontFamily(fallbackFont);
+      };
+
+      document.head.appendChild(fontLink);
+      setFontFamily(fontName); // Apply the custom font
+    } catch (error) {
+      console.error('Error during font injection:', error);
+      setFontFamily(fallbackFont);
+    }
+  } else {
+    console.warn('Font link already exists. Skipping redundant injection.');
+    setFontFamily(fontName); // Ensure font is applied
+  }
 };
