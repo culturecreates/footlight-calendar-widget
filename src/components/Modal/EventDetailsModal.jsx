@@ -124,7 +124,7 @@ const EventDetailsModal = ({
               px={30}
               pb={30}
             >
-              {description + 'lorem ipsum'.repeat(100)}
+              {description}
             </Box>
           </Box>
         </Box>
