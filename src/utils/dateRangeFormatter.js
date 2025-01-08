@@ -54,6 +54,11 @@ export function dateRangeFormatter(startdate, enddate, scheduleTimezone = 'Canad
     const formattedStartDateTime = startDateTimeObj.format(dateTimeFormat);
     const formattedEndDate = endDateObj.format('DD MMM YYYY');
 
+    // Check if startdate and enddate are on the same day
+    if (isStartAndEndDaySame) {
+      return formattedStartDateTime.toUpperCase();
+    }
+
     if (diffInHours <= 24) {
       const formattedEndTime = endDateObj.format('hh:mm A');
 
@@ -65,11 +70,6 @@ export function dateRangeFormatter(startdate, enddate, scheduleTimezone = 'Canad
       ) : (
         formattedStartDateTime.toUpperCase()
       );
-    }
-
-    // Check if startdate and enddate are on the same day
-    if (isStartAndEndDaySame) {
-      return formattedStartDateTime.toUpperCase();
     }
 
     if (formattedEndDate.toUpperCase() === formattedStartDate.toUpperCase()) {
