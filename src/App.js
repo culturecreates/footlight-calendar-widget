@@ -1,15 +1,17 @@
-import Footer from './components/footer/Footer';
-import ResultPanel from './components/panel/Panel';
-import Search from './components/search/Search';
 import { WidgetContextProvider } from './context/WidgetContext';
 import { getColors } from 'theme-colors';
 import './App.css';
 import { dynamicCssColorInjector, dynamicFontInjector } from './utils/dynamicStylePropertyInjector';
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import Loader from './components/loader/Loader';
-require('dayjs/locale/en');
-require('dayjs/locale/fr');
+
+const Footer = lazy(() => import('./components/footer/Footer'));
+const ResultPanel = lazy(() => import('./components/panel/Panel'));
+const Search = lazy(() => import('./components/search/Search'));
+
+import('dayjs/locale/en');
+import('dayjs/locale/fr');
 
 function App(props) {
   const { color, font, ...widgetProps } = props;
@@ -48,9 +50,11 @@ function App(props) {
   return (
     <WidgetContextProvider widgetProps={{ ...widgetProps, font }}>
       <div className="widget-layout" style={{ height: widgetProps.height + 'px' }}>
-        <Search />
-        <ResultPanel />
-        <Footer />
+        <Suspense fallback={<Loader />}>
+          <Search />
+          <ResultPanel />
+          <Footer />
+        </Suspense>
       </div>
     </WidgetContextProvider>
   );

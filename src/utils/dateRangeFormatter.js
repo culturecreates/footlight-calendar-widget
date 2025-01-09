@@ -41,34 +41,41 @@ export function dateRangeFormatter(startdate, enddate, scheduleTimezone = 'Canad
     : startDateTimeObj.format('DD MMM YYYY');
 
   if (!noEndDateFlag) {
-    // Check if the startdate has a time component by checking the format
+    // Check if the enddate has a time component by checking the format
     const hasEndTime = enddate.includes('T') || enddate.includes(' ');
     let endDateObj = hasEndTime ? dayjs.utc(enddate).tz(scheduleTimezone) : dayjs(enddate);
+
     if (!endDateObj.isValid()) {
       return 'Invalid end date format';
     }
 
+    // Check if enddate is within 24 hours of startDateTimeObj
+    const diffInHours = endDateObj.diff(startDateTimeObj, 'hour');
+    const formattedStartDateTime = startDateTimeObj.format(dateTimeFormat);
+    const formattedEndDate = endDateObj.format('DD MMM YYYY');
+
     // Check if startdate and enddate are on the same day
     if (isStartAndEndDaySame) {
-      const formattedStartDateTime = startDateTimeObj.format(dateTimeFormat);
-      // const formattedEndTime = endDateObj.format('h:mm a');
-
-      // if (startDateTimeObj.isSame(endDateObj, 'minute')) {
       return formattedStartDateTime.toUpperCase();
-      // }
-
-      // return (
-      //   <>
-      //     {formattedStartDateTime.toUpperCase()} <Translation>{(t) => t('to')}</Translation>{' '}
-      //     {formattedEndTime.toUpperCase()}
-      //   </>
-      // );
     }
 
-    const formattedEndDate = endDateObj.format('DD MMM YYYY');
+    if (diffInHours <= 24) {
+      const formattedEndTime = endDateObj.format('hh:mm A');
+
+      return formattedEndTime ? (
+        <>
+          {formattedStartDateTime.toUpperCase()} - {formattedEndTime}
+          {<sup style={{ fontSize: 'smaller' }}>+1</sup>}
+        </>
+      ) : (
+        formattedStartDateTime.toUpperCase()
+      );
+    }
+
     if (formattedEndDate.toUpperCase() === formattedStartDate.toUpperCase()) {
       return formattedStartDate.toUpperCase();
     }
+
     return (
       <>
         {formattedStartDate.toUpperCase()} <Translation>{(t) => t('to')}</Translation>{' '}

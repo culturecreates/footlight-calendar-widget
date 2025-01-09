@@ -4,6 +4,7 @@ import App from './App';
 import React from 'react';
 import './index.css';
 import { extractPropsFromSearchParams } from './utils/extractPropsFromSearchParms';
+import { ChakraProvider } from '@chakra-ui/react';
 
 const calendarWidget = document.getElementById('calendar-widget');
 
@@ -21,13 +22,20 @@ const defaultProps = {
   height: calendarWidget.dataset?.height,
   index: calendarWidget.dataset?.index,
   font: calendarWidget.dataset?.font,
+  redirectionMode: calendarWidget.dataset?.redirectionMode,
 };
 
 let extractedProps = extractPropsFromSearchParams(defaultProps);
 
 const root = createRoot(calendarWidget);
-root.render(
-  <React.StrictMode>
+const AppContent = (
+  <ChakraProvider>
     <App {...extractedProps} />
-  </React.StrictMode>,
+  </ChakraProvider>
 );
+
+if (process.env.NODE_ENV === 'production') {
+  root.render(AppContent);
+} else {
+  root.render(<React.StrictMode>{AppContent}</React.StrictMode>);
+}

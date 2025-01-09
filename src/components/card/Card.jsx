@@ -1,55 +1,82 @@
-import React, { useContext, useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { dateRangeFormatter } from '../../utils/dateRangeFormatter';
 import { ReactComponent as PlaceImg } from '../../assets/Location.svg';
 import { ReactComponent as DefaultImg } from '../../assets/Vector.svg';
 import './card.css';
-import { redirectionHandler } from '../../utils/redirectionHandler';
-import WidgetContext from '../../context/WidgetContext';
+import useRedirection from '../../utils/hooks/useRedirection';
+import { urlTypes } from '../../constants/generalConstants';
+import Loader from '../loader/Loader';
 
-const Card = ({ id, name, place, image, startDate, endDate, scheduleTimezone }) => {
+const EventDetailsModal = React.lazy(() => import('../Modal/EventDetailsModal'));
+
+const Card = ({
+  id,
+  name,
+  place,
+  image,
+  startDate,
+  endDate,
+  performers,
+  description,
+  scheduleTimezone,
+}) => {
   const [imgError, setImgError] = useState(false);
-  const { widgetProps } = useContext(WidgetContext);
-  const { locale, calendar } = widgetProps;
+  const { handleRedirection, isOpen, onClose } = useRedirection();
 
-  let redirectionUrl = `${process.env.REACT_APP_API_URL}resource/${id}?calendar=${calendar}&locale=${locale}`;
+  const handleClick = (e) => {
+    e.preventDefault();
+    handleRedirection({ id, type: urlTypes.EVENT_DETAILS });
+  };
 
   return (
-    <li
-      className="card"
-      onClick={(e) => {
-        e.preventDefault();
-        redirectionHandler({
-          url: redirectionUrl,
-        });
-      }}
-    >
-      <div className="image-column">
-        {!imgError ? (
-          <img
-            src={image}
-            onError={() => {
-              setImgError(true);
-            }}
-          />
-        ) : (
-          <div className="default-img-container">
-            <DefaultImg />
+    <>
+      <li className="card" onClick={handleClick}>
+        <div className="image-column">
+          {!imgError ? (
+            <img
+              src={image}
+              onError={() => {
+                setImgError(true);
+              }}
+            />
+          ) : (
+            <div className="default-img-container">
+              <DefaultImg />
+            </div>
+          )}
+        </div>
+        <div className="info-column">
+          <div className="name">{name}</div>
+          <div className="date">{dateRangeFormatter(startDate, endDate, scheduleTimezone)}</div>
+          {place ? (
+            <div className="place">
+              <PlaceImg />
+              {place}
+            </div>
+          ) : (
+            <div style={{ height: 16 }}></div>
+          )}
+        </div>
+      </li>
+      <Suspense
+        fallback={
+          <div>
+            <Loader />
           </div>
-        )}
-      </div>
-      <div className="info-column">
-        <div className="name">{name}</div>
-        <div className="date">{dateRangeFormatter(startDate, endDate, scheduleTimezone)}</div>
-        {place ? (
-          <div className="place">
-            <PlaceImg />
-            {place}
-          </div>
-        ) : (
-          <div style={{ height: 16 }}></div>
-        )}
-      </div>
-    </li>
+        }
+      >
+        <EventDetailsModal
+          isOpen={isOpen}
+          onClose={onClose}
+          name={name}
+          place={place}
+          image={image}
+          performers={performers}
+          description={description}
+          date={dateRangeFormatter(startDate, endDate, scheduleTimezone)}
+        />
+      </Suspense>
+    </>
   );
 };
 

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import WidgetContext from '../../context/WidgetContext';
 import Card from '../card/Card';
-
 import './results.css';
+import { cleanDescription } from '../../utils/cleanDescription';
 
 const Results = () => {
   const { data } = useContext(WidgetContext);
@@ -21,6 +21,8 @@ const Results = () => {
             endDate={item?.endDate}
             place={item?.place}
             image={item?.image}
+            performers={item?.performers}
+            description={cleanDescription(item?.description)}
           />
         ))}
     </ul>

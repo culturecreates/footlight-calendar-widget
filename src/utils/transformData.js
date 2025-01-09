@@ -24,10 +24,24 @@ export const transformData = ({ data, locale }) => {
       place.address?.streetAddress?.fr ||
       '';
 
+    const performers = eventData?.performers?.map((performer) => {
+      return {
+        name: performer?.name?.[locale] || performer?.name?.en || performer?.name?.fr || '',
+        image: performer?.image?.thumbnail || '',
+      };
+    });
+    const description =
+      eventData?.description?.[locale] ||
+      eventData?.description?.en ||
+      eventData?.description?.fr ||
+      '';
+
     return {
       id: eventData.id,
       title: title,
       slug: eventData.slug?.[locale],
+      performers,
+      description,
       scheduleTimezone: eventData?.scheduleTimezone,
       startDate:
         eventData.subEventDetails.upcomingSubEventCount === 0
