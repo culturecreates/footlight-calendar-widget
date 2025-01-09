@@ -20,4 +20,9 @@ export const fr = {
     noEvents: 'Aucun événement présent',
     upcoming: 'Prochainement',
   },
+  detailsModal: {
+    descriptionHeader: "A propos de l'événement :",
+    Performers: 'interprète',
+    place: 'Lieu',
+  },
 };

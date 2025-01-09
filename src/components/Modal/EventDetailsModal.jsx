@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import './eventDetailsModal.css';
 import WidgetContext from '../../context/WidgetContext';
+import { useTranslation } from 'react-i18next';
 
 const EventDetailsModal = ({
   isOpen,
@@ -24,6 +25,7 @@ const EventDetailsModal = ({
   description,
 }) => {
   const { widgetProps } = useContext(WidgetContext);
+  const { t } = useTranslation();
   const { height = '600' } = widgetProps;
 
   const iframeAdjustedHeight = window.innerHeight * 0.8;
@@ -107,17 +109,17 @@ const EventDetailsModal = ({
             height="fit-content"
           >
             <Text fontSize="lg" fontWeight="bold">
-              <strong>Date:</strong> {date}
+              <strong>{t('date')}:</strong> {date}
             </Text>
             <Divider borderColor="gray.300" />
             <Text fontSize="lg" fontWeight="bold">
-              <strong>Place:</strong> {place}
+              <strong>{t('detailsModal.place')}:</strong> {place}
             </Text>
             <Divider borderColor="gray.300" />
             {performers?.length > 0 && (
               <>
                 <Text fontSize="lg" fontWeight="bold">
-                  <strong>Performers:</strong>
+                  <strong>{t('detailsModal.Performers') + ' '}:</strong>
                 </Text>
                 <Box>
                   {performers.map((performer, index) => (
@@ -156,7 +158,7 @@ const EventDetailsModal = ({
               pb={30}
             >
               <Text as="span" fontWeight="bold" color="gray.600">
-                About the Event:{' '}
+                {t('detailsModal.descriptionHeader') + ' '}
               </Text>
               {description}
             </Box>
