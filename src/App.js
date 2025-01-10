@@ -2,16 +2,15 @@ import { WidgetContextProvider } from './context/WidgetContext';
 import { getColors } from 'theme-colors';
 import './App.css';
 import { dynamicCssColorInjector, dynamicFontInjector } from './utils/dynamicStylePropertyInjector';
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import Loader from './components/loader/Loader';
+import Footer from './components/footer/Footer';
+import ResultPanel from './components/panel/Panel';
+import Search from './components/search/Search';
 
-const Footer = lazy(() => import('./components/footer/Footer'));
-const ResultPanel = lazy(() => import('./components/panel/Panel'));
-const Search = lazy(() => import('./components/search/Search'));
-
-import('dayjs/locale/en');
-import('dayjs/locale/fr');
+require('dayjs/locale/en');
+require('dayjs/locale/fr');
 
 function App(props) {
   const { color, font, ...widgetProps } = props;

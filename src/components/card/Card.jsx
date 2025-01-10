@@ -6,8 +6,7 @@ import './card.css';
 import useRedirection from '../../utils/hooks/useRedirection';
 import { urlTypes } from '../../constants/generalConstants';
 import Loader from '../loader/Loader';
-
-const EventDetailsModal = React.lazy(() => import('../Modal/EventDetailsModal'));
+import EventDetailsModal from '../Modal/EventDetailsModal';
 
 const Card = ({
   id,
