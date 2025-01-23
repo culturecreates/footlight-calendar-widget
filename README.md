@@ -20,7 +20,7 @@ The following attributes can be passed to the widget as a data attribute (div me
 | `data-redirection-mode`  | Specifies the event redirection behavior. Default:  `NONE`  Values: `EXTERNAL`\|`NONE`. <br>  **`EXTERNAL`**: Redirects users to the calendar's associated website for event details. <br> **`NONE`**: Displays event details in a popup widget (default behavior).      |    NO                       |
 
 
-## CMS Widget Integration Guide
+## Integration Guide
 
 ### div integration example:
 
