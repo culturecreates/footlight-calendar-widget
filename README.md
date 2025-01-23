@@ -16,12 +16,19 @@ The following attributes can be passed to the widget as a data attribute (div me
 | `data-height`            | Height of the widget. Accepts any valid CSS height value.                                        | `600px`             | `500px`                               |
 | `data-font`              | Font family used in the widget.                                                                  | `Roboto`            | `'Helvetica'`             |
 | `data-logo`              | URL of the logo to be displayed within the widget.                                               | N/A                 | `https://example.com/logo.png`        |
-| `data-search-events-filter` | Search filter string to narrow down displayed events.                                           | N/A                 | `&place=6420c60f2831190064570c3a&region=63bc0b2d1c6b6c005aad5253&person-organization=642d93bacf606a0064e5fc42&performer=64515b00e19f7200646d0e47`        |
+| `data-search-events-filter` | Search filter string to narrow down displayed events.                                         | N/A                 |`&place=6420c60f2831190064570c3a&region=63bc0b2d1c6b6c005aad5253`       |
 | `data-redirection-mode`  | Specifies the event redirection behavior.                                                        | `EXTERNAL`              | `NONE`                            |
 
 #### Notes on `data-redirection-mode`
 - **`EXTERNAL`**: Redirects users to the calendar's associated website for event details.  
-- **`NONE`**: Displays event details in a popup widget (default behavior).  
+- **`NONE`**: Displays event details in a popup widget (default behavior).
+
+### Available options for `data-search-events-filter`
+
+- `place`
+- `region`
+- `person-organization`
+- `performer`
 
 ## CMS Widget Integration Guide
 
