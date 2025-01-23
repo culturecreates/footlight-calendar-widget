@@ -7,21 +7,27 @@ This is the widget used by Footlight CMS to display a list of events. The widget
 * div integration example:
 ```
 <head>
+  <!-- Include the widget's JavaScript and CSS files -->
   <script defer="defer" src="https://listing-widget.footlight.io/v0/static/js/widget.js"></script>
   <link href="https://listing-widget.footlight.io/v0/static/css/widget.css" rel="stylesheet" />
 </head>
 
-<body style="margin: 20px; font-family: 'Roboto', 'Helvetica', sans-serif">
+<body>
   <div
     id="calendar-widget"
-    data-api="api.footlight.io"
-    data-calendar="calendar-slug"
-    data-calendar-name="calendar-name"
-    data-locale="en"
-    data-color="#fc6060"
-    data-limit="6"
-    data-height="600px"
-    data-font="Roboto"
+    data-api="api.footlight.io"                                   <!-- Base API URL -->
+    data-calendar="calendar-slug"                                 <!-- Unique slug of the calendar -->
+    data-calendar-name="calendar-name"                            <!-- Name of the calendar -->
+    data-locale="en"                                              <!-- interface language (en/fr/ja) -->
+    data-color="#fc6060"                                          <!-- Primary color for the widget -->
+    data-limit="6"                                                <!-- Maximum number of events displayed -->
+    data-height="600px"                                           <!-- Widget height -->
+    data-font="Roboto"                                            <!-- Font family for the widget -->
+    data-logo="https://example.com/logo.png"                      <!-- Logo URL -->
+    data-search-events-filter="filter-string"                     <!-- Search filters for events -->
+    data-redirection-mode="EXTERNAL"                              <!-- Specifies the event redirection behavior. Accepted values are `EXTERNAL` and `NONE`.
+                                                                            - `EXTERNAL`: Redirects users to the calendar's associated website for event details.
+                                                                            - `NONE`: Displays event details in a popup widget. This is the default behavior. --> 
   ></div>
 </body>
 ```
