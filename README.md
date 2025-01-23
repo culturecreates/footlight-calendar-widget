@@ -9,15 +9,15 @@ The following attributes can be passed to the widget as a data attribute (div me
 | Attribute   | Description | Required             |
 |-------------|-------------|---------------------|
 | data-calendar            | Unique slug of the calendar.   Example: `calendar-slug`             |  YES            |     
-| `data-calendar-name`     | Name of the calendar displayed in the widget.                       |  NO               |
-| `data-locale`            | Language code for the widget interface ( en, fr, ja). Default `en`  | NO               |
-| `data-color`             | Primary color for the widget interface. Default `#047857`.          | NO   |                 
-| `data-limit`             | Maximum number of events displayed in the widget.  Default  `9`      | NO |    
-| `data-height`            | ONLY FOR IFRAME. Height of the widget. Accepts any valid CSS height value. Default `600px`     | NO |    
-| `data-font`              | Font family used in the widget.  Default  `Roboto` | NO |      
-| `data-logo`              | URL of the logo to be displayed within the widget.   | NO                  | 
+| data-calendar-name     | Name of the calendar displayed in the widget.                       |  NO               |
+| data-locale          | Language code for the widget interface ( en, fr, ja). Default `en`  | NO               |
+| data-color             | Primary color for the widget interface. Default `#047857`.          | NO   |                 
+| data-limit             | Maximum number of events displayed in the widget.  Default  `9`      | NO |    
+| data-height            | ONLY FOR IFRAME. Height of the widget. Accepts any valid CSS height value. Default `600px`     | NO |    
+| data-font              | Font family used in the widget.  Default  `Roboto` | NO |      
+| data-logo              | URL of the logo to be displayed within the widget.   | NO                  | 
 | data-search-events-filter | Search filter string to narrow down displayed events. <br> Works for place, preformer, region, preson-organization. <br> Example:  `&place=6420c60f2831190064570c3a&region=63bc0b2d1c6b6c005aad5253`      | NO                  |         
-| `data-redirection-mode`  | Specifies the event redirection behavior. Default:  `NONE`  Values: `EXTERNAL`\|`NONE`. <br>  **`EXTERNAL`**: Redirects users to the calendar's associated website for event details. <br> **`NONE`**: Displays event details in a popup widget (default behavior).      |    NO                       |
+| data-redirection-mode  | Specifies the event redirection behavior. Default:  `NONE`  Values: `EXTERNAL`\|`NONE`. <br>  **`EXTERNAL`**: Redirects users to the calendar's associated website for event details. <br> **`NONE`**: Displays event details in a popup widget (default behavior).      |    NO                       |
 
 
 ## Integration Guide
