@@ -1,35 +1,56 @@
-# calendar-widget
+# Listing Widget
 
 This is the widget used by Footlight CMS to display a list of events. The widget is designed to run in an iframe so it can be added to any website. The widget calls Footlight Open API and can can configured to have different appearences and events using [Footlight CMS](https://cms.footlight.io) by a user with an admin role.
 
-## CMS Widget Integration Guide
+## Params
 
-* div integration example:
+The following attributes can be passed to the widget as a data attribute (div method) or search params (iframe method) to configure and customize Listing Widget
+
+| Attribute   | Description | Required             |
+|-------------|-------------|---------------------|
+| data-calendar            | Unique slug of the calendar.   Example: `calendar-slug`             |  YES            |     
+| data-calendar-name     | Name of the calendar displayed in the widget.                       |  NO               |
+| data-locale          | Language code for the widget interface ( en, fr, ja). Default `en`  | NO               |
+| data-color             | Primary color for the widget interface. Default `#047857`.          | NO   |                 
+| data-limit             | Maximum number of events displayed in the widget.  Default  `9`      | NO |    
+| data-height            | ONLY FOR IFRAME. Height of the widget. Accepts any valid CSS height value. Default `600px`     | NO |    
+| data-font              | Font family used in the widget.  Default  `Roboto` | NO |      
+| data-logo              | URL of the logo to be displayed within the widget.   | NO                  | 
+| data-search-events-filter | Search filter string to narrow down displayed events. <br> Works for place, preformer, region, preson-organization. <br> Example:  `&place=6420c60f2831190064570c3a&region=63bc0b2d1c6b6c005aad5253`      | NO                  |         
+| data-redirection-mode  | Specifies the event redirection behavior. Default:  `NONE`  Values: `EXTERNAL`\|`NONE`. <br>  **`EXTERNAL`**: Redirects users to the calendar's associated website for event details. <br> **`NONE`**: Displays event details in a popup widget (default behavior).      |    NO                       |
+
+
+## Integration Guide
+
+### div integration example:
+
 ```
 <head>
-  <script defer="defer" src="https://listing-widget.footlight.io/v0/static/js/widget.js"></script>
+  <!-- Include the widget's JavaScript and CSS files -->
+  <script defer="defer" src="https://listing-widget.footlight.io/v1/static/js/widget.js"></script>
   <link href="https://listing-widget.footlight.io/v0/static/css/widget.css" rel="stylesheet" />
 </head>
 
-<body style="margin: 20px; font-family: 'Roboto', 'Helvetica', sans-serif">
+<body>
   <div
-    id="calendar-widget"
-    data-api="api.footlight.io"
-    data-calendar="calendar-slug"
-    data-calendar-name="calendar-name"
-    data-locale="en"
-    data-color="#fc6060"
-    data-limit="6"
-    data-height="600px"
-    data-font="Roboto"
+    id="calendar-widget"                             
+    data-calendar="calendar-slug"                                 
+    data-calendar-name="calendar-name"                            
+    data-locale="en"                                              
+    data-color="#fc6060"                                          
+    data-limit="6"                                                                                           
+    data-font="Roboto"                                            
+    data-logo="https://example.com/logo.png"                      
+    data-search-events-filter="filter-string"                     
+    data-redirection-mode="EXTERNAL"                              
   ></div>
 </body>
 ```
 
-* Iframe integration example
+### Iframe integration example
 ```
 <iframe
-  src="https://listing-widget.footlight.io/v0/index.html"
+  src="https://listing-widget.footlight.io/v1/index.html"
   width="100%"
   height="600px"
   frameborder="0">
