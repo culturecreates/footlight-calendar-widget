@@ -10,7 +10,8 @@ const useRedirection = () => {
   const { locale, calendar, redirectionMode } = widgetProps;
 
   const handleRedirection = ({ id, type = urlTypes.EVENT }) => {
-    const url = getRedirectionUrl(id, type, locale, calendar);
+    const url = getRedirectionUrl({ id, type, locale, calendar });
+
     if (redirectionMode === redirectionModes.EXTERNAL) {
       redirectionHandler({ url });
     } else {
