@@ -10,7 +10,7 @@ The following attributes can be passed to the widget as a data attribute (div me
 |-------------|-------------|---------------------|
 | data-calendar            | Unique slug of the calendar.   Example: `calendar-slug`             |  YES            |     
 | data-calendar-name     | Name of the calendar displayed in the widget.                       |  NO               |
-| data-locale          | Language code for the widget interface ( en, fr, ja). Default `en`  | NO               |
+| data-locale          | Language code for the widget interface and content ( en, fr, ja). Default `en`  | NO               |
 | data-color             | Primary color for the widget interface. Default `#047857`.          | NO   |                 
 | data-limit             | Maximum number of events displayed in the widget.  Default  `9`      | NO |    
 | data-height            | ONLY FOR IFRAME. Height of the widget. Accepts any valid CSS height value. Default `600px`     | NO |    
