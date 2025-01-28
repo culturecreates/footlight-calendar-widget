@@ -22,6 +22,10 @@ The following attributes can be passed to the widget as a data attribute (div me
 
 ## Integration Guide
 
+The Footlight widget can be added to a webpage using an iFrame or div.  
+
+Note: Deeplinking requires that the web page pass the received url search parameters to the widget (to discuss).
+
 ### div integration example:
 
 ```
