@@ -28,7 +28,7 @@ const Error = ({ missingParams }) => {
           </List>
         </Box>
         <Text fontSize="md" color="gray.600">
-          Please check your configuration and try again.
+          Please modify your configuration and try again.
         </Text>
       </VStack>
     </Center>
