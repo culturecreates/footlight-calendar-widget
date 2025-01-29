@@ -28,7 +28,9 @@ Note: Deep linking (to a particular day of events or event details) requires tha
 
 ### div integration example:
 
-The Footlight widget can be added to a webpage using a <div id="calendar-widget" ...> with  mandatory attributes.  ONLY one integration of the widget per webpage due to the unique id.
+The Footlight widget can be added to a webpage using <div id="calendar-widget" ...> with  mandatory attributes.  
+
+Note: ONLY one widget per webpage because the id must be unique in the webpage.
 
 ```
 <head>
