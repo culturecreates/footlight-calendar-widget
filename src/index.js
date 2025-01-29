@@ -31,7 +31,7 @@ let { extractedProps, isSuccess, missingParams } = extractPropsFromSearchParams(
 const root = createRoot(calendarWidget);
 const AppContent = (
   <ChakraProvider>
-    {isSuccess ? <App extractedProps={extractedProps} /> : <Error missingParams={missingParams} />}
+    {isSuccess ? <App {...extractedProps} /> : <Error missingParams={missingParams} />}
   </ChakraProvider>
 );
 
