@@ -5,10 +5,11 @@ import React from 'react';
 import './index.css';
 import { extractPropsFromSearchParams } from './utils/extractPropsFromSearchParms';
 import { ChakraProvider } from '@chakra-ui/react';
+import Error from './components/error/Error';
 
 const calendarWidget = document.getElementById('calendar-widget');
 
-const defaultProps = {
+const dataAttributes = {
   api: calendarWidget.dataset?.api,
   locale: calendarWidget.dataset?.locale,
   calendar: calendarWidget.dataset?.calendar,
@@ -25,12 +26,12 @@ const defaultProps = {
   redirectionMode: calendarWidget.dataset?.redirectionMode,
 };
 
-let extractedProps = extractPropsFromSearchParams(defaultProps);
+let { extractedProps, isSuccess, missingParams } = extractPropsFromSearchParams(dataAttributes);
 
 const root = createRoot(calendarWidget);
 const AppContent = (
   <ChakraProvider>
-    <App {...extractedProps} />
+    {isSuccess ? <App {...extractedProps} /> : <Error missingParams={missingParams} />}
   </ChakraProvider>
 );
 
