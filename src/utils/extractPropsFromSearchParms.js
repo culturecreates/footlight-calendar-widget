@@ -1,37 +1,50 @@
 import { redirectionModes } from '../constants/generalConstants';
 
-export function extractPropsFromSearchParams(defaultProps) {
+export function extractPropsFromSearchParams(dataAttributes) {
   const searchParams = new URLSearchParams(window.location.search);
 
-  const locale = searchParams.get('locale') || defaultProps?.locale || 'en';
-  const calendar = searchParams.get('calendar') || defaultProps?.calendar;
-  const calendarName = searchParams.get('calendarName') || defaultProps?.calendarName;
-  const color = searchParams.get('color') || defaultProps?.color || '#047857';
-  const limit = searchParams.get('limit') || defaultProps?.limit || 9;
-  const calendarLogo = searchParams.get('logo') || defaultProps?.calendarLogo;
-  const eventUrl = searchParams.get('eventUrl') || defaultProps?.eventUrl;
-  const searchEventsUrl = searchParams.get('searchEventsUrl') || defaultProps?.searchEventsUrl;
-  const searchEventsFilters =
-    searchParams.get('searchEventsFilters') || defaultProps?.searchEventsFilters;
-  const height = searchParams.get('height') || defaultProps?.height || '600px';
-  const index = searchParams.get('index') || defaultProps?.index || 1;
-  const font = searchParams.get('font') || defaultProps?.font || 'Roboto';
+  const calendarName = dataAttributes?.calendarName || searchParams.get('calendarName');
+  const calendarLogo = dataAttributes?.calendarLogo || searchParams.get('logo');
+
+  const locale = dataAttributes?.locale || searchParams.get('locale');
+  const calendar = dataAttributes?.calendar || searchParams.get('calendar');
+  const color = dataAttributes?.color || searchParams.get('color');
+  const limit = dataAttributes?.limit || searchParams.get('limit');
+  const font = dataAttributes?.font || searchParams.get('font');
   const redirectionMode =
-    searchParams.get('redirectionMode') || defaultProps?.redirectionMode || redirectionModes.NONE;
+    dataAttributes?.redirectionMode ||
+    searchParams.get('redirectionMode') ||
+    redirectionModes.EXTERNAL;
+  const height = dataAttributes?.height || searchParams.get('height');
+
+  // Optional parameters
+  const index = dataAttributes?.index || searchParams.get('index');
+  const searchEventsFilters =
+    dataAttributes?.searchEventsFilters || searchParams.get('searchEventsFilters');
+
+  // Required parameters
+  const requiredParams = { locale, calendar, color, limit, font, redirectionMode };
+
+  // Find missing required parameters
+  const missingParams = Object.keys(requiredParams).filter((key) => requiredParams[key] == null);
+
+  const isSuccess = missingParams.length === 0;
 
   return {
-    font,
-    index,
-    limit,
-    color,
-    height,
-    locale,
-    calendar,
-    calendarName,
-    searchEventsFilters,
-    calendarLogo,
-    redirectionMode,
-    eventUrl,
-    searchEventsUrl,
+    extractedProps: {
+      font,
+      index,
+      calendarLogo,
+      limit,
+      color,
+      height,
+      locale,
+      calendarName,
+      calendar,
+      searchEventsFilters,
+      redirectionMode,
+    },
+    isSuccess,
+    missingParams,
   };
 }
