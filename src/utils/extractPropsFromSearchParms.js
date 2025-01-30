@@ -26,9 +26,7 @@ export function extractPropsFromSearchParams(dataAttributes) {
   const requiredParams = { locale, calendar, color, limit, font, redirectionMode };
 
   // Find missing required parameters
-  const missingParams = Object.entries(requiredParams)
-    .filter(([_, value]) => value === undefined || value === null)
-    .map(([key]) => key);
+  const missingParams = Object.keys(requiredParams).filter((key) => requiredParams[key] == null);
 
   const isSuccess = missingParams.length === 0;
 
