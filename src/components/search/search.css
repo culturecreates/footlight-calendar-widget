@@ -1,23 +1,41 @@
-#calendar-widget > .widget-layout .widget-search-bar {
+#calendar-widget > .widget-layout .filter-search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 428px;
   width: 100%;
+  padding: 0 24px;
+  margin: auto;
+  gap: 8px;
+}
+
+#calendar-widget > .widget-layout .search-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 40px;
+  flex: 1;
+  max-width: 272px;
+  width: 100%;
+}
+
+#calendar-widget > .widget-layout .widget-search-bar {
   height: 40px;
   padding: 8px 8px 8px 44px;
-  border-radius: 68px;
   border: 1px solid #b6c1c9;
   flex: 1;
+  border-radius: 68px;
   font-family: var(--calendar-font-family) !important;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 40;
   line-height: 24px;
   letter-spacing: 0em;
   text-align: left;
 }
 
-#calendar-widget > .widget-layout .search-container {
-  display: flex;
-  width: 100%;
-  position: relative;
-  height: 40px;
+#calendar-widget > .widget-layout .filter-icon-container,
+#calendar-widget > .widget-layout .clear-icon-container {
+  flex-shrink: 0;
 }
 
 #calendar-widget > .widget-layout .search-icon-container {
@@ -29,20 +47,9 @@
   place-content: center;
 }
 
-#calendar-widget > .widget-layout input:-internal-autofill-selected {
-  appearance: inherit;
-  background-image: none !important;
-  background-color: var(--primary-white-opaque) !important;
-  color: fieldtext !important;
-}
-
 #calendar-widget > .widget-layout .search-container .search-icon {
   width: 24px;
   height: 24px;
-}
-
-#calendar-widget > .widget-layout .search-container .search-icon > path {
-  fill: var(--dynamic-color-600);
 }
 
 #calendar-widget > .widget-layout .search-container .clear-icon-container {
@@ -60,21 +67,10 @@
   height: 21px;
 }
 
-#calendar-widget > .widget-layout .search-container .clear-icon path,
-#calendar-widget > .widget-layout .search-container .filter-icon path {
-  fill: var(--dynamic-color-600);
+#calendar-widget > .widget-layout .filter-search-container .filter-icon {
+  border-radius: 100%;
 }
 
-#calendar-widget > .widget-layout .search-container .filter-icon-container {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  display: grid;
-  place-content: center;
-}
-
-#calendar-widget > .widget-layout .search-container .filter-icon {
-  width: 16px;
-  height: 16px;
+#calendar-widget > .widget-layout .filter-search-container .filter-icon:hover {
+  background-color: var(--primary-hover-white);
 }
