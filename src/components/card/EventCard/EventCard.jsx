@@ -1,5 +1,7 @@
 import React from 'react';
-import { Box, Image, Badge, Text, Flex, Stack, useBreakpointValue } from '@chakra-ui/react';
+import { Box, Image, Heading, Stack, Text, useBreakpointValue, Flex } from '@chakra-ui/react';
+import EventTypeBadge from '../../badge/EventTypeBadge/EventTypeBadge';
+import DateBadge from '../../badge/DateBadge/DateBadge';
 
 const EventCard = ({ event }) => {
   const { image, eventName, stageName, eventType = [], startDate, altText } = event;
@@ -10,6 +12,8 @@ const EventCard = ({ event }) => {
   return (
     <Box
       maxW={cardWidth}
+      width="100%" // Ensure it stretches full width within the cardWidth range
+      maxWidth="370px" // Set maximum width to 370px
       borderWidth="1px"
       borderRadius="10px"
       overflow="hidden"
@@ -21,46 +25,28 @@ const EventCard = ({ event }) => {
 
       <Box p={4} bg="#F6F6F6">
         <Stack spacing={3}>
-          <Text fontSize="md" fontWeight="500" color="#555555" noOfLines={2} isTruncated>
+          <Heading as="h3" size="md" noOfLines={2} isTruncated>
             {eventName}
-          </Text>
+          </Heading>
 
-          <Flex
-            direction={{ base: 'column', md: 'row' }}
-            justify="space-between"
-            align="center"
-            wrap="wrap"
-          >
-            <Badge
+          <Flex justify="flex-start" align="center" wrap="nowrap" gap={2}>
+            <DateBadge startDate={startDate} />
+
+            <Text
               fontSize="13px"
-              fontWeight="600"
-              color="#FFFFFF"
-              bg="#3D3CE1"
-              borderRadius="5px"
-              px={2}
-              py={1}
+              fontWeight="500"
+              color="#555555"
+              noOfLines={1}
+              isTruncated
+              ml="2px"
             >
-              {startDate}
-            </Badge>
-
-            <Text fontSize="13px" fontWeight="500" color="#555555" noOfLines={1}>
               {stageName}
             </Text>
           </Flex>
 
-          <Flex justify="space-between" align="center">
-            <Badge
-              key={eventType}
-              fontSize="13px"
-              fontWeight="500"
-              color="#FFFFFF"
-              bg="#B3B3B3"
-              borderRadius="24px"
-              px={3}
-              py={1}
-            >
-              {eventType}
-            </Badge>
+          <Flex wrap="wrap" spacing={3} justify="flex-start" gap={2}>
+            {eventType?.length &&
+              eventType?.map((value, key) => <EventTypeBadge eventType={value} key={key} />)}
           </Flex>
         </Stack>
       </Box>
