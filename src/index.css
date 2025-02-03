@@ -9,6 +9,16 @@
 
   --primary-black: #222732;
 
+  --event-card-bg: #f6f6f6;
+  --event-card-border: #b3b3b3;
+  --event-name-color: #555555;
+
+  --date-badge-bg: #3d3ce1;
+  --date-badge-text: #ffffff;
+
+  --event-type-badge-bg: #b3b3b3;
+  --event-type-badge-text: #ffffff;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 

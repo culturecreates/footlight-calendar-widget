@@ -5,8 +5,8 @@ const DateBadge = ({ startDate }) => (
   <Badge
     fontSize="13px"
     fontWeight="600"
-    color="#FFFFFF"
-    bg="#3D3CE1"
+    color="var(--date-badge-text)"
+    bg="var(--date-badge-bg)"
     borderRadius="5px"
     px={2}
     py={1}

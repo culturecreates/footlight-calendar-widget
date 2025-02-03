@@ -5,8 +5,8 @@ const EventTypeBadge = ({ eventType }) => (
   <Badge
     fontSize="13px"
     fontWeight="500"
-    color="#FFFFFF"
-    bg="#B3B3B3"
+    color="var(--event-type-badge-text)"
+    bg="var(--event-type-badge-bg)"
     borderRadius="24px"
     px={3}
     py={1}
