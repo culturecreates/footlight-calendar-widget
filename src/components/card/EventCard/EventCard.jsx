@@ -1,17 +1,8 @@
 import React from 'react';
-import {
-  Box,
-  Image,
-  Badge,
-  Text,
-  Flex,
-  Stack,
-  Heading,
-  useBreakpointValue,
-} from '@chakra-ui/react';
+import { Box, Image, Badge, Text, Flex, Stack, useBreakpointValue } from '@chakra-ui/react';
 
 const EventCard = ({ event }) => {
-  const { image, eventName, stageName, eventType, startDate } = event;
+  const { image, eventName, stageName, eventType = [], startDate, altText } = event;
 
   const cardWidth = useBreakpointValue({ base: '100%', md: '48%', lg: '30%' });
   const imageHeight = useBreakpointValue({ base: '200px', sm: '250px', md: '300px' });
@@ -26,15 +17,20 @@ const EventCard = ({ event }) => {
       _hover={{ boxShadow: 'md' }}
       mb={4}
     >
-      <Image src={image} alt={eventName} objectFit="cover" width="100%" height={imageHeight} />
+      <Image src={image} alt={altText} objectFit="cover" width="100%" height={imageHeight} />
 
       <Box p={4} bg="#F6F6F6">
         <Stack spacing={3}>
-          <Heading as="h3" size="md" noOfLines={1}>
+          <Text fontSize="md" fontWeight="500" color="#555555" noOfLines={2} isTruncated>
             {eventName}
-          </Heading>
+          </Text>
 
-          <Flex justify="space-between" align="center">
+          <Flex
+            direction={{ base: 'column', md: 'row' }}
+            justify="space-between"
+            align="center"
+            wrap="wrap"
+          >
             <Badge
               fontSize="13px"
               fontWeight="600"
@@ -53,20 +49,18 @@ const EventCard = ({ event }) => {
           </Flex>
 
           <Flex justify="space-between" align="center">
-            {eventType?.map((type) => (
-              <Badge
-                key={type}
-                fontSize="13px"
-                fontWeight="500"
-                color="#FFFFFF"
-                bg="#B3B3B3"
-                borderRadius="24px"
-                px={3}
-                py={1}
-              >
-                {type}
-              </Badge>
-            ))}
+            <Badge
+              key={eventType}
+              fontSize="13px"
+              fontWeight="500"
+              color="#FFFFFF"
+              bg="#B3B3B3"
+              borderRadius="24px"
+              px={3}
+              py={1}
+            >
+              {eventType}
+            </Badge>
           </Flex>
         </Stack>
       </Box>
