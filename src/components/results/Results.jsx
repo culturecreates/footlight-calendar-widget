@@ -26,7 +26,7 @@ const Results = () => {
           variant="link"
           onClick={fetchMoreData}
           mt={4}
-          color="var(--strong-grey)"
+          color="var(--tertiary-black)"
           _hover={{ textDecoration: 'underline' }}
         >
           {t('loadMore')}
