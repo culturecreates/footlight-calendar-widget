@@ -3,24 +3,24 @@ import { Box, Image, Heading, Stack, Text, useBreakpointValue, Flex } from '@cha
 import EventTypeBadge from '../../badge/EventTypeBadge/EventTypeBadge';
 import DateBadge from '../../badge/DateBadge/DateBadge';
 import StageIcon from '../../../assets/LocationPin.svg';
+import { dateRangeFormatter } from '../../../utils/dateRangeFormatter';
 
-const EventCard = ({ event }) => {
+const EventCard = (event) => {
   const { image, eventName, stageName, eventType = [], startDate, altText } = event;
 
   const cardWidth = useBreakpointValue({ base: '100%', sm: '48%', md: '32%', lg: '30%' });
-  const imageHeight = useBreakpointValue({ base: '200px', sm: '250px', md: '300px' });
 
   return (
     <Box
       flex="1 1 auto"
       width={cardWidth}
-      maxWidth="370px"
+      maxWidth="640px"
       minWidth="250px"
       borderRadius="10px"
       overflow="hidden"
       mb={4}
     >
-      <Image src={image} alt={altText} objectFit="cover" width="100%" height={imageHeight} />
+      <Image src={image} alt={altText} width="100%" />
 
       <Box p={4} bg="var(--event-card-bg)">
         <Stack spacing={3}>
@@ -28,14 +28,14 @@ const EventCard = ({ event }) => {
             {eventName}
           </Heading>
 
-          <DateBadge startDate={startDate} />
+          <DateBadge startDate={dateRangeFormatter(startDate)} />
 
           <Flex align="center" gap={1}>
             <Image src={StageIcon} alt="Stage Icon" boxSize="16px" />
             <Text
               fontSize="13px"
               fontWeight="500"
-              color="var(--event-name-color)"
+              color="var(--title-grey)"
               noOfLines={1}
               isTruncated
             >
@@ -44,7 +44,7 @@ const EventCard = ({ event }) => {
           </Flex>
 
           <Flex wrap="wrap" spacing={3} justify="flex-start" gap={2}>
-            {eventType?.length &&
+            {eventType?.length > 0 &&
               eventType?.map((value, key) => <EventTypeBadge eventType={value} key={key} />)}
           </Flex>
         </Stack>

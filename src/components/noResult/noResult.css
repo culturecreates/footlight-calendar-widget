@@ -9,7 +9,7 @@
 }
 
 #calendar-widget > .widget-layout .no-content > span {
-  font-size: 16px;
+  font-size: var(--secondary-font-weight);
   font-weight: 400;
   line-height: 16px;
   letter-spacing: 0em;

@@ -1,11 +1,19 @@
-import React from 'react';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+import {
+  Box,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  IconButton,
+} from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
-import './search.css';
 import { ReactComponent as SearchIcon } from '../../assets/Search.svg';
 import { ReactComponent as ClearIcon } from '../../assets/close-Circle.svg';
-// import { ReactComponent as FilterIcon } from '../../assets/Custom.svg';
+import FloatingDatePicker from '../FloatingDatePicker/FloatingDatePicker';
+import { ReactComponent as FilterIcon } from '../../assets/filter.svg';
+import './search.css';
 
 const Search = () => {
   const { t } = useTranslation();
@@ -18,36 +26,48 @@ const Search = () => {
   };
 
   return (
-    <div className="search-container">
-      <div className="search-icon-container">
-        <SearchIcon className="search-icon" />
-      </div>
-      <input
-        type="text"
-        placeholder={t('search.placeholder')}
-        className="widget-search-bar"
-        autoComplete="new-password"
-        value={searchKeyWord}
-        onChange={(e) => {
-          setSearchKeyWord(e.target.value);
-          sessionStorage.setItem(
-            indexedSessionStorageVariableNames.WidgetSearchKeyWord,
-            e.target.value,
-          );
-        }}
-      />
-      {/* <div
-        className="filter-icon-container"
-        style={searchKeyWord ? { right: '40px' } : { right: '10px' }}
-      >
+    <Box display="flex" alignItems="center" gap={2} className="filter-search-container">
+      <Box>
         <FilterIcon className="filter-icon" />
-      </div> */}
-      {searchKeyWord && (
-        <div className="clear-icon-container" onClick={clearSearch}>
-          <ClearIcon className="clear-icon" />
-        </div>
-      )}
-    </div>
+      </Box>
+      <InputGroup
+        width="auto"
+        sx={{
+          maxWidth: 272,
+          flex: 1,
+        }}
+      >
+        <InputLeftElement pointerEvents="none">
+          <SearchIcon className="search-icon" />
+        </InputLeftElement>
+        <Input
+          type="text"
+          placeholder={t('search.placeholder')}
+          className="widget-search-bar"
+          autoComplete="new-password"
+          value={searchKeyWord}
+          onChange={(e) => {
+            setSearchKeyWord(e.target.value);
+            sessionStorage.setItem(
+              indexedSessionStorageVariableNames.WidgetSearchKeyWord,
+              e.target.value,
+            );
+          }}
+        />
+        {searchKeyWord && (
+          <InputRightElement>
+            <IconButton
+              aria-label="Clear search"
+              icon={<ClearIcon className="clear-icon" />}
+              onClick={clearSearch}
+              variant="ghost"
+              _hover={{ background: 'transparent' }}
+            />
+          </InputRightElement>
+        )}
+      </InputGroup>
+      <FloatingDatePicker />
+    </Box>
   );
 };
 
