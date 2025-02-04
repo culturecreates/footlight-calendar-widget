@@ -28,21 +28,19 @@ const EventCard = ({ event }) => {
             {eventName}
           </Heading>
 
-          <Flex justify="flex-start" align="center" wrap="nowrap" gap={2}>
             <DateBadge startDate={startDate} />
-            <Flex align="center" justify={'center'} ml="2px" gap={1}>
-              <Image src={StageIcon} alt="Stage Icon" mr={1} />
+
+          <Flex align="center" gap={1}>
+            <Image src={StageIcon} alt="Stage Icon" boxSize="16px" />
               <Text
                 fontSize="13px"
                 fontWeight="500"
-                color="#555555"
+              color="var(--event-name-color)"
                 noOfLines={1}
                 isTruncated
-                ml="2px"
               >
                 {stageName}
               </Text>
-            </Flex>
           </Flex>
 
           <Flex wrap="wrap" spacing={3} justify="flex-start" gap={2}>
