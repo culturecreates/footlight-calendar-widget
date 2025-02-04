@@ -5,24 +5,31 @@ import NoResult from '../noResult/NoResult';
 import ResultHeader from '../resultHeader/ResultHeader';
 import Results from '../results/Results';
 import './panel.css';
+import { Box } from '@chakra-ui/react';
 
 const ResultPanel = () => {
   const { totalCount, isLoading } = useContext(WidgetContext);
 
   return (
-    <section className="result-panel-wrapper">
+    <Box className="result-panel-wrapper">
       <ResultHeader />
 
-      <div className="result-panel">
+      <Box className="result-panel" p={4}>
         {!isLoading ? (
-          <div className="results">{totalCount > 0 ? <Results /> : <NoResult />}</div>
+          <Box className="results">{totalCount > 0 ? <Results /> : <NoResult />}</Box>
         ) : (
-          <div className="loader-wrapper">
+          <Box
+            className="loader-wrapper"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            h="100px"
+          >
             <Loader />
-          </div>
+          </Box>
         )}
-      </div>
-    </section>
+      </Box>
+    </Box>
   );
 };
 

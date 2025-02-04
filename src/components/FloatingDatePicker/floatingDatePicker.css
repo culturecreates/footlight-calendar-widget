@@ -32,20 +32,16 @@
   position: relative;
 }
 
-#calendar-widget > .widget-layout .floating-datepicker .dot {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 8px;
-  height: 8px;
-  background-color: #00f;
-  border-radius: 50%;
-}
-
 #calendar-widget > .widget-layout .floating-datepicker .has-date {
   position: relative;
 }
 
 #calendar-widget > .widget-layout .floating-datepicker .has-date .dot {
-  display: block;
+  position: absolute;
+  top: 7px;
+  right: 5px;
+  width: 9px;
+  height: 9px;
+  background-color: var(--primary-blue);
+  border-radius: 50%;
 }

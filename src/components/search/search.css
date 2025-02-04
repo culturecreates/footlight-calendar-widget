@@ -4,9 +4,10 @@
   align-items: center;
   max-width: 428px;
   width: 100%;
-  padding: 0 24px;
+  padding: 16px 24px;
   margin: auto;
   gap: 8px;
+  box-shadow: var(--primary-box-shadow);
 }
 
 #calendar-widget > .widget-layout .search-container {
@@ -26,7 +27,7 @@
   flex: 1;
   border-radius: 68px;
   font-family: var(--calendar-font-family) !important;
-  font-size: 16px;
+  font-size: var(--secondary-font-weight);
   font-weight: 40;
   line-height: 24px;
   letter-spacing: 0em;

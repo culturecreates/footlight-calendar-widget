@@ -46,7 +46,7 @@
 /* Checkbox un-checked style */
 #calendar-widget > .widget-layout .calendar-control input[type='checkbox'] + span:before {
   content: '';
-  background: #ffffff01;
+  background: var(--primary-white);
   border-radius: 2px;
   display: inline-block;
   width: 13.33px;

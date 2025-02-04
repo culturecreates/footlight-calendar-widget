@@ -31,18 +31,17 @@ const FloatingDatePicker = () => {
     };
   }, [calendarModalToggle]);
 
-  const isDateSelected = startDateSpan || endDateSpan;
-
   return (
     <Box className="floating-datepicker">
-      <Box className="button-container">
+      <Box className={`button-container ${startDateSpan || endDateSpan ? 'has-date' : ''}`}>
         <IconButton
           aria-label="Select Date"
           icon={<Date />}
+          _hover="none"
           onClick={calendarPopOverHandler}
-          className={isDateSelected ? 'has-date' : ''}
           variant="ghost"
         />
+        <div className="dot" />
         {calendarModalToggle && (
           <Box className="calendar-modal-pivot">
             <Box className="calendar-modal-wrapper" ref={calendarModalRef}>

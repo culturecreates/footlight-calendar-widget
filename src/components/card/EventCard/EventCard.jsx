@@ -9,7 +9,6 @@ const EventCard = (event) => {
   const { image, eventName, stageName, eventType = [], startDate, altText } = event;
 
   const cardWidth = useBreakpointValue({ base: '100%', sm: '48%', md: '32%', lg: '30%' });
-  const imageHeight = useBreakpointValue({ base: '200px', sm: '250px', md: '300px' });
 
   return (
     <Box
@@ -21,7 +20,7 @@ const EventCard = (event) => {
       overflow="hidden"
       mb={4}
     >
-      <Image src={image} alt={altText} objectFit="none" width="100%" height={imageHeight} />
+      <Image src={image} alt={altText} width="100%" />
 
       <Box p={4} bg="var(--event-card-bg)">
         <Stack spacing={3}>
@@ -36,7 +35,7 @@ const EventCard = (event) => {
               <Text
                 fontSize="13px"
                 fontWeight="500"
-                color="#555555"
+                color="var(--title-grey)"
                 noOfLines={1}
                 isTruncated
                 ml="2px"

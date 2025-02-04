@@ -9,7 +9,7 @@
 
 #calendar-widget > .widget-layout .header-text {
   color: #000000;
-  font-size: 14px;
+  font-size: var(--secondary-font-weight);
   font-weight: 600;
   line-height: 21.14px;
   text-align: left;
@@ -20,13 +20,13 @@
 #calendar-widget > .widget-layout .share-icon {
   color: #000000;
   cursor: pointer;
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   padding: 5px;
   transition: background-color 0.3s ease;
 }
 
 #calendar-widget > .widget-layout .share-icon:hover {
-  background-color: #f0f0f0;
+  background-color: var(--primary-hover-white);
 }
