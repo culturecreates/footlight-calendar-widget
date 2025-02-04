@@ -17,6 +17,8 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
 
   // states
   const [data, setData] = useState();
+  const [lastPageFlag, setLastPageFlag] = useState(false);
+  const [displayFiltersFlag, setDisplayFiltersFlag] = useState(false);
   const [totalCount, setTotalCount] = useState();
   const [error, setError] = useState();
   const [searchKeyWord, setSearchKeyWord] = useState(
@@ -54,6 +56,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
 
       setData(transformData({ data, locale: widgetProps?.locale || 'en' }));
       setTotalCount(meta?.totalCount);
+      setLastPageFlag(meta?.currentPage < meta?.pageCount);
       setIsLoading(false);
     } catch (error) {
       setError('Error fetching data');
@@ -69,6 +72,13 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   }, [widgetProps, searchKeyWord, startDateSpan, endDateSpan]);
 
   useEffect(() => {
+    if (widgetProps?.filterOptions) {
+      const filterOptionsArray = widgetProps.filterOptions.split('|')?.length > 1;
+      filterOptionsArray && setDisplayFiltersFlag(true);
+    }
+  }, [widgetProps?.filterOptions]);
+
+  useEffect(() => {
     calendarModalToggle && setCalendarModalToggle(false);
   }, [startDateSpan, endDateSpan]);
 
@@ -82,8 +92,10 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
         widgetProps,
         data,
         totalCount,
+        lastPageFlag,
         error,
         searchKeyWord,
+        displayFiltersFlag,
         searchDate,
         startDateSpan,
         endDateSpan,

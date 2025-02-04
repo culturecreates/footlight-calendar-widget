@@ -5,7 +5,6 @@ export function extractPropsFromSearchParams(dataAttributes) {
 
   const calendarName = dataAttributes?.calendarName || searchParams.get('calendarName');
   const calendarLogo = dataAttributes?.calendarLogo || searchParams.get('logo');
-
   const locale = dataAttributes?.locale || searchParams.get('locale');
   const calendar = dataAttributes?.calendar || searchParams.get('calendar');
   const color = dataAttributes?.color || searchParams.get('color');
@@ -16,14 +15,36 @@ export function extractPropsFromSearchParams(dataAttributes) {
     searchParams.get('redirectionMode') ||
     redirectionModes.EXTERNAL;
   const height = dataAttributes?.height || searchParams.get('height');
+  const filterOptions = dataAttributes?.filterOptions || searchParams.get('filterOptions');
+
+  // ------------ Boolean values --------------- //
+  const showFooter = JSON.parse(dataAttributes?.showFooter || searchParams.get('showFooter'));
+  const alwaysOnDatePicker = JSON.parse(
+    dataAttributes?.alwaysOnDatePicker || searchParams.get('alwaysOnDatePicker'),
+  );
+  const disableGroups = JSON.parse(
+    dataAttributes?.disableGroups || searchParams.get('disableGrouping'),
+  );
 
   // Optional parameters
+  const headerTitle = dataAttributes?.headerTitle || searchParams.get('headerTitle');
   const index = dataAttributes?.index || searchParams.get('index');
   const searchEventsFilters =
     dataAttributes?.searchEventsFilters || searchParams.get('searchEventsFilters');
 
   // Required parameters
-  const requiredParams = { locale, calendar, color, limit, font, redirectionMode };
+  const requiredParams = {
+    locale,
+    calendar,
+    color,
+    limit,
+    font,
+    redirectionMode,
+    showFooter,
+    alwaysOnDatePicker,
+    disableGroups,
+    filterOptions,
+  };
 
   // Find missing required parameters
   const missingParams = Object.keys(requiredParams).filter((key) => requiredParams[key] == null);
@@ -43,6 +64,11 @@ export function extractPropsFromSearchParams(dataAttributes) {
       calendar,
       searchEventsFilters,
       redirectionMode,
+      headerTitle,
+      showFooter,
+      alwaysOnDatePicker,
+      disableGroups,
+      filterOptions,
     },
     isSuccess,
     missingParams,

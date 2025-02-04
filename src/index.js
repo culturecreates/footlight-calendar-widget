@@ -17,13 +17,17 @@ const dataAttributes = {
   color: calendarWidget.dataset?.color,
   limit: calendarWidget.dataset?.limit,
   calendarLogo: calendarWidget.dataset?.logo,
-  eventUrl: calendarWidget.dataset?.eventUrl,
-  searchEventsUrl: calendarWidget.dataset?.searchEventsUrl,
   searchEventsFilters: calendarWidget.dataset?.searchEventsFilter,
   height: calendarWidget.dataset?.height,
   index: calendarWidget.dataset?.index,
   font: calendarWidget.dataset?.font,
   redirectionMode: calendarWidget.dataset?.redirectionMode,
+
+  showFooter: calendarWidget.dataset?.showFooter,
+  alwaysOnDatePicker: calendarWidget.dataset?.alwaysOnDatePicker,
+  headerTitle: calendarWidget.dataset?.headerTitle,
+  disableGrouping: calendarWidget.dataset?.disableGrouping,
+  filterOptions: calendarWidget.dataset?.filterOptions,
 };
 
 let { extractedProps, isSuccess, missingParams } = extractPropsFromSearchParams(dataAttributes);
