@@ -10,6 +10,8 @@ const DateBadge = ({ startDate, color }) => (
     borderRadius="5px"
     px={2}
     py={1}
+    display="inline-flex"
+    alignSelf="flex-start"
   >
     {startDate}
   </Badge>
