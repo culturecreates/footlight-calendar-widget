@@ -30,28 +30,25 @@
 }
 
 #calendar-widget > .widget-layout .footer .provided-by-container {
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 16px;
-  letter-spacing: 0em;
-  text-align: left;
-  display: flex;
-  gap: 4px;
-  height: 17px;
-  justify-content: center;
-}
+  font-weight: var(--secondary-font-weight);
+  color: var(--secondary-black);
+  font-weight: 300px;
+  line-height: 17.07px;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
 
-#calendar-widget > .widget-layout .footer .provided-by-container > .calendar-name {
-  box-shadow: 0px -1px 0px 0px var(--dynamic-color-700) inset;
-  border-bottom: 1px solid var(--dynamic-color-700);
-  color: var(--dynamic-color-700);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 #calendar-widget > .widget-layout .footer .provided-by-container .calendar-logo {
-  margin-left: 3px;
-  width: 25px;
+  height: 27px;
+  display: flex;
+  justify-content: center;
 }
 
 #calendar-widget > .widget-layout .footer .provided-by-container .calendar-logo > img {
-  height: 90%;
+  height: 100%;
 }
