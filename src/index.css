@@ -1,25 +1,31 @@
 #calendar-widget {
+  --title-grey: #555555;
   --primary-grey: #646d7b;
-  --tertiary-grey: #b6c1c9;
-  --grey-calendar: #9196a3;
   --secondary-grey: #b3b3b3;
+  --tertiary-grey: #b6c1c9;
 
-  --primary-hover-white: #ececec;
+  --strong-grey: #1e1e1eb2;
+
+  --primary-hover-white: #f0f0f0;
 
   --primary-white: #ffffff01;
   --primary-white-opaque: #ffffff;
+
+  --primary-blue: #3d3ce1;
 
   --primary-black: #222732;
   --secondary-black: #000000cc;
 
   --event-card-bg: #f6f6f6;
-  --event-name-color: #555555;
-
-  --date-badge-bg: #3d3ce1;
 
   /*********** font ***********/
 
-  --secondary-font-weight: 14px;
+  --primary-font-weight: 19px;
+  --secondary-font-weight: 16px;
+
+  /*********** shadow ***********/
+
+  --primary-box-shadow: 0px 4px 4px 0px #0000000d;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
