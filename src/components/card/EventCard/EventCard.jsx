@@ -28,19 +28,19 @@ const EventCard = ({ event }) => {
             {eventName}
           </Heading>
 
-            <DateBadge startDate={startDate} />
+          <DateBadge startDate={startDate} />
 
           <Flex align="center" gap={1}>
             <Image src={StageIcon} alt="Stage Icon" boxSize="16px" />
-              <Text
-                fontSize="13px"
-                fontWeight="500"
+            <Text
+              fontSize="13px"
+              fontWeight="500"
               color="var(--event-name-color)"
-                noOfLines={1}
-                isTruncated
-              >
-                {stageName}
-              </Text>
+              noOfLines={1}
+              isTruncated
+            >
+              {stageName}
+            </Text>
           </Flex>
 
           <Flex wrap="wrap" spacing={3} justify="flex-start" gap={2}>
