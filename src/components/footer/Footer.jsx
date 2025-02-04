@@ -1,22 +1,38 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
-import './footer.css';
 
 const Footer = () => {
   const { t } = useTranslation();
   const { widgetProps } = useContext(WidgetContext);
 
+  if (!widgetProps.showFooter) return null;
+
   return (
-    <footer className="footer">
-      <div className="provided-by-container">
-        <span className="text">{t('footer.providedBy')}</span>
-        <div className="calendar-logo">
-          <img src={widgetProps?.calendarLogo} />
-        </div>
-      </div>
-    </footer>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      flexDirection="column"
+      gap={2}
+      height="60px"
+    >
+      <Flex direction="column" gap={3} textAlign="center">
+        <Text
+          fontWeight="300"
+          lineHeight="17.07px"
+          textDecoration="underline"
+          textUnderlinePosition="from-font"
+          color="gray.700"
+        >
+          {t('footer.providedBy')}
+        </Text>
+        <Box display="flex" justifyContent="center">
+          <Image src={widgetProps?.calendarLogo} alt="Calendar Logo" height="27px" />
+        </Box>
+      </Flex>
+    </Box>
   );
 };
 
