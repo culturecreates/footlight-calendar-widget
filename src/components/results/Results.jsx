@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import WidgetContext from '../../context/WidgetContext';
-import Card from '../card/Card';
+import EventCard from '../card/EventCard/EventCard'; // Import the new EventCard
 import './results.css';
-import { cleanDescription } from '../../utils/cleanDescription';
+// import { cleanDescription } from '../../utils/cleanDescription';
 
 const Results = () => {
   const { data } = useContext(WidgetContext);
@@ -11,18 +11,13 @@ const Results = () => {
     <ul className="card-container">
       {data?.length > 0 &&
         data.map((item, index) => (
-          <Card
+          <EventCard
             key={index}
-            id={item?.id}
-            name={item?.title}
-            scheduleTimezone={item?.scheduleTimezone}
-            slug={item?.slug}
-            startDate={item?.startDate}
-            endDate={item?.endDate}
-            place={item?.place}
             image={item?.image}
-            performers={item?.performers}
-            description={cleanDescription(item?.description)}
+            eventName={item?.title}
+            stageName={item?.place}
+            eventType={item?.eventType}
+            startDate={item?.startDate}
           />
         ))}
     </ul>

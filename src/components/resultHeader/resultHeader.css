@@ -2,7 +2,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px 16px;
+  max-width: 639px;
+  width: 100%;
 }
 
 #calendar-widget > .widget-layout .header-text {
@@ -18,8 +20,8 @@
 #calendar-widget > .widget-layout .share-icon {
   color: #000000;
   cursor: pointer;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   padding: 5px;
   transition: background-color 0.3s ease;

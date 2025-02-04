@@ -6,12 +6,14 @@
   min-height: 100px;
   flex: 1;
   height: 100%;
+  padding: 0 16px;
 }
 
 #calendar-widget > .widget-layout .result-panel-wrapper {
   display: flex;
   flex-direction: column;
   flex: 1;
+  align-items: center;
 }
 
 #calendar-widget > .widget-layout .result-panel-wrapper .button-container {

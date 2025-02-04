@@ -4,8 +4,8 @@ import EventTypeBadge from '../../badge/EventTypeBadge/EventTypeBadge';
 import DateBadge from '../../badge/DateBadge/DateBadge';
 import StageIcon from '../../../assets/LocationPin.svg';
 
-const EventCard = ({ event }) => {
-  const { image, eventName, stageName, eventType = [], startDate, altText } = event;
+const EventCard = (event) => {
+  const { key, image, eventName, stageName, eventType = [], startDate, altText } = event;
 
   const cardWidth = useBreakpointValue({ base: '100%', sm: '48%', md: '32%', lg: '30%' });
   const imageHeight = useBreakpointValue({ base: '200px', sm: '250px', md: '300px' });
@@ -19,6 +19,7 @@ const EventCard = ({ event }) => {
       borderRadius="10px"
       overflow="hidden"
       boxShadow="sm"
+      key={key}
       _hover={{ boxShadow: 'md' }}
       mb={4}
     >
