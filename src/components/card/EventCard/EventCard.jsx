@@ -24,7 +24,7 @@ const EventCard = ({ event }) => {
 
       <Box p={4} bg="var(--event-card-bg)">
         <Stack spacing={3}>
-          <Heading as="h3" size="md" noOfLines={2} isTruncated>
+          <Heading as="h3" size="md" noOfLines={2} isTruncated fontSize={'16px'}>
             {eventName}
           </Heading>
 
