@@ -18,8 +18,6 @@ const EventCard = ({ event }) => {
       minWidth="250px"
       borderRadius="10px"
       overflow="hidden"
-      boxShadow="sm"
-      _hover={{ boxShadow: 'md' }}
       mb={4}
     >
       <Image src={image} alt={altText} objectFit="cover" width="100%" height={imageHeight} />
