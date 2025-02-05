@@ -1,6 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Box, Button, Collapse, VStack, Checkbox } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
+import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
+import { ReactComponent as FilterIcon } from '../../assets/filter.svg';
 
 const FilterDropdown = ({
   name,
@@ -76,4 +79,68 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
   );
 };
 
-export default FilterPanel;
+const FilterSection = () => {
+  const { t } = useTranslation();
+  const { calendarData, widgetProps } = useContext(WidgetContext);
+  const [filterOptions, setFilterOptions] = useState([]);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  useEffect(() => {
+    if (!calendarData && !widgetProps.filterOptions) return;
+
+    const locale = i18next.language ?? 'en';
+    const userSelectedfilters = widgetProps.filterOptions?.split('|');
+    const userSelectedTaxonomyMappedFields =
+      calendarData.taxonomies
+        ?.filter(({ id }) => userSelectedfilters.includes(id))
+        ?.map(({ mappedToField }) => mappedToField) ?? [];
+
+    let taxonomiesFilterOptions = [],
+      placesFilterOptions = {};
+    taxonomiesFilterOptions =
+      calendarData.taxonomies
+        ?.filter(({ mappedToField }) => userSelectedTaxonomyMappedFields.includes(mappedToField))
+        ?.map(({ name, mappedToField, concepts }) => ({
+          name: name?.[locale] ?? name?.en ?? '',
+          value: mappedToField,
+          options:
+            concepts?.map(({ name, id }) => ({
+              label: name?.[locale] ?? name?.en ?? '',
+              value: id,
+            })) ?? [],
+        })) ?? [];
+    if (userSelectedfilters?.includes('PLACE')) {
+      placesFilterOptions = calendarData.places?.length
+        ? {
+            name: t('filter.place'),
+            value: 'place',
+            options: calendarData.places.map(({ name, id }) => ({
+              label: name?.[locale] ?? name?.en ?? '',
+              value: id,
+            })),
+          }
+        : null;
+    }
+    let filtersDisplayed = [];
+    if (userSelectedfilters?.includes('PLACE')) filtersDisplayed.push(placesFilterOptions);
+    if (userSelectedTaxonomyMappedFields?.length) filtersDisplayed.push(...taxonomiesFilterOptions);
+    setFilterOptions(filtersDisplayed);
+  }, [calendarData]);
+
+  return (
+    filterOptions.length > 0 && (
+      <Box borderRadius="full" _hover={{ bg: 'var(--primary-hover-white)' }}>
+        <Button onClick={() => setIsFilterOpen(!isFilterOpen)}>
+          <FilterIcon />
+        </Button>
+        <FilterPanel
+          isFilterOpen={isFilterOpen}
+          filters={filterOptions}
+          setIsFilterOpen={setIsFilterOpen}
+        />
+      </Box>
+    )
+  );
+};
+
+export default FilterSection;
