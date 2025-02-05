@@ -4,9 +4,12 @@ import WidgetContext from '../../context/WidgetContext';
 import EventCard from '../card/EventCard/EventCard';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as ArrowDownIcon } from '../../assets/ArrowDown.svg';
+import { onLoadMoreClick } from '../../utils/onLoadMoreClick';
 
 const Results = () => {
-  const { data, lastPageFlag, fetchMoreData } = useContext(WidgetContext);
+  const { data, lastPageFlag, getData, pageNumber, widgetProps } = useContext(WidgetContext);
+  const { limit, redirectionMode, locale, calendar } = widgetProps;
+
   const { t } = useTranslation();
 
   return (
@@ -24,7 +27,9 @@ const Results = () => {
       {lastPageFlag && (
         <Button
           variant="link"
-          onClick={fetchMoreData}
+          onClick={() =>
+            onLoadMoreClick({ getData, pageNumber, limit, redirectionMode, locale, calendar })
+          }
           mt={4}
           color="var(--tertiary-black)"
           _hover={{ textDecoration: 'underline' }}

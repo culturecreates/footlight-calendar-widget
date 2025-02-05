@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 export const generateUrl = (urlComponents) => {
   const baseUrl = process.env.REACT_APP_API_URL + 'calendars/';
   const calendar = urlComponents.calendar;
@@ -8,9 +7,10 @@ export const generateUrl = (urlComponents) => {
   const startDateSpan = urlComponents?.startDateSpan;
   const endDateSpan = urlComponents?.endDateSpan;
   const filters = decodeURIComponent(urlComponents?.searchEventsFilters);
+  const pageNumber = urlComponents?.pageNumber;
 
   const queryParams = new URLSearchParams({
-    page: 1,
+    page: pageNumber ?? 1,
     limit,
     query,
     'start-date-range': startDateSpan,

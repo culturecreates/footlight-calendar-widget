@@ -16,8 +16,9 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   );
 
   // states
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [lastPageFlag, setLastPageFlag] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1);
   const [displayFiltersFlag, setDisplayFiltersFlag] = useState(false);
   const [totalCount, setTotalCount] = useState();
   const [error, setError] = useState();
@@ -42,32 +43,41 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   const displayType = useSize();
   const { i18n } = useTranslation();
 
-  const getData = useCallback(async () => {
-    try {
-      const url = generateUrl({
-        ...widgetProps,
-        searchEntityType: entityTypes.EVENTS,
-        searchKeyWord,
-        startDateSpan,
-        endDateSpan,
-      });
-      const response = await fetch(url);
-      const { data, meta } = await response.json();
+  const getData = useCallback(
+    async (pageNumber) => {
+      try {
+        const url = generateUrl({
+          ...widgetProps,
+          searchEntityType: entityTypes.EVENTS,
+          searchKeyWord,
+          startDateSpan,
+          endDateSpan,
+          pageNumber,
+        });
+        const response = await fetch(url);
+        const { data, meta } = await response.json();
 
-      setData(transformData({ data, locale: widgetProps?.locale || 'en' }));
-      setTotalCount(meta?.totalCount);
-      setLastPageFlag(meta?.currentPage < meta?.pageCount);
-      setIsLoading(false);
-    } catch (error) {
-      setError('Error fetching data');
-      console.error('Error fetching data:', error);
-    }
-  }, [widgetProps, searchKeyWord, startDateSpan, endDateSpan]);
+        setData((prevData) => [
+          ...prevData,
+          ...transformData({ data, locale: widgetProps?.locale || 'en' }),
+        ]);
+        setTotalCount(meta?.totalCount);
+        setLastPageFlag(meta?.currentPage < meta?.pageCount);
+        setPageNumber(meta?.currentPage);
+        setIsLoading(false);
+      } catch (error) {
+        setError('Error fetching data');
+        console.error('Error fetching data:', error);
+      }
+    },
+    [widgetProps, searchKeyWord, startDateSpan, endDateSpan],
+  );
 
   const getDataDebounced = useDebounce(getData, 500);
 
   useEffect(() => {
     setIsLoading(true);
+    setData([]);
     getDataDebounced();
   }, [widgetProps, searchKeyWord, startDateSpan, endDateSpan]);
 
@@ -90,6 +100,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
     <WidgetContext.Provider
       value={{
         widgetProps,
+        pageNumber,
         data,
         totalCount,
         lastPageFlag,
