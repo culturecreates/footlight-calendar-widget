@@ -57,8 +57,7 @@ const EventCard = React.memo(
             </Flex>
 
             <Flex wrap="wrap" spacing={3} justify="flex-start" gap={2}>
-              {eventType?.length > 0 &&
-                eventType?.map((value, key) => <EventTypeBadge eventType={value} key={key} />)}
+              <EventTypeBadge eventType={eventType} />
             </Flex>
           </Stack>
         </Box>
