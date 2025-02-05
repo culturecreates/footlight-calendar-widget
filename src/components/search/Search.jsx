@@ -13,7 +13,6 @@ import { ReactComponent as SearchIcon } from '../../assets/Search.svg';
 import { ReactComponent as ClearIcon } from '../../assets/close-Circle.svg';
 import FloatingDatePicker from '../FloatingDatePicker/FloatingDatePicker';
 import { ReactComponent as FilterIcon } from '../../assets/filter.svg';
-import './search.css';
 
 const Search = () => {
   const { t } = useTranslation();
@@ -26,24 +25,27 @@ const Search = () => {
   };
 
   return (
-    <Box display="flex" alignItems="center" gap={2} className="filter-search-container">
-      <Box>
-        <FilterIcon className="filter-icon" />
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      maxW="428px"
+      w="100%"
+      p="16px 24px"
+      mx="auto"
+      gap={2}
+      boxShadow="var(--primary-box-shadow)"
+    >
+      <Box borderRadius="full" _hover={{ bg: 'var(--primary-hover-white)' }}>
+        <FilterIcon />
       </Box>
-      <InputGroup
-        width="auto"
-        sx={{
-          maxWidth: 272,
-          flex: 1,
-        }}
-      >
-        <InputLeftElement pointerEvents="none">
-          <SearchIcon className="search-icon" />
+      <InputGroup flex={1} maxW="272px" w="100%" position="relative" h="40px">
+        <InputLeftElement pointerEvents="none" left="10px" top="50%" transform="translateY(-50%)">
+          <SearchIcon width="24px" height="24px" />
         </InputLeftElement>
         <Input
           type="text"
           placeholder={t('search.placeholder')}
-          className="widget-search-bar"
           autoComplete="new-password"
           value={searchKeyWord}
           onChange={(e) => {
@@ -53,12 +55,21 @@ const Search = () => {
               e.target.value,
             );
           }}
+          h="40px"
+          pl="44px"
+          border="1px solid #b6c1c9"
+          borderRadius="68px"
+          fontFamily="var(--calendar-font-family)"
+          fontSize="var(--secondary-font-weight)"
+          fontWeight={40}
+          lineHeight="24px"
+          textAlign="left"
         />
         {searchKeyWord && (
-          <InputRightElement>
+          <InputRightElement top="50%" right="10px" transform="translateY(-50%)">
             <IconButton
               aria-label="Clear search"
-              icon={<ClearIcon className="clear-icon" />}
+              icon={<ClearIcon width="21px" height="21px" />}
               onClick={clearSearch}
               variant="ghost"
               _hover={{ background: 'transparent' }}
