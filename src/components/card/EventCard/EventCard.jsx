@@ -42,7 +42,7 @@ const EventCard = React.memo(
             >
               <DateBadge startDate={dateRangeFormatter(startDate)} />
               <Flex align="center" justify={'center'} ml="2px" gap={1}>
-                <Image src={StageIcon} alt="Stage Icon" mr={1} />
+                <Image src={StageIcon} alt="Stage Icon" boxSize={'14px'} />
                 <Text
                   fontSize="13px"
                   fontWeight="500"
