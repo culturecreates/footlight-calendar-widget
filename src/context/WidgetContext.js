@@ -2,7 +2,7 @@ import { createContext, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { entityTypes } from '../constants/generalConstants';
 import { getDefaultSessionStorageVariableNames } from '../constants/sessionStorageVariableNames';
-import { generateUrl } from '../utils/generateUrl';
+import { generateUrl, generateWidgetUrl } from '../utils/generateUrl';
 import { useSize } from '../utils/hooks/useSize';
 import { transformData } from '../utils/transformData';
 import { useDebounce } from '../utils/useDebounce';
@@ -37,11 +37,15 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
     sessionStorage.getItem(indexedSessionStorageVariableNames.WidgetEndDate) || '',
   );
   const [isSingleDate, setIsSingleDate] = useState();
-  const [calendarModalToggle, setCalendarModalToggle] = useState(false); // controls calendar as modal for mobile view
+  const [calendarModalToggle, setCalendarModalToggle] = useState(false); // coFntrols calendar as modal for mobile view
   const [isLoading, setIsLoading] = useState(true);
+  const [calendarData, setCalendarData] = useState([]);
+  const [selectedFilters, setSelectedFilters] = useState({});
 
   const displayType = useSize();
   const { i18n } = useTranslation();
+
+  const filterUndefinedArray = (arr) => arr?.filter((value) => value !== undefined) ?? [];
 
   const getData = useCallback(
     async (pageNumber) => {
@@ -53,7 +57,15 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
           startDateSpan,
           endDateSpan,
           pageNumber,
+          ...(selectedFilters?.EventType && {
+            eventType: filterUndefinedArray(selectedFilters.EventType),
+          }),
+          ...(selectedFilters?.Audience && {
+            audience: filterUndefinedArray(selectedFilters.Audience),
+          }),
+          ...(selectedFilters?.place && { place: filterUndefinedArray(selectedFilters.place) }),
         });
+
         const response = await fetch(url);
         const { data, meta } = await response.json();
 
@@ -70,8 +82,19 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
         console.error('Error fetching data:', error);
       }
     },
-    [widgetProps, searchKeyWord, startDateSpan, endDateSpan],
+    [widgetProps, searchKeyWord, startDateSpan, endDateSpan, selectedFilters],
   );
+
+  const fetchCalendarData = async (calendar) => {
+    try {
+      const url = generateWidgetUrl(calendar);
+      const response = await fetch(url);
+      const data = await response.json();
+      setCalendarData(data);
+    } catch (error) {
+      console.error('Error fetching calendar data:', error);
+    }
+  };
 
   const getDataDebounced = useDebounce(getData, 500);
 
@@ -79,7 +102,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
     setIsLoading(true);
     setData([]);
     getDataDebounced();
-  }, [widgetProps, searchKeyWord, startDateSpan, endDateSpan]);
+  }, [widgetProps, searchKeyWord, startDateSpan, endDateSpan, selectedFilters]);
 
   useEffect(() => {
     if (widgetProps?.filterOptions) {
@@ -95,6 +118,12 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   useEffect(() => {
     i18n.changeLanguage(widgetProps?.locale);
   }, [i18n, widgetProps?.locale]);
+
+  useEffect(() => {
+    if (widgetProps?.calendar) {
+      fetchCalendarData(widgetProps.calendar);
+    }
+  }, [widgetProps.calendar]);
 
   return (
     <WidgetContext.Provider
@@ -115,6 +144,9 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
         isLoading,
         calendarModalToggle,
         indexedSessionStorageVariableNames,
+        calendarData,
+        selectedFilters,
+        setSelectedFilters,
         getData,
         setSearchKeyWord,
         setSearchDate,
