@@ -26,4 +26,7 @@ export const en = {
     place: 'Place',
   },
   loadMore: 'Load More',
+  filter: {
+    place: 'Place',
+  },
 };
