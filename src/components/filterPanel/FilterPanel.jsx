@@ -62,13 +62,13 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
         {filters?.map((filter, index) => (
           <FilterDropdown
             key={index}
-            name={filter.name}
-            options={filter.options}
-            isOpen={openFilter === filter.value}
-            onToggle={() => toggleFilter(filter.value)}
+            name={filter?.name}
+            options={filter?.options}
+            isOpen={openFilter === filter?.value}
+            onToggle={() => toggleFilter(filter?.value)}
             selectedFilters={selectedFilters}
             onFilterChange={handleFilterChange}
-            value={filter.value}
+            value={filter?.value}
           />
         ))}
       </Box>
