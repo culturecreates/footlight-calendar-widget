@@ -20,7 +20,7 @@
   .react-calendar-wrapper
   .react-calendar__navigation
   button:enabled:focus {
-  background-color: #ffffff;
+  background-color: var(--primary-white-opaque);
 }
 
 #calendar-widget > .widget-layout .react-calendar-wrapper .react-calendar__tile--active {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ReactComponent as Avatar } from '../../assets/Avatar.svg';
+import { ReactComponent as Avatar } from '../../assets/avatar.svg';
 import './noResult.css';
 
 const NoResult = () => {

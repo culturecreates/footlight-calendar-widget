@@ -1,31 +1,44 @@
 import React, { useContext } from 'react';
+import { Button, Icon, VStack } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
-import Card from '../card/Card';
-import './results.css';
-import { cleanDescription } from '../../utils/cleanDescription';
+import EventCard from '../card/EventCard/EventCard';
+import { useTranslation } from 'react-i18next';
+import { ReactComponent as ArrowDownIcon } from '../../assets/arrowDown.svg';
+import { onLoadMoreClick } from '../../utils/onLoadMoreClick';
 
 const Results = () => {
-  const { data } = useContext(WidgetContext);
+  const { data, lastPageFlag, getData, pageNumber, widgetProps } = useContext(WidgetContext);
+  const { limit, redirectionMode, locale, calendar } = widgetProps;
+
+  const { t } = useTranslation();
 
   return (
-    <ul className="card-container">
-      {data?.length > 0 &&
-        data.map((item, index) => (
-          <Card
-            key={index}
-            id={item?.id}
-            name={item?.title}
-            scheduleTimezone={item?.scheduleTimezone}
-            slug={item?.slug}
-            startDate={item?.startDate}
-            endDate={item?.endDate}
-            place={item?.place}
-            image={item?.image}
-            performers={item?.performers}
-            description={cleanDescription(item?.description)}
-          />
-        ))}
-    </ul>
+    <VStack spacing={4} overflowY="scroll" height="100%" align="center">
+      {data?.map((item, index) => (
+        <EventCard
+          key={index}
+          image={item?.image}
+          eventName={item?.title}
+          stageName={item?.place}
+          eventType={item?.eventTypes}
+          startDate={item?.startDate}
+        />
+      ))}
+      {lastPageFlag && (
+        <Button
+          variant="link"
+          onClick={() =>
+            onLoadMoreClick({ getData, pageNumber, limit, redirectionMode, locale, calendar })
+          }
+          mt={4}
+          color="var(--tertiary-black)"
+          _hover={{ textDecoration: 'underline' }}
+        >
+          {t('loadMore')}
+          <Icon as={ArrowDownIcon} ml={2} />
+        </Button>
+      )}
+    </VStack>
   );
 };
 

@@ -36,6 +36,10 @@ export const transformData = ({ data, locale }) => {
       eventData?.description?.fr ||
       '';
 
+    const eventTypes = eventData?.additionalType?.map((type) => {
+      return type?.name[locale] || type?.name?.en || type?.name?.fr;
+    });
+
     return {
       id: eventData.id,
       title: title,
@@ -53,6 +57,7 @@ export const transformData = ({ data, locale }) => {
       image: eventData.image?.thumbnail || '',
       place: place.name?.[locale] || place.name?.en || place.name?.fr || '',
       city: addressLocality,
+      eventTypes: eventTypes,
       streetAddress: streetAddress,
     };
   });
