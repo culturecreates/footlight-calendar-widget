@@ -1,7 +1,7 @@
 import React, { Suspense, useState } from 'react';
 import { dateRangeFormatter } from '../../utils/dateRangeFormatter';
-import { ReactComponent as PlaceImg } from '../../assets/Location.svg';
-import { ReactComponent as DefaultImg } from '../../assets/Vector.svg';
+import { ReactComponent as PlaceImg } from '../../assets/location.svg';
+import { ReactComponent as DefaultImg } from '../../assets/vector.svg';
 import './card.css';
 import useRedirection from '../../utils/hooks/useRedirection';
 import { urlTypes } from '../../constants/generalConstants';

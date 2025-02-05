@@ -10,8 +10,8 @@ import {
   Button,
 } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
-import { ReactComponent as SearchIcon } from '../../assets/Search.svg';
-import { ReactComponent as ClearIcon } from '../../assets/close-Circle.svg';
+import { ReactComponent as SearchIcon } from '../../assets/search.svg';
+import { ReactComponent as ClearIcon } from '../../assets/closeCircle.svg';
 import FloatingDatePicker from '../FloatingDatePicker/FloatingDatePicker';
 import { ReactComponent as FilterIcon } from '../../assets/filter.svg';
 import FilterPanel from '../filterPanel/FilterPanel';

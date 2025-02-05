@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Image, Heading, Stack, Text, useBreakpointValue, Flex } from '@chakra-ui/react';
 import EventTypeBadge from '../../badge/EventTypeBadge/EventTypeBadge';
 import DateBadge from '../../badge/DateBadge/DateBadge';
-import StageIcon from '../../../assets/LocationPin.svg';
+import StageIcon from '../../../assets/locationPin.svg';
 import { dateRangeFormatter } from '../../../utils/dateRangeFormatter';
 
 const EventCard = React.memo(
@@ -57,7 +57,7 @@ const EventCard = React.memo(
             </Flex>
 
             <Flex wrap="wrap" spacing={3} justify="flex-start" gap={2}>
-              <EventTypeBadge eventType={eventType} />
+              {eventType.length > 0 && <EventTypeBadge eventType={eventType[0]} />}
             </Flex>
           </Stack>
         </Box>
