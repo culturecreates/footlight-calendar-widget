@@ -3,7 +3,7 @@ import { Button, Icon, VStack } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
 import EventCard from '../card/EventCard/EventCard';
 import { useTranslation } from 'react-i18next';
-import { ReactComponent as ArrowDownIcon } from '../../assets/ArrowDown.svg';
+import { ReactComponent as ArrowDownIcon } from '../../assets/arrowDown.svg';
 import { onLoadMoreClick } from '../../utils/onLoadMoreClick';
 
 const Results = () => {
