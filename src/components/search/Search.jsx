@@ -30,14 +30,14 @@ const Search = () => {
       alignItems="center"
       maxW="428px"
       w="100%"
-      p="16px 16px"
+      p="16px"
       mx="auto"
       gap={2}
       boxShadow="var(--primary-box-shadow)"
       className="filter-search-section"
     >
       <FilterSection />
-      <InputGroup flex={1} maxW="272px" w="100%" position="relative" h="40px">
+      <InputGroup flex={1} w="100%" position="relative" h="40px">
         <InputLeftElement pointerEvents="none" left="10px" top="50%" transform="translateY(-50%)">
           <SearchIcon className="search-icon" width="24px" height="24px" />
         </InputLeftElement>
@@ -59,7 +59,7 @@ const Search = () => {
           fontFamily="var(--calendar-font-family)"
           fontSize="var(--secondary-font-weight)"
           fontWeight={40}
-          bgColor="var(--dynamic-color-100)"
+          bgColor="var(--dynamic-color-50)"
           lineHeight="24px"
           textAlign="left"
           _focusVisible={{ borderColor: 'var(--dynamic-color-500)' }}
