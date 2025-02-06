@@ -24,8 +24,19 @@ const FilterDropdown = ({
 
   return (
     <Box mb={2}>
-      <Button width="100%" justifyContent="space-between" onClick={onToggle}>
-        {name} {isOpen ? '▲' : '▼'}
+      <Button
+        width="100%"
+        justifyContent="space-between"
+        onClick={onToggle}
+        variant="ghost" // Removes background color
+        display="flex"
+        alignItems="center"
+        gap={4}
+      >
+        <Box flex="1" textAlign="left">
+          {name}
+        </Box>
+        <Box>{isOpen ? '▲' : '▼'}</Box>
       </Button>
       <Collapse in={isOpen} animateOpacity>
         <VStack align="start" mt={2} pl={2} maxHeight="200px" overflowY="auto">
@@ -66,7 +77,16 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
 
   return (
     <Collapse in={isFilterOpen} animateOpacity>
-      <Box position="absolute" zIndex="10" bg="white" boxShadow="md" p={4} borderRadius="md">
+      <Box
+        position="absolute"
+        zIndex="10"
+        bg="white"
+        boxShadow="md"
+        p={4}
+        borderRadius="md"
+        minWidth="350px"
+        maxWidth="350px"
+      >
         {filters?.map((filter, index) => (
           <FilterDropdown
             key={index}
