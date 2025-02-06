@@ -25,5 +25,8 @@ export const en = {
     Performers: 'Performers',
     place: 'Place',
   },
-  loadMore: 'Load More',
+  loadMore: 'Show More',
+  filter: {
+    place: 'Place',
+  },
 };

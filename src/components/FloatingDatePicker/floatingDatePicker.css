@@ -25,7 +25,7 @@
 }
 
 #calendar-widget > .widget-layout .floating-datepicker:hover {
-  background-color: var(--primary-hover-white);
+  background-color: var(--dynamic-color-100);
 }
 
 #calendar-widget > .widget-layout .floating-datepicker .button-container {

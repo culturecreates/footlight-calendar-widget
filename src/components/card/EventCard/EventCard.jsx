@@ -17,11 +17,10 @@ const EventCard = React.memo(
         minWidth="250px"
         borderRadius="10px"
         overflow="hidden"
-        mb={4}
       >
         <Image src={image} alt={altText} width="100%" />
 
-        <Box p={4} bg="var(--event-card-bg)">
+        <Box p={4} bg="var(--bg-grey)">
           <Stack spacing={3}>
             <Heading
               as="h3"

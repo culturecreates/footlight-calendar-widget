@@ -25,4 +25,7 @@ export const fr = {
     Performers: 'interprète',
     place: 'Lieu',
   },
+  filter: {
+    place: 'Lieu',
+  },
 };
