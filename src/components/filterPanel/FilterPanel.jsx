@@ -12,6 +12,7 @@ import WidgetContext from '../../context/WidgetContext';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import { ReactComponent as FilterIcon } from '../../assets/filter.svg';
+import { ReactComponent as Arrow } from '../../assets/arrowDown.svg';
 
 const FilterDropdown = ({
   name,
@@ -48,7 +49,13 @@ const FilterDropdown = ({
         <Box flex="1" textAlign="left">
           {name}
         </Box>
-        <Box>{isOpen ? '▲' : '▼'}</Box>
+        <Box>
+          {isOpen ? (
+            <Arrow style={{ transform: 'rotate(180deg)', transition: 'transform 0.3s' }} />
+          ) : (
+            <Arrow style={{ transform: 'rotate(0deg)', transition: 'transform 0.3s' }} />
+          )}
+        </Box>
       </Button>
       <Collapse in={isOpen} animateOpacity>
         <VStack align="start" mt={2} pl={2} maxHeight="200px" overflowY="auto">
