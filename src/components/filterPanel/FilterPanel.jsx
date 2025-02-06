@@ -45,11 +45,15 @@ const FilterDropdown = ({
 };
 
 const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
-  const [openFilter, setOpenFilter] = useState(null);
+  const [openFilters, setOpenFilters] = useState([]);
   const { selectedFilters, setSelectedFilters } = useContext(WidgetContext);
 
   const toggleFilter = (value) => {
-    setOpenFilter(openFilter === value ? null : value);
+    setOpenFilters((prevOpenFilters) =>
+      prevOpenFilters?.includes(value)
+        ? prevOpenFilters?.filter((filter) => filter !== value)
+        : [...prevOpenFilters, value],
+    );
   };
 
   const handleFilterChange = (category, selectedOptions) => {
@@ -59,6 +63,7 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
     }));
     setIsFilterOpen(false);
   };
+
   return (
     <Collapse in={isFilterOpen} animateOpacity>
       <Box position="absolute" zIndex="10" bg="white" boxShadow="md" p={4} borderRadius="md">
@@ -67,7 +72,7 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
             key={index}
             name={filter?.name}
             options={filter?.options}
-            isOpen={openFilter === filter?.value}
+            isOpen={openFilters?.includes(filter?.value)}
             onToggle={() => toggleFilter(filter?.value)}
             selectedFilters={selectedFilters}
             onFilterChange={handleFilterChange}
@@ -86,7 +91,7 @@ const FilterSection = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   useEffect(() => {
-    if (!calendarData && !widgetProps.filterOptions) return;
+    if (!calendarData && !widgetProps?.filterOptions) return;
 
     const locale = i18next.language ?? 'en';
     const userSelectedfilters = widgetProps.filterOptions?.split('|');
