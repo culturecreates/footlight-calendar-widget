@@ -5,9 +5,12 @@ import WidgetContext from '../../context/WidgetContext';
 
 const Footer = () => {
   const { t } = useTranslation();
-  const { widgetProps } = useContext(WidgetContext);
+  const { widgetProps, calendarData } = useContext(WidgetContext);
+  const { showFooter, calendarLogo, locale } = widgetProps;
+  const calendarName =
+    calendarData?.name?.[locale] || calendarData?.name?.en || calendarData?.name?.fr;
 
-  if (!widgetProps.showFooter) return null;
+  if (!showFooter) return null;
 
   return (
     <Box
@@ -29,9 +32,21 @@ const Footer = () => {
         >
           {t('footer.providedBy')}
         </Text>
-        <Box display="flex" justifyContent="center">
-          <Image src={widgetProps?.calendarLogo} alt="Calendar Logo" height="27px" />
-        </Box>
+        <Flex gap={2} alignItems="center" justifyContent="center">
+          <Box>
+            <Text
+              fontSize="14px"
+              lineHeight="17.07px"
+              fontWeight="600"
+              color="var(--secondary-black)"
+            >
+              {calendarName}
+            </Text>
+          </Box>
+          <Box display="flex" justifyContent="center">
+            <Image src={calendarLogo} alt="Calendar Logo" height="27px" />
+          </Box>
+        </Flex>
       </Flex>
     </Box>
   );
