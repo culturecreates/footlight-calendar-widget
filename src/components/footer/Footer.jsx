@@ -23,7 +23,7 @@ const Footer = () => {
       maxH={100}
       backgroundColor="var(--bg-grey)"
     >
-      <Flex direction="column" gap={3} textAlign="center">
+      <Flex direction="column" gap={2} textAlign="center">
         <Text
           fontWeight="300"
           lineHeight="17.07px"

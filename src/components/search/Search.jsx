@@ -55,7 +55,6 @@ const Search = () => {
           }}
           h="40px"
           pl="44px"
-          border="1px solid #b6c1c9"
           borderRadius="68px"
           fontFamily="var(--calendar-font-family)"
           fontSize="var(--secondary-font-weight)"
@@ -63,7 +62,7 @@ const Search = () => {
           bgColor="var(--dynamic-color-100)"
           lineHeight="24px"
           textAlign="left"
-          _focusVisible={{ borderColor: 'var(--dynamic-color-500)', borderWidth: '2px' }}
+          _focusVisible={{ borderColor: 'var(--dynamic-color-500)' }}
         />
         {searchKeyWord && (
           <InputRightElement top="50%" right="10px" transform="translateY(-50%)">
