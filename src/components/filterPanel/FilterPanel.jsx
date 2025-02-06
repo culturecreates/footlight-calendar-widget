@@ -1,13 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
-import {
-  Box,
-  Button,
-  Collapse,
-  VStack,
-  Checkbox,
-  useOutsideClick,
-  IconButton,
-} from '@chakra-ui/react';
+import { Box, Button, Collapse, VStack, Checkbox, IconButton, HStack } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
@@ -62,7 +54,7 @@ const FilterDropdown = ({
           {options?.map((option, idx) => (
             <Checkbox
               key={idx}
-              isChecked={selectedFilters?.[name]?.includes(option.value)}
+              isChecked={selectedFilters?.[value]?.includes(option.value) ?? false}
               onChange={() => handleCheckboxChange(option)}
             >
               {option.label}
@@ -74,7 +66,7 @@ const FilterDropdown = ({
   );
 };
 
-const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
+const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef, t }) => {
   const [openFilters, setOpenFilters] = useState([]);
   const { selectedFilters, setSelectedFilters } = useContext(WidgetContext);
   const panelRef = useRef(null);
@@ -95,10 +87,28 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
     setIsFilterOpen(false);
   };
 
-  useOutsideClick({
-    ref: panelRef,
-    handler: () => setIsFilterOpen(false),
-  });
+  const handleClickOutside = (event) => {
+    if (
+      panelRef.current &&
+      !panelRef.current.contains(event.target) &&
+      !iconRef.current.contains(event.target)
+    ) {
+      setIsFilterOpen(false);
+    }
+  };
+
+  const handleClearAllFilters = () => {
+    setSelectedFilters({});
+    setIsFilterOpen(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <Collapse in={isFilterOpen} animateOpacity>
@@ -113,6 +123,19 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
         maxWidth="350px"
         ref={panelRef}
       >
+        {selectedFilters &&
+          Object.values(selectedFilters).some((filters) => filters.length > 0) && (
+            <HStack width="100%" pr={2} justifyContent="flex-end">
+              <Button
+                size="xs"
+                variant="link"
+                color="var(--dynamic-color-700)"
+                onClick={handleClearAllFilters}
+              >
+                {t('filter.clearAll')}
+              </Button>
+            </HStack>
+          )}
         {filters?.map((filter, index) => (
           <FilterDropdown
             key={index}
@@ -135,6 +158,11 @@ const FilterSection = () => {
   const { calendarData, widgetProps, selectedFilters } = useContext(WidgetContext);
   const [filterOptions, setFilterOptions] = useState([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const iconRef = useRef(null);
+
+  const handleFilterToggle = () => {
+    setIsFilterOpen((prev) => !prev);
+  };
 
   useEffect(() => {
     if (!calendarData && !widgetProps?.filterOptions) return;
@@ -185,8 +213,9 @@ const FilterSection = () => {
           <IconButton
             aria-label="Select Filter"
             icon={<FilterIcon />}
-            onClick={() => setIsFilterOpen(!isFilterOpen)}
+            onClick={handleFilterToggle}
             variant="ghost"
+            ref={iconRef}
             _hover={{
               bg: 'var(--dynamic-color-100)',
               borderRadius: '50%',
@@ -211,6 +240,8 @@ const FilterSection = () => {
           isFilterOpen={isFilterOpen}
           filters={filterOptions}
           setIsFilterOpen={setIsFilterOpen}
+          iconRef={iconRef}
+          t={t}
         />
       </Box>
     )

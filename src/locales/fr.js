@@ -28,5 +28,6 @@ export const fr = {
   loadMore: 'Afficher plus',
   filter: {
     place: 'Lieu',
+    clearAll: 'Tout effacer',
   },
 };
