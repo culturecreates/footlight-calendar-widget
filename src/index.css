@@ -46,6 +46,14 @@
   outline: none;
 }
 
+#calendar-widget > .widget-layout .filter-search-section .clear-search-icon > svg > path {
+  fill: var(--dynamic-color-600);
+}
+
+#calendar-widget > .widget-layout .filter-search-section .search-icon > path {
+  fill: var(--dynamic-color-600);
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

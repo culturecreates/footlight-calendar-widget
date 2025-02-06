@@ -26,19 +26,20 @@ const Search = () => {
   return (
     <Box
       display="flex"
-      justifyContent="center"
+      justifyContent="space-between"
       alignItems="center"
       maxW="428px"
       w="100%"
-      p="16px 24px"
+      p="16px 16px"
       mx="auto"
       gap={2}
       boxShadow="var(--primary-box-shadow)"
+      className="filter-search-section"
     >
       <FilterSection />
       <InputGroup flex={1} maxW="272px" w="100%" position="relative" h="40px">
         <InputLeftElement pointerEvents="none" left="10px" top="50%" transform="translateY(-50%)">
-          <SearchIcon width="24px" height="24px" />
+          <SearchIcon className="search-icon" width="24px" height="24px" />
         </InputLeftElement>
         <Input
           type="text"
@@ -59,13 +60,16 @@ const Search = () => {
           fontFamily="var(--calendar-font-family)"
           fontSize="var(--secondary-font-weight)"
           fontWeight={40}
+          bgColor="var(--dynamic-color-100)"
           lineHeight="24px"
           textAlign="left"
+          _focusVisible={{ borderColor: 'var(--dynamic-color-500)', borderWidth: '2px' }}
         />
         {searchKeyWord && (
           <InputRightElement top="50%" right="10px" transform="translateY(-50%)">
             <IconButton
               aria-label="Clear search"
+              className="clear-search-icon"
               icon={<ClearIcon width="21px" height="21px" />}
               onClick={clearSearch}
               variant="ghost"

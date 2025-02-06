@@ -24,9 +24,8 @@ const Footer = () => {
         <Text
           fontWeight="300"
           lineHeight="17.07px"
-          textDecoration="underline"
           textUnderlinePosition="from-font"
-          color="var(--tertiary-black)"
+          color="var(--secondary-black)"
         >
           {t('footer.providedBy')}
         </Text>
