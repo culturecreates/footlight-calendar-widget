@@ -123,16 +123,19 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef, t }) => 
         maxWidth="350px"
         ref={panelRef}
       >
-        <HStack width="100%" pr={2} justifyContent="flex-end">
-          <Button
-            size="xs"
-            variant="link"
-            color="var(--dynamic-color-700)"
-            onClick={handleClearAllFilters}
-          >
-            {t('filter.clearAll')}
-          </Button>
-        </HStack>
+        {selectedFilters &&
+          Object.values(selectedFilters).some((filters) => filters.length > 0) && (
+            <HStack width="100%" pr={2} justifyContent="flex-end">
+              <Button
+                size="xs"
+                variant="link"
+                color="var(--dynamic-color-700)"
+                onClick={handleClearAllFilters}
+              >
+                {t('filter.clearAll')}
+              </Button>
+            </HStack>
+          )}
         {filters?.map((filter, index) => (
           <FilterDropdown
             key={index}
