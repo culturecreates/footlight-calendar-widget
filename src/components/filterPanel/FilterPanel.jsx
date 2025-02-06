@@ -1,9 +1,18 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { Box, Button, Collapse, VStack, Checkbox } from '@chakra-ui/react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
+import {
+  Box,
+  Button,
+  Collapse,
+  VStack,
+  Checkbox,
+  useOutsideClick,
+  IconButton,
+} from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import { ReactComponent as FilterIcon } from '../../assets/filter.svg';
+import { ReactComponent as Arrow } from '../../assets/arrowDown.svg';
 
 const FilterDropdown = ({
   name,
@@ -24,8 +33,29 @@ const FilterDropdown = ({
 
   return (
     <Box mb={2}>
-      <Button width="100%" justifyContent="space-between" onClick={onToggle}>
-        {name} {isOpen ? '▲' : '▼'}
+      <Button
+        width="100%"
+        justifyContent="space-between"
+        onClick={onToggle}
+        variant="ghost"
+        display="flex"
+        alignItems="center"
+        gap={4}
+        _hover={{
+          bg: 'var(--dynamic-color-100)',
+          border: 'none',
+        }}
+      >
+        <Box flex="1" textAlign="left">
+          {name}
+        </Box>
+        <Box>
+          {isOpen ? (
+            <Arrow style={{ transform: 'rotate(180deg)', transition: 'transform 0.3s' }} />
+          ) : (
+            <Arrow style={{ transform: 'rotate(0deg)', transition: 'transform 0.3s' }} />
+          )}
+        </Box>
       </Button>
       <Collapse in={isOpen} animateOpacity>
         <VStack align="start" mt={2} pl={2} maxHeight="200px" overflowY="auto">
@@ -45,11 +75,16 @@ const FilterDropdown = ({
 };
 
 const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
-  const [openFilter, setOpenFilter] = useState(null);
+  const [openFilters, setOpenFilters] = useState([]);
   const { selectedFilters, setSelectedFilters } = useContext(WidgetContext);
+  const panelRef = useRef(null);
 
   const toggleFilter = (value) => {
-    setOpenFilter(openFilter === value ? null : value);
+    setOpenFilters((prevOpenFilters) =>
+      prevOpenFilters?.includes(value)
+        ? prevOpenFilters?.filter((filter) => filter !== value)
+        : [...prevOpenFilters, value],
+    );
   };
 
   const handleFilterChange = (category, selectedOptions) => {
@@ -59,15 +94,31 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
     }));
     setIsFilterOpen(false);
   };
+
+  useOutsideClick({
+    ref: panelRef,
+    handler: () => setIsFilterOpen(false),
+  });
+
   return (
     <Collapse in={isFilterOpen} animateOpacity>
-      <Box position="absolute" zIndex="10" bg="white" boxShadow="md" p={4} borderRadius="md">
+      <Box
+        position="absolute"
+        zIndex="10"
+        bg="white"
+        boxShadow="md"
+        p={4}
+        borderRadius="md"
+        minWidth="350px"
+        maxWidth="350px"
+        ref={panelRef}
+      >
         {filters?.map((filter, index) => (
           <FilterDropdown
             key={index}
             name={filter?.name}
             options={filter?.options}
-            isOpen={openFilter === filter?.value}
+            isOpen={openFilters?.includes(filter?.value)}
             onToggle={() => toggleFilter(filter?.value)}
             selectedFilters={selectedFilters}
             onFilterChange={handleFilterChange}
@@ -81,12 +132,12 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
 
 const FilterSection = () => {
   const { t } = useTranslation();
-  const { calendarData, widgetProps } = useContext(WidgetContext);
+  const { calendarData, widgetProps, selectedFilters } = useContext(WidgetContext);
   const [filterOptions, setFilterOptions] = useState([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   useEffect(() => {
-    if (!calendarData && !widgetProps.filterOptions) return;
+    if (!calendarData && !widgetProps?.filterOptions) return;
 
     const locale = i18next.language ?? 'en';
     const userSelectedfilters = widgetProps.filterOptions?.split('|');
@@ -130,9 +181,32 @@ const FilterSection = () => {
   return (
     filterOptions.length > 0 && (
       <Box borderRadius="full" _hover={{ bg: 'var(--primary-hover-white)' }}>
-        <Button onClick={() => setIsFilterOpen(!isFilterOpen)}>
-          <FilterIcon />
-        </Button>
+        <Box position="relative">
+          <IconButton
+            aria-label="Select Filter"
+            icon={<FilterIcon />}
+            onClick={() => setIsFilterOpen(!isFilterOpen)}
+            variant="ghost"
+            _hover={{
+              bg: 'var(--dynamic-color-100)',
+              borderRadius: '50%',
+              border: '1px solid var(--dynamic-color-100)',
+            }}
+            borderRadius="50%"
+          />
+          {selectedFilters &&
+            Object.values(selectedFilters).some((filters) => filters.length > 0) && (
+              <Box
+                position="absolute"
+                top="2px"
+                right="2px"
+                w="9px"
+                h="9px"
+                bg="var(--dynamic-color-700)"
+                borderRadius="50%"
+              />
+            )}
+        </Box>
         <FilterPanel
           isFilterOpen={isFilterOpen}
           filters={filterOptions}
