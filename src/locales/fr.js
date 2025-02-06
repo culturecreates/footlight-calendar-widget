@@ -5,7 +5,7 @@ export const fr = {
   footer: {
     text: 'Voir tous les événements',
     noItems: 'Aucun résultat trouvé',
-    providedBy: 'Calendrier des événements fourni par',
+    providedBy: 'Liste fourni par',
   },
   datepicker: {
     rangeSelectLabel: 'Rechercher dans une période',
@@ -25,6 +25,7 @@ export const fr = {
     Performers: 'interprète',
     place: 'Lieu',
   },
+  loadMore: 'Afficher plus',
   filter: {
     place: 'Lieu',
   },
