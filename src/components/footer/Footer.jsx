@@ -16,7 +16,9 @@ const Footer = () => {
       alignItems="center"
       flexDirection="column"
       gap={2}
-      height="60px"
+      py={3}
+      maxH={100}
+      backgroundColor="var(--bg-grey)"
     >
       <Flex direction="column" gap={3} textAlign="center">
         <Text

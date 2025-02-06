@@ -3,6 +3,7 @@
   --primary-grey: #646d7b;
   --secondary-grey: #b3b3b3;
   --tertiary-grey: #b6c1c9;
+  --bg-grey: #f6f6f6;
 
   --primary-hover-white: #f0f0f0;
 
@@ -14,8 +15,6 @@
   --primary-black: #222732;
   --secondary-black: #000000cc;
   --tertiary-black: #1e1e1eb2;
-
-  --event-card-bg: #f6f6f6;
 
   /*********** font ***********/
 
