@@ -12,13 +12,12 @@ import WidgetContext from '../../context/WidgetContext';
 import { ReactComponent as SearchIcon } from '../../assets/search.svg';
 import { ReactComponent as ClearIcon } from '../../assets/closeCircle.svg';
 import FloatingDatePicker from '../FloatingDatePicker/FloatingDatePicker';
-import { ReactComponent as FilterIcon } from '../../assets/filter.svg';
+import FilterSection from '../filterPanel/FilterPanel';
 
 const Search = () => {
   const { t } = useTranslation();
   const { setSearchKeyWord, searchKeyWord, indexedSessionStorageVariableNames } =
     useContext(WidgetContext);
-
   const clearSearch = () => {
     setSearchKeyWord('');
     sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetSearchKeyWord, '');
@@ -27,21 +26,20 @@ const Search = () => {
   return (
     <Box
       display="flex"
-      justifyContent="center"
+      justifyContent="space-between"
       alignItems="center"
       maxW="428px"
       w="100%"
-      p="16px 24px"
+      p="16px 16px"
       mx="auto"
       gap={2}
       boxShadow="var(--primary-box-shadow)"
+      className="filter-search-section"
     >
-      <Box borderRadius="full" _hover={{ bg: 'var(--primary-hover-white)' }}>
-        <FilterIcon />
-      </Box>
+      <FilterSection />
       <InputGroup flex={1} maxW="272px" w="100%" position="relative" h="40px">
         <InputLeftElement pointerEvents="none" left="10px" top="50%" transform="translateY(-50%)">
-          <SearchIcon width="24px" height="24px" />
+          <SearchIcon className="search-icon" width="24px" height="24px" />
         </InputLeftElement>
         <Input
           type="text"
@@ -57,18 +55,20 @@ const Search = () => {
           }}
           h="40px"
           pl="44px"
-          border="1px solid #b6c1c9"
           borderRadius="68px"
           fontFamily="var(--calendar-font-family)"
           fontSize="var(--secondary-font-weight)"
           fontWeight={40}
+          bgColor="var(--dynamic-color-100)"
           lineHeight="24px"
           textAlign="left"
+          _focusVisible={{ borderColor: 'var(--dynamic-color-500)' }}
         />
         {searchKeyWord && (
           <InputRightElement top="50%" right="10px" transform="translateY(-50%)">
             <IconButton
               aria-label="Clear search"
+              className="clear-search-icon"
               icon={<ClearIcon width="21px" height="21px" />}
               onClick={clearSearch}
               variant="ghost"
