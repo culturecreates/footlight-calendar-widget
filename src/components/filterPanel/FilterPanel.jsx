@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
-import { Box, Button, Collapse, VStack, Checkbox, IconButton } from '@chakra-ui/react';
+import { Box, Button, Collapse, VStack, Checkbox, IconButton, HStack } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
@@ -54,7 +54,7 @@ const FilterDropdown = ({
           {options?.map((option, idx) => (
             <Checkbox
               key={idx}
-              isChecked={selectedFilters?.[name]?.includes(option.value)}
+              isChecked={selectedFilters?.[value]?.includes(option.value) ?? false}
               onChange={() => handleCheckboxChange(option)}
             >
               {option.label}
@@ -66,7 +66,7 @@ const FilterDropdown = ({
   );
 };
 
-const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef }) => {
+const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef, t }) => {
   const [openFilters, setOpenFilters] = useState([]);
   const { selectedFilters, setSelectedFilters } = useContext(WidgetContext);
   const panelRef = useRef(null);
@@ -97,6 +97,11 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef }) => {
     }
   };
 
+  const handleClearAllFilters = () => {
+    setSelectedFilters({});
+    setIsFilterOpen(false);
+  };
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
 
@@ -118,6 +123,16 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef }) => {
         maxWidth="350px"
         ref={panelRef}
       >
+        <HStack width="100%" pr={2} justifyContent="flex-end">
+          <Button
+            size="xs"
+            variant="link"
+            color="var(--dynamic-color-700)"
+            onClick={handleClearAllFilters}
+          >
+            {t('filter.clearAll')}
+          </Button>
+        </HStack>
         {filters?.map((filter, index) => (
           <FilterDropdown
             key={index}
@@ -223,6 +238,7 @@ const FilterSection = () => {
           filters={filterOptions}
           setIsFilterOpen={setIsFilterOpen}
           iconRef={iconRef}
+          t={t}
         />
       </Box>
     )

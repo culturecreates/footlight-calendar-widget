@@ -27,5 +27,6 @@ export const fr = {
   },
   filter: {
     place: 'Lieu',
+    clearAll: 'Tout effacer',
   },
 };

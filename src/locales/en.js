@@ -28,5 +28,6 @@ export const en = {
   loadMore: 'Show More',
   filter: {
     place: 'Place',
+    clearAll: 'Clear All',
   },
 };
