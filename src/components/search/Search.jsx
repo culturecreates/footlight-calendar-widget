@@ -59,7 +59,7 @@ const Search = () => {
           fontFamily="var(--calendar-font-family)"
           fontSize="var(--secondary-font-weight)"
           fontWeight={40}
-          bgColor="var(--dynamic-color-100)"
+          bgColor="var(--dynamic-color-50)"
           lineHeight="24px"
           textAlign="left"
           _focusVisible={{ borderColor: 'var(--dynamic-color-500)' }}
