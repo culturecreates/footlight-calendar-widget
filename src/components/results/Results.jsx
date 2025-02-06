@@ -13,7 +13,7 @@ const Results = () => {
   const { t } = useTranslation();
 
   return (
-    <VStack spacing={4} overflowY="scroll" height="100%" align="center">
+    <VStack spacing={3} overflowY="scroll" height="100%" align="center">
       {data?.map((item, index) => (
         <EventCard
           key={index}
@@ -30,7 +30,8 @@ const Results = () => {
           onClick={() =>
             onLoadMoreClick({ getData, pageNumber, limit, redirectionMode, locale, calendar })
           }
-          mt={4}
+          pt={6}
+          pb={5}
           color="var(--tertiary-black)"
           _hover={{ textDecoration: 'underline' }}
         >

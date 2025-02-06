@@ -55,6 +55,7 @@ function App(props) {
             <Heading
               fontSize="19px"
               fontWeight="600"
+              fontFamily={font}
               lineHeight="28.69px"
               textAlign="center"
               textUnderlinePosition="from-font"
