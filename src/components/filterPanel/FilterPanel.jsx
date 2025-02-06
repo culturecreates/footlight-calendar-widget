@@ -1,5 +1,13 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
-import { Box, Button, Collapse, VStack, Checkbox, useOutsideClick } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Collapse,
+  VStack,
+  Checkbox,
+  useOutsideClick,
+  IconButton,
+} from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
@@ -28,10 +36,14 @@ const FilterDropdown = ({
         width="100%"
         justifyContent="space-between"
         onClick={onToggle}
-        variant="ghost" // Removes background color
+        variant="ghost"
         display="flex"
         alignItems="center"
         gap={4}
+        _hover={{
+          bg: '#ECECEC',
+          border: '#ECECEC',
+        }}
       >
         <Box flex="1" textAlign="left">
           {name}
@@ -113,7 +125,7 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
 
 const FilterSection = () => {
   const { t } = useTranslation();
-  const { calendarData, widgetProps } = useContext(WidgetContext);
+  const { calendarData, widgetProps, selectedFilters } = useContext(WidgetContext);
   const [filterOptions, setFilterOptions] = useState([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -162,9 +174,32 @@ const FilterSection = () => {
   return (
     filterOptions.length > 0 && (
       <Box borderRadius="full" _hover={{ bg: 'var(--primary-hover-white)' }}>
-        <Button onClick={() => setIsFilterOpen(!isFilterOpen)}>
-          <FilterIcon />
-        </Button>
+        <Box position="relative">
+          <IconButton
+            aria-label="Select Filter"
+            icon={<FilterIcon />}
+            onClick={() => setIsFilterOpen(!isFilterOpen)}
+            variant="ghost"
+            _hover={{
+              bg: '#ECECEC',
+              borderRadius: '50%',
+              border: '#ECECEC',
+            }}
+            borderRadius="50%"
+          />
+          {selectedFilters &&
+            Object.values(selectedFilters).some((filters) => filters.length > 0) && (
+              <Box
+                position="absolute"
+                top="2px"
+                right="2px"
+                w="9px"
+                h="9px"
+                bg="var( --dynamic-color-700)"
+                borderRadius="50%"
+              />
+            )}
+        </Box>
         <FilterPanel
           isFilterOpen={isFilterOpen}
           filters={filterOptions}
