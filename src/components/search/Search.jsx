@@ -30,13 +30,13 @@ const Search = () => {
       alignItems="center"
       maxW="428px"
       w="100%"
-      p="16px 24px"
+      p="16px"
       mx="auto"
       gap={2}
       boxShadow="var(--primary-box-shadow)"
     >
       <FilterSection />
-      <InputGroup flex={1} maxW="272px" w="100%" position="relative" h="40px">
+      <InputGroup flex={1} w="100%" position="relative" h="40px">
         <InputLeftElement pointerEvents="none" left="10px" top="50%" transform="translateY(-50%)">
           <SearchIcon width="24px" height="24px" />
         </InputLeftElement>
