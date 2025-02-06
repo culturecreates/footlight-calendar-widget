@@ -1,13 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
-import {
-  Box,
-  Button,
-  Collapse,
-  VStack,
-  Checkbox,
-  useOutsideClick,
-  IconButton,
-} from '@chakra-ui/react';
+import { Box, Button, Collapse, VStack, Checkbox, IconButton } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
@@ -74,7 +66,7 @@ const FilterDropdown = ({
   );
 };
 
-const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
+const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef }) => {
   const [openFilters, setOpenFilters] = useState([]);
   const { selectedFilters, setSelectedFilters } = useContext(WidgetContext);
   const panelRef = useRef(null);
@@ -95,10 +87,23 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
     setIsFilterOpen(false);
   };
 
-  useOutsideClick({
-    ref: panelRef,
-    handler: () => setIsFilterOpen(false),
-  });
+  const handleClickOutside = (event) => {
+    if (
+      panelRef.current &&
+      !panelRef.current.contains(event.target) &&
+      !iconRef.current.contains(event.target)
+    ) {
+      setIsFilterOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <Collapse in={isFilterOpen} animateOpacity>
@@ -135,6 +140,11 @@ const FilterSection = () => {
   const { calendarData, widgetProps, selectedFilters } = useContext(WidgetContext);
   const [filterOptions, setFilterOptions] = useState([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const iconRef = useRef(null);
+
+  const handleFilterToggle = () => {
+    setIsFilterOpen((prev) => !prev);
+  };
 
   useEffect(() => {
     if (!calendarData && !widgetProps?.filterOptions) return;
@@ -185,8 +195,9 @@ const FilterSection = () => {
           <IconButton
             aria-label="Select Filter"
             icon={<FilterIcon />}
-            onClick={() => setIsFilterOpen(!isFilterOpen)}
+            onClick={handleFilterToggle}
             variant="ghost"
+            ref={iconRef}
             _hover={{
               bg: 'var(--dynamic-color-100)',
               borderRadius: '50%',
@@ -211,6 +222,7 @@ const FilterSection = () => {
           isFilterOpen={isFilterOpen}
           filters={filterOptions}
           setIsFilterOpen={setIsFilterOpen}
+          iconRef={iconRef}
         />
       </Box>
     )
