@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { Box, Button, Collapse, VStack, Checkbox } from '@chakra-ui/react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
+import { Box, Button, Collapse, VStack, Checkbox, useOutsideClick } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
@@ -58,6 +58,7 @@ const FilterDropdown = ({
 const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
   const [openFilters, setOpenFilters] = useState([]);
   const { selectedFilters, setSelectedFilters } = useContext(WidgetContext);
+  const panelRef = useRef(null);
 
   const toggleFilter = (value) => {
     setOpenFilters((prevOpenFilters) =>
@@ -75,6 +76,11 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
     setIsFilterOpen(false);
   };
 
+  useOutsideClick({
+    ref: panelRef,
+    handler: () => setIsFilterOpen(false),
+  });
+
   return (
     <Collapse in={isFilterOpen} animateOpacity>
       <Box
@@ -86,6 +92,7 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
         borderRadius="md"
         minWidth="350px"
         maxWidth="350px"
+        ref={panelRef}
       >
         {filters?.map((filter, index) => (
           <FilterDropdown
