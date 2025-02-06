@@ -41,8 +41,8 @@ const FilterDropdown = ({
         alignItems="center"
         gap={4}
         _hover={{
-          bg: '#ECECEC',
-          border: '#ECECEC',
+          bg: 'var(--dynamic-color-100)',
+          border: 'none',
         }}
       >
         <Box flex="1" textAlign="left">
@@ -181,9 +181,9 @@ const FilterSection = () => {
             onClick={() => setIsFilterOpen(!isFilterOpen)}
             variant="ghost"
             _hover={{
-              bg: '#ECECEC',
+              bg: 'var(--dynamic-color-100)',
               borderRadius: '50%',
-              border: '#ECECEC',
+              border: '1px solid var(--dynamic-color-100)',
             }}
             borderRadius="50%"
           />
@@ -195,7 +195,7 @@ const FilterSection = () => {
                 right="2px"
                 w="9px"
                 h="9px"
-                bg="var( --dynamic-color-700)"
+                bg="var(--dynamic-color-700)"
                 borderRadius="50%"
               />
             )}
