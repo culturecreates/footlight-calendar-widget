@@ -42,11 +42,12 @@ const FilterDropdown = ({
           {name}
         </Box>
         <Box>
-          {isOpen ? (
-            <Arrow style={{ transform: 'rotate(180deg)', transition: 'transform 0.3s' }} />
-          ) : (
-            <Arrow style={{ transform: 'rotate(0deg)', transition: 'transform 0.3s' }} />
-          )}
+          <Arrow
+            style={{
+              transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+              transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+            }}
+          />
         </Box>
       </Button>
       <Collapse in={isOpen} animateOpacity>
