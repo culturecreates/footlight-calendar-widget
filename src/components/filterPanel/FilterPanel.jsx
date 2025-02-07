@@ -14,6 +14,7 @@ const FilterDropdown = ({
   selectedFilters,
   onFilterChange,
   value,
+  isSingleFilter,
 }) => {
   const handleCheckboxChange = (option) => {
     const updatedFilters = selectedFilters?.[value]?.includes(option.value)
@@ -42,11 +43,13 @@ const FilterDropdown = ({
           {name}
         </Box>
         <Box>
-          {isOpen ? (
-            <Arrow style={{ transform: 'rotate(180deg)', transition: 'transform 0.3s' }} />
-          ) : (
-            <Arrow style={{ transform: 'rotate(0deg)', transition: 'transform 0.3s' }} />
-          )}
+          <Arrow
+            style={{
+              display: isSingleFilter ? 'none' : 'block',
+              transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+              transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+            }}
+          />
         </Box>
       </Button>
       <Collapse in={isOpen} animateOpacity>
@@ -67,16 +70,14 @@ const FilterDropdown = ({
 };
 
 const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef, t }) => {
-  const [openFilters, setOpenFilters] = useState([]);
+  const [openFilter, setOpenFilter] = useState([]);
   const { selectedFilters, setSelectedFilters } = useContext(WidgetContext);
   const panelRef = useRef(null);
 
+  const isSingleFilter = filters?.length === 1;
+
   const toggleFilter = (value) => {
-    setOpenFilters((prevOpenFilters) =>
-      prevOpenFilters?.includes(value)
-        ? prevOpenFilters?.filter((filter) => filter !== value)
-        : [...prevOpenFilters, value],
-    );
+    setOpenFilter(openFilter === value ? null : value);
   };
 
   const handleFilterChange = (category, selectedOptions) => {
@@ -141,11 +142,12 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef, t }) => 
             key={index}
             name={filter?.name}
             options={filter?.options}
-            isOpen={openFilters?.includes(filter?.value)}
+            isOpen={isSingleFilter || openFilter === filter?.value}
             onToggle={() => toggleFilter(filter?.value)}
             selectedFilters={selectedFilters}
             onFilterChange={handleFilterChange}
             value={filter?.value}
+            isSingleFilter={isSingleFilter}
           />
         ))}
       </Box>
@@ -180,23 +182,43 @@ const FilterSection = () => {
       calendarData.taxonomies
         ?.filter(({ mappedToField }) => userSelectedTaxonomyMappedFields.includes(mappedToField))
         ?.map(({ name, mappedToField, concepts }) => ({
-          name: name?.[locale] ?? name?.en ?? '',
+          name:
+            name?.[locale] ||
+            name?.en ||
+            name?.fr ||
+            Object.values(name ?? {}).find((val) => val) ||
+            '@none',
           value: mappedToField,
           options:
             concepts?.map(({ name, id }) => ({
-              label: name?.[locale] ?? name?.en ?? '',
+              label:
+                name?.[locale] ||
+                name?.en ||
+                name?.fr ||
+                Object.values(name ?? {}).find((val) => val) ||
+                '@none',
               value: id,
             })) ?? [],
         })) ?? [];
+
     if (userSelectedfilters?.includes('PLACE')) {
       placesFilterOptions = calendarData.places?.length
         ? {
             name: t('filter.place'),
             value: 'place',
-            options: calendarData.places.map(({ name, id }) => ({
-              label: name?.[locale] ?? name?.en ?? '',
-              value: id,
-            })),
+            options: calendarData.places
+              .map(({ name, id }) => ({
+                label:
+                  name?.[locale] ||
+                  name?.en ||
+                  name?.fr ||
+                  Object.values(name ?? {}).find((val) => val) ||
+                  '@none',
+                value: id,
+              }))
+              .sort((a, b) =>
+                a.label.localeCompare(b.label, locale || 'en', { sensitivity: 'base' }),
+              ),
           }
         : null;
     }
