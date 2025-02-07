@@ -67,16 +67,12 @@ const FilterDropdown = ({
 };
 
 const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef, t }) => {
-  const [openFilters, setOpenFilters] = useState([]);
+  const [openFilter, setOpenFilter] = useState([]);
   const { selectedFilters, setSelectedFilters } = useContext(WidgetContext);
   const panelRef = useRef(null);
 
   const toggleFilter = (value) => {
-    setOpenFilters((prevOpenFilters) =>
-      prevOpenFilters?.includes(value)
-        ? prevOpenFilters?.filter((filter) => filter !== value)
-        : [...prevOpenFilters, value],
-    );
+    setOpenFilter(openFilter === value ? null : value);
   };
 
   const handleFilterChange = (category, selectedOptions) => {
@@ -141,7 +137,7 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef, t }) => 
             key={index}
             name={filter?.name}
             options={filter?.options}
-            isOpen={openFilters?.includes(filter?.value)}
+            isOpen={openFilter === filter?.value}
             onToggle={() => toggleFilter(filter?.value)}
             selectedFilters={selectedFilters}
             onFilterChange={handleFilterChange}
