@@ -182,23 +182,43 @@ const FilterSection = () => {
       calendarData.taxonomies
         ?.filter(({ mappedToField }) => userSelectedTaxonomyMappedFields.includes(mappedToField))
         ?.map(({ name, mappedToField, concepts }) => ({
-          name: name?.[locale] ?? name?.en ?? '',
+          name:
+            name?.[locale] ||
+            name?.en ||
+            name?.fr ||
+            Object.values(name ?? {}).find((val) => val) ||
+            '@none',
           value: mappedToField,
           options:
             concepts?.map(({ name, id }) => ({
-              label: name?.[locale] ?? name?.en ?? '',
+              label:
+                name?.[locale] ||
+                name?.en ||
+                name?.fr ||
+                Object.values(name ?? {}).find((val) => val) ||
+                '@none',
               value: id,
             })) ?? [],
         })) ?? [];
+
     if (userSelectedfilters?.includes('PLACE')) {
       placesFilterOptions = calendarData.places?.length
         ? {
             name: t('filter.place'),
             value: 'place',
-            options: calendarData.places.map(({ name, id }) => ({
-              label: name?.[locale] ?? name?.en ?? '',
-              value: id,
-            })),
+            options: calendarData.places
+              .map(({ name, id }) => ({
+                label:
+                  name?.[locale] ||
+                  name?.en ||
+                  name?.fr ||
+                  Object.values(name ?? {}).find((val) => val) ||
+                  '@none',
+                value: id,
+              }))
+              .sort((a, b) =>
+                a.label.localeCompare(b.label, locale || 'en', { sensitivity: 'base' }),
+              ),
           }
         : null;
     }
