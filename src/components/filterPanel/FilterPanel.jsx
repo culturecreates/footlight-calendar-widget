@@ -14,6 +14,7 @@ const FilterDropdown = ({
   selectedFilters,
   onFilterChange,
   value,
+  isSingleFilter,
 }) => {
   const handleCheckboxChange = (option) => {
     const updatedFilters = selectedFilters?.[value]?.includes(option.value)
@@ -44,6 +45,7 @@ const FilterDropdown = ({
         <Box>
           <Arrow
             style={{
+              display: isSingleFilter ? 'none' : 'block',
               transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
               transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
@@ -71,6 +73,8 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef, t }) => 
   const [openFilter, setOpenFilter] = useState([]);
   const { selectedFilters, setSelectedFilters } = useContext(WidgetContext);
   const panelRef = useRef(null);
+
+  const isSingleFilter = filters?.length === 1;
 
   const toggleFilter = (value) => {
     setOpenFilter(openFilter === value ? null : value);
@@ -138,11 +142,12 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef, t }) => 
             key={index}
             name={filter?.name}
             options={filter?.options}
-            isOpen={openFilter === filter?.value}
+            isOpen={isSingleFilter || openFilter === filter?.value}
             onToggle={() => toggleFilter(filter?.value)}
             selectedFilters={selectedFilters}
             onFilterChange={handleFilterChange}
             value={filter?.value}
+            isSingleFilter={isSingleFilter}
           />
         ))}
       </Box>
