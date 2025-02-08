@@ -6,7 +6,7 @@
   min-height: 100px;
   flex: 1;
   height: 100%;
-  padding: 0 16px;
+  padding: 0 24px;
 }
 
 #calendar-widget > .widget-layout .result-panel-wrapper {
