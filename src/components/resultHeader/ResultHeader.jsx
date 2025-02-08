@@ -36,7 +36,6 @@ const ResultHeader = () => {
           width: '35px',
           height: '35px',
           borderRadius: '50%',
-          p: '5px',
           transition: 'background-color 0.3s ease',
           _hover: {
             backgroundColor: 'var(--dynamic-color-100)',
