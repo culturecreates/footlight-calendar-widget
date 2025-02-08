@@ -11,8 +11,12 @@ const ResultHeader = () => {
       display="flex"
       justifyContent="space-between"
       alignItems="center"
-      p="0px 16px 16px"
-      maxW="639px"
+      p="0px 24px 16px 24px"
+      maxW={{
+        sm: '717px',
+        md: '717px',
+        lg: '981px',
+      }}
       w="100%"
     >
       <Text
