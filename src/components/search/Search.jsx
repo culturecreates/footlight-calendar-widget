@@ -28,12 +28,12 @@ const Search = () => {
       display="flex"
       justifyContent="space-between"
       alignItems="center"
-      maxW="428px"
+      maxW="690px"
       w="100%"
       p="16px"
       mx="auto"
       gap={2}
-      boxShadow="var(--primary-box-shadow)"
+      boxShadow={{ base: 'var(--primary-box-shadow)', md: 'none' }}
       className="filter-search-section"
     >
       <FilterSection />
