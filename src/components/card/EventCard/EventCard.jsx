@@ -47,7 +47,7 @@ const EventCard = React.memo(
                   fontWeight="500"
                   color="var(--title-grey)"
                   noOfLines={1}
-                  isTruncated
+                  whiteSpace="normal"
                   ml="2px"
                 >
                   {stageName}
