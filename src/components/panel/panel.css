@@ -21,10 +21,6 @@
   padding: 16px 0;
 }
 
-#calendar-widget > .widget-layout .results {
-  width: 100%;
-}
-
 #calendar-widget > .widget-layout .result-panel-wrapper .loader-wrapper {
   width: 100%;
   min-height: 100%;
