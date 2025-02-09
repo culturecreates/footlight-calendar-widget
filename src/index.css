@@ -21,6 +21,12 @@
   --primary-font-weight: 19px;
   --secondary-font-weight: 16px;
 
+  /*********** Presenter Card Font Sizes ***********/
+  --presenter-name-font-size: 18px;
+  --presenter-website-font-size: 12px;
+  --presenter-badge-font-size: 13px;
+  --presenter-description-font-size: 13px;
+
   /*********** shadow ***********/
 
   --primary-box-shadow: 0px 4px 4px 0px #0000000d;

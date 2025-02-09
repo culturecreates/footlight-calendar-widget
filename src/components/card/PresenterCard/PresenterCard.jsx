@@ -34,10 +34,19 @@ const PresenterCard = ({ image, name, website, type, description, socialLinks = 
         <HStack spacing={3} mt={2}>
           <Image src={image} alt={name} borderRadius="full" boxSize="88px" />
           <VStack align="start" spacing={1}>
-            <Text fontSize="18px" fontWeight="700" color={'var(--secondary-black'}>
+            <Text
+              fontSize="var(--presenter-name-font-size)"
+              fontWeight="700"
+              color={'var(--secondary-black'}
+            >
               {name}
             </Text>
-            <Link href={website} color="var(--dynamic-color-700)" isExternal fontSize="12px">
+            <Link
+              href={website}
+              color="var(--dynamic-color-700)"
+              isExternal
+              fontSize="var(--presenter-website-font-size)"
+            >
               {website}
             </Link>
 
@@ -46,7 +55,7 @@ const PresenterCard = ({ image, name, website, type, description, socialLinks = 
               px={2}
               py={1}
               borderRadius="4px"
-              fontSize={'13px'}
+              fontSize={'var(--presenter-badge-font-size)'}
               fontWeight={'400'}
               textTransform={'capitalize'}
               color="var(--primary-white-opaque)"
@@ -56,7 +65,7 @@ const PresenterCard = ({ image, name, website, type, description, socialLinks = 
           </VStack>
         </HStack>
 
-        <Text fontSize="13px" fontWeight={'300'} noOfLines={3}>
+        <Text fontSize="var(--presenter-description-font-size)" fontWeight={'300'} noOfLines={3}>
           {description}
         </Text>
 
