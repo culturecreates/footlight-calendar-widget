@@ -7,14 +7,19 @@ import { dateRangeFormatter } from '../../../utils/dateRangeFormatter';
 
 const EventCard = React.memo(
   ({ image, eventName, stageName, eventType = [], startDate, altText }) => {
-    const cardWidth = useBreakpointValue({ base: '100%', sm: '48%', md: '32%', lg: '30%' });
+    const cardWidth = useBreakpointValue({
+      base: '371px',
+      sm: '246px',
+      md: '246px',
+      lg: '246px',
+    });
 
     return (
       <Box
         flex="1 1 auto"
         width={cardWidth}
-        maxWidth="640px"
-        minWidth="250px"
+        maxWidth="371px"
+        minWidth="246px"
         borderRadius="10px"
         overflow="hidden"
       >
@@ -47,7 +52,7 @@ const EventCard = React.memo(
                   fontWeight="500"
                   color="var(--title-grey)"
                   noOfLines={1}
-                  isTruncated
+                  whiteSpace="normal"
                   ml="2px"
                 >
                   {stageName}
