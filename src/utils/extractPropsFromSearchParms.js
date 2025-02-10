@@ -23,7 +23,7 @@ export function extractPropsFromSearchParams(dataAttributes) {
     dataAttributes?.alwaysOnDatePicker || searchParams.get('alwaysOnDatePicker'),
   );
   const disableGroups = JSON.parse(
-    dataAttributes?.disableGroups || searchParams.get('disableGrouping'),
+    dataAttributes?.disableGrouping || searchParams.get('disableGrouping'),
   );
 
   // Optional parameters

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Button, Icon, VStack } from '@chakra-ui/react';
+import { Box, Button, Icon } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
 import EventCard from '../card/EventCard/EventCard';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +13,16 @@ const Results = () => {
   const { t } = useTranslation();
 
   return (
-    <VStack spacing={3} overflowY="scroll" height="100%" align="center">
+    <Box
+      display="grid"
+      gridTemplateColumns={{
+        base: '371px',
+        sm: 'repeat(2, 246px)',
+        md: 'repeat(3, 246px)',
+        lg: 'repeat(4, 246px)',
+      }}
+      gap={4}
+    >
       {data?.map((item, index) => (
         <EventCard
           key={index}
@@ -39,7 +48,7 @@ const Results = () => {
           <Icon as={ArrowDownIcon} ml={2} />
         </Button>
       )}
-    </VStack>
+    </Box>
   );
 };
 

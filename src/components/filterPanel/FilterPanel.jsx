@@ -1,13 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
-import {
-  Box,
-  Button,
-  Collapse,
-  VStack,
-  Checkbox,
-  useOutsideClick,
-  IconButton,
-} from '@chakra-ui/react';
+import { Box, Button, Collapse, VStack, Checkbox, IconButton, HStack } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
@@ -22,6 +14,7 @@ const FilterDropdown = ({
   selectedFilters,
   onFilterChange,
   value,
+  isSingleFilter,
 }) => {
   const handleCheckboxChange = (option) => {
     const updatedFilters = selectedFilters?.[value]?.includes(option.value)
@@ -50,11 +43,13 @@ const FilterDropdown = ({
           {name}
         </Box>
         <Box>
-          {isOpen ? (
-            <Arrow style={{ transform: 'rotate(180deg)', transition: 'transform 0.3s' }} />
-          ) : (
-            <Arrow style={{ transform: 'rotate(0deg)', transition: 'transform 0.3s' }} />
-          )}
+          <Arrow
+            style={{
+              display: isSingleFilter ? 'none' : 'block',
+              transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+              transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+            }}
+          />
         </Box>
       </Button>
       <Collapse in={isOpen} animateOpacity>
@@ -62,7 +57,7 @@ const FilterDropdown = ({
           {options?.map((option, idx) => (
             <Checkbox
               key={idx}
-              isChecked={selectedFilters?.[name]?.includes(option.value)}
+              isChecked={selectedFilters?.[value]?.includes(option.value) ?? false}
               onChange={() => handleCheckboxChange(option)}
             >
               {option.label}
@@ -74,17 +69,15 @@ const FilterDropdown = ({
   );
 };
 
-const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
-  const [openFilters, setOpenFilters] = useState([]);
+const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef, t }) => {
+  const [openFilter, setOpenFilter] = useState([]);
   const { selectedFilters, setSelectedFilters } = useContext(WidgetContext);
   const panelRef = useRef(null);
 
+  const isSingleFilter = filters?.length === 1;
+
   const toggleFilter = (value) => {
-    setOpenFilters((prevOpenFilters) =>
-      prevOpenFilters?.includes(value)
-        ? prevOpenFilters?.filter((filter) => filter !== value)
-        : [...prevOpenFilters, value],
-    );
+    setOpenFilter(openFilter === value ? null : value);
   };
 
   const handleFilterChange = (category, selectedOptions) => {
@@ -95,10 +88,28 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
     setIsFilterOpen(false);
   };
 
-  useOutsideClick({
-    ref: panelRef,
-    handler: () => setIsFilterOpen(false),
-  });
+  const handleClickOutside = (event) => {
+    if (
+      panelRef.current &&
+      !panelRef.current.contains(event.target) &&
+      !iconRef.current.contains(event.target)
+    ) {
+      setIsFilterOpen(false);
+    }
+  };
+
+  const handleClearAllFilters = () => {
+    setSelectedFilters({});
+    setIsFilterOpen(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <Collapse in={isFilterOpen} animateOpacity>
@@ -113,16 +124,30 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen }) => {
         maxWidth="350px"
         ref={panelRef}
       >
+        {selectedFilters &&
+          Object.values(selectedFilters).some((filters) => filters.length > 0) && (
+            <HStack width="100%" pr={2} justifyContent="flex-end">
+              <Button
+                size="xs"
+                variant="link"
+                color="var(--dynamic-color-700)"
+                onClick={handleClearAllFilters}
+              >
+                {t('filter.clearAll')}
+              </Button>
+            </HStack>
+          )}
         {filters?.map((filter, index) => (
           <FilterDropdown
             key={index}
             name={filter?.name}
             options={filter?.options}
-            isOpen={openFilters?.includes(filter?.value)}
+            isOpen={isSingleFilter || openFilter === filter?.value}
             onToggle={() => toggleFilter(filter?.value)}
             selectedFilters={selectedFilters}
             onFilterChange={handleFilterChange}
             value={filter?.value}
+            isSingleFilter={isSingleFilter}
           />
         ))}
       </Box>
@@ -135,6 +160,11 @@ const FilterSection = () => {
   const { calendarData, widgetProps, selectedFilters } = useContext(WidgetContext);
   const [filterOptions, setFilterOptions] = useState([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const iconRef = useRef(null);
+
+  const handleFilterToggle = () => {
+    setIsFilterOpen((prev) => !prev);
+  };
 
   useEffect(() => {
     if (!calendarData && !widgetProps?.filterOptions) return;
@@ -152,23 +182,43 @@ const FilterSection = () => {
       calendarData.taxonomies
         ?.filter(({ mappedToField }) => userSelectedTaxonomyMappedFields.includes(mappedToField))
         ?.map(({ name, mappedToField, concepts }) => ({
-          name: name?.[locale] ?? name?.en ?? '',
+          name:
+            name?.[locale] ||
+            name?.en ||
+            name?.fr ||
+            Object.values(name ?? {}).find((val) => val) ||
+            '@none',
           value: mappedToField,
           options:
             concepts?.map(({ name, id }) => ({
-              label: name?.[locale] ?? name?.en ?? '',
+              label:
+                name?.[locale] ||
+                name?.en ||
+                name?.fr ||
+                Object.values(name ?? {}).find((val) => val) ||
+                '@none',
               value: id,
             })) ?? [],
         })) ?? [];
+
     if (userSelectedfilters?.includes('PLACE')) {
       placesFilterOptions = calendarData.places?.length
         ? {
             name: t('filter.place'),
             value: 'place',
-            options: calendarData.places.map(({ name, id }) => ({
-              label: name?.[locale] ?? name?.en ?? '',
-              value: id,
-            })),
+            options: calendarData.places
+              .map(({ name, id }) => ({
+                label:
+                  name?.[locale] ||
+                  name?.en ||
+                  name?.fr ||
+                  Object.values(name ?? {}).find((val) => val) ||
+                  '@none',
+                value: id,
+              }))
+              .sort((a, b) =>
+                a.label.localeCompare(b.label, locale || 'en', { sensitivity: 'base' }),
+              ),
           }
         : null;
     }
@@ -185,8 +235,9 @@ const FilterSection = () => {
           <IconButton
             aria-label="Select Filter"
             icon={<FilterIcon />}
-            onClick={() => setIsFilterOpen(!isFilterOpen)}
+            onClick={handleFilterToggle}
             variant="ghost"
+            ref={iconRef}
             _hover={{
               bg: 'var(--dynamic-color-100)',
               borderRadius: '50%',
@@ -211,6 +262,8 @@ const FilterSection = () => {
           isFilterOpen={isFilterOpen}
           filters={filterOptions}
           setIsFilterOpen={setIsFilterOpen}
+          iconRef={iconRef}
+          t={t}
         />
       </Box>
     )
