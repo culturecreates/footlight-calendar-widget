@@ -1,13 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Box,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
-  IconButton,
-} from '@chakra-ui/react';
+import { Box, Input, IconButton } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
 import { ReactComponent as SearchIcon } from '../../assets/search.svg';
 import { ReactComponent as ClearIcon } from '../../assets/closeCircle.svg';
@@ -37,7 +31,7 @@ const Search = () => {
       className="filter-search-section"
     >
       <FilterSection />
-      <InputGroup flex={1} w="100%" position="relative" h="40px">
+      {/* <InputGroup flex={1} w="100%" position="relative" h="40px">
         <InputLeftElement pointerEvents="none" left="10px" top="50%" transform="translateY(-50%)">
           <SearchIcon className="search-icon" width="24px" height="24px" />
         </InputLeftElement>
@@ -76,7 +70,7 @@ const Search = () => {
             />
           </InputRightElement>
         )}
-      </InputGroup>
+      </InputGroup> */}
       <FloatingDatePicker />
     </Box>
   );

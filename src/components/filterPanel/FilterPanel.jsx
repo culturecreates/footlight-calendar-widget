@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
-import { Box, Button, Collapse, VStack, Checkbox, IconButton, HStack } from '@chakra-ui/react';
+import { Box, Button, VStack, Checkbox, IconButton, HStack, Collapsible } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
@@ -52,7 +52,7 @@ const FilterDropdown = ({
           />
         </Box>
       </Button>
-      <Collapse in={isOpen} animateOpacity>
+      <Collapsible in={isOpen} animateOpacity>
         <VStack align="start" mt={2} pl={2} maxHeight="200px" overflowY="auto">
           {options?.map((option, idx) => (
             <Checkbox
@@ -64,7 +64,7 @@ const FilterDropdown = ({
             </Checkbox>
           ))}
         </VStack>
-      </Collapse>
+      </Collapsible>
     </Box>
   );
 };
@@ -112,7 +112,7 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef, t }) => 
   }, []);
 
   return (
-    <Collapse in={isFilterOpen} animateOpacity>
+    <Collapsible in={isFilterOpen} animateOpacity>
       <Box
         position="absolute"
         zIndex="10"
@@ -151,7 +151,7 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef, t }) => 
           />
         ))}
       </Box>
-    </Collapse>
+    </Collapsible>
   );
 };
 
