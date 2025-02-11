@@ -1,0 +1,31 @@
+.event-details-modal-top-section {
+  background-color: var(--dynamic-color-700);
+}
+
+.event-details-modal-image-wrapper {
+  background-color: var(--dynamic-color-100);
+}
+
+.container {
+  height: 200px;
+  display: inline-grid;
+  overflow: auto;
+}
+
+img,
+.overlay {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.overlay {
+  z-index: 2;
+  background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 10px,
+      #eee 10px,
+      #eee 11px
+    ),
+    repeating-linear-gradient(-90deg, transparent, transparent 10px, #eee 10px, #eee 11px);
+}
