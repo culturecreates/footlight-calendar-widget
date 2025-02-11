@@ -11,15 +11,26 @@
   --primary-white-opaque: #ffffff;
 
   --primary-blue: #3d3ce1;
+  --presenter-link-color: #0f0e9f;
+
 
   --primary-black: #222732;
   --secondary-black: #000000cc;
   --tertiary-black: #1e1e1eb2;
 
+
   /*********** font ***********/
 
   --primary-font-weight: 19px;
   --secondary-font-weight: 16px;
+
+  /*********** Presenter font ***********/
+
+  --presenter-font-size: 16px;
+  --presenter-font-weight: 500;
+
+  --presenter-link-size: 14px;
+  --presenter-link-weight: 400;
 
   /*********** shadow ***********/
 
