@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Box, Button, Icon } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
-import EventCard from '../card/EventCard/EventCard';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as ArrowDownIcon } from '../../assets/arrowDown.svg';
 import { onLoadMoreClick } from '../../utils/onLoadMoreClick';
+import EventCard from '../EventCard/EventCard';
 
 const Results = () => {
   const { data, lastPageFlag, getData, pageNumber, widgetProps } = useContext(WidgetContext);
@@ -26,6 +26,7 @@ const Results = () => {
       {data?.map((item, index) => (
         <EventCard
           key={index}
+          id={item?.id}
           image={item?.image}
           eventName={item?.title}
           stageName={item?.place}

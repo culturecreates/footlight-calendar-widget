@@ -1,65 +1,57 @@
+import { getLocalized } from './getLocalized';
+
 export const transformData = ({ data, locale }) => {
-  const transformedData = data?.map((eventData) => {
-    let place = eventData.location || {};
-    // If place is an array then extract first object of type 'Place'
-    if (Array.isArray(place)) {
-      place =
-        eventData.location.filter(
-          (place) => place.type === 'Place' || place.type === 'VirtualLocation',
-        )[0] || {};
-    }
+  return (
+    data?.map((eventData) => {
+      const {
+        id,
+        name,
+        slug,
+        description,
+        scheduleTimezone,
+        startDate,
+        startDateTime,
+        endDate,
+        endDateTime,
+        image,
+        location = {},
+        performers = [],
+        additionalType = [],
+        subEventDetails = {},
+      } = eventData;
 
-    // Fallback to English and then French if the locale-specific name is not available
-    const title = eventData.name?.[locale] || eventData.name?.en || eventData.name?.fr || '';
+      // Determine place object
+      const place = Array.isArray(location)
+        ? location.find(({ type }) => type === 'Place' || type === 'VirtualLocation') || {}
+        : location;
 
-    const addressLocality =
-      place.address?.addressLocality?.[locale] ||
-      place.address?.addressLocality?.en ||
-      place.address?.addressLocality?.fr ||
-      '';
+      // Extract address details
+      const { address = {} } = place;
+      const { addressLocality, streetAddress } = address;
 
-    const streetAddress =
-      place.address?.streetAddress?.[locale] ||
-      place.address?.streetAddress?.en ||
-      place.address?.streetAddress?.fr ||
-      '';
-
-    const performers = eventData?.performers?.map((performer) => {
       return {
-        name: performer?.name?.[locale] || performer?.name?.en || performer?.name?.fr || '',
-        image: performer?.image?.thumbnail || '',
+        id,
+        title: getLocalized(name, locale),
+        slug: getLocalized(slug, locale),
+        description: getLocalized(description, locale),
+        scheduleTimezone,
+        startDate:
+          subEventDetails.upcomingSubEventCount === 0
+            ? startDate || startDateTime || ''
+            : subEventDetails.nextUpcomingSubEventDateTime ||
+              subEventDetails.nextUpcomingSubEventDate ||
+              '',
+        endDate: endDate || endDateTime || '',
+        image: image?.thumbnail || '',
+        place: getLocalized(place.name, locale),
+        city: getLocalized(addressLocality, locale),
+        streetAddress: getLocalized(streetAddress, locale),
+        eventTypes: additionalType.map((type) => getLocalized(type?.name, locale)),
+        performers: performers.map(({ name, image }) => ({
+          name: getLocalized(name, locale),
+          image: image?.thumbnail || '',
+        })),
       };
-    });
-    const description =
-      eventData?.description?.[locale] ||
-      eventData?.description?.en ||
-      eventData?.description?.fr ||
-      '';
-
-    const eventTypes = eventData?.additionalType?.map((type) => {
-      return type?.name[locale] || type?.name?.en || type?.name?.fr;
-    });
-
-    return {
-      id: eventData.id,
-      title: title,
-      slug: eventData.slug?.[locale],
-      performers,
-      description,
-      scheduleTimezone: eventData?.scheduleTimezone,
-      startDate:
-        eventData.subEventDetails.upcomingSubEventCount === 0
-          ? eventData?.startDate || eventData?.startDateTime || ''
-          : eventData.subEventDetails?.nextUpcomingSubEventDateTime ||
-            eventData.subEventDetails?.nextUpcomingSubEventDate ||
-            '',
-      endDate: eventData.endDate || eventData.endDateTime || '',
-      image: eventData.image?.thumbnail || '',
-      place: place.name?.[locale] || place.name?.en || place.name?.fr || '',
-      city: addressLocality,
-      eventTypes: eventTypes,
-      streetAddress: streetAddress,
-    };
-  });
-  return transformedData;
+    }) || []
+  );
 };

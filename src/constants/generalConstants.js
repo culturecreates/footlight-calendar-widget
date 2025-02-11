@@ -12,6 +12,14 @@ export const redirectionModes = {
   EXTERNAL: 'EXTERNAL',
 };
 
+export const contentLanguages = {
+  ENGLISH: 'en',
+  FRENCH: 'fr',
+  JAPANESE: 'ja',
+  CHINESE: 'zh',
+  KOREAN: 'ko',
+};
+
 export const urlTypes = {
   SEARCH_EVENTS: 'searchEventsUrl',
   EVENT: 'eventUrl',

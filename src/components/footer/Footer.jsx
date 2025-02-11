@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
+import { getLocalized } from '../../utils/getLocalized';
 
 const Footer = () => {
   const { t } = useTranslation();
   const { widgetProps, calendarData } = useContext(WidgetContext);
   const { showFooter, calendarLogo, locale } = widgetProps;
-  const calendarName =
-    calendarData?.name?.[locale] || calendarData?.name?.en || calendarData?.name?.fr;
+  const calendarName = getLocalized(calendarData?.name, locale);
 
   if (!showFooter) return null;
 
