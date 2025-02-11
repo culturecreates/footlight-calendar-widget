@@ -23,11 +23,11 @@
   --primary-font-weight: 19px;
   --secondary-font-weight: 16px;
 
-  /*********** Presenter Card Font Sizes ***********/
-  --presenter-name-font-size: 18px;
-  --presenter-website-font-size: 12px;
-  --presenter-badge-font-size: 13px;
-  --presenter-description-font-size: 13px;
+  /*********** Performer Card Font Sizes ***********/
+  --performer-name-font-size: 18px;
+  --performer-website-font-size: 12px;
+  --performer-badge-font-size: 13px;
+  --performer-description-font-size: 13px;
 
   /*********** shadow ***********/
 

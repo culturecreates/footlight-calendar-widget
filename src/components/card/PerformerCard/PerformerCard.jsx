@@ -13,7 +13,7 @@ const socialIcons = {
   AppleMusic: AppleMusicIcon,
 };
 
-const PresenterCard = ({ image, name, website, type, description, socialLinks = [] }) => {
+const PerformerCard = ({ image, name, website, type, description, socialLinks = [] }) => {
   const filteredSocialLinks = socialLinks.filter(({ type }) => socialIcons[type]);
 
   return (
@@ -35,7 +35,7 @@ const PresenterCard = ({ image, name, website, type, description, socialLinks = 
           <Image src={image} alt={name} borderRadius="full" boxSize="88px" />
           <VStack align="start" spacing={1}>
             <Text
-              fontSize="var(--presenter-name-font-size)"
+              fontSize="var(--performer-name-font-size)"
               fontWeight="700"
               color={'var(--secondary-black'}
             >
@@ -45,7 +45,7 @@ const PresenterCard = ({ image, name, website, type, description, socialLinks = 
               href={website}
               color="var(--dynamic-color-700)"
               isExternal
-              fontSize="var(--presenter-website-font-size)"
+              fontSize="var(--performer-website-font-size)"
             >
               {website}
             </Link>
@@ -55,7 +55,7 @@ const PresenterCard = ({ image, name, website, type, description, socialLinks = 
               px={2}
               py={1}
               borderRadius="4px"
-              fontSize={'var(--presenter-badge-font-size)'}
+              fontSize={'var(--performer-badge-font-size)'}
               fontWeight={'400'}
               textTransform={'capitalize'}
               color="var(--primary-white-opaque)"
@@ -65,7 +65,7 @@ const PresenterCard = ({ image, name, website, type, description, socialLinks = 
           </VStack>
         </HStack>
 
-        <Text fontSize="var(--presenter-description-font-size)" fontWeight={'300'} noOfLines={3}>
+        <Text fontSize="var(--performer-description-font-size)" fontWeight={'300'} noOfLines={3}>
           {description}
         </Text>
 
@@ -92,4 +92,4 @@ const PresenterCard = ({ image, name, website, type, description, socialLinks = 
   );
 };
 
-export default PresenterCard;
+export default PerformerCard;
