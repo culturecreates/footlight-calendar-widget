@@ -22,16 +22,17 @@ const EventCard = React.memo(
         minWidth="246px"
         borderRadius="10px"
         overflow="hidden"
+        height={'100%'}
       >
         <Image src={image} alt={altText} width="100%" />
 
-        <Box p={4} bg="var(--bg-grey)">
-          <Stack spacing={3}>
+        <Box p={'4px'} bg="var(--bg-grey)">
+          <Stack gap={'3px'}>
             <Heading
               as="h3"
               size="md"
-              noOfLines={2}
-              isTruncated
+              noOfLines={'2'}
+              truncate
               fontSize="var(--secondary-font-weight)"
             >
               {eventName}
@@ -42,16 +43,16 @@ const EventCard = React.memo(
               align="flex-start"
               direction={'column'}
               wrap="nowrap"
-              gap={2}
+              gap={'0.5rem'}
             >
               <DateBadge startDate={dateRangeFormatter(startDate)} />
-              <Flex align="center" justify={'center'} ml="2px" gap={1}>
+              <Flex align="center" justify={'center'} ml="2px" gap={'4px'}>
                 <Image src={StageIcon} alt="Stage Icon" boxSize={'14px'} />
                 <Text
                   fontSize="13px"
                   fontWeight="500"
                   color="var(--title-grey)"
-                  noOfLines={1}
+                  noOfLines={'1'}
                   whiteSpace="normal"
                   ml="2px"
                 >
@@ -60,7 +61,7 @@ const EventCard = React.memo(
               </Flex>
             </Flex>
 
-            <Flex wrap="wrap" spacing={3} justify="flex-start" gap={2}>
+            <Flex wrap="wrap" justify="flex-start" gap={'0.5rem'}>
               {eventType.length > 0 && <EventTypeBadge eventType={eventType[0]} />}
             </Flex>
           </Stack>

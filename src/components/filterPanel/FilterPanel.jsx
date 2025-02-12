@@ -1,5 +1,14 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
-import { Box, Button, Collapse, VStack, Checkbox, IconButton, HStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Collapsible,
+  // VStack,
+  Checkbox,
+  IconButton,
+  HStack,
+  CheckboxGroup,
+} from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
@@ -52,19 +61,25 @@ const FilterDropdown = ({
           />
         </Box>
       </Button>
-      <Collapse in={isOpen} animateOpacity>
-        <VStack align="start" mt={2} pl={2} maxHeight="200px" overflowY="auto">
-          {options?.map((option, idx) => (
-            <Checkbox
-              key={idx}
-              isChecked={selectedFilters?.[value]?.includes(option.value) ?? false}
-              onChange={() => handleCheckboxChange(option)}
-            >
-              {option.label}
-            </Checkbox>
-          ))}
-        </VStack>
-      </Collapse>
+      <Collapsible.Root open={isOpen}>
+        <Collapsible.Content>
+          {/* <VStack> */}
+          <CheckboxGroup>
+            {options?.map((option, idx) => {
+              return (
+                <Checkbox
+                  key={idx}
+                  checked={selectedFilters?.[value]?.includes(option.value) ?? false}
+                  onCheckedChange={() => handleCheckboxChange(option)}
+                >
+                  {option.label}
+                </Checkbox>
+              );
+            })}
+          </CheckboxGroup>
+          {/* </VStack> */}
+        </Collapsible.Content>
+      </Collapsible.Root>
     </Box>
   );
 };
@@ -112,7 +127,7 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef, t }) => 
   }, []);
 
   return (
-    <Collapse in={isFilterOpen} animateOpacity>
+    <Collapsible.Root open={isFilterOpen} animateOpacity>
       <Box
         position="absolute"
         zIndex="10"
@@ -151,7 +166,7 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef, t }) => 
           />
         ))}
       </Box>
-    </Collapse>
+    </Collapsible.Root>
   );
 };
 
@@ -234,7 +249,6 @@ const FilterSection = () => {
         <Box position="relative">
           <IconButton
             aria-label="Select Filter"
-            icon={<FilterIcon />}
             onClick={handleFilterToggle}
             variant="ghost"
             ref={iconRef}
@@ -244,7 +258,9 @@ const FilterSection = () => {
               border: '1px solid var(--dynamic-color-100)',
             }}
             borderRadius="50%"
-          />
+          >
+            <FilterIcon />
+          </IconButton>
           {selectedFilters &&
             Object.values(selectedFilters).some((filters) => filters.length > 0) && (
               <Box

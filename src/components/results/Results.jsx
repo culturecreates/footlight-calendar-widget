@@ -22,7 +22,7 @@ const Results = () => {
           md: 'repeat(3, 246px)',
           lg: 'repeat(4, 246px)',
         }}
-        gap={4}
+        gap={'1rem'}
       >
         {data?.map((item, index) => (
           <EventCard
@@ -47,7 +47,7 @@ const Results = () => {
           _hover={{ textDecoration: 'underline' }}
         >
           {t('loadMore')}
-          <Icon as={ArrowDownIcon} ml={2} />
+          <Icon as={ArrowDownIcon} ml={'2px'} />
         </Button>
       )}
     </VStack>

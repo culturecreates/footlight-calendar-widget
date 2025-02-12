@@ -8,8 +8,8 @@ const DateBadge = ({ startDate, color }) => (
     color={color ?? 'var(--primary-white-opaque)'}
     bg="var(--dynamic-color-700)"
     borderRadius="5px"
-    px={2}
-    py={1}
+    px={'2px'}
+    py={'1px'}
     display="inline-flex"
     alignSelf="flex-start"
   >

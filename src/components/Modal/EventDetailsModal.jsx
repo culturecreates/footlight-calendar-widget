@@ -8,7 +8,7 @@ import {
   Text,
   Image,
   Heading,
-  Divider,
+  Separator,
 } from '@chakra-ui/react';
 import './eventDetailsModal.css';
 import WidgetContext from '../../context/WidgetContext';
@@ -111,11 +111,11 @@ const EventDetailsModal = ({
             <Text fontSize="lg" fontWeight="bold">
               <strong>{t('date')}:</strong> {date}
             </Text>
-            <Divider borderColor="gray.300" />
+            <Separator borderColor="gray.300" />
             <Text fontSize="lg" fontWeight="bold">
               <strong>{t('detailsModal.place')}:</strong> {place}
             </Text>
-            <Divider borderColor="gray.300" />
+            <Separator borderColor="gray.300" />
             {performers?.length > 0 && (
               <>
                 <Text fontSize="lg" fontWeight="bold">

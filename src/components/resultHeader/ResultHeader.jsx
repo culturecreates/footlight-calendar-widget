@@ -20,7 +20,7 @@ const ResultHeader = () => {
       w="100%"
     >
       <Text
-        sx={{
+        css={{
           color: '#000000',
           fontSize: 'var(--secondary-font-weight)',
           fontWeight: 600,
@@ -34,14 +34,14 @@ const ResultHeader = () => {
       </Text>
       <Icon
         as={ShareIcon}
-        sx={{
+        css={{
           color: '#000000',
           cursor: 'pointer',
           width: '35px',
           height: '35px',
           borderRadius: '50%',
           transition: 'background-color 0.3s ease',
-          _hover: {
+          '&:hover': {
             backgroundColor: 'var(--dynamic-color-100)',
           },
         }}

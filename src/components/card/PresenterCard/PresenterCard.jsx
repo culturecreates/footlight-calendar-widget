@@ -13,7 +13,7 @@ const socialIcons = {
   AppleMusic: AppleMusicIcon,
 };
 
-const PerformerCard = ({ image, name, website, type, description, socialLinks = [] }) => {
+const PresenterCard = ({ image, name, website, type, description, socialLinks = [] }) => {
   const filteredSocialLinks = socialLinks.filter(({ type }) => socialIcons[type]);
 
   return (
@@ -31,11 +31,11 @@ const PerformerCard = ({ image, name, website, type, description, socialLinks = 
       backgroundColor={'white'}
     >
       <VStack align="start" gap={2} flex={1} ml={{ md: 4 }}>
-        <HStack mt={2}>
+        <HStack gap={3} mt={2}>
           <Image src={image} alt={name} borderRadius="full" boxSize="88px" />
           <VStack align="start" gap={1}>
             <Text
-              fontSize="var(--performer-name-font-size)"
+              fontSize="var(--presenter-name-font-size)"
               fontWeight="700"
               color={'var(--secondary-black'}
             >
@@ -46,7 +46,7 @@ const PerformerCard = ({ image, name, website, type, description, socialLinks = 
               color="var(--dynamic-color-700)"
               target="_blank"
               rel="noopener noreferrer"
-              fontSize="var(--performer-website-font-size)"
+              fontSize="var(--presenter-website-font-size)"
             >
               {website}
             </Link>
@@ -56,7 +56,7 @@ const PerformerCard = ({ image, name, website, type, description, socialLinks = 
               px={2}
               py={1}
               borderRadius="4px"
-              fontSize={'var(--performer-badge-font-size)'}
+              fontSize={'var(--presenter-badge-font-size)'}
               fontWeight={'400'}
               textTransform={'capitalize'}
               color="var(--primary-white-opaque)"
@@ -66,7 +66,7 @@ const PerformerCard = ({ image, name, website, type, description, socialLinks = 
           </VStack>
         </HStack>
 
-        <Text fontSize="var(--performer-description-font-size)" fontWeight={'300'} noOfLines={3}>
+        <Text fontSize="var(--presenter-description-font-size)" fontWeight={'300'} noOfLines={3}>
           {description}
         </Text>
 
@@ -83,9 +83,8 @@ const PerformerCard = ({ image, name, website, type, description, socialLinks = 
                   variant="ghost"
                   target="_blank"
                   rel="noopener noreferrer"
-                >
-                  <IconComponent />
-                </IconButton>
+                  children={<IconComponent />}
+                ></IconButton>
               );
             })}
           </HStack>
@@ -95,4 +94,4 @@ const PerformerCard = ({ image, name, website, type, description, socialLinks = 
   );
 };
 
-export default PerformerCard;
+export default PresenterCard;

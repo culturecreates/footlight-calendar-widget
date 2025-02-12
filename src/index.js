@@ -4,7 +4,8 @@ import App from './App';
 import React from 'react';
 import './index.css';
 import { extractPropsFromSearchParams } from './utils/extractPropsFromSearchParms';
-import { ChakraProvider } from '@chakra-ui/react';
+// import { ChakraProvider } from '@chakra-ui/react';
+import { Provider } from './components/ui/provider';
 import Error from './components/error/Error';
 
 const calendarWidget = document.getElementById('calendar-widget');
@@ -34,9 +35,9 @@ let { extractedProps, isSuccess, missingParams } = extractPropsFromSearchParams(
 
 const root = createRoot(calendarWidget);
 const AppContent = (
-  <ChakraProvider>
+  <Provider>
     {isSuccess ? <App {...extractedProps} /> : <Error missingParams={missingParams} />}
-  </ChakraProvider>
+  </Provider>
 );
 
 if (process.env.NODE_ENV == 'production') {
