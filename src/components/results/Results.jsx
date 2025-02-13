@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Box, Button, Icon } from '@chakra-ui/react';
+import { Box, Button, Icon, VStack } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as ArrowDownIcon } from '../../assets/arrowDown.svg';
@@ -13,27 +13,28 @@ const Results = () => {
   const { t } = useTranslation();
 
   return (
-    <Box
-      display="grid"
-      gridTemplateColumns={{
-        base: '371px',
-        sm: 'repeat(2, 246px)',
-        md: 'repeat(3, 246px)',
-        lg: 'repeat(4, 246px)',
-      }}
-      gap={4}
-    >
-      {data?.map((item, index) => (
-        <EventCard
-          key={index}
-          id={item?.id}
-          image={item?.image}
-          eventName={item?.title}
-          stageName={item?.place}
-          eventType={item?.eventTypes}
-          startDate={item?.startDate}
-        />
-      ))}
+    <VStack>
+      <Box
+        display="grid"
+        gridTemplateColumns={{
+          base: '371px',
+          sm: 'repeat(2, 246px)',
+          md: 'repeat(3, 246px)',
+          lg: 'repeat(4, 246px)',
+        }}
+        gap={4}
+      >
+        {data?.map((item, index) => (
+          <EventCard
+            key={index}
+            image={item?.image}
+            eventName={item?.title}
+            stageName={item?.place}
+            eventType={item?.eventTypes}
+            startDate={item?.startDate}
+          />
+        ))}
+      </Box>
       {lastPageFlag && (
         <Button
           variant="link"
@@ -49,7 +50,7 @@ const Results = () => {
           <Icon as={ArrowDownIcon} ml={2} />
         </Button>
       )}
-    </Box>
+    </VStack>
   );
 };
 
