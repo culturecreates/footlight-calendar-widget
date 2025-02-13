@@ -20,11 +20,11 @@ const SponsorsCarousel = ({ sponsors }) => {
   };
 
   return (
-    <div style={styles.carouselContainer}>
+    <div style={getResponsiveStyles().carouselContainer}>
       <Slider {...settings}>
         {sponsors.map((sponsor, index) => (
-          <div key={index} style={styles.sponsorContainer}>
-            <img src={sponsor.logo} alt={sponsor.name} style={styles.sponsorImage} />
+          <div key={index} style={styles.slideItem}>
+            <img src={sponsor.logo} alt={sponsor.name} style={styles.sponsorLogo} />
           </div>
         ))}
       </Slider>
@@ -32,26 +32,46 @@ const SponsorsCarousel = ({ sponsors }) => {
   );
 };
 
+// Function to handle responsive max-width dynamically
+const getResponsiveStyles = () => {
+  const width = window.innerWidth;
+  let maxWidth = '602px'; // Default for larger screens
+
+  if (width < 768) maxWidth = '369px'; // For mobile & smaller screens
+
+  return {
+    carouselContainer: {
+      maxWidth,
+      margin: '0 auto',
+      textAlign: 'center',
+      padding: '16px 0',
+      maxHeight: '98px',
+    },
+  };
+};
+
 const styles = {
-  carouselContainer: {
-    maxWidth: '602px',
-    margin: '0 auto',
-    textAlign: 'center',
-    padding: '16px 0',
-    maxHeight: '98px',
-  },
-  sponsorContainer: {
+  slideItem: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: '0 auto',
+    margin: 'auto',
     maxHeight: '75px',
     maxWidth: '75px',
   },
-  sponsorImage: {
+  sponsorLogo: {
     maxHeight: '20px',
     width: '75px',
     objectFit: 'contain',
+  },
+  customDot: {
+    width: '8px',
+    height: '8px',
+    margin: '0 4px',
+    borderRadius: '50%',
+    background: '#bbb',
+    border: 'none',
+    cursor: 'pointer',
   },
 };
 
