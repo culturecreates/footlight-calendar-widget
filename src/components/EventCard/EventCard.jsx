@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import EventTypeBadge from '../badge/EventTypeBadge/EventTypeBadge';
 import DateBadge from '../badge/DateBadge/DateBadge';
-import StageIcon from '../../assets/locationPin.svg';
+import { ReactComponent as StageIcon } from '../../assets/locationPin.svg';
 import { dateRangeFormatter } from '../../utils/dateRangeFormatter';
 import EventDetailsModal from '../detailsModal/EventDetailsModal';
 

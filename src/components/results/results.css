@@ -5,3 +5,28 @@
   flex-direction: column;
   align-items: center;
 }
+
+#calendar-widget > .widget-layout .grid-container {
+  display: grid;
+  justify-content: center;
+  gap: 8px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  #calendar-widget > .widget-layout .grid-container {
+    grid-template-columns: repeat(2, 246px);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  #calendar-widget > .widget-layout .grid-container {
+    grid-template-columns: repeat(3, 246px);
+  }
+}
+
+@media (min-width: 1025px) {
+  #calendar-widget > .widget-layout .grid-container {
+    grid-template-columns: repeat(4, 246px);
+  }
+}
