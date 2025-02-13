@@ -78,10 +78,8 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   }, []);
 
   const handleShowOnMap = () => {
-    if (eventDetails?.latitude && eventDetails?.longitude) {
-      const url = `https://www.google.com/maps?q=${eventDetails.latitude},${eventDetails.longitude}`;
-      redirectionHandler({ url });
-    }
+    const url = `https://www.google.com/maps?q=${eventDetails.latitude},${eventDetails.longitude}`;
+    redirectionHandler({ url });
   };
 
   const handleImageCreditDisplay = () => {
@@ -162,15 +160,17 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
             </div>
           ) : (
             <Box style={{ paddingBottom: '1rem', height: '100%' }}>
-              <Image
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setCreditDisplayFlag(false);
-                  setShowFullImageCreditDescription(false);
-                }}
-                src={eventDetails?.image}
-                width="100%"
-              />
+              <Box className="sticky-image-wrapper" style={{ position: 'sticky', top: 0 }}>
+                <Image
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCreditDisplayFlag(false);
+                    setShowFullImageCreditDescription(false);
+                  }}
+                  src={eventDetails?.image}
+                  width="100%"
+                />
+              </Box>
               <Stack
                 className="event-information-section-wrapper"
                 style={{
@@ -305,9 +305,11 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                         <Flex className="event-location-details">
                           <Text className="event-place">{eventDetails?.place}</Text>
                           <Text className="event-address">{eventDetails?.streetAddress}</Text>
-                          <Button className="event-map-button" onClick={handleShowOnMap}>
-                            {t('detailsModal.showOnMap')}
-                          </Button>
+                          {eventDetails?.latitude && eventDetails?.longitude && (
+                            <Button className="event-map-button" onClick={handleShowOnMap}>
+                              {t('detailsModal.showOnMap')}
+                            </Button>
+                          )}
                         </Flex>
                       </Flex>
                     </Flex>
