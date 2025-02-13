@@ -1,33 +1,51 @@
-import { HStack, VStack, Text, Image, Link } from '@chakra-ui/react';
 import React from 'react';
 
 function PresenterCard({ name, website, image }) {
   return (
-    <HStack spacing={3} mt={2}>
-      <Image src={image} alt={name} borderRadius="50px" boxSize="46px" />
-      <VStack align="start" spacing={1}>
-        <Text
-          fontSize="var(--presenter-font-size)"
-          fontWeight="var(--presenter-font-weight)"
-          color="var(--secondary-black)"
-          margin={'0px'}
-        >
-          {name}
-        </Text>
+    <div style={styles.container}>
+      <img src={image} alt={name} style={styles.image} />
+      <div style={styles.textContainer}>
+        <p style={styles.name}>{name}</p>
         {website?.trim() && (
-          <Link
-            href={website}
-            color="var(--presenter-link-color)"
-            isExternal
-            fontSize="var(--presenter-link-size)"
-            fontWeight="var(--presenter-link-weight)"
-          >
+          <a href={website} style={styles.link} target="_blank" rel="noopener noreferrer">
             {website}
-          </Link>
+          </a>
         )}
-      </VStack>
-    </HStack>
+      </div>
+    </div>
   );
 }
+
+const styles = {
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    marginTop: '8px',
+  },
+  image: {
+    borderRadius: '50px',
+    width: '46px',
+    height: '46px',
+    objectFit: 'cover',
+  },
+  textContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
+  name: {
+    fontSize: 'var(--presenter-font-size)',
+    fontWeight: 'var(--presenter-font-weight)',
+    color: 'var(--secondary-black)',
+    margin: '0px',
+  },
+  link: {
+    fontSize: 'var(--presenter-link-size)',
+    fontWeight: 'var(--presenter-link-weight)',
+    color: 'var(--presenter-link-color)',
+    textDecoration: 'none',
+  },
+};
 
 export default PresenterCard;
