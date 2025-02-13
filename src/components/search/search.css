@@ -1,0 +1,17 @@
+@media (min-width: 481px) and (max-width: 768px) {
+  .filter-search-section {
+    box-shadow: var(--primary-box-shadow);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .filter-search-section {
+    box-shadow: none;
+  }
+}
+
+@media (min-width: 1025px) {
+  .filter-search-section {
+    box-shadow: none;
+  }
+}
