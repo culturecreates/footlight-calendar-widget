@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box, Image, Flex } from '@chakra-ui/react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -21,40 +20,39 @@ const SponsorsCarousel = ({ sponsors }) => {
   };
 
   return (
-    <Box
-      maxW={{
-        base: '369px',
-        sm: '369px',
-        md: '602px',
-        lg: '602px',
-      }}
-      mx="auto"
-      textAlign="center"
-      py={4}
-      maxH={'98px'}
-    >
+    <div style={styles.carouselContainer}>
       <Slider {...settings}>
         {sponsors.map((sponsor, index) => (
-          <Flex
-            key={index}
-            justifyContent="center"
-            alignItems="center"
-            mx="auto"
-            maxH={'75px'}
-            maxW={'75px'}
-          >
-            <Image
-              src={sponsor.logo}
-              alt={sponsor.name}
-              maxHeight={'20px'}
-              width={'75px'}
-              objectFit="contain"
-            />
-          </Flex>
+          <div key={index} style={styles.sponsorContainer}>
+            <img src={sponsor.logo} alt={sponsor.name} style={styles.sponsorImage} />
+          </div>
         ))}
       </Slider>
-    </Box>
+    </div>
   );
+};
+
+const styles = {
+  carouselContainer: {
+    maxWidth: '602px',
+    margin: '0 auto',
+    textAlign: 'center',
+    padding: '16px 0',
+    maxHeight: '98px',
+  },
+  sponsorContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: '0 auto',
+    maxHeight: '75px',
+    maxWidth: '75px',
+  },
+  sponsorImage: {
+    maxHeight: '20px',
+    width: '75px',
+    objectFit: 'contain',
+  },
 };
 
 export default SponsorsCarousel;
