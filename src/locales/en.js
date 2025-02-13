@@ -24,6 +24,7 @@ export const en = {
     descriptionHeader: 'About the Event :',
     Performers: 'Performers',
     place: 'Place',
+    showOnMap: 'Show on Map',
   },
   loadMore: 'Show More',
   showLess: 'Show Less',

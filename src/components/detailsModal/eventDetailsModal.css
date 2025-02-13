@@ -25,7 +25,6 @@
 }
 
 #calendar-widget .calendar-widget-details-modal .image-description-display-icon-wrapper svg {
-  margin-top: 20px;
   padding-right: 8px;
 }
 
@@ -122,6 +121,7 @@
 @media (min-width: 640px) {
   #calendar-widget .calendar-widget-details-modal .event-container {
     flex-direction: row;
+    gap: 3rem;
   }
 }
 
@@ -176,4 +176,9 @@
 
 #calendar-widget .calendar-widget-details-modal .event-map-button:hover {
   opacity: 0.8;
+}
+
+#calendar-widget .calendar-widget-details-modal .close-button-wrapper button:hover {
+  background-color: var(--secondary-grey);
+  color: var(--primary-black);
 }

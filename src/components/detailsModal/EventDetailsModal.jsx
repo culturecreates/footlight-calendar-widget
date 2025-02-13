@@ -93,22 +93,43 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
     return (
       <Button
         size="sm"
-        ml="auto"
-        p={1}
-        variant="link"
-        className="show-more-trigger"
-        onClick={() => {
-          setFlag(!flag);
+        style={{
+          marginLeft: 'auto',
+          padding: '4px',
+          variant: 'link',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          color: 'var(--main-dynamic-color)',
         }}
+        onClick={() => setFlag(!flag)}
+        className="show-more-trigger"
       >
-        <Text textDecoration="none" color="var(--dynamic-color-700)" mr={1}>
+        <Text
+          style={{
+            textDecoration: 'none',
+            color: 'var(--main-dynamic-color)',
+            marginRight: '4px',
+          }}
+        >
           {t(flag ? 'showLess' : 'loadMore')}
         </Text>
-        <Box h={4} w={4} className="show-more-trigger-icon-container">
+        <Box
+          style={{
+            height: '16px',
+            width: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          className="show-more-trigger-icon-container"
+        >
           {flag ? (
-            <ChevronUpIcon height="15px" width="15px" />
+            <ChevronUpIcon style={{ height: '15px', width: '15px' }} />
           ) : (
-            <ChevronDownIcon height="15px" width="15px" />
+            <ChevronDownIcon style={{ height: '15px', width: '15px' }} />
           )}
         </Box>
       </Button>
@@ -195,21 +216,31 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     }}
                     className="image-credit"
                   >
-                    <Text
-                      style={{ fontSize: '12px', fontWeight: 400, color: 'var(--secondary-black)' }}
-                    >
-                      {eventDetails?.imageCredit?.caption}
-                    </Text>
-                    <Text
-                      className={`clamped-text-img-credit ${
-                        showFullImageCreditDescription ? 'expanded' : ''
-                      }`}
-                    >
-                      {cleanDescription(eventDetails?.imageCredit?.description)}
-                    </Text>
-                    {ShowMoreTrigger(
-                      setShowFullImageCreditDescription,
-                      showFullImageCreditDescription,
+                    {eventDetails?.imageCredit?.caption && (
+                      <Text
+                        style={{
+                          fontSize: '12px',
+                          fontWeight: 400,
+                          color: 'var(--secondary-black)',
+                        }}
+                      >
+                        {eventDetails?.imageCredit?.caption}
+                      </Text>
+                    )}
+                    {eventDetails?.imageCredit?.description && (
+                      <>
+                        <Text
+                          className={`clamped-text-img-credit ${
+                            showFullImageCreditDescription ? 'expanded' : ''
+                          }`}
+                        >
+                          {cleanDescription(eventDetails?.imageCredit?.description)}
+                        </Text>
+                        {ShowMoreTrigger(
+                          setShowFullImageCreditDescription,
+                          showFullImageCreditDescription,
+                        )}
+                      </>
                     )}
                   </Flex>
                 </Flex>
@@ -264,7 +295,8 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                         <Icon as={calendaricon} className="event-icon" />
                         <DateBadge
                           startDate={dateRangeFormatter(eventDetails?.startDate)}
-                          className="event-date-badge"
+                          color="var(--primary-black)"
+                          bgcolor="transparent"
                         />
                       </Flex>
 
@@ -274,7 +306,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                           <Text className="event-place">{eventDetails?.place}</Text>
                           <Text className="event-address">{eventDetails?.streetAddress}</Text>
                           <Button className="event-map-button" onClick={handleShowOnMap}>
-                            Show on map
+                            {t('detailsModal.showOnMap')}
                           </Button>
                         </Flex>
                       </Flex>

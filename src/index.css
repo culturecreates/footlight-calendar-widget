@@ -57,9 +57,8 @@
   background-color: transparent;
 }
 
-#calendar-widget > .widget-layout p {
+#calendar-widget p {
   all: unset;
-  margin: 0;
 }
 
 code {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Badge } from '@chakra-ui/react';
 
-const DateBadge = ({ startDate, color, bgcolor, styles = {} }) => (
+const DateBadge = ({ startDate, color, bgcolor }) => (
   <Badge
     style={{
       fontSize: '13px',
@@ -15,7 +15,6 @@ const DateBadge = ({ startDate, color, bgcolor, styles = {} }) => (
       paddingBottom: '4px',
       display: 'inline-flex',
       alignSelf: 'flex-start',
-      ...styles,
     }}
   >
     {startDate}
