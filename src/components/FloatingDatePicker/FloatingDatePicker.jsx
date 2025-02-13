@@ -7,11 +7,14 @@ import { ReactComponent as Date } from '../../assets/frame.svg';
 
 const FloatingDatePicker = () => {
   const calendarModalRef = useRef(null);
+  const buttonRef = useRef(null);
+
   const { calendarModalToggle, setCalendarModalToggle, startDateSpan, endDateSpan } =
     useContext(WidgetContext);
 
-  const calendarPopOverHandler = () => {
-    setCalendarModalToggle(!calendarModalToggle);
+  const calendarPopOverHandler = (event) => {
+    event.stopPropagation();
+    setCalendarModalToggle((prev) => !prev);
   };
 
   useEffect(() => {
@@ -19,6 +22,8 @@ const FloatingDatePicker = () => {
       if (
         calendarModalRef.current &&
         !calendarModalRef.current.contains(event.target) &&
+        buttonRef.current !== event.target &&
+        !buttonRef.current.contains(event.target) &&
         calendarModalToggle
       ) {
         setCalendarModalToggle(false);
@@ -35,6 +40,7 @@ const FloatingDatePicker = () => {
     <Box className="floating-datepicker">
       <Box className={`button-container ${startDateSpan || endDateSpan ? 'has-date' : ''}`}>
         <IconButton
+          ref={buttonRef}
           aria-label="Select Date"
           icon={<Date />}
           _hover="none"

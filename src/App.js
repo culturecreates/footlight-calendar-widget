@@ -1,5 +1,4 @@
 import { WidgetContextProvider } from './context/WidgetContext';
-import { getColors } from 'theme-colors';
 import './App.css';
 import { dynamicCssColorInjector, dynamicFontInjector } from './utils/dynamicStylePropertyInjector';
 import { Suspense, useEffect, useState } from 'react';
@@ -33,8 +32,7 @@ function App(props) {
     }
   }, [locale]);
 
-  const palette = getColors(color);
-  dynamicCssColorInjector(palette);
+  dynamicCssColorInjector(color);
 
   useEffect(() => {
     dynamicFontInjector(font);

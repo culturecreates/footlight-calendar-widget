@@ -130,7 +130,7 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef, t }) => 
               <Button
                 size="xs"
                 variant="link"
-                color="var(--dynamic-color-700)"
+                color="var(--main-dynamic-color)"
                 onClick={handleClearAllFilters}
               >
                 {t('filter.clearAll')}
@@ -253,7 +253,7 @@ const FilterSection = () => {
                 right="2px"
                 w="9px"
                 h="9px"
-                bg="var(--dynamic-color-700)"
+                bg="var(--main-dynamic-color)"
                 borderRadius="50%"
               />
             )}

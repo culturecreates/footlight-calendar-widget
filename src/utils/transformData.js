@@ -44,6 +44,14 @@ export const transformData = ({ data, locale }) => {
       const { addressLocality, streetAddress } = address;
       const { latitude, longitude } = geo;
 
+      const imageCredit = (() => {
+        const entries = ['description', 'caption', 'creditText']
+          .map((key) => [key, getLocalized(image?.[key], locale)])
+          .filter(([, value]) => value); // Remove falsy values (null, undefined, '')
+
+        return entries.length > 0 ? Object.fromEntries(entries) : undefined;
+      })();
+
       return removeEmptyKeys({
         id,
         title: getLocalized(name, locale),
@@ -57,6 +65,7 @@ export const transformData = ({ data, locale }) => {
               subEventDetails?.nextUpcomingSubEventDate,
         endDate: endDate || endDateTime,
         image: image?.thumbnail,
+        imageCredit,
         place: getLocalized(place?.name, locale),
         city: getLocalized(addressLocality, locale),
         streetAddress: getLocalized(streetAddress, locale),

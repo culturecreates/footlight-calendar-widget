@@ -32,6 +32,7 @@ const Results = () => {
             stageName={item?.place}
             eventType={item?.eventTypes}
             startDate={item?.startDate}
+            id={item?.id}
           />
         ))}
       </Box>

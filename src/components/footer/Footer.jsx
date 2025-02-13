@@ -7,8 +7,9 @@ import { getLocalized } from '../../utils/getLocalized';
 const Footer = () => {
   const { t } = useTranslation();
   const { widgetProps, calendarData } = useContext(WidgetContext);
-  const { showFooter, calendarLogo, locale } = widgetProps;
-  const calendarName = getLocalized(calendarData?.name, locale);
+  const { showFooter, locale } = widgetProps;
+  const { logo, name } = calendarData;
+  const calendarName = getLocalized(name, locale);
 
   if (!showFooter) return null;
 
@@ -44,7 +45,7 @@ const Footer = () => {
             </Text>
           </Box>
           <Box display="flex" justifyContent="center">
-            <Image src={calendarLogo} alt="Calendar Logo" height="27px" />
+            <Image src={logo} alt="Calendar Logo" height="27px" />
           </Box>
         </Flex>
       </Flex>

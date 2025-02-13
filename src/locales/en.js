@@ -26,6 +26,7 @@ export const en = {
     place: 'Place',
   },
   loadMore: 'Show More',
+  showLess: 'Show Less',
   filter: {
     place: 'Place',
     clearAll: 'Clear All',
