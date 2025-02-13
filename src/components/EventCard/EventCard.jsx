@@ -8,6 +8,7 @@ import {
   Flex,
   useDisclosure,
   useBreakpointValue,
+  Icon,
 } from '@chakra-ui/react';
 import EventTypeBadge from '../badge/EventTypeBadge/EventTypeBadge';
 import DateBadge from '../badge/DateBadge/DateBadge';
@@ -48,8 +49,15 @@ const EventCard = React.memo(
 
               <Flex direction="column" gap={2}>
                 <DateBadge startDate={dateRangeFormatter(startDate)} />
-                <Flex align="center" gap={1}>
-                  <Image src={StageIcon} alt="Stage Icon" boxSize="14px" />
+                <Flex align="start" gap={1}>
+                  <Icon
+                    as={StageIcon}
+                    height="16px"
+                    width="16px"
+                    style={{ marginTop: '2px' }}
+                    alt="Stage Icon"
+                  />
+
                   <Text
                     fontSize="13px"
                     fontWeight="500"

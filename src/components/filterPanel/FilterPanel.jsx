@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import { ReactComponent as FilterIcon } from '../../assets/filter.svg';
 import { ReactComponent as Arrow } from '../../assets/arrowDown.svg';
+import './filterPanel.css';
 
 const FilterDropdown = ({
   name,
@@ -33,9 +34,10 @@ const FilterDropdown = ({
           display: 'flex',
           alignItems: 'center',
           gap: '4px',
-          background: 'transparent',
           border: 'none',
+          margin: '0',
         }}
+        className="filter-dropdown"
         onClick={onToggle}
         variant="ghost"
       >
@@ -139,6 +141,7 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef, t }) => 
                 size="xs"
                 variant="link"
                 style={{ color: 'var(--dynamic-color-700)' }}
+                onMouseOver={(e) => (e.target.style.backgroundColor = 'transparent')}
                 onClick={handleClearAllFilters}
               >
                 {t('filter.clearAll')}
@@ -248,17 +251,8 @@ const FilterSection = () => {
             icon={<FilterIcon />}
             onClick={handleFilterToggle}
             variant="ghost"
+            className="filter-icon"
             ref={iconRef}
-            style={{
-              background: 'transparent',
-              borderRadius: '50%',
-              border: 'none',
-            }}
-            _hover={{
-              background: 'var(--dynamic-color-100)',
-              borderRadius: '50%',
-              border: '1px solid var(--dynamic-color-100)',
-            }}
           />
           {selectedFilters &&
             Object.values(selectedFilters).some((filters) => filters.length > 0) && (

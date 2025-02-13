@@ -100,7 +100,12 @@ const Search = () => {
               icon={<ClearIcon width="21px" height="21px" />}
               onClick={clearSearch}
               variant="ghost"
-              style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                marginBottom: 0,
+              }}
               onMouseOver={(e) => (e.target.style.background = 'transparent')}
             />
           </InputRightElement>

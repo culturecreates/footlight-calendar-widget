@@ -42,6 +42,7 @@
 
 #calendar-widget * :focus-visible {
   outline: none;
+  box-shadow: none;
 }
 
 #calendar-widget > .widget-layout .filter-search-section .clear-search-icon > svg > path {
@@ -50,6 +51,15 @@
 
 #calendar-widget > .widget-layout .filter-search-section .search-icon > path {
   fill: var(--dynamic-color-600);
+}
+
+#calendar-widget > .widget-layout button:focus {
+  background-color: transparent;
+}
+
+#calendar-widget > .widget-layout p {
+  all: unset;
+  margin: 0;
 }
 
 code {

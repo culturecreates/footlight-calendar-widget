@@ -45,6 +45,7 @@ const FloatingDatePicker = () => {
           onClick={calendarPopOverHandler}
           variant="ghost"
           ref={buttonRef}
+          style={{ margin: 0 }}
         />
         <div className="dot" />
         {calendarModalToggle && (
