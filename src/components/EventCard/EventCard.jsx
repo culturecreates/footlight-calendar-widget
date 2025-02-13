@@ -40,9 +40,16 @@ const EventCard = React.memo(
               <Heading
                 as="h3"
                 size="md"
-                noOfLines={2}
-                isTruncated
-                fontSize="var(--secondary-font-weight)"
+                style={{
+                  display: '-webkit-box',
+                  WebkitBoxOrient: 'vertical',
+                  WebkitLineClamp: 2,
+                  overflow: 'hidden',
+                  fontSize: 'var(--secondary-font-weight)',
+                  fontWeight: '600',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
               >
                 {eventName}
               </Heading>

@@ -40,6 +40,15 @@
   font-family: var(--calendar-font-family);
 }
 
+#calendar-widget h1,
+#calendar-widget h2,
+#calendar-widget h3,
+#calendar-widget h4,
+#calendar-widget h5,
+#calendar-widget h6 {
+  all: unset;
+}
+
 #calendar-widget * :focus-visible {
   outline: none;
   box-shadow: none;
