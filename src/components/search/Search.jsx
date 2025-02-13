@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  Box,
   Input,
   InputGroup,
   InputLeftElement,
@@ -24,23 +23,36 @@ const Search = () => {
   };
 
   return (
-    <Box
-      display="flex"
-      justifyContent="space-between"
-      alignItems="center"
-      maxW="690px"
-      w="100%"
-      p="16px"
-      mx="auto"
-      gap={2}
-      boxShadow={{ base: 'var(--primary-box-shadow)', md: 'none' }}
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        maxWidth: '690px',
+        width: '100%',
+        padding: '16px',
+        margin: '0 auto',
+        gap: '8px',
+        boxShadow: 'var(--primary-box-shadow)',
+      }}
       className="filter-search-section"
     >
       <FilterSection />
-      <InputGroup flex={1} w="100%" position="relative" h="40px">
-        <InputLeftElement pointerEvents="none" left="10px" top="50%" transform="translateY(-50%)">
+      <InputGroup
+        style={{ display: 'flex', flex: 1, width: '100%', position: 'relative', height: '40px' }}
+      >
+        <InputLeftElement
+          pointerEvents="none"
+          style={{
+            position: 'absolute',
+            left: '10px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+          }}
+        >
           <SearchIcon className="search-icon" width="24px" height="24px" />
         </InputLeftElement>
+
         <Input
           type="text"
           placeholder={t('search.placeholder')}
@@ -53,32 +65,49 @@ const Search = () => {
               e.target.value,
             );
           }}
-          h="40px"
-          pl="44px"
-          borderRadius="68px"
-          fontFamily="var(--calendar-font-family)"
-          fontSize="var(--secondary-font-weight)"
-          fontWeight={40}
-          bgColor="var(--dynamic-color-50)"
-          lineHeight="24px"
-          textAlign="left"
-          _focusVisible={{ borderColor: 'var(--dynamic-color-500)' }}
+          style={{
+            height: '40px',
+            paddingLeft: '44px',
+            borderRadius: '68px',
+            fontFamily: 'var(--calendar-font-family)',
+            fontSize: 'var(--secondary-font-weight)',
+            fontWeight: 40,
+            backgroundColor: 'var(--dynamic-color-50)',
+            lineHeight: '24px',
+            textAlign: 'left',
+            width: '100%',
+            border: '1px solid transparent',
+            outline: 'none',
+            transitionProperty: 'var(--chakra-transition-property-common)',
+            transitionDuration: 'var(--chakra-transition-duration-normal)',
+          }}
+          onFocus={(e) => (e.target.style.borderColor = 'var(--dynamic-color-500)')}
+          onBlur={(e) => (e.target.style.borderColor = 'transparent')}
         />
+
         {searchKeyWord && (
-          <InputRightElement top="50%" right="10px" transform="translateY(-50%)">
+          <InputRightElement
+            style={{
+              position: 'absolute',
+              top: '50%',
+              right: '10px',
+              transform: 'translateY(-50%)',
+            }}
+          >
             <IconButton
               aria-label="Clear search"
               className="clear-search-icon"
               icon={<ClearIcon width="21px" height="21px" />}
               onClick={clearSearch}
               variant="ghost"
-              _hover={{ background: 'transparent' }}
+              style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
+              onMouseOver={(e) => (e.target.style.background = 'transparent')}
             />
           </InputRightElement>
         )}
       </InputGroup>
       <FloatingDatePicker />
-    </Box>
+    </div>
   );
 };
 

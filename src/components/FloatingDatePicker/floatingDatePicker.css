@@ -42,6 +42,10 @@
   right: 5px;
   width: 9px;
   height: 9px;
-  background-color: var(--primary-blue);
+  background-color: var(--main-dynamic-color);
   border-radius: 50%;
+}
+
+#calendar-widget > .widget-layout .floating-datepicker .button-container button:hover {
+  background-color: transparent;
 }

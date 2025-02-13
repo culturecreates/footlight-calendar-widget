@@ -20,10 +20,10 @@ const FloatingDatePicker = () => {
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (
-        calendarModalRef.current &&
-        !calendarModalRef.current.contains(event.target) &&
-        buttonRef.current !== event.target &&
-        !buttonRef.current.contains(event.target) &&
+        calendarModalRef?.current &&
+        !calendarModalRef?.current?.contains(event?.target) &&
+        buttonRef?.current !== event?.target &&
+        !buttonRef?.current?.contains(event?.target) &&
         calendarModalToggle
       ) {
         setCalendarModalToggle(false);
@@ -40,12 +40,11 @@ const FloatingDatePicker = () => {
     <Box className="floating-datepicker">
       <Box className={`button-container ${startDateSpan || endDateSpan ? 'has-date' : ''}`}>
         <IconButton
-          ref={buttonRef}
           aria-label="Select Date"
           icon={<Date />}
-          _hover="none"
           onClick={calendarPopOverHandler}
           variant="ghost"
+          ref={buttonRef}
         />
         <div className="dot" />
         {calendarModalToggle && (

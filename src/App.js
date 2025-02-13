@@ -51,16 +51,18 @@ function App(props) {
         <Suspense fallback={<Loader />}>
           {headerTitle && (
             <Heading
-              fontSize="19px"
-              fontWeight="600"
-              fontFamily={font}
-              lineHeight="28.69px"
-              textAlign="center"
-              textUnderlinePosition="from-font"
-              textDecorationSkipInk="none"
-              color="#000000"
-              mt={8}
-              mb={-3}
+              style={{
+                fontSize: '19px',
+                fontWeight: 600,
+                fontFamily: font,
+                lineHeight: '28.69px',
+                textAlign: 'center',
+                textUnderlinePosition: 'from-font',
+                textDecorationSkipInk: 'none',
+                color: '#000000',
+                marginTop: '32px',
+                marginBottom: '-12px',
+              }}
             >
               {headerTitle}
             </Heading>
