@@ -4,6 +4,7 @@ import { ReactComponent as FacebookIcon } from '../../../assets/facebook.svg';
 import { ReactComponent as SpotifyIcon } from '../../../assets/spotify.svg';
 import { ReactComponent as YouTubeIcon } from '../../../assets/youtube.svg';
 import { ReactComponent as TwitterIcon } from '../../../assets/twitter.svg';
+import './performerCard.css';
 
 const socialIcons = {
   Facebook: FacebookIcon,
@@ -13,31 +14,35 @@ const socialIcons = {
   AppleMusic: AppleMusicIcon,
 };
 
+const cardStyles = {
+  width: '370px',
+  height: '258px',
+  padding: '16px',
+  border: '1px solid #ffffff',
+  borderRadius: '25px',
+  boxShadow: 'none',
+  backgroundColor: 'white',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  transition: 'all 0.3s ease',
+};
+
 const PerformerCard = ({ image, name, website, type, description, socialLinks = [] }) => {
   const filteredSocialLinks = socialLinks.filter(({ type }) => socialIcons[type]);
 
   return (
-    <Box
-      w={{ base: '370px', sm: '370px', md: '599px', lg: '599px' }}
-      h={{ base: '258px', sm: '258px', md: '233px', lg: '233px' }}
-      p={4}
-      border={'1px solid #ffffff'}
-      borderRadius="25px"
-      boxShadow="none"
-      bg="white"
-      display="flex"
-      flexDirection={{ base: 'column', md: 'row' }}
-      alignItems="center"
-      backgroundColor={'white'}
-    >
-      <VStack align="start" spacing={2} flex={1} ml={{ md: 4 }}>
-        <HStack spacing={3} mt={2}>
+    <Box className="performer-card" style={cardStyles}>
+      <VStack align="start" spacing={2} flex={1} style={{ marginLeft: '16px' }}>
+        <HStack spacing={3} style={{ marginTop: '8px' }}>
           <Image src={image} alt={name} borderRadius="full" boxSize="88px" />
           <VStack align="start" spacing={1}>
             <Text
-              fontSize="var(--performer-name-font-size)"
-              fontWeight="700"
-              color={'var(--secondary-black'}
+              style={{
+                fontSize: 'var(--performer-name-font-size)',
+                fontWeight: '700',
+                color: 'var(--secondary-black)',
+              }}
             >
               {name}
             </Text>
@@ -45,32 +50,42 @@ const PerformerCard = ({ image, name, website, type, description, socialLinks = 
               href={website}
               color="var(--dynamic-color-700)"
               isExternal
-              fontSize="var(--performer-website-font-size)"
+              style={{ fontSize: 'var(--performer-website-font-size)' }}
             >
               {website}
             </Link>
 
             <Badge
-              bg="var(--secondary-grey)"
-              px={2}
-              py={1}
-              borderRadius="4px"
-              fontSize={'var(--performer-badge-font-size)'}
-              fontWeight={'400'}
-              textTransform={'capitalize'}
-              color="var(--primary-white-opaque)"
+              style={{
+                backgroundColor: 'var(--secondary-grey)',
+                padding: '4px 8px',
+                borderRadius: '4px',
+                fontSize: 'var(--performer-badge-font-size)',
+                fontWeight: '400',
+                textTransform: 'capitalize',
+                color: 'var(--primary-white-opaque)',
+              }}
             >
               {type}
             </Badge>
           </VStack>
         </HStack>
 
-        <Text fontSize="var(--performer-description-font-size)" fontWeight={'300'} noOfLines={3}>
+        <Text
+          style={{
+            fontSize: 'var(--performer-description-font-size)',
+            fontWeight: '300',
+            display: '-webkit-box',
+            WebkitBoxOrient: 'vertical',
+            WebkitLineClamp: 3,
+            overflow: 'hidden',
+          }}
+        >
           {description}
         </Text>
 
         {filteredSocialLinks.length > 0 && (
-          <HStack spacing={3} mt={2}>
+          <HStack spacing={3} style={{ marginTop: '8px' }}>
             {filteredSocialLinks.map(({ uri, type }, index) => {
               const IconComponent = socialIcons[type];
               return (
@@ -82,6 +97,7 @@ const PerformerCard = ({ image, name, website, type, description, socialLinks = 
                   aria-label={type}
                   variant="ghost"
                   isExternal
+                  style={{ padding: '4px' }}
                 />
               );
             })}
