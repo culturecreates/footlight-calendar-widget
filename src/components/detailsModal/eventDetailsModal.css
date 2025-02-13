@@ -91,10 +91,11 @@
 
 #calendar-widget .calendar-widget-details-modal .image-credit-info-icon {
   position: absolute;
-  right: 2px;
+  right: 8px;
   top: 54px;
   padding: 0;
   background-color: transparent;
+  z-index: 2;
 }
 
 #calendar-widget .calendar-widget-details-modal .image-credit-info-icon:hover {
