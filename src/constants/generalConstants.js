@@ -30,7 +30,7 @@ export const dynamicColorVariableNames = {
   100: '--dynamic-color-100',
   500: '--dynamic-color-500',
   600: '--dynamic-color-600',
-  700: '--main-dynamic-color',
+  700: '--dynamic-color-700',
 };
 
 export const MAIN_DYNAMIC_COLOR = '--main-dynamic-color';
