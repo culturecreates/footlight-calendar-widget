@@ -1,0 +1,51 @@
+#calendar-widget > .widget-layout .floating-datepicker .button-container .calendar-modal-pivot {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#calendar-widget
+  > .widget-layout
+  .floating-datepicker
+  .button-container
+  .calendar-modal-pivot
+  > .calendar-modal-wrapper {
+  position: absolute;
+  box-shadow: 0px 8px 32px 0px #00000033;
+  background-color: var(--primary-white-opaque);
+
+  top: 10px;
+  z-index: 10;
+}
+
+#calendar-widget > .widget-layout .floating-datepicker {
+  border-radius: 100%;
+}
+
+#calendar-widget > .widget-layout .floating-datepicker:hover {
+  background-color: var(--dynamic-color-100);
+}
+
+#calendar-widget > .widget-layout .floating-datepicker .button-container {
+  position: relative;
+}
+
+#calendar-widget > .widget-layout .floating-datepicker .has-date {
+  position: relative;
+}
+
+#calendar-widget > .widget-layout .floating-datepicker .has-date .dot {
+  position: absolute;
+  top: 7px;
+  right: 5px;
+  width: 9px;
+  height: 9px;
+  background-color: var(--main-dynamic-color);
+  border-radius: 50%;
+}
+
+#calendar-widget > .widget-layout .floating-datepicker .button-container button:hover {
+  background-color: transparent;
+}

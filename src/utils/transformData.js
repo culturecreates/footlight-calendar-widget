@@ -1,60 +1,97 @@
-export const transformData = ({ data, locale }) => {
-  const transformedData = data?.map((eventData) => {
-    let place = eventData.location || {};
-    // If place is an array then extract first object of type 'Place'
-    if (Array.isArray(place)) {
-      place =
-        eventData.location.filter(
-          (place) => place.type === 'Place' || place.type === 'VirtualLocation',
-        )[0] || {};
+import { getLocalized } from './getLocalized';
+
+// Helper function to remove empty values
+const removeEmptyKeys = (obj) => {
+  const result = {};
+  for (const [key, value] of Object.entries(obj)) {
+    if (value != null) {
+      // Remove null & undefined
+      result[key] = value;
     }
+  }
+  return result;
+};
 
-    // Fallback to English and then French if the locale-specific name is not available
-    const title = eventData.name?.[locale] || eventData.name?.en || eventData.name?.fr || '';
+export const transformData = ({ data, locale }) => {
+  return (
+    data?.map((eventData) => {
+      const {
+        id,
+        name,
+        slug,
+        description,
+        scheduleTimezone,
+        startDate,
+        startDateTime,
+        endDate,
+        endDateTime,
+        image,
+        location,
+        performers,
+        organizers,
+        additionalType,
+        discipline,
+        inLanguage,
+        offers,
+        subEventDetails,
+        eventStatus,
+        eventAttendanceMode,
+        keywords,
+      } = eventData || {};
 
-    const addressLocality =
-      place.address?.addressLocality?.[locale] ||
-      place.address?.addressLocality?.en ||
-      place.address?.addressLocality?.fr ||
-      '';
+      const place = Array.isArray(location) ? location[0] || {} : location;
+      const { address = {}, geo = {} } = place;
+      const { addressLocality, streetAddress } = address;
+      const { latitude, longitude } = geo;
 
-    const streetAddress =
-      place.address?.streetAddress?.[locale] ||
-      place.address?.streetAddress?.en ||
-      place.address?.streetAddress?.fr ||
-      '';
+      const imageCredit = (() => {
+        const entries = ['description', 'caption', 'creditText']
+          .map((key) => [key, getLocalized(image?.[key], locale)])
+          .filter(([, value]) => value); // Remove falsy values (null, undefined, '')
 
-    const performers = eventData?.performers?.map((performer) => {
-      return {
-        name: performer?.name?.[locale] || performer?.name?.en || performer?.name?.fr || '',
-        image: performer?.image?.thumbnail || '',
-      };
-    });
-    const description =
-      eventData?.description?.[locale] ||
-      eventData?.description?.en ||
-      eventData?.description?.fr ||
-      '';
+        return entries.length > 0 ? Object.fromEntries(entries) : undefined;
+      })();
 
-    return {
-      id: eventData.id,
-      title: title,
-      slug: eventData.slug?.[locale],
-      performers,
-      description,
-      scheduleTimezone: eventData?.scheduleTimezone,
-      startDate:
-        eventData.subEventDetails.upcomingSubEventCount === 0
-          ? eventData?.startDate || eventData?.startDateTime || ''
-          : eventData.subEventDetails?.nextUpcomingSubEventDateTime ||
-            eventData.subEventDetails?.nextUpcomingSubEventDate ||
-            '',
-      endDate: eventData.endDate || eventData.endDateTime || '',
-      image: eventData.image?.thumbnail || '',
-      place: place.name?.[locale] || place.name?.en || place.name?.fr || '',
-      city: addressLocality,
-      streetAddress: streetAddress,
-    };
-  });
-  return transformedData;
+      return removeEmptyKeys({
+        id,
+        title: getLocalized(name, locale),
+        slug: getLocalized(slug, locale),
+        description: getLocalized(description, locale),
+        scheduleTimezone,
+        startDate:
+          subEventDetails?.upcomingSubEventCount === 0
+            ? startDate || startDateTime
+            : subEventDetails?.nextUpcomingSubEventDateTime ||
+              subEventDetails?.nextUpcomingSubEventDate,
+        endDate: endDate || endDateTime,
+        image: image?.thumbnail,
+        imageCredit,
+        place: getLocalized(place?.name, locale),
+        city: getLocalized(addressLocality, locale),
+        streetAddress: getLocalized(streetAddress, locale),
+        latitude,
+        longitude,
+        eventTypes: additionalType?.map((type) => getLocalized(type?.name, locale)),
+        disciplines: discipline?.map((d) => getLocalized(d?.name, locale)),
+        languages: inLanguage?.map((lang) => getLocalized(lang?.name, locale)),
+        performers: performers?.map(({ name, image }) => ({
+          name: getLocalized(name, locale),
+          image,
+        })),
+        organizers: organizers?.map(({ name, image }) => ({
+          name: getLocalized(name, locale),
+          image,
+        })),
+        offers: offers?.map(({ name, price = 0, priceCurrency, url }) => ({
+          name: getLocalized(name, locale),
+          price,
+          currency: priceCurrency,
+          url,
+        })),
+        eventStatus,
+        eventAttendanceMode,
+        keywords,
+      });
+    }) || []
+  );
 };

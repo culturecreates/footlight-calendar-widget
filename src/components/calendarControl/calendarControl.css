@@ -13,7 +13,7 @@
   line-height: 16px;
   letter-spacing: 0em;
   text-align: center;
-  color: var(--dynamic-color-700);
+  color: var(--main-dynamic-color);
 }
 
 #calendar-widget > .widget-layout .calendar-control div > label {
@@ -46,7 +46,7 @@
 /* Checkbox un-checked style */
 #calendar-widget > .widget-layout .calendar-control input[type='checkbox'] + span:before {
   content: '';
-  background: #ffffff01;
+  background: var(--primary-white);
   border-radius: 2px;
   display: inline-block;
   width: 13.33px;

@@ -1,82 +1,37 @@
-import React, { useContext, useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
-import { displayTypes } from '../../constants/generalConstants';
+import React, { useContext } from 'react';
 import WidgetContext from '../../context/WidgetContext';
-import { CustomCalendar } from '../customCalendar/CustomCalendar';
 import Loader from '../loader/Loader';
 import NoResult from '../noResult/NoResult';
 import ResultHeader from '../resultHeader/ResultHeader';
 import Results from '../results/Results';
 import './panel.css';
+import { Box } from '@chakra-ui/react';
 
 const ResultPanel = () => {
-  const calendarModalRef = useRef(null);
-
-  const {
-    displayType,
-    totalCount,
-    calendarModalToggle,
-    setCalendarModalToggle,
-    isLoading,
-    widgetProps,
-  } = useContext(WidgetContext);
-
-  const { t } = useTranslation();
-
-  const calendarPopOverHandler = () => {
-    setCalendarModalToggle(!calendarModalToggle);
-  };
-
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (
-        calendarModalRef.current &&
-        !calendarModalRef.current.contains(event.target) &&
-        calendarModalToggle
-      ) {
-        setCalendarModalToggle(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleOutsideClick);
-
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    };
-  }, [calendarModalToggle]);
+  const { totalCount, isLoading } = useContext(WidgetContext);
 
   return (
-    <section
-      className="result-panel-wrapper"
-      style={{
-        height: `${parseInt(widgetProps?.height?.replace(/px/g, ''), 10) - 132}px`,
-      }}
-    >
+    <Box className="result-panel-wrapper">
       <ResultHeader />
 
-      {displayType === displayTypes.MOBILE && (
-        <div className="button-container">
-          <button onClick={calendarPopOverHandler}>{t('date')}</button>
-          {calendarModalToggle && (
-            <div className="calendar-modal-pivot">
-              <div className="calendar-modal-wrapper" ref={calendarModalRef}>
-                <CustomCalendar />
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-      <div className="result-panel">
+      <Box className="result-panel" p={4}>
         {!isLoading ? (
-          <div className="results">{totalCount > 0 ? <Results /> : <NoResult />}</div>
+          <Box className="results">{totalCount > 0 ? <Results /> : <NoResult />}</Box>
         ) : (
-          <div className="loader-wrapper">
+          <Box
+            className="loader-wrapper"
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '100px',
+            }}
+          >
             <Loader />
-          </div>
+          </Box>
         )}
-        {displayType === displayTypes.DESKTOP && <CustomCalendar />}
-      </div>
-    </section>
+      </Box>
+    </Box>
   );
 };
 

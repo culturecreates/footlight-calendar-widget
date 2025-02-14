@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - develop
+      - develop/v1
 jobs:
   deploy:
     env:

@@ -1,59 +1,40 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { Box, Text, Icon } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-import WidgetContext from '../../context/WidgetContext';
-import { getSelectedDatesAsText } from '../../utils/dateRangeFormatter';
+import { ReactComponent as ShareIcon } from '../../assets/share.svg';
 import './resultHeader.css';
 
 const ResultHeader = () => {
-  const { searchKeyWord, startDateSpan, endDateSpan, totalCount } = useContext(WidgetContext);
-
   const { t } = useTranslation();
 
-  const isSearchEmpty = !searchKeyWord || searchKeyWord.trim() === '';
-  const isDateRangePresent = startDateSpan && endDateSpan;
-
-  let dateText = '';
-  if (isDateRangePresent) {
-    dateText = <>{getSelectedDatesAsText(startDateSpan, endDateSpan, t)}</>;
-  }
-
   return (
-    <>
-      <div className="result-header">
-        {isSearchEmpty && isDateRangePresent && (
-          <p>
-            {totalCount > 0
-              ? `${t('resultHeader.upcoming')} ${totalCount} ${t('events')} - `
-              : `${t('resultHeader.noEvents')}`}
-            {totalCount > 0 && dateText}
-          </p>
-        )}
-        {isSearchEmpty && !isDateRangePresent && (
-          <p>
-            {totalCount > 0
-              ? `${t('resultHeader.upcoming')} ${totalCount} ${t('events')}`
-              : `${t('resultHeader.noEvents')} `}
-          </p>
-        )}
-
-        {!isSearchEmpty && isDateRangePresent && (
-          <p>
-            {totalCount > 0
-              ? `${totalCount} ${t('resultHeader.eventsContaining')} "${searchKeyWord}" - `
-              : `${t('resultHeader.noEvents')}`}
-            {totalCount > 0 && dateText}
-          </p>
-        )}
-
-        {!isSearchEmpty && !isDateRangePresent && (
-          <p>
-            {totalCount > 0
-              ? `${totalCount} ${t('resultHeader.eventsContaining')} "${searchKeyWord}"`
-              : `${t('resultHeader.noEvents')}`}
-          </p>
-        )}
-      </div>
-    </>
+    <Box className="result-header">
+      <Text
+        style={{
+          color: '#000000',
+          fontSize: 'var(--secondary-font-weight)',
+          fontWeight: 600,
+          lineHeight: '21.14px',
+          textAlign: 'left',
+          textUnderlinePosition: 'from-font',
+          textDecorationSkipInk: 'none',
+        }}
+      >
+        {t('resultHeader.upcoming')}
+      </Text>
+      <Icon
+        className="result-header-icon"
+        as={ShareIcon}
+        style={{
+          color: '#000000',
+          cursor: 'pointer',
+          width: '35px',
+          height: '35px',
+          borderRadius: '50%',
+          transition: 'background-color 0.3s ease',
+        }}
+      />
+    </Box>
   );
 };
 

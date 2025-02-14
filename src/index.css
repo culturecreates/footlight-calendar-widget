@@ -1,26 +1,33 @@
 #calendar-widget {
+  --title-grey: #555555;
   --primary-grey: #646d7b;
-  --secondary-grey: #d8d8d8;
+  --secondary-grey: #b3b3b3;
   --tertiary-grey: #b6c1c9;
-  --grey-calendar: #9196a3;
+  --bg-grey: #f6f6f6;
 
+  --primary-hover-white: #f0f0f0;
   --primary-white: #ffffff01;
   --primary-white-opaque: #ffffff;
 
-  --primary-black: #222732;
+  --primary-black: #2d2b2b;
+  --secondary-black: #000000cc;
+  --tertiary-black: #1e1e1eb2;
+  --transparant-black: #0d0d0d66;
+
+  /*********** font ***********/
+
+  --primary-font-weight: 19px;
+  --secondary-font-weight: 16px;
+
+  /*********** shadow ***********/
+
+  --primary-box-shadow: 0px 4px 4px 0px #0000000d;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
   margin: 0;
   padding: 0;
-}
-
-#calendar-widget ul,
-#calendar-widget li,
-#calendar-widget p {
-  all: unset;
-  display: block;
 }
 
 #calendar-widget button,
@@ -33,8 +40,35 @@
   font-family: var(--calendar-font-family);
 }
 
+#calendar-widget h1,
+#calendar-widget h2,
+#calendar-widget h3,
+#calendar-widget h4,
+#calendar-widget h5,
+#calendar-widget h6 {
+  all: unset;
+}
+
 #calendar-widget * :focus-visible {
   outline: none;
+  box-shadow: none;
+}
+
+#calendar-widget > .widget-layout .filter-search-section .clear-search-icon > svg > path {
+  fill: var(--dynamic-color-600);
+}
+
+#calendar-widget > .widget-layout .filter-search-section .search-icon > path {
+  fill: var(--dynamic-color-600);
+}
+
+#calendar-widget > .widget-layout button:focus {
+  background-color: transparent;
+}
+
+#calendar-widget p,
+button {
+  all: unset;
 }
 
 code {
