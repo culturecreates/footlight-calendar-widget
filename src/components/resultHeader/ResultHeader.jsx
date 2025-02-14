@@ -2,25 +2,15 @@ import React from 'react';
 import { Box, Text, Icon } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as ShareIcon } from '../../assets/share.svg';
+import './resultHeader.css';
 
 const ResultHeader = () => {
   const { t } = useTranslation();
 
   return (
-    <Box
-      display="flex"
-      justifyContent="space-between"
-      alignItems="center"
-      p="0px 24px 16px 24px"
-      maxW={{
-        sm: '717px',
-        md: '717px',
-        lg: '981px',
-      }}
-      w="100%"
-    >
+    <Box className="result-header">
       <Text
-        sx={{
+        style={{
           color: '#000000',
           fontSize: 'var(--secondary-font-weight)',
           fontWeight: 600,
@@ -33,17 +23,15 @@ const ResultHeader = () => {
         {t('resultHeader.upcoming')}
       </Text>
       <Icon
+        className="result-header-icon"
         as={ShareIcon}
-        sx={{
+        style={{
           color: '#000000',
           cursor: 'pointer',
           width: '35px',
           height: '35px',
           borderRadius: '50%',
           transition: 'background-color 0.3s ease',
-          _hover: {
-            backgroundColor: 'var(--dynamic-color-100)',
-          },
         }}
       />
     </Box>

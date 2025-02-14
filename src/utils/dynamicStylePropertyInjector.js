@@ -1,6 +1,10 @@
-import { dynamicColorVariableNames } from '../constants/generalConstants';
+import { getColors } from 'theme-colors';
+import { dynamicColorVariableNames, MAIN_DYNAMIC_COLOR } from '../constants/generalConstants';
 
-export const dynamicCssColorInjector = (palette) => {
+export const dynamicCssColorInjector = (color) => {
+  const palette = getColors(color);
+  document.documentElement.style.setProperty(MAIN_DYNAMIC_COLOR, color);
+
   Object.keys(dynamicColorVariableNames).forEach((key) => {
     document.documentElement.style.setProperty(dynamicColorVariableNames[key], palette[key]);
   });

@@ -1,0 +1,23 @@
+#calendar-widget > .widget-layout .filter-icon:hover {
+  background: var(--dynamic-color-100);
+  border-radius: 50%;
+}
+
+#calendar-widget > .widget-layout .filter-icon {
+  background: transparent;
+  border-radius: 50%;
+  border: none;
+  margin: 0;
+}
+
+#calendar-widget > .widget-layout .filter-dropdown {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  background: transparent;
+}
+
+#calendar-widget > .widget-layout .filter-dropdown:hover {
+  background-color: var(--dynamic-color-100);
+  color: var(--secondary-black);
+}

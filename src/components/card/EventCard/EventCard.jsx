@@ -1,71 +1,87 @@
 import React from 'react';
-import { Box, Image, Heading, Stack, Text, useBreakpointValue, Flex } from '@chakra-ui/react';
 import EventTypeBadge from '../../badge/EventTypeBadge/EventTypeBadge';
 import DateBadge from '../../badge/DateBadge/DateBadge';
 import StageIcon from '../../../assets/locationPin.svg';
 import { dateRangeFormatter } from '../../../utils/dateRangeFormatter';
+import './eventCard.css';
 
 const EventCard = React.memo(
   ({ image, eventName, stageName, eventType = [], startDate, altText }) => {
-    const cardWidth = useBreakpointValue({
-      base: '371px',
-      sm: '246px',
-      md: '246px',
-      lg: '246px',
-    });
+    const cardStyle = {
+      flex: '1 1 auto',
+      maxWidth: '371px',
+      minWidth: '246px',
+      borderRadius: '10px',
+      overflow: 'hidden',
+    };
 
     return (
-      <Box
-        flex="1 1 auto"
-        width={cardWidth}
-        maxWidth="371px"
-        minWidth="246px"
-        borderRadius="10px"
-        overflow="hidden"
-      >
-        <Image src={image} alt={altText} width="100%" />
+      <div className="event-card" style={cardStyle}>
+        <img src={image} alt={altText} style={{ width: '100%', display: 'block' }} />
 
-        <Box p={4} bg="var(--bg-grey)">
-          <Stack spacing={3}>
-            <Heading
-              as="h3"
-              size="md"
-              noOfLines={2}
-              isTruncated
-              fontSize="var(--secondary-font-weight)"
+        <div style={{ padding: '16px', backgroundColor: 'var(--bg-grey)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <h3
+              style={{
+                fontSize: 'var(--secondary-font-weight)',
+                fontWeight: 'bold',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                maxWidth: '100%',
+              }}
             >
               {eventName}
-            </Heading>
+            </h3>
 
-            <Flex
-              justify="flex-start"
-              align="flex-start"
-              direction={'column'}
-              wrap="nowrap"
-              gap={2}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                gap: '8px',
+              }}
             >
               <DateBadge startDate={dateRangeFormatter(startDate)} />
-              <Flex align="center" justify={'center'} ml="2px" gap={1}>
-                <Image src={StageIcon} alt="Stage Icon" boxSize={'14px'} />
-                <Text
-                  fontSize="13px"
-                  fontWeight="500"
-                  color="var(--title-grey)"
-                  noOfLines={1}
-                  whiteSpace="normal"
-                  ml="2px"
+
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  marginLeft: '2px',
+                }}
+              >
+                <img src={StageIcon} alt="Stage Icon" style={{ width: '14px', height: '14px' }} />
+                <span
+                  style={{
+                    fontSize: '13px',
+                    fontWeight: '500',
+                    color: 'var(--title-grey)',
+                    marginLeft: '2px',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    maxWidth: '100%',
+                  }}
                 >
                   {stageName}
-                </Text>
-              </Flex>
-            </Flex>
+                </span>
+              </div>
+            </div>
 
-            <Flex wrap="wrap" spacing={3} justify="flex-start" gap={2}>
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '8px',
+              }}
+            >
               {eventType.length > 0 && <EventTypeBadge eventType={eventType[0]} />}
-            </Flex>
-          </Stack>
-        </Box>
-      </Box>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   },
 );
