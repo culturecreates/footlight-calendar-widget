@@ -58,7 +58,7 @@ const FilterDropdown = ({
             alignItems: 'start',
             marginTop: '2px',
             paddingLeft: '2px',
-            maxHeight: '200px',
+            maxHeight: '150px',
             overflowY: 'auto',
           }}
         >
