@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ReactComponent as ArrowDownIcon } from '../../assets/arrowDown.svg';
 import { onLoadMoreClick } from '../../utils/onLoadMoreClick';
 import './results.css';
-import EventCard from '../EventCard/EventCard';
+import EventCard from '../card/EventCard/EventCard';
 
 const Results = () => {
   const { data, lastPageFlag, getData, pageNumber, widgetProps } = useContext(WidgetContext);
