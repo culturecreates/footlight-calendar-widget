@@ -12,6 +12,14 @@ export const redirectionModes = {
   EXTERNAL: 'EXTERNAL',
 };
 
+export const contentLanguages = {
+  ENGLISH: 'en',
+  FRENCH: 'fr',
+  JAPANESE: 'ja',
+  CHINESE: 'zh',
+  KOREAN: 'ko',
+};
+
 export const urlTypes = {
   SEARCH_EVENTS: 'searchEventsUrl',
   EVENT: 'eventUrl',
@@ -22,5 +30,7 @@ export const dynamicColorVariableNames = {
   100: '--dynamic-color-100',
   500: '--dynamic-color-500',
   600: '--dynamic-color-600',
-  700: '--dynamic-color-700',
+  700: '--main-dynamic-color',
 };
+
+export const MAIN_DYNAMIC_COLOR = '--main-dynamic-color';

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import { ReactComponent as FilterIcon } from '../../assets/filter.svg';
 import { ReactComponent as Arrow } from '../../assets/arrowDown.svg';
+import './filterPanel.css';
 
 const FilterDropdown = ({
   name,
@@ -25,23 +26,22 @@ const FilterDropdown = ({
   };
 
   return (
-    <Box mb={2}>
+    <Box style={{ marginBottom: '2px' }}>
       <Button
-        width="100%"
-        justifyContent="space-between"
+        style={{
+          width: '100%',
+          justifyContent: 'space-between',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '4px',
+          border: 'none',
+          margin: '0',
+        }}
+        className="filter-dropdown"
         onClick={onToggle}
         variant="ghost"
-        display="flex"
-        alignItems="center"
-        gap={4}
-        _hover={{
-          bg: 'var(--dynamic-color-100)',
-          border: 'none',
-        }}
       >
-        <Box flex="1" textAlign="left">
-          {name}
-        </Box>
+        <Box style={{ flex: 1, textAlign: 'left' }}>{name}</Box>
         <Box>
           <Arrow
             style={{
@@ -53,7 +53,15 @@ const FilterDropdown = ({
         </Box>
       </Button>
       <Collapse in={isOpen} animateOpacity>
-        <VStack align="start" mt={2} pl={2} maxHeight="200px" overflowY="auto">
+        <VStack
+          style={{
+            alignItems: 'start',
+            marginTop: '2px',
+            paddingLeft: '2px',
+            maxHeight: '200px',
+            overflowY: 'auto',
+          }}
+        >
           {options?.map((option, idx) => (
             <Checkbox
               key={idx}
@@ -114,23 +122,26 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef, t }) => 
   return (
     <Collapse in={isFilterOpen} animateOpacity>
       <Box
-        position="absolute"
-        zIndex="10"
-        bg="white"
-        boxShadow="md"
-        p={4}
-        borderRadius="md"
-        minWidth="350px"
-        maxWidth="350px"
         ref={panelRef}
+        style={{
+          position: 'absolute',
+          zIndex: '10',
+          backgroundColor: 'white',
+          boxShadow: 'md',
+          padding: '12px',
+          borderRadius: 'md',
+          minWidth: '350px',
+          maxWidth: '350px',
+        }}
       >
         {selectedFilters &&
           Object.values(selectedFilters).some((filters) => filters.length > 0) && (
-            <HStack width="100%" pr={2} justifyContent="flex-end">
+            <HStack style={{ width: '100%', paddingRight: '2px', justifyContent: 'flex-end' }}>
               <Button
                 size="xs"
                 variant="link"
-                color="var(--dynamic-color-700)"
+                style={{ color: 'var(--dynamic-color-700)' }}
+                onMouseOver={(e) => (e.target.style.backgroundColor = 'transparent')}
                 onClick={handleClearAllFilters}
               >
                 {t('filter.clearAll')}
@@ -230,20 +241,18 @@ const FilterSection = () => {
 
   return (
     filterOptions.length > 0 && (
-      <Box borderRadius="full" _hover={{ bg: 'var(--primary-hover-white)' }}>
-        <Box position="relative">
+      <Box
+        style={{ borderRadius: 'full', background: 'transparent' }}
+        _hover={{ background: 'var(--primary-hover-white)' }}
+      >
+        <Box style={{ position: 'relative' }}>
           <IconButton
             aria-label="Select Filter"
             icon={<FilterIcon />}
             onClick={handleFilterToggle}
             variant="ghost"
+            className="filter-icon"
             ref={iconRef}
-            _hover={{
-              bg: 'var(--dynamic-color-100)',
-              borderRadius: '50%',
-              border: '1px solid var(--dynamic-color-100)',
-            }}
-            borderRadius="50%"
           />
           {selectedFilters &&
             Object.values(selectedFilters).some((filters) => filters.length > 0) && (
@@ -253,7 +262,7 @@ const FilterSection = () => {
                 right="2px"
                 w="9px"
                 h="9px"
-                bg="var(--dynamic-color-700)"
+                bg="var(--main-dynamic-color)"
                 borderRadius="50%"
               />
             )}

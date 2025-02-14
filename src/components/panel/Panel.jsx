@@ -20,10 +20,12 @@ const ResultPanel = () => {
         ) : (
           <Box
             className="loader-wrapper"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            h="100px"
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '100px',
+            }}
           >
             <Loader />
           </Box>
