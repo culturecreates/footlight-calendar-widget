@@ -12,16 +12,20 @@ const EventCard = React.memo(
       <div className="event-card">
         <img src={image} alt={altText} style={{ width: '100%', display: 'block' }} />
 
-        <div style={{ padding: '16px', backgroundColor: 'var(--bg-grey)' }}>
+        <div style={{ padding: '16px', backgroundColor: 'var(--bg-grey)', height: '100%' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <h3
               style={{
                 fontSize: 'var(--secondary-font-weight)',
                 fontWeight: 'bold',
-                whiteSpace: 'nowrap',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
                 maxWidth: '100%',
+                lineHeight: '1.4em',
+                maxHeight: 'calc(1.4em * 2)',
               }}
             >
               {eventName}
