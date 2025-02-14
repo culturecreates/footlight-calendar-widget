@@ -1,9 +1,17 @@
-@media (max-width: 480px) {
+#calendar-widget > .widget-layout .event-card {
+  flex: 1 1 auto;
+  max-width: 371px;
+  min-width: 246px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+@media (max-width: 550px) {
   #calendar-widget > .widget-layout .event-card {
     width: 371px;
   }
 }
-@media (min-width: 481px) and (max-width: 768px) {
+@media (min-width: 550px) and (max-width: 768px) {
   #calendar-widget > .widget-layout .event-card {
     width: 246px;
   }
