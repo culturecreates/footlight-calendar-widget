@@ -14,10 +14,18 @@
   --tertiary-black: #1e1e1eb2;
   --transparant-black: #0d0d0d66;
 
+  --primary-hover-grey: #cdcdcd;
+
   /*********** font ***********/
 
   --primary-font-weight: 19px;
   --secondary-font-weight: 16px;
+
+  /*********** Performer Card Font Sizes ***********/
+  --performer-name-font-size: 18px;
+  --performer-website-font-size: 12px;
+  --performer-badge-font-size: 13px;
+  --performer-description-font-size: 13px;
 
   /*********** shadow ***********/
 

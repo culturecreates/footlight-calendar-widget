@@ -1,0 +1,7 @@
+@media (min-width: 768px) {
+  .performer-card {
+    width: 599px;
+    height: 233px;
+    flex-direction: row;
+  }
+}
