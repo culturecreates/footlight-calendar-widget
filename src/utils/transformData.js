@@ -90,12 +90,13 @@ export const transformData = ({ data, locale }) => {
           type,
           website: url,
         })),
-        sponsor: supporter?.map(({ name, logo, socialMediaLinks, type, url }) => ({
+        sponsor: supporter?.map(({ name, logo, socialMediaLinks, type, url, image }) => ({
           name: getLocalized(name, locale),
           logo: logo?.thumbnail,
           socialMediaLinks,
           type,
           website: url,
+          image: image?.thumbnail,
         })),
         offers: offers?.map(({ name, price = 0, priceCurrency, url }) => ({
           name: getLocalized(name, locale),

@@ -30,7 +30,11 @@ const SponsorsCarousel = ({ sponsors = [] }) => {
             style={styles.slideItem}
             onClick={() => sponsor?.website && window.open(sponsor?.website)}
           >
-            <img src={sponsor.logo} alt={sponsor.name} style={styles.sponsorLogo} />
+            <img
+              src={sponsor?.logo ?? sponsor?.image}
+              alt={sponsor?.name}
+              style={styles.sponsorLogo}
+            />
           </div>
         ))}
       </Slider>
@@ -68,6 +72,7 @@ const styles = {
   sponsorLogo: {
     maxHeight: '75px',
     width: '75px',
+    height: '75px',
     objectFit: 'contain',
   },
   customDot: {
