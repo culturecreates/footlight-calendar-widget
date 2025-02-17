@@ -31,6 +31,7 @@ import { dateRangeFormatter } from '../../utils/dateRangeFormatter';
 import Loader from '../loader/Loader';
 import ShowMoreTrigger from '../showMoreTrigger/ShowMoreTrigger';
 import PerformerCard from '../card/PerformerCard/PerformerCard';
+import PresenterCard from '../card/PresenterCard/PresenterCard';
 import SponsorsCarousel from '../carousel/Sponsor/SponsorCarousel';
 
 const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
@@ -300,14 +301,36 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     socialLinks={eventDetails?.performers[0]?.socialMediaLinks}
                   />
                 </Box>
-                <Box>
-                  <Heading as="h3" className="section-headings">
-                    {eventDetails?.sponsor?.length > 1
-                      ? t('detailsModal.sponsors')
-                      : t('detailsModal.sponsor')}
-                  </Heading>
-                  <SponsorsCarousel sponsors={eventDetails?.sponsor} />
-                </Box>
+                {eventDetails?.organizers?.length && (
+                  <Box style={{ marginTop: '1rem' }}>
+                    <Heading as="h3" className="section-headings">
+                      {eventDetails?.organizers?.length > 1
+                        ? t('detailsModal.presenters')
+                        : t('detailsModal.presenter')}
+                    </Heading>
+                    <Stack>
+                      {eventDetails?.organizers.map((organizer, index) => (
+                        <PresenterCard
+                          key={index}
+                          name={organizer.name}
+                          website={organizer.website}
+                          image={organizer.logo}
+                        />
+                      ))}
+                    </Stack>
+                  </Box>
+                )}
+                {eventDetails?.sponsor?.length && (
+                  <Box style={{ marginTop: '1rem' }}>
+                    <Heading as="h3" className="section-headings">
+                      {eventDetails?.sponsor?.length > 1
+                        ? t('detailsModal.sponsors')
+                        : t('detailsModal.sponsor')}
+                    </Heading>
+                    <SponsorsCarousel sponsors={eventDetails?.sponsor} />
+                  </Box>
+                )}
+                {}
               </Stack>
             </Box>
           )}

@@ -27,6 +27,8 @@ export const en = {
     showOnMap: 'Show on Map',
     sponsor: 'Sponsor',
     sponsors: 'Sponsors',
+    presenter: 'Presenter',
+    presenters: 'Presenters',
   },
   loadMore: 'Show More',
   showLess: 'Show Less',
