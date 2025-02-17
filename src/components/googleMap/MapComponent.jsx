@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { APIProvider, Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
+import { convertDMSStringToDecimal } from '../../utils/convertDMSStringToDecimal';
 
 const MapComponent = ({ latitude, longitude }) => {
   const defaultLatLng = { lat: 54.35291352856401, lng: -110.072423828125 };
+  const parsedLatitude = convertDMSStringToDecimal(latitude) || defaultLatLng.lat;
+  const parsedLongitude = convertDMSStringToDecimal(longitude) || defaultLatLng.lng;
 
   const [markerPosition, setMarkerPosition] = useState({
-    lat: latitude ?? defaultLatLng.lat,
-    lng: longitude ?? defaultLatLng.lng,
+    lat: parsedLatitude ?? defaultLatLng.lat,
+    lng: parsedLongitude ?? defaultLatLng.lng,
   });
   const [center, setCenter] = useState({
-    lat: latitude ?? defaultLatLng.lat,
-    lng: longitude ?? defaultLatLng.lng,
+    lat: parsedLatitude,
+    lng: parsedLongitude,
   });
   const [zoom, setZoom] = useState(18);
 
@@ -20,8 +23,11 @@ const MapComponent = ({ latitude, longitude }) => {
   }, [markerPosition]);
 
   useEffect(() => {
-    if (latitude !== markerPosition.lat || longitude !== markerPosition.lng) {
-      const newCenter = { lat: latitude ?? defaultLatLng.lat, lng: longitude ?? defaultLatLng.lng };
+    const newLat = convertDMSStringToDecimal(latitude) ?? defaultLatLng.lat;
+    const newLng = convertDMSStringToDecimal(longitude) ?? defaultLatLng.lng;
+
+    if (newLat !== markerPosition.lat || newLng !== markerPosition.lng) {
+      const newCenter = { lat: newLat, lng: newLng };
       setMarkerPosition(newCenter);
       setCenter(newCenter);
     }

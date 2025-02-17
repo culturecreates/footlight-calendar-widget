@@ -29,6 +29,7 @@ export const en = {
     sponsors: 'Sponsors',
     presenter: 'Presenter',
     presenters: 'Presenters',
+    eventLocation: 'Event Location',
   },
   loadMore: 'Show More',
   showLess: 'Show Less',

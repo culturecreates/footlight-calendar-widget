@@ -18,7 +18,7 @@ const socialIcons = {
 };
 
 const cardStyles = {
-  width: '370px',
+  width: 'auto',
   minHeight: '120px',
   padding: '16px',
   border: '1px solid #ffffff',
@@ -42,7 +42,9 @@ const PerformerCard = ({ image, name, website, type, description, socialLinks = 
     <Box className="performer-card" style={cardStyles}>
       <VStack align="start" spacing={2} flex={1} style={{ marginLeft: '16px', width: '100%' }}>
         <HStack spacing={3} style={{ marginTop: '8px' }}>
-          <Image src={image} alt={name} borderRadius="full" boxSize="88px" />
+          <Box>
+            <Image src={image} alt={name} borderRadius="full" boxSize="88px" objectFit="cover" />
+          </Box>
           <VStack align="start" spacing={1}>
             <Text
               style={{
