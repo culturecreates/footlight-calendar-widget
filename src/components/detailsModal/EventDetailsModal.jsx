@@ -33,7 +33,6 @@ import ShowMoreTrigger from '../showMoreTrigger/ShowMoreTrigger';
 import PerformerCard from '../card/PerformerCard/PerformerCard';
 import PresenterCard from '../card/PresenterCard/PresenterCard';
 import SponsorsCarousel from '../carousel/Sponsor/SponsorCarousel';
-import MapComponent from '../googleMap/MapComponent';
 
 const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const { widgetProps } = useContext(WidgetContext);
@@ -332,7 +331,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     <SponsorsCarousel sponsors={eventDetails?.sponsor} />
                   </Box>
                 )}
-                <Box style={{ marginTop: '2rem' }}>
+                {/* <Box style={{ marginTop: '2rem' }}>
                   <Heading as="h3" className="section-headings">
                     {t('detailsModal.eventLocation')}
                   </Heading>
@@ -342,7 +341,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                       longitude={eventDetails?.longitude}
                     />
                   </Box>
-                </Box>
+                </Box> */}
               </Stack>
             </Box>
           )}
