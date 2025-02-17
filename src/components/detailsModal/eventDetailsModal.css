@@ -119,6 +119,14 @@
   flex-direction: column;
 }
 
+#calendar-widget .calendar-widget-details-modal .section-headings {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24.16px;
+  letter-spacing: 0%;
+  color: var(--main-dynamic-color);
+}
+
 @media (min-width: 640px) {
   #calendar-widget .calendar-widget-details-modal .event-container {
     flex-direction: row;

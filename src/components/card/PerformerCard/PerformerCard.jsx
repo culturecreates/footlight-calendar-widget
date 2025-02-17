@@ -16,16 +16,17 @@ const socialIcons = {
 
 const cardStyles = {
   width: '370px',
-  height: '258px',
+  minHeight: '120px',
+  maxHeight: '258px',
   padding: '16px',
   border: '1px solid #ffffff',
   borderRadius: '25px',
-  boxShadow: 'none',
   backgroundColor: 'white',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   transition: 'all 0.3s ease',
+  boxShadow: '0px 0px 153px 0px #0000001A',
 };
 
 const PerformerCard = ({ image, name, website, type, description, socialLinks = [] }) => {
@@ -33,7 +34,7 @@ const PerformerCard = ({ image, name, website, type, description, socialLinks = 
 
   return (
     <Box className="performer-card" style={cardStyles}>
-      <VStack align="start" spacing={2} flex={1} style={{ marginLeft: '16px' }}>
+      <VStack align="start" spacing={2} flex={1} style={{ marginLeft: '16px', width: '100%' }}>
         <HStack spacing={3} style={{ marginTop: '8px' }}>
           <Image src={image} alt={name} borderRadius="full" boxSize="88px" />
           <VStack align="start" spacing={1}>
@@ -90,6 +91,7 @@ const PerformerCard = ({ image, name, website, type, description, socialLinks = 
               const IconComponent = socialIcons[type];
               return (
                 <IconButton
+                  className="social-icon"
                   key={index}
                   as={Link}
                   href={uri}

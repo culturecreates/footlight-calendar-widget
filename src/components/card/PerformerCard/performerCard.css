@@ -1,3 +1,7 @@
+#calendar-widget .widget-layout .social-icon:active {
+  background: transparent;
+}
+
 @media (min-width: 768px) {
   .performer-card {
     width: 599px;

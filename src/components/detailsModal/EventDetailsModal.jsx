@@ -14,6 +14,7 @@ import {
   Flex,
   Image,
   IconButton,
+  Heading,
 } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
 import { transformData } from '../../utils/transformData';
@@ -29,6 +30,8 @@ import DateBadge from '../badge/DateBadge/DateBadge';
 import { dateRangeFormatter } from '../../utils/dateRangeFormatter';
 import Loader from '../loader/Loader';
 import ShowMoreTrigger from '../showMoreTrigger/ShowMoreTrigger';
+import PerformerCard from '../card/PerformerCard/PerformerCard';
+import SponsorsCarousel from '../carousel/Sponsor/SponsorCarousel';
 
 const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const { widgetProps } = useContext(WidgetContext);
@@ -122,7 +125,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     setCreditDisplayFlag(false);
                     setShowFullImageCreditDescription(false);
                   }}
-                  src={eventDetails?.image}
+                  src={eventDetails?.image?.large}
                   width="100%"
                 />
               </Box>
@@ -286,6 +289,24 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                       </Flex>
                     </Flex>
                   </Stack>
+                </Box>
+                <Box>
+                  <PerformerCard
+                    image={eventDetails?.image?.thumbnail}
+                    name={eventDetails?.performers[0]?.name}
+                    website={eventDetails?.performers[0]?.website}
+                    type={eventDetails?.performers[0]?.type}
+                    description={eventDetails?.performers[0]?.description}
+                    socialLinks={eventDetails?.performers[0]?.socialMediaLinks}
+                  />
+                </Box>
+                <Box>
+                  <Heading as="h3" className="section-headings">
+                    {eventDetails?.sponsor?.length > 1
+                      ? t('detailsModal.sponsors')
+                      : t('detailsModal.sponsor')}
+                  </Heading>
+                  <SponsorsCarousel sponsors={eventDetails?.sponsor} />
                 </Box>
               </Stack>
             </Box>

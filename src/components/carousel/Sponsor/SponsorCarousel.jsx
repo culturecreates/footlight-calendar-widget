@@ -4,26 +4,32 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './sponsorCarousel.css';
 
-const SponsorsCarousel = ({ sponsors }) => {
+const SponsorsCarousel = ({ sponsors = [] }) => {
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: sponsors.length > 1,
     speed: 1000,
-    slidesToShow: 6,
+    slidesToShow: Math.min(sponsors.length, 6),
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: sponsors.length > 1,
     autoplaySpeed: 3000,
     arrows: false,
     customPaging: (i) => <button className="custom-dot" aria-label={`Go to slide ${i + 1}`} />,
     dotsClass: 'slick-dots custom-dots',
-    responsive: [{ breakpoint: 768, settings: { slidesToShow: 4 } }],
+    responsive: [
+      { breakpoint: 768, settings: { slidesToShow: sponsors.length > 4 ? 4 : sponsors.length } },
+    ],
   };
 
   return (
     <div style={getResponsiveStyles().carouselContainer}>
       <Slider {...settings}>
         {sponsors.map((sponsor, index) => (
-          <div key={index} style={styles.slideItem}>
+          <div
+            key={index}
+            style={styles.slideItem}
+            onClick={() => sponsor?.website && window.open(sponsor?.website)}
+          >
             <img src={sponsor.logo} alt={sponsor.name} style={styles.sponsorLogo} />
           </div>
         ))}
@@ -60,7 +66,7 @@ const styles = {
     maxWidth: '75px',
   },
   sponsorLogo: {
-    maxHeight: '20px',
+    maxHeight: '75px',
     width: '75px',
     objectFit: 'contain',
   },

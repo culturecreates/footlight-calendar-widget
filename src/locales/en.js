@@ -25,6 +25,8 @@ export const en = {
     Performers: 'Performers',
     place: 'Place',
     showOnMap: 'Show on Map',
+    sponsor: 'Sponsor',
+    sponsors: 'Sponsors',
   },
   loadMore: 'Show More',
   showLess: 'Show Less',
