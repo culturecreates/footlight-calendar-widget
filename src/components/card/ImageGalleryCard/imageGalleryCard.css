@@ -1,0 +1,23 @@
+#calendar-widget .image-card {
+  max-width: 179px; /* Default for mobile */
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #f3f3f3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Adjust width for tablets and desktops */
+@media (min-width: 425px) {
+  #calendar-widget .image-card {
+    max-width: 289px;
+  }
+}
+
+#calendar-widget .image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+}
