@@ -22,7 +22,7 @@ export function extractPropsFromSearchParams(dataAttributes) {
   const alwaysOnDatePicker = JSON.parse(
     dataAttributes?.alwaysOnDatePicker || searchParams.get('alwaysOnDatePicker'),
   );
-  const disableGroups = JSON.parse(
+  const disableGrouping = JSON.parse(
     dataAttributes?.disableGrouping || searchParams.get('disableGrouping'),
   );
 
@@ -42,7 +42,7 @@ export function extractPropsFromSearchParams(dataAttributes) {
     redirectionMode,
     showFooter,
     alwaysOnDatePicker,
-    disableGroups,
+    disableGrouping,
     filterOptions,
   };
 
@@ -67,7 +67,7 @@ export function extractPropsFromSearchParams(dataAttributes) {
       headerTitle,
       showFooter,
       alwaysOnDatePicker,
-      disableGroups,
+      disableGrouping,
       filterOptions,
     },
     isSuccess,
