@@ -25,11 +25,10 @@ import { cleanDescription } from '../../utils/cleanDescription';
 import EventTypeBadge from '../badge/EventTypeBadge/EventTypeBadge';
 import { redirectionHandler } from '../../utils/redirectionHandler';
 import { useTranslation } from 'react-i18next';
-import { ReactComponent as ChevronDownIcon } from '../../assets/arrowDown.svg';
-import { ReactComponent as ChevronUpIcon } from '../../assets/upChevron.svg';
 import DateBadge from '../badge/DateBadge/DateBadge';
 import { dateRangeFormatter } from '../../utils/dateRangeFormatter';
 import Loader from '../loader/Loader';
+import ShowMoreTrigger from '../showMoreTrigger/ShowMoreTrigger';
 
 const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const { widgetProps } = useContext(WidgetContext);
@@ -44,8 +43,11 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const [creditDisplayFlag, setCreditDisplayFlag] = useState(false);
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [showFullImageCreditDescription, setShowFullImageCreditDescription] = useState(false);
+  const [showMoreButton, setShowMoreButton] = useState(false);
 
   const containerRef = useRef(null);
+  const descriptionRef = useRef(null);
+  const imageCreditRef = useRef(null);
 
   useEffect(() => {
     if (!eventId || !isOpen) return;
@@ -85,53 +87,6 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const handleImageCreditDisplay = () => {
     setCreditDisplayFlag(!creditDisplayFlag);
     setShowFullImageCreditDescription(false);
-  };
-
-  const ShowMoreTrigger = (setFlag, flag) => {
-    return (
-      <Button
-        size="sm"
-        style={{
-          marginLeft: 'auto',
-          padding: '4px',
-          variant: 'link',
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          color: 'var(--main-dynamic-color)',
-        }}
-        onClick={() => setFlag(!flag)}
-        className="show-more-trigger"
-      >
-        <Text
-          style={{
-            textDecoration: 'none',
-            color: 'var(--main-dynamic-color)',
-            marginRight: '4px',
-          }}
-        >
-          {t(flag ? 'showLess' : 'loadMore')}
-        </Text>
-        <Box
-          style={{
-            height: '16px',
-            width: '16px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          className="show-more-trigger-icon-container"
-        >
-          {flag ? (
-            <ChevronUpIcon style={{ height: '15px', width: '15px' }} />
-          ) : (
-            <ChevronDownIcon style={{ height: '15px', width: '15px' }} />
-          )}
-        </Box>
-      </Button>
-    );
   };
 
   if (error) {
@@ -216,7 +171,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     }}
                     className="image-credit"
                   >
-                    {eventDetails?.imageCredit?.caption && (
+                    {eventDetails?.imageCredit?.creditText && (
                       <Text
                         style={{
                           fontSize: '12px',
@@ -224,22 +179,29 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                           color: 'var(--secondary-black)',
                         }}
                       >
-                        {eventDetails?.imageCredit?.caption}
+                        {eventDetails?.imageCredit?.creditText}
                       </Text>
                     )}
-                    {eventDetails?.imageCredit?.description && (
+                    {eventDetails?.imageCredit?.caption && (
                       <>
                         <Text
                           className={`clamped-text-img-credit ${
                             showFullImageCreditDescription ? 'expanded' : ''
                           }`}
+                          ref={imageCreditRef}
                         >
-                          {cleanDescription(eventDetails?.imageCredit?.description)}
+                          {cleanDescription(eventDetails?.imageCredit?.caption)}
                         </Text>
-                        {ShowMoreTrigger(
-                          setShowFullImageCreditDescription,
-                          showFullImageCreditDescription,
-                        )}
+                        <ShowMoreTrigger
+                          setFlag={setShowFullImageCreditDescription}
+                          flag={showFullImageCreditDescription}
+                          handleShowMoreButtonState={(status) =>
+                            setShowMoreButton({ ...showMoreButton, imageCredit: status })
+                          }
+                          ref={imageCreditRef}
+                          containerData={eventDetails?.imageCredit?.caption}
+                          showMoreDisplayStatus={showMoreButton?.imageCredit}
+                        />
                       </>
                     )}
                   </Flex>
@@ -262,6 +224,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                   <Box>
                     <Flex direction="column" gap={2}>
                       <Text
+                        ref={descriptionRef}
                         onClick={() => {
                           setShowFullDescription(!showFullDescription);
                         }}
@@ -281,7 +244,16 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                       >
                         {cleanDescription(eventDetails?.description)}
                       </Text>
-                      {ShowMoreTrigger(setShowFullDescription, showFullDescription)}
+                      <ShowMoreTrigger
+                        setFlag={setShowFullDescription}
+                        flag={showFullDescription}
+                        handleShowMoreButtonState={(status) =>
+                          setShowMoreButton({ ...showMoreButton, description: status })
+                        }
+                        ref={descriptionRef}
+                        containerData={eventDetails?.description}
+                        showMoreDisplayStatus={showMoreButton?.description}
+                      />
                     </Flex>
                   </Box>
                   <Stack spacing={4}>

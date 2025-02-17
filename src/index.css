@@ -74,7 +74,8 @@
   background-color: transparent;
 }
 
-#calendar-widget p {
+#calendar-widget p,
+button {
   all: unset;
 }
 
