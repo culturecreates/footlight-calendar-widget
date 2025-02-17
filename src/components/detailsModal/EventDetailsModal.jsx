@@ -14,6 +14,7 @@ import {
   Flex,
   Image,
   IconButton,
+  Heading,
 } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
 import { transformData } from '../../utils/transformData';
@@ -29,6 +30,9 @@ import DateBadge from '../badge/DateBadge/DateBadge';
 import { dateRangeFormatter } from '../../utils/dateRangeFormatter';
 import Loader from '../loader/Loader';
 import ShowMoreTrigger from '../showMoreTrigger/ShowMoreTrigger';
+import PerformerCard from '../card/PerformerCard/PerformerCard';
+import PresenterCard from '../card/PresenterCard/PresenterCard';
+import SponsorsCarousel from '../carousel/Sponsor/SponsorCarousel';
 
 const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const { widgetProps } = useContext(WidgetContext);
@@ -122,7 +126,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     setCreditDisplayFlag(false);
                     setShowFullImageCreditDescription(false);
                   }}
-                  src={eventDetails?.image}
+                  src={eventDetails?.image?.large}
                   width="100%"
                 />
               </Box>
@@ -145,6 +149,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                   backgroundColor: 'var(--primary-white-opaque)',
                   boxShadow: '0px 4px 6px #00000029',
                   position: 'relative',
+                  overflowY: 'auto',
                 }}
               >
                 <Flex style={{ paddingTop: '0.5rem' }}>
@@ -287,6 +292,56 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     </Flex>
                   </Stack>
                 </Box>
+                <Box>
+                  <PerformerCard
+                    image={eventDetails?.image?.thumbnail}
+                    name={eventDetails?.performers[0]?.name}
+                    website={eventDetails?.performers[0]?.website}
+                    type={eventDetails?.performers[0]?.type}
+                    description={eventDetails?.performers[0]?.description}
+                    socialLinks={eventDetails?.performers[0]?.socialMediaLinks}
+                  />
+                </Box>
+                {eventDetails?.organizers?.length && (
+                  <Box style={{ marginTop: '1rem' }}>
+                    <Heading as="h3" className="section-headings">
+                      {eventDetails?.organizers?.length > 1
+                        ? t('detailsModal.presenters')
+                        : t('detailsModal.presenter')}
+                    </Heading>
+                    <Stack>
+                      {eventDetails?.organizers.map((organizer, index) => (
+                        <PresenterCard
+                          key={index}
+                          name={organizer.name}
+                          website={organizer.website}
+                          image={organizer.logo}
+                        />
+                      ))}
+                    </Stack>
+                  </Box>
+                )}
+                {eventDetails?.sponsor?.length && (
+                  <Box style={{ marginTop: '1rem' }}>
+                    <Heading as="h3" className="section-headings">
+                      {eventDetails?.sponsor?.length > 1
+                        ? t('detailsModal.sponsors')
+                        : t('detailsModal.sponsor')}
+                    </Heading>
+                    <SponsorsCarousel sponsors={eventDetails?.sponsor} />
+                  </Box>
+                )}
+                {/* <Box style={{ marginTop: '2rem' }}>
+                  <Heading as="h3" className="section-headings">
+                    {t('detailsModal.eventLocation')}
+                  </Heading>
+                  <Box>
+                    <MapComponent
+                      latitude={eventDetails?.latitude}
+                      longitude={eventDetails?.longitude}
+                    />
+                  </Box>
+                </Box> */}
               </Stack>
             </Box>
           )}
