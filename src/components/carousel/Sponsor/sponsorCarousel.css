@@ -1,0 +1,36 @@
+.custom-dots {
+  display: flex !important;
+  justify-content: center;
+  margin-top: 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.custom-dots li {
+  display: inline-block;
+  width: 14px;
+  height: 4px;
+  background-color: var(--primary-hover-grey);
+  border-radius: 2px;
+  margin: 0 3px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+/* Ensure the active bullet is highlighted */
+.custom-dots li.slick-active {
+  background-color: var(--dynamic-color-700);
+}
+
+/* Bullet hover effect */
+.custom-dots li:hover {
+  background-color: var(--dynamic-color-100);
+}
+
+/* Hide button text and make bullets clickable */
+.custom-dot {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
