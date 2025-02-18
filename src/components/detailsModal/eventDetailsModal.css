@@ -41,13 +41,6 @@
   width: 0;
 }
 
-#calendar-widget .calendar-widget-details-modal .clamped-text-img-credit {
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--secondary-black);
-  overflow: hidden;
-}
-
 #calendar-widget .calendar-widget-details-modal .clamped-text-img-credit,
 #calendar-widget .calendar-widget-details-modal .clamped-text-description {
   display: -webkit-box;
@@ -67,6 +60,15 @@
   -webkit-line-clamp: unset;
   display: block;
   max-height: 1000px;
+}
+
+#calendar-widget .calendar-widget-details-modal .clamped-text-img-credit,
+#calendar-widget .calendar-widget-details-modal .clamped-text-img-credit.expanded {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--secondary-black);
+  overflow-y: scroll;
+  max-height: 84px;
 }
 
 /* ----------------------------------------------------------------------------- */
