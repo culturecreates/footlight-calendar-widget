@@ -18,12 +18,12 @@
   font-size: var(--performer-description-font-size);
   font-weight: 300;
   color: var(--secondary-black);
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {
   #calendar-widget .calendar-widget-details-modal .performer-card {
     width: 599px;
-    height: 233px;
     flex-direction: row;
   }
 }

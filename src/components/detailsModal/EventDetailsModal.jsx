@@ -33,6 +33,7 @@ import ShowMoreTrigger from '../showMoreTrigger/ShowMoreTrigger';
 import PerformerCard from '../card/PerformerCard/PerformerCard';
 import PresenterCard from '../card/PresenterCard/PresenterCard';
 import SponsorsCarousel from '../carousel/Sponsor/SponsorCarousel';
+import MapComponent from '../googleMap/MapComponent';
 
 const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const { widgetProps } = useContext(WidgetContext);
@@ -44,8 +45,8 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [creditDisplayFlag, setCreditDisplayFlag] = useState(false);
   const [showFullDescription, setShowFullDescription] = useState(false);
+  const [creditDisplayFlag, setCreditDisplayFlag] = useState(false);
   const [showFullImageCreditDescription, setShowFullImageCreditDescription] = useState(false);
   const [showMoreButton, setShowMoreButton] = useState(false);
 
@@ -123,8 +124,10 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                 <Image
                   onClick={(e) => {
                     e.stopPropagation();
-                    setCreditDisplayFlag(false);
-                    setShowFullImageCreditDescription(false);
+                    if (eventDetails?.imageCredit) {
+                      setCreditDisplayFlag(!creditDisplayFlag);
+                      setShowFullImageCreditDescription(!showFullImageCreditDescription);
+                    }
                   }}
                   src={eventDetails?.image?.large}
                   width="100%"
@@ -242,6 +245,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                           color: 'var(--secondary-black)',
                           textAlign: 'left',
                           overflow: 'hidden',
+                          cursor: 'pointer',
                         }}
                         className={`clamped-text-description ${
                           showFullDescription ? 'expanded' : ''
@@ -292,16 +296,21 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     </Flex>
                   </Stack>
                 </Box>
-                <Box>
-                  <PerformerCard
-                    image={eventDetails?.image?.thumbnail}
-                    name={eventDetails?.performers[0]?.name}
-                    website={eventDetails?.performers[0]?.website}
-                    type={eventDetails?.performers[0]?.type}
-                    description={eventDetails?.performers[0]?.description}
-                    socialLinks={eventDetails?.performers[0]?.socialMediaLinks}
-                  />
-                </Box>
+                {eventDetails?.performers?.length && (
+                  <Stack>
+                    {eventDetails?.performers?.map((performer, index) => (
+                      <PerformerCard
+                        key={index}
+                        image={performer?.image?.thumbnail}
+                        name={performer?.name}
+                        website={performer?.website}
+                        type={performer?.type}
+                        description={performer?.description}
+                        socialLinks={performer?.socialMediaLinks}
+                      />
+                    ))}
+                  </Stack>
+                )}
                 {eventDetails?.organizers?.length && (
                   <Box style={{ marginTop: '1rem' }}>
                     <Heading as="h3" className="section-headings">
@@ -331,17 +340,18 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     <SponsorsCarousel sponsors={eventDetails?.sponsor} />
                   </Box>
                 )}
-                {/* <Box style={{ marginTop: '2rem' }}>
+                <Box style={{ marginTop: '1rem', width: '100%', height: '248px' }}>
                   <Heading as="h3" className="section-headings">
                     {t('detailsModal.eventLocation')}
                   </Heading>
-                  <Box>
+                  <Box style={{ marginTop: '0.5rem' }}>
                     <MapComponent
+                      mapUrl={eventDetails?.mapUrl}
                       latitude={eventDetails?.latitude}
                       longitude={eventDetails?.longitude}
                     />
                   </Box>
-                </Box> */}
+                </Box>
               </Stack>
             </Box>
           )}

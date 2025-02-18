@@ -43,7 +43,7 @@ export const transformData = ({ data, locale }) => {
       const place = Array.isArray(location) ? location[0] || {} : location;
       const { address = {}, geo = {} } = place;
       const { addressLocality, streetAddress } = address;
-      const { latitude, longitude } = geo;
+      const { latitude, longitude, url } = geo;
 
       const imageCredit = (() => {
         const entries = ['description', 'caption', 'creditText']
@@ -72,6 +72,7 @@ export const transformData = ({ data, locale }) => {
         streetAddress: getLocalized(streetAddress, locale),
         latitude,
         longitude,
+        mapUrl: url,
         eventTypes: additionalType?.map((type) => getLocalized(type?.name, locale)),
         disciplines: discipline?.map((d) => getLocalized(d?.name, locale)),
         languages: inLanguage?.map((lang) => getLocalized(lang?.name, locale)),
