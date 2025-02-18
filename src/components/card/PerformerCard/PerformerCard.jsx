@@ -84,6 +84,9 @@ const PerformerCard = ({ image, name, website, type, description, socialLinks = 
           <Text
             className={`clamped-text-performer-description ${flag ? 'expanded' : ''}`}
             ref={descriptionRef}
+            onClick={() => {
+              setFlag(!flag);
+            }}
           >
             {cleanDescription(description)}
           </Text>
