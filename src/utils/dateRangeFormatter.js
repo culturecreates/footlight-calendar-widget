@@ -16,18 +16,18 @@ function isSameDay(date1, date2) {
   return day1 === day2;
 }
 
-export function dateRangeFormatter(startdate, enddate, scheduleTimezone = 'Canada/Eastern') {
+export function dateRangeFormatter({ startDate, endDate, scheduleTimezone = 'Canada/Eastern' }) {
   // Check if the startdate has a time component by checking the format
-  const hasStartTime = startdate.includes('T') || startdate.includes(' ');
-  const isStartAndEndDaySame = isSameDay(startdate, enddate);
+  const hasStartTime = startDate.includes('T') || startDate.includes(' ');
+  const isStartAndEndDaySame = isSameDay(startDate, endDate);
   const locale = i18next.language;
 
   const dateTimeFormat = locale === 'fr' ? 'DD MMM YYYY | HH:mm' : 'DD MMM YYYY | h:mm a';
 
   const startDateTimeObj = hasStartTime
-    ? dayjs.utc(startdate).tz(scheduleTimezone)
-    : dayjs(startdate);
-  const noEndDateFlag = !enddate || enddate === '' || enddate == null;
+    ? dayjs.utc(startDate).tz(scheduleTimezone)
+    : dayjs(startDate);
+  const noEndDateFlag = !endDate || endDate === '' || endDate == null;
 
   if (!startDateTimeObj.isValid()) {
     return 'Invalid date format';
@@ -42,8 +42,8 @@ export function dateRangeFormatter(startdate, enddate, scheduleTimezone = 'Canad
 
   if (!noEndDateFlag) {
     // Check if the enddate has a time component by checking the format
-    const hasEndTime = enddate.includes('T') || enddate.includes(' ');
-    let endDateObj = hasEndTime ? dayjs.utc(enddate).tz(scheduleTimezone) : dayjs(enddate);
+    const hasEndTime = endDate.includes('T') || endDate.includes(' ');
+    let endDateObj = hasEndTime ? dayjs.utc(endDate).tz(scheduleTimezone) : dayjs(endDate);
 
     if (!endDateObj.isValid()) {
       return 'Invalid end date format';

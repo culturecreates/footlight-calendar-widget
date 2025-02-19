@@ -50,3 +50,7 @@
   padding: 0 10px;
   cursor: pointer;
 }
+
+#calendar-widget .slick-track > div:first-child {
+  padding-left: 0px !important;
+}

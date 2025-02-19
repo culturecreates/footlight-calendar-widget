@@ -41,7 +41,7 @@ export function extractPropsFromSearchParams(dataAttributes) {
     font,
     redirectionMode,
     showFooter,
-    alwaysOnDatePicker,
+    // alwaysOnDatePicker,
     disableGrouping,
     filterOptions,
   };

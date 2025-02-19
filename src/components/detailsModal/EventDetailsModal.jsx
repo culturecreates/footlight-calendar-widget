@@ -35,7 +35,7 @@ import PresenterCard from '../card/PresenterCard/PresenterCard';
 import SponsorsCarousel from '../carousel/Sponsor/SponsorCarousel';
 import MapComponent from '../googleMap/MapComponent';
 
-const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
+const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
   const { widgetProps } = useContext(WidgetContext);
   const { locale } = widgetProps;
 
@@ -275,7 +275,10 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                       <Flex className="event-date">
                         <Icon as={calendaricon} className="event-icon" />
                         <DateBadge
-                          startDate={dateRangeFormatter(eventDetails?.startDate)}
+                          startDate={dateRangeFormatter({
+                            startDate: eventDetails?.startDate,
+                            scheduleTimezone,
+                          })}
                           color="var(--primary-black)"
                           bgcolor="transparent"
                         />
@@ -304,7 +307,8 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                         image={performer?.image?.thumbnail}
                         name={performer?.name}
                         website={performer?.website}
-                        type={performer?.type}
+                        occupation={performer?.occupation}
+                        locale={locale}
                         description={performer?.description}
                         socialLinks={performer?.socialMediaLinks}
                       />

@@ -76,14 +76,17 @@ export const transformData = ({ data, locale }) => {
         eventTypes: additionalType?.map((type) => getLocalized(type?.name, locale)),
         disciplines: discipline?.map((d) => getLocalized(d?.name, locale)),
         languages: inLanguage?.map((lang) => getLocalized(lang?.name, locale)),
-        performers: performer?.map(({ name, image, socialMediaLinks, type, url, description }) => ({
-          name: getLocalized(name, locale),
-          image,
-          socialMediaLinks,
-          type,
-          website: url,
-          description: getLocalized(description, locale),
-        })),
+        performers: performer?.map(
+          ({ name, image, socialMediaLinks, type, url, description, occupation }) => ({
+            name: getLocalized(name, locale),
+            image,
+            socialMediaLinks,
+            type,
+            occupation,
+            website: url,
+            description: getLocalized(description, locale),
+          }),
+        ),
         organizers: organizer?.map(({ name, logo, socialMediaLinks, type, url }) => ({
           name: getLocalized(name, locale),
           logo: logo?.thumbnail,
