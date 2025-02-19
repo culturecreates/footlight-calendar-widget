@@ -1,4 +1,4 @@
-import { Box, Image, Text, Badge, Link, HStack, VStack, IconButton } from '@chakra-ui/react';
+import { Box, Image, Text, Badge, Link, HStack, VStack, IconButton, Stack } from '@chakra-ui/react';
 import { ReactComponent as AppleMusicIcon } from '../../../assets/appleMusic.svg';
 import { ReactComponent as FacebookIcon } from '../../../assets/facebook.svg';
 import { ReactComponent as SpotifyIcon } from '../../../assets/spotify.svg';
@@ -8,6 +8,7 @@ import './performerCard.css';
 import { cleanDescription } from '../../../utils/cleanDescription';
 import ShowMoreTrigger from '../../showMoreTrigger/ShowMoreTrigger';
 import { useRef, useState } from 'react';
+import { getLocalized } from '../../../utils/getLocalized';
 
 const socialIcons = {
   Facebook: FacebookIcon,
@@ -31,7 +32,15 @@ const cardStyles = {
   boxShadow: '0px 0px 153px 0px #0000001A',
 };
 
-const PerformerCard = ({ image, name, website, type, description, socialLinks = [] }) => {
+const PerformerCard = ({
+  image,
+  name,
+  website,
+  occupation,
+  description,
+  socialLinks = [],
+  locale,
+}) => {
   const [flag, setFlag] = useState(false);
   const [showMoreDisplayStatus, setShowMoreButtonState] = useState(false);
   const descriptionRef = useRef(null);
@@ -64,19 +73,27 @@ const PerformerCard = ({ image, name, website, type, description, socialLinks = 
               {website}
             </Link>
 
-            <Badge
-              style={{
-                backgroundColor: 'var(--secondary-grey)',
-                padding: '4px 8px',
-                borderRadius: '4px',
-                fontSize: 'var(--performer-badge-font-size)',
-                fontWeight: '400',
-                textTransform: 'capitalize',
-                color: 'var(--primary-white-opaque)',
-              }}
-            >
-              {type}
-            </Badge>
+            <Stack>
+              {occupation?.map((item, index) => {
+                return (
+                  <Badge
+                    key={index}
+                    style={{
+                      backgroundColor: 'var(--secondary-grey)',
+                      padding: '4px 8px',
+                      borderRadius: '4px',
+                      fontSize: 'var(--performer-badge-font-size)',
+                      fontWeight: '400',
+                      textTransform: 'capitalize',
+                      color: 'var(--primary-white-opaque)',
+                      width: 'fit-content',
+                    }}
+                  >
+                    {getLocalized(item?.name, locale)}
+                  </Badge>
+                );
+              })}
+            </Stack>
           </VStack>
         </HStack>
 

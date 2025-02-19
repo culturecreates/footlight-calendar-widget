@@ -307,7 +307,8 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
                         image={performer?.image?.thumbnail}
                         name={performer?.name}
                         website={performer?.website}
-                        type={performer?.type}
+                        occupation={performer?.occupation}
+                        locale={locale}
                         description={performer?.description}
                         socialLinks={performer?.socialMediaLinks}
                       />
