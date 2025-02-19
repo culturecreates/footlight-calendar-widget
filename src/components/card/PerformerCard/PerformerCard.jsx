@@ -118,7 +118,7 @@ const PerformerCard = ({
         </Box>
 
         {filteredSocialLinks.length > 0 && (
-          <HStack spacing={3} style={{ marginTop: '8px' }}>
+          <HStack spacing={2} style={{ marginTop: '8px' }}>
             {filteredSocialLinks.map(({ uri, type }, index) => {
               const IconComponent = socialIcons[type];
               return (
@@ -131,7 +131,7 @@ const PerformerCard = ({
                   aria-label={type}
                   variant="ghost"
                   isExternal
-                  style={{ padding: '4px' }}
+                  style={{ padding: '4px', minWidth: '24px', minHeight: '24px' }}
                 />
               );
             })}
