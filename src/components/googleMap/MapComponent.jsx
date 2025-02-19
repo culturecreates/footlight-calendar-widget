@@ -1,8 +1,28 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { ReactComponent as InformationCircle } from '../../assets/informationCircle.svg';
 
 const MapComponent = ({ mapUrl, latitude, longitude }) => {
+  const [updatedMapUrl, setUpdatedMapUrl] = useState(mapUrl);
   const [imageError, setImageError] = useState(false);
+
+  const updateMapSize = (url) => {
+    if (!url) return null;
+
+    const isMobile = window.innerWidth < 660;
+    const width = isMobile ? 360 : 660;
+    const height = isMobile ? 180 : 330;
+
+    return url.replace(/size=\d+x\d+/g, `size=${width}x${height}`);
+  };
+
+  useEffect(() => {
+    setUpdatedMapUrl(updateMapSize(mapUrl));
+
+    const handleResize = () => setUpdatedMapUrl(updateMapSize(mapUrl));
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, [mapUrl]);
 
   const handleClick = useCallback(() => {
     const googleMapsUrl =
@@ -28,7 +48,7 @@ const MapComponent = ({ mapUrl, latitude, longitude }) => {
     >
       {!imageError ? (
         <img
-          src={mapUrl}
+          src={updatedMapUrl}
           alt="Static map showing selected location"
           style={{ borderRadius: '8px', height: '216px', width: '100%' }}
           className="google-static-map"
