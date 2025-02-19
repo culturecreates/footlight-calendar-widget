@@ -8,7 +8,7 @@ import { Icon, useDisclosure } from '@chakra-ui/react';
 import EventDetailsModal from '../../detailsModal/EventDetailsModal';
 
 const EventCard = React.memo(
-  ({ image, eventName, stageName, eventType = [], startDate, altText, id }) => {
+  ({ image, eventName, stageName, eventType = [], startDate, altText, id, scheduleTimezone }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
@@ -43,8 +43,7 @@ const EventCard = React.memo(
                   gap: '8px',
                 }}
               >
-                <DateBadge startDate={dateRangeFormatter(startDate)} />
-
+                <DateBadge startDate={dateRangeFormatter({ startDate, scheduleTimezone })} />
                 <div
                   style={{
                     display: 'flex',
@@ -83,7 +82,12 @@ const EventCard = React.memo(
             </div>
           </div>
         </div>
-        <EventDetailsModal isOpen={isOpen} onClose={onClose} eventId={id} />
+        <EventDetailsModal
+          isOpen={isOpen}
+          onClose={onClose}
+          eventId={id}
+          scheduleTimezone={scheduleTimezone}
+        />
       </>
     );
   },
