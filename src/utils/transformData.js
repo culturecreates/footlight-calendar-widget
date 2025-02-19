@@ -38,6 +38,8 @@ export const transformData = ({ data, locale }) => {
         eventStatus,
         eventAttendanceMode,
         keywords,
+        video,
+        imageGallery,
       } = eventData || {};
 
       const place = Array.isArray(location) ? location[0] || {} : location;
@@ -52,7 +54,6 @@ export const transformData = ({ data, locale }) => {
 
         return entries.length > 0 ? Object.fromEntries(entries) : undefined;
       })();
-
       return removeEmptyKeys({
         id,
         title: getLocalized(name, locale),
@@ -111,6 +112,8 @@ export const transformData = ({ data, locale }) => {
         eventStatus,
         eventAttendanceMode,
         keywords,
+        video,
+        imageGallery: imageGallery?.filter((image) => image?.thumbnail),
       });
     }) || []
   );

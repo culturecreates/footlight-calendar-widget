@@ -34,6 +34,8 @@ import PerformerCard from '../card/PerformerCard/PerformerCard';
 import PresenterCard from '../card/PresenterCard/PresenterCard';
 import SponsorsCarousel from '../carousel/Sponsor/SponsorCarousel';
 import MapComponent from '../googleMap/MapComponent';
+import ImageGalleryCarousel from '../carousel/ImageGallery/ImageGalleryCarousel';
+import VideoIframe from '../card/VideoCard/VideoIframe';
 
 const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
   const { widgetProps } = useContext(WidgetContext);
@@ -315,6 +317,36 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
                     ))}
                   </Stack>
                 )}
+                {eventDetails?.video?.embedUrl && (
+                  <Box style={{ marginTop: '1rem' }}>
+                    <Stack>
+                      {eventDetails?.video?.embedUrl && (
+                        <VideoIframe url={eventDetails?.video?.embedUrl} />
+                      )}
+                    </Stack>
+                  </Box>
+                )}
+
+                {eventDetails?.imageGallery?.length > 0 && (
+                  <Box style={{ marginTop: '1rem' }}>
+                    <Stack>
+                      <ImageGalleryCarousel
+                        images={eventDetails?.imageGallery?.map((image) => {
+                          return {
+                            src: image?.thumbnail,
+                            alt:
+                              image?.description?.[locale] ||
+                              image?.description?.en ||
+                              image?.description?.fr ||
+                              Object.values(image?.description ?? {}).find((val) => val) ||
+                              '@none',
+                          };
+                        })}
+                      />
+                    </Stack>
+                  </Box>
+                )}
+
                 {eventDetails?.organizers?.length && (
                   <Box style={{ marginTop: '1rem' }}>
                     <Heading as="h3" className="section-headings">
