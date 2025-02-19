@@ -1,4 +1,4 @@
-.custom-dots {
+#calendar-widget .image-gallery-carousel .custom-dots {
   display: flex !important;
   justify-content: center;
   margin-top: 18px;
@@ -6,7 +6,7 @@
   list-style: none;
 }
 
-.custom-dots li {
+#calendar-widget .image-gallery-carousel .custom-dots li {
   display: inline-block;
   width: 14px;
   height: 4px;
@@ -17,20 +17,28 @@
   cursor: pointer;
 }
 
-/* Ensure the active bullet is highlighted */
-.custom-dots li.slick-active {
+#calendar-widget .image-gallery-carousel .custom-dots li.slick-active {
   background-color: var(--dynamic-color-700);
 }
 
-/* Bullet hover effect */
-.custom-dots li:hover {
+#calendar-widget .image-gallery-carousel .custom-dots li:hover {
   background-color: var(--dynamic-color-100);
 }
 
-/* Hide button text and make bullets clickable */
-.custom-dot {
+#calendar-widget .image-gallery-carousel .custom-dot {
   width: 100%;
   height: 100%;
   opacity: 0;
   cursor: pointer;
+}
+
+#calendar-widget .image-gallery-carousel .slick-track {
+  display: flex;
+  gap: 8px;
+}
+
+#calendar-widget .image-gallery-carousel .slick-slide,
+#calendar-widget .image-gallery-carousel .slick-active,
+#calendar-widget .image-gallery-carousel .slick-current {
+  padding: 0;
 }

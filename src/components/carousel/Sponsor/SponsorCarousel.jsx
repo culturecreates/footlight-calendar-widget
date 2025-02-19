@@ -37,7 +37,7 @@ const SponsorsCarousel = ({ sponsors = [] }) => {
 
   return (
     <div style={getResponsiveStyles().carouselContainer}>
-      <Slider {...settings}>
+      <Slider {...settings} className="sponsor-carousel">
         {sponsors.map((sponsor, index) => (
           <div
             key={index}

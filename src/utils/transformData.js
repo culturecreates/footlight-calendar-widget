@@ -39,6 +39,7 @@ export const transformData = ({ data, locale }) => {
         eventAttendanceMode,
         keywords,
         video,
+        imageGallery,
       } = eventData || {};
 
       const place = Array.isArray(location) ? location[0] || {} : location;
@@ -109,6 +110,7 @@ export const transformData = ({ data, locale }) => {
         eventAttendanceMode,
         keywords,
         video,
+        imageGallery: imageGallery?.filter((image) => image?.thumbnail),
       });
     }) || []
   );
