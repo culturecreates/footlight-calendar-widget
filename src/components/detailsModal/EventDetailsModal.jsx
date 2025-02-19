@@ -34,6 +34,7 @@ import PerformerCard from '../card/PerformerCard/PerformerCard';
 import PresenterCard from '../card/PresenterCard/PresenterCard';
 import SponsorsCarousel from '../carousel/Sponsor/SponsorCarousel';
 import MapComponent from '../googleMap/MapComponent';
+import VideoIframe from '../card/VideoCard/VideoIframe';
 
 const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const { widgetProps } = useContext(WidgetContext);
@@ -310,6 +311,15 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                       />
                     ))}
                   </Stack>
+                )}
+                {eventDetails?.video?.embedUrl && (
+                  <Box style={{ marginTop: '1rem' }}>
+                    <Stack>
+                      {eventDetails?.video?.embedUrl && (
+                        <VideoIframe url={eventDetails?.video?.embedUrl} />
+                      )}
+                    </Stack>
+                  </Box>
                 )}
                 {eventDetails?.organizers?.length && (
                   <Box style={{ marginTop: '1rem' }}>
