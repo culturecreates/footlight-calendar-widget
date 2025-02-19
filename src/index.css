@@ -13,6 +13,8 @@
   --secondary-black: #000000cc;
   --tertiary-black: #1e1e1eb2;
   --transparant-black: #0d0d0d66;
+  --primary-blue: #3d3ce1;
+  --presenter-link-color: #0f0e9f;
 
   --primary-hover-grey: #cdcdcd;
 
@@ -26,6 +28,14 @@
   --performer-website-font-size: 12px;
   --performer-badge-font-size: 13px;
   --performer-description-font-size: 13px;
+
+  /*********** Presenter font ***********/
+
+  --presenter-font-size: 16px;
+  --presenter-font-weight: 500;
+
+  --presenter-link-size: 14px;
+  --presenter-link-weight: 400;
 
   /*********** shadow ***********/
 

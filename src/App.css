@@ -41,3 +41,7 @@
 #calendar-widget > .widget-layout ::-webkit-scrollbar-thumb:hover {
   background: var(--primary-grey);
 }
+
+#calendar-widget .fallback-map-error-component > svg > path {
+  fill: var(--primary-grey);
+}

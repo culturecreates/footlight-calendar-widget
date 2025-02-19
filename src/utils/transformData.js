@@ -27,13 +27,14 @@ export const transformData = ({ data, locale }) => {
         endDateTime,
         image,
         location,
-        performers,
-        organizers,
+        performer,
+        organizer,
         additionalType,
         discipline,
         inLanguage,
         offers,
         subEventDetails,
+        supporter,
         eventStatus,
         eventAttendanceMode,
         keywords,
@@ -42,7 +43,7 @@ export const transformData = ({ data, locale }) => {
       const place = Array.isArray(location) ? location[0] || {} : location;
       const { address = {}, geo = {} } = place;
       const { addressLocality, streetAddress } = address;
-      const { latitude, longitude } = geo;
+      const { latitude, longitude, url } = geo;
 
       const imageCredit = (() => {
         const entries = ['description', 'caption', 'creditText']
@@ -64,23 +65,39 @@ export const transformData = ({ data, locale }) => {
             : subEventDetails?.nextUpcomingSubEventDateTime ||
               subEventDetails?.nextUpcomingSubEventDate,
         endDate: endDate || endDateTime,
-        image: image?.thumbnail,
+        image: { thumbnail: image?.thumbnail, original: image?.original, large: image?.large },
         imageCredit,
         place: getLocalized(place?.name, locale),
         city: getLocalized(addressLocality, locale),
         streetAddress: getLocalized(streetAddress, locale),
         latitude,
         longitude,
+        mapUrl: url,
         eventTypes: additionalType?.map((type) => getLocalized(type?.name, locale)),
         disciplines: discipline?.map((d) => getLocalized(d?.name, locale)),
         languages: inLanguage?.map((lang) => getLocalized(lang?.name, locale)),
-        performers: performers?.map(({ name, image }) => ({
+        performers: performer?.map(({ name, image, socialMediaLinks, type, url, description }) => ({
           name: getLocalized(name, locale),
           image,
+          socialMediaLinks,
+          type,
+          website: url,
+          description: getLocalized(description, locale),
         })),
-        organizers: organizers?.map(({ name, image }) => ({
+        organizers: organizer?.map(({ name, logo, socialMediaLinks, type, url }) => ({
           name: getLocalized(name, locale),
-          image,
+          logo: logo?.thumbnail,
+          socialMediaLinks,
+          type,
+          website: url,
+        })),
+        sponsor: supporter?.map(({ name, logo, socialMediaLinks, type, url, image }) => ({
+          name: getLocalized(name, locale),
+          logo: logo?.thumbnail,
+          socialMediaLinks,
+          type,
+          website: url,
+          image: image?.thumbnail,
         })),
         offers: offers?.map(({ name, price = 0, priceCurrency, url }) => ({
           name: getLocalized(name, locale),

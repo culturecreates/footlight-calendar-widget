@@ -34,3 +34,19 @@
   opacity: 0;
   cursor: pointer;
 }
+
+#calendar-widget .slick-slide > div > div,
+#calendar-widget .slick-active > div > div,
+#calendar-widget .slick-current > div > div {
+  display: grid !important;
+  place-content: center;
+  width: fit-content !important;
+}
+
+#calendar-widget .slick-slide,
+#calendar-widget .slick-active,
+#calendar-widget .slick-current {
+  width: fit-content !important;
+  padding: 0 10px;
+  cursor: pointer;
+}

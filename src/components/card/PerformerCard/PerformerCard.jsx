@@ -5,6 +5,9 @@ import { ReactComponent as SpotifyIcon } from '../../../assets/spotify.svg';
 import { ReactComponent as YouTubeIcon } from '../../../assets/youtube.svg';
 import { ReactComponent as TwitterIcon } from '../../../assets/twitter.svg';
 import './performerCard.css';
+import { cleanDescription } from '../../../utils/cleanDescription';
+import ShowMoreTrigger from '../../showMoreTrigger/ShowMoreTrigger';
+import { useRef, useState } from 'react';
 
 const socialIcons = {
   Facebook: FacebookIcon,
@@ -15,27 +18,33 @@ const socialIcons = {
 };
 
 const cardStyles = {
-  width: '370px',
-  height: '258px',
+  width: 'auto',
+  minHeight: '120px',
   padding: '16px',
   border: '1px solid #ffffff',
   borderRadius: '25px',
-  boxShadow: 'none',
   backgroundColor: 'white',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   transition: 'all 0.3s ease',
+  boxShadow: '0px 0px 153px 0px #0000001A',
 };
 
 const PerformerCard = ({ image, name, website, type, description, socialLinks = [] }) => {
+  const [flag, setFlag] = useState(false);
+  const [showMoreDisplayStatus, setShowMoreButtonState] = useState(false);
+  const descriptionRef = useRef(null);
+
   const filteredSocialLinks = socialLinks.filter(({ type }) => socialIcons[type]);
 
   return (
     <Box className="performer-card" style={cardStyles}>
-      <VStack align="start" spacing={2} flex={1} style={{ marginLeft: '16px' }}>
+      <VStack align="start" spacing={2} flex={1} style={{ marginLeft: '16px', width: '100%' }}>
         <HStack spacing={3} style={{ marginTop: '8px' }}>
-          <Image src={image} alt={name} borderRadius="full" boxSize="88px" />
+          <Box>
+            <Image src={image} alt={name} borderRadius="full" boxSize="88px" objectFit="cover" />
+          </Box>
           <VStack align="start" spacing={1}>
             <Text
               style={{
@@ -71,18 +80,25 @@ const PerformerCard = ({ image, name, website, type, description, socialLinks = 
           </VStack>
         </HStack>
 
-        <Text
-          style={{
-            fontSize: 'var(--performer-description-font-size)',
-            fontWeight: '300',
-            display: '-webkit-box',
-            WebkitBoxOrient: 'vertical',
-            WebkitLineClamp: 3,
-            overflow: 'hidden',
-          }}
-        >
-          {description}
-        </Text>
+        <Box>
+          <Text
+            className={`clamped-text-performer-description ${flag ? 'expanded' : ''}`}
+            ref={descriptionRef}
+            onClick={() => {
+              setFlag(!flag);
+            }}
+          >
+            {cleanDescription(description)}
+          </Text>
+          <ShowMoreTrigger
+            setFlag={setFlag}
+            flag={flag}
+            handleShowMoreButtonState={(status) => setShowMoreButtonState(status)}
+            containerData={cleanDescription(description)}
+            showMoreDisplayStatus={showMoreDisplayStatus}
+            ref={descriptionRef}
+          />
+        </Box>
 
         {filteredSocialLinks.length > 0 && (
           <HStack spacing={3} style={{ marginTop: '8px' }}>
@@ -90,6 +106,7 @@ const PerformerCard = ({ image, name, website, type, description, socialLinks = 
               const IconComponent = socialIcons[type];
               return (
                 <IconButton
+                  className="social-icon"
                   key={index}
                   as={Link}
                   href={uri}

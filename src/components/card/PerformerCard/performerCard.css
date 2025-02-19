@@ -1,7 +1,29 @@
+#calendar-widget .calendar-widget-details-modal .social-icon:active {
+  background: transparent;
+}
+
+#calendar-widget .calendar-widget-details-modal .clamped-text-performer-description.expanded {
+  -webkit-line-clamp: unset;
+  display: block;
+  max-height: 1000px;
+}
+
+#calendar-widget .calendar-widget-details-modal .clamped-text-performer-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: max-height 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  max-height: 84px;
+  font-size: var(--performer-description-font-size);
+  font-weight: 300;
+  color: var(--secondary-black);
+  cursor: pointer;
+}
+
 @media (min-width: 768px) {
-  .performer-card {
+  #calendar-widget .calendar-widget-details-modal .performer-card {
     width: 599px;
-    height: 233px;
     flex-direction: row;
   }
 }
