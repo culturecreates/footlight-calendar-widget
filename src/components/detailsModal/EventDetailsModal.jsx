@@ -38,14 +38,13 @@ import ImageGalleryCarousel from '../carousel/ImageGallery/ImageGalleryCarousel'
 import VideoIframe from '../card/VideoCard/VideoIframe';
 
 const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
-  const { widgetProps } = useContext(WidgetContext);
+  const { widgetProps,setError } = useContext(WidgetContext);
   const { locale } = widgetProps;
 
   const { t } = useTranslation();
 
   const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [creditDisplayFlag, setCreditDisplayFlag] = useState(false);
@@ -61,7 +60,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
 
     const fetchEventDetails = async () => {
       setLoading(true);
-      setError(null);
+      setError(false);
       try {
         const response = await fetch(`${process.env.REACT_APP_API_URL}events/${eventId}`);
         if (!response.ok) {
@@ -73,7 +72,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
 
         setEventDetails(eventDetails || {});
       } catch (err) {
-        setError(err.message);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -95,10 +94,6 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
     setCreditDisplayFlag(!creditDisplayFlag);
     setShowFullImageCreditDescription(false);
   };
-
-  if (error) {
-    return <div>{error}</div>;
-  }
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} portalProps={{ containerRef }}>
