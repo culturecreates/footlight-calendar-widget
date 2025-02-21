@@ -30,6 +30,7 @@ const SponsorsCarousel = ({ sponsors = [] }) => {
     autoplay: canScroll,
     autoplaySpeed: 3000,
     arrows: false,
+    rows: 1,
     customPaging: (i) => <button className="custom-dot" aria-label={`Go to slide ${i + 1}`} />,
     dotsClass: 'slick-dots custom-dots',
     responsive: [{ breakpoint: 768, settings: { slidesToShow: Math.min(sponsors.length, 4) } }],
@@ -81,13 +82,11 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     margin: 'auto',
-    maxHeight: '75px',
+    maxHeight: '100px',
   },
   sponsorLogo: {
-    maxHeight: '75px',
-    height: '75px',
+    height: '65px',
     width: '75px',
-    objectFit: 'cover',
   },
 };
 
