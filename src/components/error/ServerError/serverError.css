@@ -1,66 +1,43 @@
-/* ErrorPage.css */
-.error-container {
+#calendar-widget .error-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
   text-align: center;
+  background: var(--dynamic-color-50);
+  color: var(--primary-black);
   padding: 20px;
-  background-color: #f8f9fa;
 }
 
-.error-image {
-  width: 150px;
-  max-width: 100%;
-  margin-bottom: 20px;
+#calendar-widget .error-heading {
+  font-size: 32px;
+  font-weight: bold;
 }
 
-.error-heading {
+#calendar-widget .error-subtext {
   font-size: 24px;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.error-timestamp {
-  font-size: 14px;
-  color: #777;
+  font-weight: 400;
   margin-bottom: 20px;
 }
 
-.error-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.error-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
+#calendar-widget .error-button {
+  all: unset; /* Resetting default styles */
+  display: inline-block;
+  color: var(--primary-white-opaque);
+  background-color: var(--main-dynamic-color);
   font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
-  border-radius: 5px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 2px solid var(--main-dynamic-color);
+  transition: all 0.3s ease-in-out;
+  text-align: center;
 }
 
-.error-button:hover {
-  background-color: #0056b3;
-}
-
-.error-text {
-  font-size: 14px;
-  color: #555;
-}
-
-.error-link {
-  color: #007bff;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.error-link:hover {
-  text-decoration: underline;
+#calendar-widget .error-button:hover {
+  color: var(--primary-blue);
+  border-color: var(--primary-hover-white);
+  background-color: var(--primary-hover-white);
 }
