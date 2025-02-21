@@ -193,3 +193,19 @@
   background-color: var(--secondary-grey);
   color: var(--primary-black);
 }
+
+#calendar-widget .calendar-widget-details-modal .share-detail-icon {
+  position: absolute;
+  right: 44px;
+  top: -78px;
+  z-index: 5;
+}
+
+#calendar-widget .calendar-widget-details-modal .share-detail-icon {
+  background-color: var(--main-dynamic-color);
+  border-radius: 100%;
+}
+
+#calendar-widget .calendar-widget-details-modal .share-detail-icon path {
+  fill: var(--primary-white-opaque);
+}

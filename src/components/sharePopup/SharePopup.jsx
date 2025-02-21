@@ -12,11 +12,11 @@ import {
 } from 'react-share';
 import { generateDeeplinkUrl } from '../../utils/hooks/useGenerateDeeplinkUrl';
 
-const ShareTooltip = ({ children }) => {
+const ShareTooltip = ({ children, styles = {}, eventId }) => {
   const { isOpen, onToggle, onClose } = useDisclosure();
   const tooltipRef = useRef(null);
 
-  const url = generateDeeplinkUrl();
+  const url = generateDeeplinkUrl({ eventId });
 
   useOutsideClick({
     ref: tooltipRef,
@@ -41,6 +41,7 @@ const ShareTooltip = ({ children }) => {
             flexDirection: 'column',
             border: '1px solid var(--bg-grey)',
             gap: '8px',
+            ...styles,
           }}
         >
           <FacebookShareButton url={url}>

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import WidgetContext from '../../context/WidgetContext';
 import { objectToUrlParams } from '../generateUrl';
 
-export const generateDeeplinkUrl = () => {
+export const generateDeeplinkUrl = ({ eventId }) => {
   const originUrl = window.location.origin;
 
   // Convert URLSearchParams to an object
@@ -19,6 +19,7 @@ export const generateDeeplinkUrl = () => {
     ...selectedFilters,
     searchKeyWord,
     pageNumber,
+    eventId,
   });
 
   // Prefix keys and merge with existing URL parameters

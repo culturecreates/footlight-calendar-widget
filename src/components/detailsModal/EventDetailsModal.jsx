@@ -21,6 +21,7 @@ import { transformData } from '../../utils/transformData';
 import './eventDetailsModal.css';
 import { ReactComponent as calendaricon } from '../../assets/calendar.svg';
 import { ReactComponent as StageIcon } from '../../assets/locationPin.svg';
+import { ReactComponent as ShareIcon } from '../../assets/share.svg';
 import { ReactComponent as InformationCircle } from '../../assets/informationCircle.svg';
 import { cleanDescription } from '../../utils/cleanDescription';
 import EventTypeBadge from '../badge/EventTypeBadge/EventTypeBadge';
@@ -36,6 +37,7 @@ import SponsorsCarousel from '../carousel/Sponsor/SponsorCarousel';
 import MapComponent from '../googleMap/MapComponent';
 import ImageGalleryCarousel from '../carousel/ImageGallery/ImageGalleryCarousel';
 import VideoIframe from '../card/VideoCard/VideoIframe';
+import SocialMediaPopup from '../sharePopup/SharePopup';
 
 const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
   const { widgetProps } = useContext(WidgetContext);
@@ -134,6 +136,33 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
                   src={eventDetails?.image?.large}
                   width="100%"
                 />
+              </Box>
+              <Box
+                position="relative"
+                style={{
+                  marginLeft: 'auto',
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                }}
+              >
+                <SocialMediaPopup
+                  styles={{ zIndex: 5, right: '48px', top: '-16px' }}
+                  eventId={eventId}
+                >
+                  <Icon
+                    className="share-detail-icon"
+                    as={ShareIcon}
+                    style={{
+                      color: '#000000',
+                      cursor: 'pointer',
+                      width: '63px',
+                      height: '63px',
+                      borderRadius: '50%',
+                      transition: 'background-color 0.3s ease',
+                    }}
+                  />
+                </SocialMediaPopup>
               </Box>
               <Stack
                 className="event-information-section-wrapper"

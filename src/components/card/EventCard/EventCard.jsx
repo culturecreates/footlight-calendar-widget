@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import EventTypeBadge from '../../badge/EventTypeBadge/EventTypeBadge';
 import DateBadge from '../../badge/DateBadge/DateBadge';
 import { ReactComponent as StageIcon } from '../../../assets/locationPin.svg';
@@ -8,8 +8,22 @@ import { Icon, useDisclosure } from '@chakra-ui/react';
 import EventDetailsModal from '../../detailsModal/EventDetailsModal';
 
 const EventCard = React.memo(
-  ({ image, eventName, stageName, eventType = [], startDate, altText, id, scheduleTimezone }) => {
+  ({
+    image,
+    eventName,
+    stageName,
+    eventType = [],
+    startDate,
+    altText,
+    id,
+    scheduleTimezone,
+    eventIdSearchParam,
+  }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    useEffect(() => {
+      if (eventIdSearchParam && eventIdSearchParam === id) onOpen();
+    }, [eventIdSearchParam, id]);
 
     return (
       <>

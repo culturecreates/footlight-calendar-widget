@@ -21,6 +21,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   const selectedFiltersSearchParam = widgetProps?.internalStateSearchParam?.selectedFilters;
   const searchKeyWordSearchParam = widgetProps?.internalStateSearchParam?.searchKeyWord;
   const pageNumberSearchParam = widgetProps?.internalStateSearchParam?.pageNumber;
+  const eventIdSearchParam = widgetProps?.internalStateSearchParam?.eventId;
 
   // states
   const [data, setData] = useState([]);
@@ -159,6 +160,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
         indexedSessionStorageVariableNames,
         calendarData,
         selectedFilters,
+        eventIdSearchParam,
         setSelectedFilters,
         getData,
         setSearchKeyWord,

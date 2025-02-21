@@ -77,26 +77,43 @@ export function extractPropsFromSearchParams(dataAttributes) {
 
 export function handleInternalStateSearchParam() {
   const searchParams = new URLSearchParams(window.location.search);
-  // internal state configuration params
 
-  const startDateSpan = searchParams.get('footlight-startDateSpan');
-  const endDateSpan = searchParams.get('footlight-endDateSpan');
-  const isSingleDate = searchParams.get('footlight-isSingleDate');
-  const places = searchParams.get('footlight-place')?.split(',') || [];
-  const audience = searchParams.get('footlight-Audience')?.split(',') || [];
-  const eventTypes = searchParams.get('footlight-EventType')?.split(',') || [];
-  const searchKeyWord = searchParams.get('footlight-searchKeyWord');
-  const pageNumber = searchParams.get('footlight-pageNumber');
+  // Define parameter keys
+  const paramKeys = [
+    'footlight-startDateSpan',
+    'footlight-endDateSpan',
+    'footlight-isSingleDate',
+    'footlight-place',
+    'footlight-Audience',
+    'footlight-EventType',
+    'footlight-searchKeyWord',
+    'footlight-pageNumber',
+    'footlight-eventId',
+  ];
 
-  return {
-    internalStateSearchParam: {
-      startDateSpan,
-      endDateSpan,
-      isSingleDate,
-      selectedFilters: { places, audience, eventTypes },
-      searchKeyWord,
-      pageNumber,
+  // Extract parameters
+  const internalStateSearchParam = {
+    startDateSpan: searchParams.get('footlight-startDateSpan'),
+    endDateSpan: searchParams.get('footlight-endDateSpan'),
+    isSingleDate: searchParams.get('footlight-isSingleDate'),
+    selectedFilters: {
+      places: searchParams.get('footlight-place')?.split(',') || [],
+      audience: searchParams.get('footlight-Audience')?.split(',') || [],
+      eventTypes: searchParams.get('footlight-EventType')?.split(',') || [],
     },
-    curruptInternalStateFlag: false,
+    searchKeyWord: searchParams.get('footlight-searchKeyWord'),
+    pageNumber: searchParams.get('footlight-pageNumber'),
+    eventId: searchParams.get('footlight-eventId'),
   };
+
+  // Remove parameters
+  paramKeys.forEach((key) => searchParams.delete(key));
+
+  // Update the URL without reloading the page
+  const newUrl = `${window.location.pathname}${
+    searchParams.toString() ? `?${searchParams.toString()}` : ''
+  }`;
+  window.history.replaceState(null, '', newUrl);
+
+  return { internalStateSearchParam, curruptInternalStateFlag: false };
 }
