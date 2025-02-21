@@ -14,6 +14,7 @@ import {
   Flex,
   Image,
   IconButton,
+  Heading,
 } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
 import { transformData } from '../../utils/transformData';
@@ -29,8 +30,14 @@ import DateBadge from '../badge/DateBadge/DateBadge';
 import { dateRangeFormatter } from '../../utils/dateRangeFormatter';
 import Loader from '../loader/Loader';
 import ShowMoreTrigger from '../showMoreTrigger/ShowMoreTrigger';
+import PerformerCard from '../card/PerformerCard/PerformerCard';
+import PresenterCard from '../card/PresenterCard/PresenterCard';
+import SponsorsCarousel from '../carousel/Sponsor/SponsorCarousel';
+import MapComponent from '../googleMap/MapComponent';
+import ImageGalleryCarousel from '../carousel/ImageGallery/ImageGalleryCarousel';
+import VideoIframe from '../card/VideoCard/VideoIframe';
 
-const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
+const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
   const { widgetProps } = useContext(WidgetContext);
   const { locale } = widgetProps;
 
@@ -40,8 +47,8 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [creditDisplayFlag, setCreditDisplayFlag] = useState(false);
   const [showFullDescription, setShowFullDescription] = useState(false);
+  const [creditDisplayFlag, setCreditDisplayFlag] = useState(false);
   const [showFullImageCreditDescription, setShowFullImageCreditDescription] = useState(false);
   const [showMoreButton, setShowMoreButton] = useState(false);
 
@@ -119,10 +126,12 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                 <Image
                   onClick={(e) => {
                     e.stopPropagation();
-                    setCreditDisplayFlag(false);
-                    setShowFullImageCreditDescription(false);
+                    if (eventDetails?.imageCredit) {
+                      setCreditDisplayFlag(!creditDisplayFlag);
+                      setShowFullImageCreditDescription(!showFullImageCreditDescription);
+                    }
                   }}
-                  src={eventDetails?.image}
+                  src={eventDetails?.image?.large}
                   width="100%"
                 />
               </Box>
@@ -145,6 +154,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                   backgroundColor: 'var(--primary-white-opaque)',
                   boxShadow: '0px 4px 6px #00000029',
                   position: 'relative',
+                  overflowY: 'auto',
                 }}
               >
                 <Flex style={{ paddingTop: '0.5rem' }}>
@@ -237,6 +247,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                           color: 'var(--secondary-black)',
                           textAlign: 'left',
                           overflow: 'hidden',
+                          cursor: 'pointer',
                         }}
                         className={`clamped-text-description ${
                           showFullDescription ? 'expanded' : ''
@@ -266,7 +277,10 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                       <Flex className="event-date">
                         <Icon as={calendaricon} className="event-icon" />
                         <DateBadge
-                          startDate={dateRangeFormatter(eventDetails?.startDate)}
+                          startDate={dateRangeFormatter({
+                            startDate: eventDetails?.startDate,
+                            scheduleTimezone,
+                          })}
                           color="var(--primary-black)"
                           bgcolor="transparent"
                         />
@@ -286,6 +300,93 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                       </Flex>
                     </Flex>
                   </Stack>
+                </Box>
+                {eventDetails?.performers?.length && (
+                  <Stack>
+                    {eventDetails?.performers?.map((performer, index) => (
+                      <PerformerCard
+                        key={index}
+                        image={performer?.image?.thumbnail}
+                        name={performer?.name}
+                        website={performer?.website}
+                        occupation={performer?.occupation}
+                        locale={locale}
+                        description={performer?.description}
+                        socialLinks={performer?.socialMediaLinks}
+                      />
+                    ))}
+                  </Stack>
+                )}
+                {eventDetails?.video?.embedUrl && (
+                  <Box style={{ marginTop: '1rem' }}>
+                    <Stack>
+                      {eventDetails?.video?.embedUrl && (
+                        <VideoIframe url={eventDetails?.video?.embedUrl} />
+                      )}
+                    </Stack>
+                  </Box>
+                )}
+
+                {eventDetails?.imageGallery?.length > 0 && (
+                  <Box style={{ marginTop: '1rem' }}>
+                    <Stack>
+                      <ImageGalleryCarousel
+                        images={eventDetails?.imageGallery?.map((image) => {
+                          return {
+                            src: image?.thumbnail,
+                            alt:
+                              image?.description?.[locale] ||
+                              image?.description?.en ||
+                              image?.description?.fr ||
+                              Object.values(image?.description ?? {}).find((val) => val) ||
+                              '@none',
+                          };
+                        })}
+                      />
+                    </Stack>
+                  </Box>
+                )}
+
+                {eventDetails?.organizers?.length && (
+                  <Box style={{ marginTop: '1rem' }}>
+                    <Heading as="h3" className="section-headings">
+                      {eventDetails?.organizers?.length > 1
+                        ? t('detailsModal.presenters')
+                        : t('detailsModal.presenter')}
+                    </Heading>
+                    <Stack>
+                      {eventDetails?.organizers.map((organizer, index) => (
+                        <PresenterCard
+                          key={index}
+                          name={organizer.name}
+                          website={organizer.website}
+                          image={organizer.logo}
+                        />
+                      ))}
+                    </Stack>
+                  </Box>
+                )}
+                {eventDetails?.sponsor?.length && (
+                  <Box style={{ marginTop: '1rem' }}>
+                    <Heading as="h3" className="section-headings">
+                      {eventDetails?.sponsor?.length > 1
+                        ? t('detailsModal.sponsors')
+                        : t('detailsModal.sponsor')}
+                    </Heading>
+                    <SponsorsCarousel sponsors={eventDetails?.sponsor} />
+                  </Box>
+                )}
+                <Box style={{ marginTop: '1rem', width: '100%', height: '248px' }}>
+                  <Heading as="h3" className="section-headings">
+                    {t('detailsModal.eventLocation')}
+                  </Heading>
+                  <Box style={{ marginTop: '0.5rem' }}>
+                    <MapComponent
+                      mapUrl={eventDetails?.mapUrl}
+                      latitude={eventDetails?.latitude}
+                      longitude={eventDetails?.longitude}
+                    />
+                  </Box>
                 </Box>
               </Stack>
             </Box>

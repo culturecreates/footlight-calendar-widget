@@ -17,11 +17,12 @@ const Results = () => {
         {data?.map((item, index) => (
           <EventCard
             key={index}
-            image={item?.image}
+            image={item?.image?.thumbnail}
             eventName={item?.title}
             stageName={item?.place}
             eventType={item?.eventTypes}
             startDate={item?.startDate}
+            scheduleTimezone={item?.scheduleTimezone}
             id={item?.id}
           />
         ))}
