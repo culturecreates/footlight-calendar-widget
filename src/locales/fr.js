@@ -31,4 +31,9 @@ export const fr = {
     place: 'Lieu',
     clearAll: 'Tout effacer',
   },
+  errorPage: {
+    heading: 'So sorry,',
+    subtext: "We couldn't find what you were looking for",
+    homeButton: 'Back to home',
+  },
 };

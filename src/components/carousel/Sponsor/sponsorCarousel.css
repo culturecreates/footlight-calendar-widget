@@ -54,3 +54,8 @@
 #calendar-widget .slick-track > div:first-child {
   padding-left: 0px !important;
 }
+
+#calendar-widget .sponsor-carousel .slick-track,
+#calendar-widget .sponsor-carousel .slick-list {
+  height: 70px;
+}
