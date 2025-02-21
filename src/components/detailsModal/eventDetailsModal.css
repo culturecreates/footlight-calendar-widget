@@ -22,10 +22,11 @@
   transition:
     all 0.4s ease-in-out,
     opacity 0.3s ease-in-out;
+  padding-right: 8px;
 }
 
-#calendar-widget .calendar-widget-details-modal .image-description-display-icon-wrapper svg {
-  padding-right: 8px;
+#calendar-widget .calendar-widget-details-modal .image-description-display-icon-wrapper {
+  width: fit-content;
 }
 
 #calendar-widget .calendar-widget-details-modal .image-description-info-icon {

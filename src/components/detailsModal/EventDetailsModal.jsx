@@ -159,7 +159,8 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                       width: '63px',
                       height: '63px',
                       borderRadius: '50%',
-                      transition: 'background-color 0.3s ease',
+                      transition: 'top 0.5s ease-in-out, border-radius 0.5s ease-in-out',
+                      top: creditDisplayFlag ? '-39px' : '-78px',
                     }}
                   />
                 </SocialMediaPopup>
@@ -187,19 +188,6 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                 }}
               >
                 <Flex style={{ paddingTop: '0.5rem' }}>
-                  <Box className={creditDisplayFlag && 'image-description-display-icon-wrapper'}>
-                    <InformationCircle
-                      className={
-                        creditDisplayFlag
-                          ? 'image-description-info-icon'
-                          : 'image-description-info-icon-hidden'
-                      }
-                      style={{
-                        opacity: creditDisplayFlag ? 1 : 0,
-                        pointerEvents: creditDisplayFlag ? 'auto' : 'none',
-                      }}
-                    />
-                  </Box>
                   <Flex
                     direction="column"
                     style={{
@@ -214,6 +202,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                       <Text
                         style={{
                           fontSize: '12px',
+                          marginLeft: '24px',
                           fontWeight: 400,
                           color: 'var(--secondary-black)',
                         }}
@@ -222,7 +211,22 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                       </Text>
                     )}
                     {eventDetails?.imageCredit?.caption && (
-                      <>
+                      <Flex>
+                        <Box
+                          className={creditDisplayFlag && 'image-description-display-icon-wrapper'}
+                        >
+                          <InformationCircle
+                            className={
+                              creditDisplayFlag
+                                ? 'image-description-info-icon'
+                                : 'image-description-info-icon-hidden'
+                            }
+                            style={{
+                              opacity: creditDisplayFlag ? 1 : 0,
+                              pointerEvents: creditDisplayFlag ? 'auto' : 'none',
+                            }}
+                          />
+                        </Box>
                         <Text
                           className={`clamped-text-img-credit ${
                             showFullImageCreditDescription ? 'expanded' : ''
@@ -241,7 +245,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                           containerData={eventDetails?.imageCredit?.caption}
                           showMoreDisplayStatus={showMoreButton?.imageCredit}
                         />
-                      </>
+                      </Flex>
                     )}
                   </Flex>
                 </Flex>
