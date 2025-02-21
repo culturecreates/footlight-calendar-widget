@@ -58,7 +58,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
 
     const fetchEventDetails = async () => {
       setLoading(true);
-      setError(true);
+      setError(false);
       try {
         const response = await fetch(`${process.env.REACT_APP_API_URL}events/${eventId}`);
         if (!response.ok) {
