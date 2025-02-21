@@ -48,3 +48,13 @@ export const generateWidgetUrl = (slug) => {
   const apiUrl = new URL(`${process.env.REACT_APP_API_URL}/calendars/${slug}/widget-config`);
   return apiUrl.toString();
 };
+
+export function objectToUrlParams(obj) {
+  const params = [];
+
+  for (const key in obj) {
+    params.push(`${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`);
+  }
+
+  return params.join('&');
+}

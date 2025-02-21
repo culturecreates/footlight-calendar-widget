@@ -74,3 +74,29 @@ export function extractPropsFromSearchParams(dataAttributes) {
     missingParams,
   };
 }
+
+export function handleInternalStateSearchParam() {
+  const searchParams = new URLSearchParams(window.location.search);
+  // internal state configuration params
+
+  const startDateSpan = searchParams.get('footlight-startDateSpan');
+  const endDateSpan = searchParams.get('footlight-endDateSpan');
+  const isSingleDate = searchParams.get('footlight-isSingleDate');
+  const places = searchParams.get('footlight-place')?.split(',') || [];
+  const audience = searchParams.get('footlight-Audience')?.split(',') || [];
+  const eventTypes = searchParams.get('footlight-EventType')?.split(',') || [];
+  const searchKeyWord = searchParams.get('footlight-searchKeyWord');
+  const pageNumber = searchParams.get('footlight-pageNumber');
+
+  return {
+    internalStateSearchParam: {
+      startDateSpan,
+      endDateSpan,
+      isSingleDate,
+      selectedFilters: { places, audience, eventTypes },
+      searchKeyWord,
+      pageNumber,
+    },
+    curruptInternalStateFlag: false,
+  };
+}

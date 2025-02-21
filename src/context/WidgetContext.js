@@ -15,15 +15,24 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
     widgetProps?.index || 1,
   );
 
+  const startDateSpanSearchParam = widgetProps?.internalStateSearchParam?.startDateSpan;
+  const endDateSpanSearchParam = widgetProps?.internalStateSearchParam?.endDateSpan;
+  const isSingleDateSearchParam = widgetProps?.internalStateSearchParam?.isSingleDate;
+  const selectedFiltersSearchParam = widgetProps?.internalStateSearchParam?.selectedFilters;
+  const searchKeyWordSearchParam = widgetProps?.internalStateSearchParam?.searchKeyWord;
+  const pageNumberSearchParam = widgetProps?.internalStateSearchParam?.pageNumber;
+
   // states
   const [data, setData] = useState([]);
   const [lastPageFlag, setLastPageFlag] = useState(false);
-  const [pageNumber, setPageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(pageNumberSearchParam ?? 1);
   const [displayFiltersFlag, setDisplayFiltersFlag] = useState(false);
   const [totalCount, setTotalCount] = useState();
   const [error, setError] = useState();
   const [searchKeyWord, setSearchKeyWord] = useState(
-    sessionStorage.getItem(indexedSessionStorageVariableNames.WidgetSearchKeyWord) || '',
+    searchKeyWordSearchParam ||
+      sessionStorage.getItem(indexedSessionStorageVariableNames.WidgetSearchKeyWord) ||
+      '',
   );
   const [searchDate, setSearchDate] = useState(
     searchDateFormatter(
@@ -31,16 +40,20 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
     ) || '',
   );
   const [startDateSpan, setStartDateSpan] = useState(
-    sessionStorage.getItem(indexedSessionStorageVariableNames.WidgetStartDate) || '',
+    startDateSpanSearchParam ||
+      sessionStorage.getItem(indexedSessionStorageVariableNames.WidgetStartDate) ||
+      '',
   );
   const [endDateSpan, setEndDateSpan] = useState(
-    sessionStorage.getItem(indexedSessionStorageVariableNames.WidgetEndDate) || '',
+    endDateSpanSearchParam ||
+      sessionStorage.getItem(indexedSessionStorageVariableNames.WidgetEndDate) ||
+      '',
   );
-  const [isSingleDate, setIsSingleDate] = useState();
-  const [calendarModalToggle, setCalendarModalToggle] = useState(false); // coFntrols calendar as modal for mobile view
+  const [isSingleDate, setIsSingleDate] = useState(isSingleDateSearchParam || false);
+  const [calendarModalToggle, setCalendarModalToggle] = useState(false); // controls calendar as modal for mobile view
   const [isLoading, setIsLoading] = useState(true);
   const [calendarData, setCalendarData] = useState([]);
-  const [selectedFilters, setSelectedFilters] = useState({});
+  const [selectedFilters, setSelectedFilters] = useState(selectedFiltersSearchParam ?? {});
 
   const displayType = useSize();
   const { i18n } = useTranslation();
