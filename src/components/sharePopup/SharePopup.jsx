@@ -1,41 +1,60 @@
-import { useState } from 'react';
-import { Tooltip, IconButton, VStack, Collapse, Box } from '@chakra-ui/react';
-import { ReactComponent as FacebookIcon } from '../../assets/facebook.svg';
-import { ReactComponent as SpotifyIcon } from '../../assets/spotify.svg';
-import { ReactComponent as TwitterIcon } from '../../assets/twitter.svg';
-import { FacebookShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
+import { useRef } from 'react';
+import { Tooltip, VStack, Collapse, Box, useOutsideClick, useDisclosure } from '@chakra-ui/react';
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  WhatsappIcon,
+  TwitterIcon,
+  FacebookIcon,
+  RedditShareButton,
+  RedditIcon,
+} from 'react-share';
+import { generateDeeplinkUrl } from '../../utils/hooks/useGenerateDeeplinkUrl';
 
-const ShareTooltip = ({ children, url, title }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const ShareTooltip = ({ children }) => {
+  const { isOpen, onToggle, onClose } = useDisclosure();
+  const tooltipRef = useRef(null);
 
-  const toggleTooltip = () => {
-    setIsOpen((prev) => !prev);
-  };
+  const url = generateDeeplinkUrl();
+
+  useOutsideClick({
+    ref: tooltipRef,
+    handler: onClose,
+  });
 
   return (
-    <Box position="relative" display="inline-block">
-      <Tooltip label="Share" aria-label="Share tooltip">
-        <IconButton icon={children} onClick={toggleTooltip} aria-label="Share" />
+    <Box position="relative" display="inline-block" ref={tooltipRef}>
+      <Tooltip aria-label="Share tooltip" arrowSize={5}>
+        <Box onClick={onToggle}>{children}</Box>
       </Tooltip>
       <Collapse in={isOpen} animateOpacity>
         <VStack
-          position="absolute"
-          bg="white"
-          boxShadow="md"
-          p={2}
-          borderRadius="md"
-          spacing={2}
-          mt={2}
+          style={{
+            position: 'absolute',
+            background: 'white',
+            boxShadow: 'var(--secondary-box-shadow)',
+            padding: '8px',
+            borderRadius: '8px',
+            marginTop: '8px',
+            display: 'flex',
+            flexDirection: 'column',
+            border: '1px solid var(--bg-grey)',
+            gap: '8px',
+          }}
         >
-          <FacebookShareButton url={url} quote={title}>
-            <IconButton icon={<FacebookIcon />} aria-label="Share on Facebook" />
+          <FacebookShareButton url={url}>
+            <FacebookIcon size={32} round={true} />
           </FacebookShareButton>
-          <TwitterShareButton url={url} title={title}>
-            <IconButton icon={<TwitterIcon />} aria-label="Share on Twitter" />
+          <TwitterShareButton url={url}>
+            <TwitterIcon size={32} round={true} />
           </TwitterShareButton>
-          <WhatsappShareButton url={url} title={title}>
-            <IconButton icon={<SpotifyIcon />} aria-label="Share on Instagram" />
+          <WhatsappShareButton url={url}>
+            <WhatsappIcon size={32} round={true} />
           </WhatsappShareButton>
+          <RedditShareButton url={url}>
+            <RedditIcon size={32} round={true} />
+          </RedditShareButton>
         </VStack>
       </Collapse>
     </Box>

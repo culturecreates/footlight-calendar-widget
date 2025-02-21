@@ -24,7 +24,7 @@ const ResultHeader = () => {
         {t('resultHeader.upcoming')}
       </Text>
 
-      <SocialMediaPopup url={window.location.href} title={t('resultHeader.title')}>
+      <SocialMediaPopup>
         <Icon
           className="result-header-icon"
           as={ShareIcon}
