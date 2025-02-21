@@ -74,3 +74,46 @@ export function extractPropsFromSearchParams(dataAttributes) {
     missingParams,
   };
 }
+
+export function handleInternalStateSearchParam() {
+  const searchParams = new URLSearchParams(window.location.search);
+
+  // Define parameter keys
+  const paramKeys = [
+    'footlight-startDateSpan',
+    'footlight-endDateSpan',
+    'footlight-isSingleDate',
+    'footlight-place',
+    'footlight-Audience',
+    'footlight-EventType',
+    'footlight-searchKeyWord',
+    'footlight-pageNumber',
+    'footlight-eventId',
+  ];
+
+  // Extract parameters
+  const internalStateSearchParam = {
+    startDateSpan: searchParams.get('footlight-startDateSpan'),
+    endDateSpan: searchParams.get('footlight-endDateSpan'),
+    isSingleDate: searchParams.get('footlight-isSingleDate'),
+    selectedFilters: {
+      places: searchParams.get('footlight-place')?.split(',') || [],
+      audience: searchParams.get('footlight-Audience')?.split(',') || [],
+      eventTypes: searchParams.get('footlight-EventType')?.split(',') || [],
+    },
+    searchKeyWord: searchParams.get('footlight-searchKeyWord'),
+    pageNumber: searchParams.get('footlight-pageNumber'),
+    eventId: searchParams.get('footlight-eventId'),
+  };
+
+  // Remove parameters
+  paramKeys.forEach((key) => searchParams.delete(key));
+
+  // Update the URL without reloading the page
+  const newUrl = `${window.location.pathname}${
+    searchParams.toString() ? `?${searchParams.toString()}` : ''
+  }`;
+  window.history.replaceState(null, '', newUrl);
+
+  return { internalStateSearchParam, curruptInternalStateFlag: false };
+}

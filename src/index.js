@@ -3,7 +3,10 @@ import './i18n';
 import App from './App';
 import React from 'react';
 import './index.css';
-import { extractPropsFromSearchParams } from './utils/extractPropsFromSearchParms';
+import {
+  extractPropsFromSearchParams,
+  handleInternalStateSearchParam,
+} from './utils/extractPropsFromSearchParms';
 import { ChakraProvider } from '@chakra-ui/react';
 import Error from './components/error/Error';
 
@@ -31,11 +34,16 @@ const dataAttributes = {
 };
 
 let { extractedProps, isSuccess, missingParams } = extractPropsFromSearchParams(dataAttributes);
+let { internalStateSearchParam, corruptInternalStateFlag } = handleInternalStateSearchParam();
 
 const root = createRoot(calendarWidget);
 const AppContent = (
   <ChakraProvider>
-    {isSuccess ? <App {...extractedProps} /> : <Error missingParams={missingParams} />}
+    {isSuccess && !corruptInternalStateFlag ? (
+      <App {...extractedProps} internalStateSearchParam={internalStateSearchParam} />
+    ) : (
+      <Error missingParams={missingParams} />
+    )}
   </ChakraProvider>
 );
 

@@ -21,6 +21,7 @@ import { transformData } from '../../utils/transformData';
 import './eventDetailsModal.css';
 import { ReactComponent as calendaricon } from '../../assets/calendar.svg';
 import { ReactComponent as StageIcon } from '../../assets/locationPin.svg';
+import { ReactComponent as ShareIcon } from '../../assets/share.svg';
 import { ReactComponent as InformationCircle } from '../../assets/informationCircle.svg';
 import { cleanDescription } from '../../utils/cleanDescription';
 import EventTypeBadge from '../badge/EventTypeBadge/EventTypeBadge';
@@ -36,15 +37,17 @@ import SponsorsCarousel from '../carousel/Sponsor/SponsorCarousel';
 import MapComponent from '../googleMap/MapComponent';
 import ImageGalleryCarousel from '../carousel/ImageGallery/ImageGalleryCarousel';
 import VideoIframe from '../card/VideoCard/VideoIframe';
+import SocialMediaPopup from '../sharePopup/SharePopup';
 
-const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
-  const { widgetProps,setError } = useContext(WidgetContext);
+const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
+  const { widgetProps } = useContext(WidgetContext);
   const { locale } = widgetProps;
 
   const { t } = useTranslation();
 
   const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [creditDisplayFlag, setCreditDisplayFlag] = useState(false);
@@ -60,7 +63,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
 
     const fetchEventDetails = async () => {
       setLoading(true);
-      setError(false);
+      setError(null);
       try {
         const response = await fetch(`${process.env.REACT_APP_API_URL}events/${eventId}`);
         if (!response.ok) {
@@ -72,7 +75,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
 
         setEventDetails(eventDetails || {});
       } catch (err) {
-        setError(true);
+        setError(err.message);
       } finally {
         setLoading(false);
       }
@@ -94,6 +97,10 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
     setCreditDisplayFlag(!creditDisplayFlag);
     setShowFullImageCreditDescription(false);
   };
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} portalProps={{ containerRef }}>
@@ -130,6 +137,34 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
                   width="100%"
                 />
               </Box>
+              <Box
+                position="relative"
+                style={{
+                  marginLeft: 'auto',
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                }}
+              >
+                <SocialMediaPopup
+                  styles={{ zIndex: 5, right: '48px', top: '-16px' }}
+                  eventId={eventId}
+                >
+                  <Icon
+                    className="share-detail-icon"
+                    as={ShareIcon}
+                    style={{
+                      color: '#000000',
+                      cursor: 'pointer',
+                      width: '63px',
+                      height: '63px',
+                      borderRadius: '50%',
+                      transition: 'top 0.5s ease-in-out, border-radius 0.5s ease-in-out',
+                      top: creditDisplayFlag ? '-39px' : '-78px',
+                    }}
+                  />
+                </SocialMediaPopup>
+              </Box>
               <Stack
                 className="event-information-section-wrapper"
                 style={{
@@ -153,19 +188,6 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
                 }}
               >
                 <Flex style={{ paddingTop: '0.5rem' }}>
-                  <Box className={creditDisplayFlag && 'image-description-display-icon-wrapper'}>
-                    <InformationCircle
-                      className={
-                        creditDisplayFlag
-                          ? 'image-description-info-icon'
-                          : 'image-description-info-icon-hidden'
-                      }
-                      style={{
-                        opacity: creditDisplayFlag ? 1 : 0,
-                        pointerEvents: creditDisplayFlag ? 'auto' : 'none',
-                      }}
-                    />
-                  </Box>
                   <Flex
                     direction="column"
                     style={{
@@ -180,6 +202,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
                       <Text
                         style={{
                           fontSize: '12px',
+                          marginLeft: '24px',
                           fontWeight: 400,
                           color: 'var(--secondary-black)',
                         }}
@@ -188,7 +211,22 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
                       </Text>
                     )}
                     {eventDetails?.imageCredit?.caption && (
-                      <>
+                      <Flex>
+                        <Box
+                          className={creditDisplayFlag && 'image-description-display-icon-wrapper'}
+                        >
+                          <InformationCircle
+                            className={
+                              creditDisplayFlag
+                                ? 'image-description-info-icon'
+                                : 'image-description-info-icon-hidden'
+                            }
+                            style={{
+                              opacity: creditDisplayFlag ? 1 : 0,
+                              pointerEvents: creditDisplayFlag ? 'auto' : 'none',
+                            }}
+                          />
+                        </Box>
                         <Text
                           className={`clamped-text-img-credit ${
                             showFullImageCreditDescription ? 'expanded' : ''
@@ -207,7 +245,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
                           containerData={eventDetails?.imageCredit?.caption}
                           showMoreDisplayStatus={showMoreButton?.imageCredit}
                         />
-                      </>
+                      </Flex>
                     )}
                   </Flex>
                 </Flex>
@@ -274,7 +312,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
                         <DateBadge
                           startDate={dateRangeFormatter({
                             startDate: eventDetails?.startDate,
-                            scheduleTimezone,
+                            scheduleTimezone: eventDetails?.scheduleTimezone,
                           })}
                           color="var(--primary-black)"
                           bgcolor="transparent"
