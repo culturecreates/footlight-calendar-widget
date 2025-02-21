@@ -21,7 +21,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   const [pageNumber, setPageNumber] = useState(1);
   const [displayFiltersFlag, setDisplayFiltersFlag] = useState(false);
   const [totalCount, setTotalCount] = useState();
-  const [error, setError] = useState();
+  const [error, setError] = useState(false);
   const [searchKeyWord, setSearchKeyWord] = useState(
     sessionStorage.getItem(indexedSessionStorageVariableNames.WidgetSearchKeyWord) || '',
   );
@@ -46,6 +46,17 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   const { i18n } = useTranslation();
 
   const filterUndefinedArray = (arr) => arr?.filter((value) => value !== undefined) ?? [];
+
+  const resetFilters = () => {
+    setSelectedFilters({});
+    setSearchKeyWord('');
+    setSearchDate('');
+    setStartDateSpan('');
+    setEndDateSpan('');
+    setIsSingleDate();
+    setPageNumber(1);
+    setError(false);
+  };
 
   const getData = useCallback(
     async (pageNumber) => {
@@ -78,7 +89,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
         setPageNumber(meta?.currentPage);
         setIsLoading(false);
       } catch (error) {
-        setError('Error fetching data');
+        setError(true);
         console.error('Error fetching data:', error);
       }
     },
@@ -101,7 +112,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   useEffect(() => {
     setIsLoading(true);
     setData([]);
-    getDataDebounced();
+    if (!error) getDataDebounced();
   }, [widgetProps, searchKeyWord, startDateSpan, endDateSpan, selectedFilters]);
 
   useEffect(() => {
@@ -134,6 +145,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
         totalCount,
         lastPageFlag,
         error,
+        setError,
         searchKeyWord,
         displayFiltersFlag,
         searchDate,
@@ -154,6 +166,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
         setEndDateSpan,
         setIsSingleDate,
         setCalendarModalToggle,
+        resetFilters,
       }}
     >
       {children}

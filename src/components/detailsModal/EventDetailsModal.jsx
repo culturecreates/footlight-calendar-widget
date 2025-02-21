@@ -36,14 +36,13 @@ import SponsorsCarousel from '../carousel/Sponsor/SponsorCarousel';
 import MapComponent from '../googleMap/MapComponent';
 
 const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
-  const { widgetProps } = useContext(WidgetContext);
+  const { widgetProps, setError } = useContext(WidgetContext);
   const { locale } = widgetProps;
 
   const { t } = useTranslation();
 
   const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [creditDisplayFlag, setCreditDisplayFlag] = useState(false);
@@ -59,7 +58,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
 
     const fetchEventDetails = async () => {
       setLoading(true);
-      setError(null);
+      setError(true);
       try {
         const response = await fetch(`${process.env.REACT_APP_API_URL}events/${eventId}`);
         if (!response.ok) {
@@ -71,7 +70,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
 
         setEventDetails(eventDetails || {});
       } catch (err) {
-        setError(err.message);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -93,10 +92,6 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
     setCreditDisplayFlag(!creditDisplayFlag);
     setShowFullImageCreditDescription(false);
   };
-
-  if (error) {
-    return <div>{error}</div>;
-  }
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} portalProps={{ containerRef }}>
