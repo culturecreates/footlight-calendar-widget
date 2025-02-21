@@ -29,4 +29,9 @@ export const ja = {
     place: '場所',
     clearAll: 'すべてクリア',
   },
+  errorPage: {
+    heading: 'So sorry,',
+    subtext: "We couldn't find what you were looking for",
+    homeButton: 'Back to home',
+  },
 };
