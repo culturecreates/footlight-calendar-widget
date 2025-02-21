@@ -39,7 +39,7 @@ import ImageGalleryCarousel from '../carousel/ImageGallery/ImageGalleryCarousel'
 import VideoIframe from '../card/VideoCard/VideoIframe';
 import SocialMediaPopup from '../sharePopup/SharePopup';
 
-const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
+const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const { widgetProps } = useContext(WidgetContext);
   const { locale } = widgetProps;
 
@@ -308,7 +308,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
                         <DateBadge
                           startDate={dateRangeFormatter({
                             startDate: eventDetails?.startDate,
-                            scheduleTimezone,
+                            scheduleTimezone: eventDetails?.scheduleTimezone,
                           })}
                           color="var(--primary-black)"
                           bgcolor="transparent"
