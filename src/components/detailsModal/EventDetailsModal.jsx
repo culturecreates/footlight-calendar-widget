@@ -34,9 +34,11 @@ import PerformerCard from '../card/PerformerCard/PerformerCard';
 import PresenterCard from '../card/PresenterCard/PresenterCard';
 import SponsorsCarousel from '../carousel/Sponsor/SponsorCarousel';
 import MapComponent from '../googleMap/MapComponent';
+import ImageGalleryCarousel from '../carousel/ImageGallery/ImageGalleryCarousel';
+import VideoIframe from '../card/VideoCard/VideoIframe';
 
-const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
-  const { widgetProps, setError } = useContext(WidgetContext);
+const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
+  const { widgetProps,setError } = useContext(WidgetContext);
   const { locale } = widgetProps;
 
   const { t } = useTranslation();
@@ -270,7 +272,10 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                       <Flex className="event-date">
                         <Icon as={calendaricon} className="event-icon" />
                         <DateBadge
-                          startDate={dateRangeFormatter(eventDetails?.startDate)}
+                          startDate={dateRangeFormatter({
+                            startDate: eventDetails?.startDate,
+                            scheduleTimezone,
+                          })}
                           color="var(--primary-black)"
                           bgcolor="transparent"
                         />
@@ -299,13 +304,44 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                         image={performer?.image?.thumbnail}
                         name={performer?.name}
                         website={performer?.website}
-                        type={performer?.type}
+                        occupation={performer?.occupation}
+                        locale={locale}
                         description={performer?.description}
                         socialLinks={performer?.socialMediaLinks}
                       />
                     ))}
                   </Stack>
                 )}
+                {eventDetails?.video?.embedUrl && (
+                  <Box style={{ marginTop: '1rem' }}>
+                    <Stack>
+                      {eventDetails?.video?.embedUrl && (
+                        <VideoIframe url={eventDetails?.video?.embedUrl} />
+                      )}
+                    </Stack>
+                  </Box>
+                )}
+
+                {eventDetails?.imageGallery?.length > 0 && (
+                  <Box style={{ marginTop: '1rem' }}>
+                    <Stack>
+                      <ImageGalleryCarousel
+                        images={eventDetails?.imageGallery?.map((image) => {
+                          return {
+                            src: image?.thumbnail,
+                            alt:
+                              image?.description?.[locale] ||
+                              image?.description?.en ||
+                              image?.description?.fr ||
+                              Object.values(image?.description ?? {}).find((val) => val) ||
+                              '@none',
+                          };
+                        })}
+                      />
+                    </Stack>
+                  </Box>
+                )}
+
                 {eventDetails?.organizers?.length && (
                   <Box style={{ marginTop: '1rem' }}>
                     <Heading as="h3" className="section-headings">

@@ -36,7 +36,6 @@ const MapComponent = ({ mapUrl, latitude, longitude }) => {
     <div
       style={{
         borderRadius: '8px',
-        height: '216px',
         width: '100%',
         display: 'flex',
         alignItems: 'center',
@@ -50,7 +49,7 @@ const MapComponent = ({ mapUrl, latitude, longitude }) => {
         <img
           src={updatedMapUrl}
           alt="Static map showing selected location"
-          style={{ borderRadius: '8px', height: '216px', width: '100%' }}
+          style={{ borderRadius: '8px', width: '100%' }}
           className="google-static-map"
           onError={() => setImageError(true)}
         />
