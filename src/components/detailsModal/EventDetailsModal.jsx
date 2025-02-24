@@ -414,6 +414,11 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                         mapUrl={eventDetails?.mapUrl}
                         latitude={eventDetails?.latitude}
                         longitude={eventDetails?.longitude}
+                        country={eventDetails?.addressCountry}
+                        region={eventDetails?.addressRegion}
+                        postalCode={eventDetails?.postalCode}
+                        locality={eventDetails?.place}
+                        street={eventDetails?.streetAddress}
                       />
                     </Box>
                   </Box>

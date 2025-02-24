@@ -1,9 +1,25 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { ReactComponent as InformationCircle } from '../../assets/informationCircle.svg';
 
-const MapComponent = ({ mapUrl, latitude, longitude }) => {
+const MapComponent = ({
+  mapUrl,
+  latitude,
+  longitude,
+  country,
+  region,
+  postalCode,
+  locality,
+  street,
+}) => {
   const [updatedMapUrl, setUpdatedMapUrl] = useState(mapUrl);
   const [imageError, setImageError] = useState(false);
+
+  const getFormattedAddress = () => {
+    const parts = [street, locality, region, postalCode, country].filter(Boolean);
+    return parts.length ? parts.join(', ') : null;
+  };
+
+  const formattedAddress = getFormattedAddress();
 
   const updateMapSize = (url) => {
     if (!url) return null;
@@ -25,10 +41,20 @@ const MapComponent = ({ mapUrl, latitude, longitude }) => {
   }, [mapUrl]);
 
   const handleClick = useCallback(() => {
-    const googleMapsUrl =
-      latitude && longitude ? `https://www.google.com/maps?q=${latitude},${longitude}` : mapUrl;
-    window.open(googleMapsUrl, '_blank');
-  }, [latitude, longitude, mapUrl]);
+    if (latitude && longitude) {
+      let googleMapsUrl;
+
+      if (formattedAddress) {
+        googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(formattedAddress)}&query_place_id=${latitude},${longitude}`;
+      } else {
+        googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+      }
+
+      window.open(googleMapsUrl, '_blank');
+    } else {
+      window.open(mapUrl, '_blank');
+    }
+  }, [latitude, longitude, formattedAddress, mapUrl]);
 
   if (!mapUrl) return null;
 
