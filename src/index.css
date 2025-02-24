@@ -87,7 +87,7 @@
 }
 
 #calendar-widget p,
-button {
+#calendar-widget button {
   all: unset;
 }
 
