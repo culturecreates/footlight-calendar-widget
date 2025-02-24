@@ -40,14 +40,13 @@ import VideoIframe from '../card/VideoCard/VideoIframe';
 import SocialMediaPopup from '../sharePopup/SharePopup';
 
 const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
-  const { widgetProps } = useContext(WidgetContext);
+  const { widgetProps, setError } = useContext(WidgetContext);
   const { locale } = widgetProps;
 
   const { t } = useTranslation();
 
   const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [creditDisplayFlag, setCreditDisplayFlag] = useState(false);
@@ -67,7 +66,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
       try {
         const response = await fetch(`${process.env.REACT_APP_API_URL}events/${eventId}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch event details');
+          setError(true);
         }
 
         const data = await response.json();
@@ -75,7 +74,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
 
         setEventDetails(eventDetails || {});
       } catch (err) {
-        setError(err.message);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -97,10 +96,6 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
     setCreditDisplayFlag(!creditDisplayFlag);
     setShowFullImageCreditDescription(false);
   };
-
-  if (error) {
-    return <div>{error}</div>;
-  }
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} portalProps={{ containerRef }}>
@@ -409,23 +404,25 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     <SponsorsCarousel sponsors={eventDetails?.sponsor} />
                   </Box>
                 )}
-                <Box style={{ marginTop: '1rem', width: '100%', height: '248px' }}>
-                  <Heading as="h3" className="section-headings">
-                    {t('detailsModal.eventLocation')}
-                  </Heading>
-                  <Box style={{ marginTop: '0.5rem' }}>
-                    <MapComponent
-                      mapUrl={eventDetails?.mapUrl}
-                      latitude={eventDetails?.latitude}
-                      longitude={eventDetails?.longitude}
-                      country={eventDetails?.addressCountry}
-                      region={eventDetails?.addressRegion}
-                      postalCode={eventDetails?.postalCode}
-                      locality={eventDetails?.place}
-                      street={eventDetails?.streetAddress}
-                    />
+                {eventDetails?.mapUrl && (
+                  <Box style={{ marginTop: '1rem', width: '100%', height: '248px' }}>
+                    <Heading as="h3" className="section-headings">
+                      {t('detailsModal.eventLocation')}
+                    </Heading>
+                    <Box style={{ marginTop: '0.5rem' }}>
+                      <MapComponent
+                        mapUrl={eventDetails?.mapUrl}
+                        latitude={eventDetails?.latitude}
+                        longitude={eventDetails?.longitude}
+                        country={eventDetails?.addressCountry}
+                        region={eventDetails?.addressRegion}
+                        postalCode={eventDetails?.postalCode}
+                        locality={eventDetails?.place}
+                        street={eventDetails?.streetAddress}
+                      />
+                    </Box>
                   </Box>
-                </Box>
+                )}
               </Stack>
             </Box>
           )}
