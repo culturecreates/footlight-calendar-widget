@@ -22,7 +22,12 @@ export function dateRangeFormatter({ startDate, endDate, scheduleTimezone = 'Can
   const isStartAndEndDaySame = isSameDay(startDate, endDate);
   const locale = i18next.language;
 
-  const dateTimeFormat = locale === 'fr' ? 'DD MMM YYYY | HH:mm' : 'DD MMM YYYY | h:mm a';
+  const dateTimeFormat =
+    locale === 'fr'
+      ? 'DD MMM YYYY | HH:mm'
+      : locale === 'ja'
+        ? 'YYYY年MM月DD日 HH:mm'
+        : 'DD MMM YYYY | h:mm a';
 
   const startDateTimeObj = hasStartTime
     ? dayjs.utc(startDate).tz(scheduleTimezone)
