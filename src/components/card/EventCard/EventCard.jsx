@@ -14,6 +14,7 @@ const EventCard = React.memo(
     stageName,
     eventType = [],
     startDate,
+    endDate,
     altText,
     id,
     scheduleTimezone,
@@ -57,7 +58,9 @@ const EventCard = React.memo(
                   gap: '8px',
                 }}
               >
-                <DateBadge startDate={dateRangeFormatter({ startDate, scheduleTimezone })} />
+                <DateBadge
+                  startDate={dateRangeFormatter({ startDate, endDate, scheduleTimezone })}
+                />
                 <div
                   style={{
                     display: 'flex',

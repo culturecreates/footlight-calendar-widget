@@ -29,6 +29,9 @@ export function dateRangeFormatter({ startDate, endDate, scheduleTimezone = 'Can
         ? 'YYYY年MM月DD日 HH:mm'
         : 'DD MMM YYYY | h:mm a';
 
+  const dateFormat =
+    locale === 'fr' ? 'DD MMM YYYY' : locale === 'ja' ? 'YYYY年MM月DD日 ' : 'DD MMM YYYY';
+
   const startDateTimeObj = hasStartTime
     ? dayjs.utc(startDate).tz(scheduleTimezone)
     : dayjs(startDate);
@@ -42,8 +45,8 @@ export function dateRangeFormatter({ startDate, endDate, scheduleTimezone = 'Can
   const formattedStartDate = noEndDateFlag
     ? hasStartTime
       ? startDateTimeObj.format(dateTimeFormat)
-      : startDateTimeObj.format('DD MMM YYYY')
-    : startDateTimeObj.format('DD MMM YYYY');
+      : startDateTimeObj.format(dateFormat)
+    : startDateTimeObj.format(dateFormat);
 
   if (!noEndDateFlag) {
     // Check if the enddate has a time component by checking the format
@@ -57,7 +60,7 @@ export function dateRangeFormatter({ startDate, endDate, scheduleTimezone = 'Can
     // Check if enddate is within 24 hours of startDateTimeObj
     const diffInHours = endDateObj.diff(startDateTimeObj, 'hour');
     const formattedStartDateTime = startDateTimeObj.format(dateTimeFormat);
-    const formattedEndDate = endDateObj.format('DD MMM YYYY');
+    const formattedEndDate = endDateObj.format(dateTimeFormat);
 
     // Check if startdate and enddate are on the same day
     if (isStartAndEndDaySame) {
@@ -90,24 +93,6 @@ export function dateRangeFormatter({ startDate, endDate, scheduleTimezone = 'Can
   }
 
   return formattedStartDate.toUpperCase();
-}
-
-export function getSelectedDatesAsText(startDateSpan, endDateSpan) {
-  const startDate = dayjs(startDateSpan).format('DD MMM YYYY');
-
-  if (!endDateSpan || startDateSpan === endDateSpan) {
-    return startDate;
-  }
-
-  const endDate = dayjs(endDateSpan).format('DD MMM YYYY');
-
-  return (
-    <>
-      {`${startDate}`}
-      <Translation>{(t) => t('to')}</Translation>
-      {`${endDate}`}
-    </>
-  );
 }
 
 export const searchDateFormatter = (date) => {

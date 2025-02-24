@@ -15,6 +15,7 @@ const DateBadge = ({ startDate, color, bgcolor }) => (
       paddingBottom: '4px',
       display: 'inline-flex',
       alignSelf: 'flex-start',
+      textWrap: 'auto',
     }}
   >
     {startDate}
