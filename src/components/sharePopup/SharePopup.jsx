@@ -1,5 +1,14 @@
 import { useRef } from 'react';
-import { Tooltip, VStack, Collapse, Box, useOutsideClick, useDisclosure } from '@chakra-ui/react';
+import {
+  Tooltip,
+  VStack,
+  Collapse,
+  Box,
+  useOutsideClick,
+  useDisclosure,
+  Icon,
+  useToast,
+} from '@chakra-ui/react';
 import {
   FacebookShareButton,
   TwitterShareButton,
@@ -11,10 +20,17 @@ import {
   RedditIcon,
 } from 'react-share';
 import { generateDeeplinkUrl } from '../../utils/hooks/useGenerateDeeplinkUrl';
+import { ReactComponent as CopyLink } from '../../assets/copyLink.svg';
+import './shareTooltip.css';
+import { useTranslation } from 'react-i18next';
 
 const ShareTooltip = ({ children, styles = {}, eventId }) => {
   const { isOpen, onToggle, onClose } = useDisclosure();
   const tooltipRef = useRef(null);
+  const { t } = useTranslation();
+
+  const toast = useToast();
+  const toastId = 'footlite-share-popup-toast';
 
   const url = generateDeeplinkUrl({ eventId });
 
@@ -23,8 +39,22 @@ const ShareTooltip = ({ children, styles = {}, eventId }) => {
     handler: onClose,
   });
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(url);
+    if (!toast.isActive(toastId))
+      toast({
+        id: toastId,
+        title: 'Copied!',
+        description: 'Link copied to clipboard.',
+        status: 'info',
+        duration: 2000,
+        isClosable: true,
+        position: 'top',
+      });
+  };
+
   return (
-    <Box position="relative" display="inline-block" ref={tooltipRef}>
+    <Box position="relative" display="inline-block" ref={tooltipRef} className="share-tooltip">
       <Tooltip aria-label="Share tooltip" arrowSize={5}>
         <Box onClick={onToggle}>{children}</Box>
       </Tooltip>
@@ -56,6 +86,17 @@ const ShareTooltip = ({ children, styles = {}, eventId }) => {
           <RedditShareButton url={url}>
             <RedditIcon size={32} round={true} />
           </RedditShareButton>
+          <Tooltip label={t('share.copy')} hasArrow>
+            <Box onClick={handleCopy}>
+              <Icon
+                as={CopyLink}
+                className="copy-link-icon"
+                height={'32px'}
+                width={'32px'}
+                style={{ border: '1px solid var(--main-dynamic-color)', borderRadius: '100%' }}
+              />
+            </Box>
+          </Tooltip>
         </VStack>
       </Collapse>
     </Box>

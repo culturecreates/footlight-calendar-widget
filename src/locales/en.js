@@ -31,6 +31,9 @@ export const en = {
     presenters: 'Presenters',
     eventLocation: 'Event Location',
   },
+  share: {
+    copy: 'Copy link URL',
+  },
   loadMore: 'Show More',
   showLess: 'Show Less',
   filter: {
