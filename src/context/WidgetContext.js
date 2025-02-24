@@ -92,6 +92,9 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
         });
 
         const response = await fetch(url);
+        if (!response.ok) {
+          setError(true);
+        }
         const { data, meta } = await response.json();
 
         setData((prevData) => [
@@ -117,6 +120,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
       const data = await response.json();
       setCalendarData(data);
     } catch (error) {
+      setError(true);
       console.error('Error fetching calendar data:', error);
     }
   };

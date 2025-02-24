@@ -44,7 +44,7 @@ export const transformData = ({ data, locale }) => {
 
       const place = Array.isArray(location) ? location[0] || {} : location;
       const { address = {}, geo = {} } = place;
-      const { addressLocality, streetAddress } = address;
+      const { addressLocality, streetAddress, addressRegion, addressCountry, postalCode } = address;
       const { latitude, longitude, url } = geo;
       const startDateOfSubEvent =
         Object.keys(subEventDetails || {}).length != 0 && subEventDetails?.upcomingSubEventCount
@@ -114,6 +114,9 @@ export const transformData = ({ data, locale }) => {
         keywords,
         video,
         imageGallery: imageGallery?.filter((image) => image?.thumbnail),
+        postalCode,
+        addressCountry: getLocalized(addressCountry, locale),
+        addressRegion: getLocalized(addressRegion, locale),
       });
     }) || []
   );
