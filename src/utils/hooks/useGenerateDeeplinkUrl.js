@@ -3,7 +3,7 @@ import WidgetContext from '../../context/WidgetContext';
 import { objectToUrlParams } from '../generateUrl';
 
 export const generateDeeplinkUrl = ({ eventId }) => {
-  const originUrl = window.location.origin;
+  const originUrl = window.location.href.split('?')[0];
 
   // Convert URLSearchParams to an object
   const currentParams = Object.fromEntries(new URLSearchParams(window.location.search));
