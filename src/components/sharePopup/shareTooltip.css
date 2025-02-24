@@ -1,0 +1,7 @@
+#calendar-widget .share-tooltip .copy-link-icon > path {
+  fill: var(--main-dynamic-color);
+}
+
+#toast-footlite-share-popup-toast {
+  background-color: var(--main-dynamic-color);
+}

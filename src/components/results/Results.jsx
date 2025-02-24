@@ -23,9 +23,12 @@ const Results = () => {
             stageName={item?.place}
             eventType={item?.eventTypes}
             startDate={item?.startDate}
+            endDate={item?.endDate}
             scheduleTimezone={item?.scheduleTimezone}
             id={item?.id}
             eventIdSearchParam={eventIdSearchParam}
+            redirectionMode={redirectionMode}
+            calendar={calendar}
           />
         ))}
       </div>
