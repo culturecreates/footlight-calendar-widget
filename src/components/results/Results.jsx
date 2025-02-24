@@ -27,6 +27,8 @@ const Results = () => {
             scheduleTimezone={item?.scheduleTimezone}
             id={item?.id}
             eventIdSearchParam={eventIdSearchParam}
+            redirectionMode={redirectionMode}
+            calendar={calendar}
           />
         ))}
       </div>

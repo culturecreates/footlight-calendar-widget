@@ -38,8 +38,8 @@
 
 #calendar-widget > .widget-layout .floating-datepicker .has-date .dot {
   position: absolute;
-  top: 7px;
-  right: 5px;
+  top: -7px;
+  right: -5px;
   width: 9px;
   height: 9px;
   background-color: var(--main-dynamic-color);
