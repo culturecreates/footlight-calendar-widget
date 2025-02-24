@@ -87,9 +87,37 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
     containerRef.current = document.getElementById('calendar-widget');
   }, []);
 
+  const getFormattedAddress = ({ street, locality, region, postalCode, country }) => {
+    const parts = [street, locality, region, postalCode, country].filter(Boolean);
+    return parts.length ? parts.join(', ') : null;
+  };
+
+  const getGoogleMapsUrl = ({ latitude, longitude, formattedAddress, fallbackUrl }) => {
+    if (latitude && longitude) {
+      return formattedAddress
+        ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(formattedAddress)}`
+        : `https://www.google.com/maps?q=${latitude},${longitude}`;
+    }
+    return fallbackUrl;
+  };
+
   const handleShowOnMap = () => {
-    const url = `https://www.google.com/maps?q=${eventDetails.latitude},${eventDetails.longitude}`;
-    redirectionHandler({ url });
+    const formattedAddress = getFormattedAddress({
+      street: eventDetails.streetAddress,
+      locality: eventDetails.place,
+      region: eventDetails.addressRegion,
+      postalCode: eventDetails.postalCode,
+      country: eventDetails.addressCountry,
+    });
+
+    const googleMapsUrl = getGoogleMapsUrl({
+      latitude: eventDetails.latitude,
+      longitude: eventDetails.longitude,
+      formattedAddress,
+      fallbackUrl: eventDetails.mapUrl,
+    });
+
+    redirectionHandler({ url: googleMapsUrl });
   };
 
   const handleImageCreditDisplay = () => {
@@ -419,6 +447,8 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                         postalCode={eventDetails?.postalCode}
                         locality={eventDetails?.place}
                         street={eventDetails?.streetAddress}
+                        getFormattedAddress={getFormattedAddress}
+                        getGoogleMapsUrl={getGoogleMapsUrl}
                       />
                     </Box>
                   </Box>
