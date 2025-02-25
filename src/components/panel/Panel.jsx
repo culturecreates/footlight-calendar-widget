@@ -6,10 +6,11 @@ import ResultHeader from '../resultHeader/ResultHeader';
 import Results from '../results/Results';
 import './panel.css';
 import { Box } from '@chakra-ui/react';
+import ServerError from '../error/ServerError/ServerError';
 
 const ResultPanel = () => {
-  const { totalCount, isLoading } = useContext(WidgetContext);
-
+  const { totalCount, isLoading, error } = useContext(WidgetContext);
+  if (error) return <ServerError />;
   return (
     <Box className="result-panel-wrapper">
       <ResultHeader />

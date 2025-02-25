@@ -11,6 +11,7 @@ export const generateUrl = (urlComponents) => {
   const type = urlComponents?.eventType;
   const audience = urlComponents?.audience;
   const place = urlComponents?.place;
+  const disableGrouping = urlComponents?.disableGrouping;
 
   const queryParams = new URLSearchParams({
     page: pageNumber,
@@ -18,6 +19,7 @@ export const generateUrl = (urlComponents) => {
     query,
     'start-date-range': startDateSpan,
     'end-date-range': endDateSpan,
+    'disable-grouping': disableGrouping,
   });
 
   [
@@ -48,3 +50,13 @@ export const generateWidgetUrl = (slug) => {
   const apiUrl = new URL(`${process.env.REACT_APP_API_URL}/calendars/${slug}/widget-config`);
   return apiUrl.toString();
 };
+
+export function objectToUrlParams(obj) {
+  const params = [];
+
+  for (const key in obj) {
+    params.push(`${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`);
+  }
+
+  return params.join('&');
+}

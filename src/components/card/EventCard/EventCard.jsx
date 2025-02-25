@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import EventTypeBadge from '../../badge/EventTypeBadge/EventTypeBadge';
 import DateBadge from '../../badge/DateBadge/DateBadge';
 import { ReactComponent as StageIcon } from '../../../assets/locationPin.svg';
@@ -6,14 +6,52 @@ import { dateRangeFormatter } from '../../../utils/dateRangeFormatter';
 import './eventCard.css';
 import { Icon, useDisclosure } from '@chakra-ui/react';
 import EventDetailsModal from '../../detailsModal/EventDetailsModal';
+import { redirectionModes, urlTypes } from '../../../constants/generalConstants';
+import { getRedirectionUrl, redirectionHandler } from '../../../utils/redirectionHandler';
+import i18next from 'i18next';
 
 const EventCard = React.memo(
-  ({ image, eventName, stageName, eventType = [], startDate, altText, id, scheduleTimezone }) => {
+  ({
+    image,
+    eventName,
+    stageName,
+    eventType = [],
+    startDate,
+    endDate,
+    altText,
+    id,
+    scheduleTimezone,
+    eventIdSearchParam,
+    redirectionMode,
+    calendar,
+  }) => {
+    const redirectionFlag = redirectionMode === redirectionModes.EXTERNAL;
+    const locale = i18next.language;
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    useEffect(() => {
+      if (eventIdSearchParam && eventIdSearchParam === id) onOpen();
+    }, [eventIdSearchParam, id]);
 
     return (
       <>
-        <div className="event-card" onClick={onOpen}>
+        <div
+          className="event-card"
+          onClick={
+            redirectionFlag
+              ? () => {
+                  redirectionHandler({
+                    url: getRedirectionUrl({
+                      id: id,
+                      type: urlTypes.EVENT,
+                      locale,
+                      calendar,
+                    }),
+                  });
+                }
+              : onOpen
+          }
+        >
           <img src={image} alt={altText} style={{ width: '100%', display: 'block' }} />
 
           <div style={{ padding: '16px', backgroundColor: 'var(--bg-grey)', height: '100%' }}>
@@ -43,7 +81,9 @@ const EventCard = React.memo(
                   gap: '8px',
                 }}
               >
-                <DateBadge startDate={dateRangeFormatter({ startDate, scheduleTimezone })} />
+                <DateBadge
+                  startDate={dateRangeFormatter({ startDate, endDate, scheduleTimezone })}
+                />
                 <div
                   style={{
                     display: 'flex',

@@ -22,10 +22,11 @@
   transition:
     all 0.4s ease-in-out,
     opacity 0.3s ease-in-out;
+  padding-right: 8px;
 }
 
-#calendar-widget .calendar-widget-details-modal .image-description-display-icon-wrapper svg {
-  padding-right: 8px;
+#calendar-widget .calendar-widget-details-modal .image-description-display-icon-wrapper {
+  width: fit-content;
 }
 
 #calendar-widget .calendar-widget-details-modal .image-description-info-icon {
@@ -192,4 +193,20 @@
 #calendar-widget .calendar-widget-details-modal .close-button-wrapper button:hover {
   background-color: var(--secondary-grey);
   color: var(--primary-black);
+}
+
+#calendar-widget .calendar-widget-details-modal .share-detail-icon {
+  position: absolute;
+  right: 44px;
+  top: -78px;
+  z-index: 5;
+}
+
+#calendar-widget .calendar-widget-details-modal .share-detail-icon {
+  background-color: var(--main-dynamic-color);
+  border-radius: 100%;
+}
+
+#calendar-widget .calendar-widget-details-modal .share-detail-icon path {
+  fill: var(--primary-white-opaque);
 }

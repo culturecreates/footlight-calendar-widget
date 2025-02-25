@@ -1,4 +1,4 @@
-export const getDefaultSessionStorageVariableNames = (index) => {
+export const getDefaultSessionStorageVariableNames = (index = 1) => {
   return {
     WidgetSearchDate: 'widgetSearchDate' + index,
     WidgetStartDate: 'widgetStartDate' + index,

@@ -1,9 +1,23 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { ReactComponent as InformationCircle } from '../../assets/informationCircle.svg';
+import { redirectionHandler } from '../../utils/redirectionHandler';
 
-const MapComponent = ({ mapUrl, latitude, longitude }) => {
+const MapComponent = ({
+  mapUrl,
+  latitude,
+  longitude,
+  getFormattedAddress,
+  getGoogleMapsUrl,
+  country,
+  region,
+  postalCode,
+  locality,
+  street,
+}) => {
   const [updatedMapUrl, setUpdatedMapUrl] = useState(mapUrl);
   const [imageError, setImageError] = useState(false);
+
+  const formattedAddress = getFormattedAddress({ street, locality, region, postalCode, country });
 
   const updateMapSize = (url) => {
     if (!url) return null;
@@ -25,10 +39,15 @@ const MapComponent = ({ mapUrl, latitude, longitude }) => {
   }, [mapUrl]);
 
   const handleClick = useCallback(() => {
-    const googleMapsUrl =
-      latitude && longitude ? `https://www.google.com/maps?q=${latitude},${longitude}` : mapUrl;
-    window.open(googleMapsUrl, '_blank');
-  }, [latitude, longitude, mapUrl]);
+    const googleMapsUrl = getGoogleMapsUrl({
+      latitude,
+      longitude,
+      formattedAddress,
+      fallbackUrl: mapUrl,
+    });
+
+    redirectionHandler({ url: googleMapsUrl });
+  }, [latitude, longitude, formattedAddress, mapUrl]);
 
   if (!mapUrl) return null;
 
@@ -36,7 +55,6 @@ const MapComponent = ({ mapUrl, latitude, longitude }) => {
     <div
       style={{
         borderRadius: '8px',
-        height: '216px',
         width: '100%',
         display: 'flex',
         alignItems: 'center',
@@ -50,7 +68,7 @@ const MapComponent = ({ mapUrl, latitude, longitude }) => {
         <img
           src={updatedMapUrl}
           alt="Static map showing selected location"
-          style={{ borderRadius: '8px', height: '216px', width: '100%' }}
+          style={{ borderRadius: '8px', width: '100%' }}
           className="google-static-map"
           onError={() => setImageError(true)}
         />

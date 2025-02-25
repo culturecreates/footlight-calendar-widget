@@ -31,10 +31,18 @@ export const en = {
     presenters: 'Presenters',
     eventLocation: 'Event Location',
   },
+  share: {
+    copy: 'Copy link URL',
+  },
   loadMore: 'Show More',
   showLess: 'Show Less',
   filter: {
     place: 'Place',
     clearAll: 'Clear All',
+  },
+  errorPage: {
+    heading: 'So sorry,',
+    subtext: "We couldn't find what you were looking for",
+    homeButton: 'Back to home',
   },
 };

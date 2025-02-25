@@ -7,7 +7,8 @@ import './results.css';
 import EventCard from '../card/EventCard/EventCard';
 
 const Results = () => {
-  const { data, lastPageFlag, getData, pageNumber, widgetProps } = useContext(WidgetContext);
+  const { data, lastPageFlag, getData, pageNumber, widgetProps, eventIdSearchParam } =
+    useContext(WidgetContext);
   const { limit, redirectionMode, locale, calendar } = widgetProps;
   const { t } = useTranslation();
 
@@ -22,8 +23,12 @@ const Results = () => {
             stageName={item?.place}
             eventType={item?.eventTypes}
             startDate={item?.startDate}
+            endDate={item?.endDate}
             scheduleTimezone={item?.scheduleTimezone}
             id={item?.id}
+            eventIdSearchParam={eventIdSearchParam}
+            redirectionMode={redirectionMode}
+            calendar={calendar}
           />
         ))}
       </div>

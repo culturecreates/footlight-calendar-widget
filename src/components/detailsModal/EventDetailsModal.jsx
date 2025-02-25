@@ -21,6 +21,7 @@ import { transformData } from '../../utils/transformData';
 import './eventDetailsModal.css';
 import { ReactComponent as calendaricon } from '../../assets/calendar.svg';
 import { ReactComponent as StageIcon } from '../../assets/locationPin.svg';
+import { ReactComponent as ShareIcon } from '../../assets/share.svg';
 import { ReactComponent as InformationCircle } from '../../assets/informationCircle.svg';
 import { cleanDescription } from '../../utils/cleanDescription';
 import EventTypeBadge from '../badge/EventTypeBadge/EventTypeBadge';
@@ -36,16 +37,16 @@ import SponsorsCarousel from '../carousel/Sponsor/SponsorCarousel';
 import MapComponent from '../googleMap/MapComponent';
 import ImageGalleryCarousel from '../carousel/ImageGallery/ImageGalleryCarousel';
 import VideoIframe from '../card/VideoCard/VideoIframe';
+import SocialMediaPopup from '../sharePopup/SharePopup';
 
-const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
-  const { widgetProps } = useContext(WidgetContext);
+const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
+  const { widgetProps, setError } = useContext(WidgetContext);
   const { locale } = widgetProps;
 
   const { t } = useTranslation();
 
   const [eventDetails, setEventDetails] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [creditDisplayFlag, setCreditDisplayFlag] = useState(false);
@@ -65,7 +66,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
       try {
         const response = await fetch(`${process.env.REACT_APP_API_URL}events/${eventId}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch event details');
+          setError(true);
         }
 
         const data = await response.json();
@@ -73,7 +74,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
 
         setEventDetails(eventDetails || {});
       } catch (err) {
-        setError(err.message);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -86,19 +87,43 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
     containerRef.current = document.getElementById('calendar-widget');
   }, []);
 
+  const getFormattedAddress = ({ street, locality, region, postalCode, country }) => {
+    const parts = [street, locality, region, postalCode, country].filter(Boolean);
+    return parts.length ? parts.join(', ') : null;
+  };
+
+  const getGoogleMapsUrl = ({ latitude, longitude, formattedAddress, fallbackUrl }) => {
+    if (latitude && longitude) {
+      return formattedAddress
+        ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(formattedAddress)}`
+        : `https://www.google.com/maps?q=${latitude},${longitude}`;
+    }
+    return fallbackUrl;
+  };
+
   const handleShowOnMap = () => {
-    const url = `https://www.google.com/maps?q=${eventDetails.latitude},${eventDetails.longitude}`;
-    redirectionHandler({ url });
+    const formattedAddress = getFormattedAddress({
+      street: eventDetails.streetAddress,
+      locality: eventDetails.place,
+      region: eventDetails.addressRegion,
+      postalCode: eventDetails.postalCode,
+      country: eventDetails.addressCountry,
+    });
+
+    const googleMapsUrl = getGoogleMapsUrl({
+      latitude: eventDetails.latitude,
+      longitude: eventDetails.longitude,
+      formattedAddress,
+      fallbackUrl: eventDetails.mapUrl,
+    });
+
+    redirectionHandler({ url: googleMapsUrl });
   };
 
   const handleImageCreditDisplay = () => {
     setCreditDisplayFlag(!creditDisplayFlag);
     setShowFullImageCreditDescription(false);
   };
-
-  if (error) {
-    return <div>{error}</div>;
-  }
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} portalProps={{ containerRef }}>
@@ -135,6 +160,34 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
                   width="100%"
                 />
               </Box>
+              <Box
+                position="relative"
+                style={{
+                  marginLeft: 'auto',
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                }}
+              >
+                <SocialMediaPopup
+                  styles={{ zIndex: 5, right: '48px', top: '-16px' }}
+                  eventId={eventId}
+                >
+                  <Icon
+                    className="share-detail-icon"
+                    as={ShareIcon}
+                    style={{
+                      color: '#000000',
+                      cursor: 'pointer',
+                      width: '63px',
+                      height: '63px',
+                      borderRadius: '50%',
+                      transition: 'top 0.5s ease-in-out, border-radius 0.5s ease-in-out',
+                      top: creditDisplayFlag ? '-39px' : '-78px',
+                    }}
+                  />
+                </SocialMediaPopup>
+              </Box>
               <Stack
                 className="event-information-section-wrapper"
                 style={{
@@ -158,19 +211,6 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
                 }}
               >
                 <Flex style={{ paddingTop: '0.5rem' }}>
-                  <Box className={creditDisplayFlag && 'image-description-display-icon-wrapper'}>
-                    <InformationCircle
-                      className={
-                        creditDisplayFlag
-                          ? 'image-description-info-icon'
-                          : 'image-description-info-icon-hidden'
-                      }
-                      style={{
-                        opacity: creditDisplayFlag ? 1 : 0,
-                        pointerEvents: creditDisplayFlag ? 'auto' : 'none',
-                      }}
-                    />
-                  </Box>
                   <Flex
                     direction="column"
                     style={{
@@ -185,6 +225,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
                       <Text
                         style={{
                           fontSize: '12px',
+                          marginLeft: '24px',
                           fontWeight: 400,
                           color: 'var(--secondary-black)',
                         }}
@@ -193,7 +234,22 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
                       </Text>
                     )}
                     {eventDetails?.imageCredit?.caption && (
-                      <>
+                      <Flex>
+                        <Box
+                          className={creditDisplayFlag && 'image-description-display-icon-wrapper'}
+                        >
+                          <InformationCircle
+                            className={
+                              creditDisplayFlag
+                                ? 'image-description-info-icon'
+                                : 'image-description-info-icon-hidden'
+                            }
+                            style={{
+                              opacity: creditDisplayFlag ? 1 : 0,
+                              pointerEvents: creditDisplayFlag ? 'auto' : 'none',
+                            }}
+                          />
+                        </Box>
                         <Text
                           className={`clamped-text-img-credit ${
                             showFullImageCreditDescription ? 'expanded' : ''
@@ -212,7 +268,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
                           containerData={eventDetails?.imageCredit?.caption}
                           showMoreDisplayStatus={showMoreButton?.imageCredit}
                         />
-                      </>
+                      </Flex>
                     )}
                   </Flex>
                 </Flex>
@@ -279,7 +335,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
                         <DateBadge
                           startDate={dateRangeFormatter({
                             startDate: eventDetails?.startDate,
-                            scheduleTimezone,
+                            scheduleTimezone: eventDetails?.scheduleTimezone,
                           })}
                           color="var(--primary-black)"
                           bgcolor="transparent"
@@ -376,18 +432,27 @@ const EventDetailsModal = ({ isOpen, onClose, eventId, scheduleTimezone }) => {
                     <SponsorsCarousel sponsors={eventDetails?.sponsor} />
                   </Box>
                 )}
-                <Box style={{ marginTop: '1rem', width: '100%', height: '248px' }}>
-                  <Heading as="h3" className="section-headings">
-                    {t('detailsModal.eventLocation')}
-                  </Heading>
-                  <Box style={{ marginTop: '0.5rem' }}>
-                    <MapComponent
-                      mapUrl={eventDetails?.mapUrl}
-                      latitude={eventDetails?.latitude}
-                      longitude={eventDetails?.longitude}
-                    />
+                {eventDetails?.mapUrl && (
+                  <Box style={{ marginTop: '1rem', width: '100%', height: '248px' }}>
+                    <Heading as="h3" className="section-headings">
+                      {t('detailsModal.eventLocation')}
+                    </Heading>
+                    <Box style={{ marginTop: '0.5rem' }}>
+                      <MapComponent
+                        mapUrl={eventDetails?.mapUrl}
+                        latitude={eventDetails?.latitude}
+                        longitude={eventDetails?.longitude}
+                        country={eventDetails?.addressCountry}
+                        region={eventDetails?.addressRegion}
+                        postalCode={eventDetails?.postalCode}
+                        locality={eventDetails?.place}
+                        street={eventDetails?.streetAddress}
+                        getFormattedAddress={getFormattedAddress}
+                        getGoogleMapsUrl={getGoogleMapsUrl}
+                      />
+                    </Box>
                   </Box>
-                </Box>
+                )}
               </Stack>
             </Box>
           )}
