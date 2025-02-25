@@ -97,9 +97,9 @@ export function handleInternalStateSearchParam() {
     endDateSpan: searchParams.get('footlight-endDateSpan'),
     isSingleDate: searchParams.get('footlight-isSingleDate') === 'true',
     selectedFilters: {
-      places: searchParams.get('footlight-place')?.split(',') || [],
-      audience: searchParams.get('footlight-Audience')?.split(',') || [],
-      eventTypes: searchParams.get('footlight-EventType')?.split(',') || [],
+      place: searchParams.get('footlight-place')?.split(',') || [],
+      Audience: searchParams.get('footlight-Audience')?.split(',') || [],
+      EventType: searchParams.get('footlight-EventType')?.split(',') || [],
     },
     searchKeyWord: searchParams.get('footlight-searchKeyWord'),
     pageNumber: parseInt(searchParams.get('footlight-pageNumber'), 10) || 1,
