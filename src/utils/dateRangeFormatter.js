@@ -60,7 +60,7 @@ export function dateRangeFormatter({ startDate, endDate, scheduleTimezone = 'Can
     // Check if enddate is within 24 hours of startDateTimeObj
     const diffInHours = endDateObj.diff(startDateTimeObj, 'hour');
     const formattedStartDateTime = startDateTimeObj.format(dateTimeFormat);
-    const formattedEndDate = endDateObj.format(dateTimeFormat);
+    const formattedEndDate = endDateObj.format(dateFormat);
 
     // Check if startdate and enddate are on the same day
     if (isStartAndEndDaySame) {
