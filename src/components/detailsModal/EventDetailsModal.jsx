@@ -227,6 +227,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                           fontSize: '12px',
                           marginLeft: '24px',
                           fontWeight: 400,
+                          marginBottom: '0.5rem',
                           color: 'var(--secondary-black)',
                         }}
                       >
