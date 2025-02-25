@@ -15,15 +15,20 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
     widgetProps?.index || 1,
   );
 
-  const startDateSpanSearchParam = widgetProps?.internalStateSearchParam?.startDateSpan;
-  const endDateSpanSearchParam = widgetProps?.internalStateSearchParam?.endDateSpan;
-  const isSingleDateSearchParam = widgetProps?.internalStateSearchParam?.isSingleDate;
-  const selectedFiltersSearchParam = widgetProps?.internalStateSearchParam?.selectedFilters;
-  const searchKeyWordSearchParam = widgetProps?.internalStateSearchParam?.searchKeyWord;
-  const pageNumberSearchParam = widgetProps?.internalStateSearchParam?.pageNumber;
-  const eventIdSearchParam = widgetProps?.internalStateSearchParam?.eventId;
+  const {
+    startDateSpan: startDateSpanSearchParam,
+    endDateSpan: endDateSpanSearchParam,
+    isSingleDate: isSingleDateSearchParam,
+    selectedFilters: selectedFiltersSearchParam,
+    searchKeyWord: searchKeyWordSearchParam,
+    pageNumber: pageNumberSearchParam,
+    eventId: eventIdSearchParam,
+  } = widgetProps?.internalStateSearchParam || {};
 
   // states
+  const getSessionValue = (key, fallback = '') =>
+    sessionStorage.getItem(indexedSessionStorageVariableNames[key]) || fallback;
+
   const [data, setData] = useState([]);
   const [lastPageFlag, setLastPageFlag] = useState(false);
   const [pageNumber, setPageNumber] = useState(pageNumberSearchParam ?? 1);
@@ -31,27 +36,20 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   const [totalCount, setTotalCount] = useState();
   const [error, setError] = useState(false);
   const [searchKeyWord, setSearchKeyWord] = useState(
-    searchKeyWordSearchParam ||
-      sessionStorage.getItem(indexedSessionStorageVariableNames.WidgetSearchKeyWord) ||
-      '',
+    searchKeyWordSearchParam || getSessionValue('WidgetSearchKeyWord'),
   );
   const [searchDate, setSearchDate] = useState(
-    searchDateFormatter(
-      sessionStorage.getItem(indexedSessionStorageVariableNames.WidgetSearchDate),
-    ) || '',
+    searchDateFormatter(getSessionValue('WidgetSearchDate')),
   );
   const [startDateSpan, setStartDateSpan] = useState(
-    startDateSpanSearchParam ||
-      sessionStorage.getItem(indexedSessionStorageVariableNames.WidgetStartDate) ||
-      '',
+    startDateSpanSearchParam || getSessionValue('WidgetStartDate'),
   );
   const [endDateSpan, setEndDateSpan] = useState(
-    endDateSpanSearchParam ||
-      sessionStorage.getItem(indexedSessionStorageVariableNames.WidgetEndDate) ||
-      '',
+    endDateSpanSearchParam || getSessionValue('WidgetEndDate'),
   );
+
   const [isSingleDate, setIsSingleDate] = useState(isSingleDateSearchParam || false);
-  const [calendarModalToggle, setCalendarModalToggle] = useState(false); // controls calendar as modal for mobile view
+  const [calendarModalToggle, setCalendarModalToggle] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [calendarData, setCalendarData] = useState([]);
   const [selectedFilters, setSelectedFilters] = useState(selectedFiltersSearchParam ?? {});
@@ -91,6 +89,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
           ...(selectedFilters?.place && { place: filterUndefinedArray(selectedFilters.place) }),
         });
 
+        setIsLoading(true);
         const response = await fetch(url);
         if (!response.ok) {
           setError(true);
@@ -128,10 +127,30 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   const getDataDebounced = useDebounce(getData, 500);
 
   useEffect(() => {
-    setIsLoading(true);
     setData([]);
     if (!error) getDataDebounced();
   }, [widgetProps, searchKeyWord, startDateSpan, endDateSpan, selectedFilters]);
+
+  useEffect(() => {
+    if (startDateSpan) {
+      if (endDateSpan !== undefined && endDateSpan !== '' && isSingleDate && endDateSpan != null) {
+        // Date range case (both start and end dates are valid)
+        setSearchDate([startDateSpan, endDateSpan]);
+        sessionStorage.setItem(
+          indexedSessionStorageVariableNames.WidgetSearchDate,
+          JSON.stringify([startDateSpan, endDateSpan]),
+        );
+      } else {
+        // Single date case
+        setSearchDate(startDateSpan);
+        sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetSearchDate, startDateSpan);
+      }
+    } else {
+      // If no valid start date, clear searchDate
+      setSearchDate('');
+      sessionStorage.removeItem(indexedSessionStorageVariableNames.WidgetSearchDate);
+    }
+  }, []);
 
   useEffect(() => {
     if (widgetProps?.filterOptions) {

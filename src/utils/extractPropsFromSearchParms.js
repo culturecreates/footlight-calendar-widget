@@ -95,14 +95,14 @@ export function handleInternalStateSearchParam() {
   const internalStateSearchParam = {
     startDateSpan: searchParams.get('footlight-startDateSpan'),
     endDateSpan: searchParams.get('footlight-endDateSpan'),
-    isSingleDate: searchParams.get('footlight-isSingleDate'),
+    isSingleDate: searchParams.get('footlight-isSingleDate') === 'true',
     selectedFilters: {
       places: searchParams.get('footlight-place')?.split(',') || [],
       audience: searchParams.get('footlight-Audience')?.split(',') || [],
       eventTypes: searchParams.get('footlight-EventType')?.split(',') || [],
     },
     searchKeyWord: searchParams.get('footlight-searchKeyWord'),
-    pageNumber: searchParams.get('footlight-pageNumber'),
+    pageNumber: parseInt(searchParams.get('footlight-pageNumber'), 10) || 1,
     eventId: searchParams.get('footlight-eventId'),
   };
 
