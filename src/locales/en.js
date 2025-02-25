@@ -32,7 +32,8 @@ export const en = {
     eventLocation: 'Event Location',
   },
   share: {
-    copy: 'Copy link URL',
+    copy: 'Copy link',
+    copied: 'Copied!',
   },
   loadMore: 'Show More',
   showLess: 'Show Less',
