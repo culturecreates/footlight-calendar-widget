@@ -18,7 +18,7 @@ export const generateUrl = (urlComponents) => {
     limit,
     query,
     'start-date-range': startDateSpan,
-    'end-date-range': endDateSpan,
+    'end-date-range': startDateSpan && startDateSpan != '' ? endDateSpan : '',
     'disable-grouping': disableGrouping,
   });
 

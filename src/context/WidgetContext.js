@@ -26,8 +26,10 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   } = widgetProps?.internalStateSearchParam || {};
 
   // states
-  const getSessionValue = (key, fallback = '') =>
-    sessionStorage.getItem(indexedSessionStorageVariableNames[key]) || fallback;
+  const getSessionValue = (key, fallback = '') => {
+    const value = sessionStorage.getItem(indexedSessionStorageVariableNames[key]);
+    return value !== null && value !== 'null' ? value : fallback;
+  };
 
   const [data, setData] = useState([]);
   const [lastPageFlag, setLastPageFlag] = useState(false);
@@ -42,10 +44,10 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
     searchDateFormatter(getSessionValue('WidgetSearchDate')),
   );
   const [startDateSpan, setStartDateSpan] = useState(
-    startDateSpanSearchParam || getSessionValue('WidgetStartDate'),
+    startDateSpanSearchParam ?? getSessionValue('WidgetStartDate'),
   );
   const [endDateSpan, setEndDateSpan] = useState(
-    endDateSpanSearchParam || getSessionValue('WidgetEndDate'),
+    endDateSpanSearchParam ?? getSessionValue('WidgetEndDate'),
   );
 
   const [isSingleDate, setIsSingleDate] = useState(isSingleDateSearchParam || false);
