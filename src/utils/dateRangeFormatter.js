@@ -7,19 +7,11 @@ import i18next from 'i18next';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-function isSameDay(date1, date2) {
-  if (!date1 || !date2) return false;
-
-  const day1 = date1.substring(8, 10);
-  const day2 = date2.substring(8, 10);
-
-  return day1 === day2;
-}
-
 export function dateRangeFormatter({ startDate, endDate, scheduleTimezone = 'Canada/Eastern' }) {
   // Check if the startdate has a time component by checking the format
   const hasStartTime = startDate.includes('T') || startDate.includes(' ');
-  const isStartAndEndDaySame = isSameDay(startDate, endDate);
+  const isStartAndEndDaySame = dayjs(startDate).isSame(dayjs(endDate), 'day');
+
   const locale = i18next.language;
 
   const dateTimeFormat =
@@ -59,7 +51,7 @@ export function dateRangeFormatter({ startDate, endDate, scheduleTimezone = 'Can
 
     // Check if enddate is within 24 hours of startDateTimeObj
     const diffInHours = endDateObj.diff(startDateTimeObj, 'hour');
-    const formattedStartDateTime = startDateTimeObj.format(dateTimeFormat);
+    const formattedStartDateTime = startDateTimeObj.format(dateFormat);
     const formattedEndDate = endDateObj.format(dateFormat);
 
     // Check if startdate and enddate are on the same day
