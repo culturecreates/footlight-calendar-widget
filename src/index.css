@@ -91,6 +91,6 @@
   all: unset;
 }
 
-code {
+#calendar-widget code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
