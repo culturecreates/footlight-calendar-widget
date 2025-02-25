@@ -32,8 +32,12 @@ export const fr = {
     clearAll: 'Tout effacer',
   },
   errorPage: {
-    heading: 'So sorry,',
-    subtext: "We couldn't find what you were looking for",
-    homeButton: 'Back to home',
+    primaryHeading: 'Oups, quelque ',
+    secondaryHeading: "chose s'est mal passé!",
+    subtext: 'La page que vous recherchez semble introuvable.',
+    homeButton: 'Aller à la page d’accueil',
+  },
+  map: {
+    errorMessage: "L'aperçu de la carte n'est pas disponible.",
   },
 };
