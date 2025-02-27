@@ -1,13 +1,16 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import {
-  Tooltip,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverBody,
   VStack,
   Collapse,
   Box,
   useOutsideClick,
   useDisclosure,
   Icon,
-  useToast,
 } from '@chakra-ui/react';
 import {
   FacebookShareButton,
@@ -26,12 +29,12 @@ import { useTranslation } from 'react-i18next';
 
 const ShareTooltip = ({ children, styles = {}, eventId }) => {
   const { isOpen, onToggle, onClose } = useDisclosure();
+  const { isOpen: isPopoverOpen, onOpen: openPopover, onClose: closePopover } = useDisclosure();
   const tooltipRef = useRef(null);
   const { t } = useTranslation();
 
-  const toast = useToast();
-  const toastId = 'footlite-share-popup-toast';
-
+  // eslint-disable-next-line no-unused-vars
+  const [copyState, setCopyState] = useState(false);
   const url = generateDeeplinkUrl({ eventId });
 
   useOutsideClick({
@@ -40,24 +43,19 @@ const ShareTooltip = ({ children, styles = {}, eventId }) => {
   });
 
   const handleCopy = () => {
+    setCopyState(true);
     navigator.clipboard.writeText(url);
-    if (!toast.isActive(toastId))
-      toast({
-        id: toastId,
-        title: 'Copied!',
-        description: 'Link copied to clipboard.',
-        status: 'info',
-        duration: 2000,
-        isClosable: true,
-        position: 'top',
-      });
+    openPopover();
+
+    setTimeout(() => {
+      closePopover();
+      setCopyState(false);
+    }, 2000);
   };
 
   return (
     <Box position="relative" display="inline-block" ref={tooltipRef} className="share-tooltip">
-      <Tooltip aria-label="Share tooltip" arrowSize={5}>
-        <Box onClick={onToggle}>{children}</Box>
-      </Tooltip>
+      <Box onClick={onToggle}>{children}</Box>
       <Collapse in={isOpen} animateOpacity>
         <VStack
           style={{
@@ -86,17 +84,43 @@ const ShareTooltip = ({ children, styles = {}, eventId }) => {
           <RedditShareButton url={url}>
             <RedditIcon size={32} round={true} />
           </RedditShareButton>
-          <Tooltip label={t('share.copy')} hasArrow>
-            <Box onClick={handleCopy}>
-              <Icon
-                as={CopyLink}
-                className="copy-link-icon"
-                height={'32px'}
-                width={'32px'}
-                style={{ border: '1px solid var(--main-dynamic-color)', borderRadius: '100%' }}
-              />
-            </Box>
-          </Tooltip>
+
+          <Popover isOpen={isPopoverOpen} onClose={closePopover} placement="left">
+            <PopoverTrigger>
+              <Box
+                onMouseEnter={() => {
+                  if (!copyState) openPopover();
+                }}
+                onMouseLeave={() => {
+                  if (!copyState) closePopover();
+                }}
+                onClick={handleCopy}
+              >
+                <Icon
+                  as={CopyLink}
+                  className="copy-link-icon"
+                  height="32px"
+                  width="32px"
+                  style={{ border: '1px solid var(--main-dynamic-color)', borderRadius: '100%' }}
+                />
+              </Box>
+            </PopoverTrigger>
+            <PopoverContent
+              style={{
+                padding: '0px',
+                border: '1px solid var(--bg-grey)',
+                borderRadius: '6px',
+                boxShadow: 'md',
+                width: 'auto',
+                top: '20px',
+              }}
+            >
+              <PopoverArrow />
+              <PopoverBody fontSize="sm" style={{ padding: '4px 8px' }} textAlign="center">
+                {t(copyState ? 'share.copied' : 'share.copy')}
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
         </VStack>
       </Collapse>
     </Box>
