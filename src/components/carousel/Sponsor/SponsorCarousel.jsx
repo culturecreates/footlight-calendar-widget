@@ -19,18 +19,23 @@ const SponsorsCarousel = ({ sponsors = [] }) => {
     return () => window.removeEventListener('resize', updateSlidesToShow);
   }, [sponsors.length]);
 
-  const canScroll = sponsors.length > slidesToShow;
+  const canScroll = sponsors.length > slidesToShow + 2;
 
   const settings = {
     dots: canScroll,
-    infinite: canScroll,
-    speed: 1000,
+    infinite: false,
+    speed: 800,
     slidesToShow,
-    slidesToScroll: 1,
-    autoplay: canScroll,
+    slidesToScroll: Math.min(3, sponsors.length),
+    autoplay: false,
     autoplaySpeed: 3000,
     arrows: false,
     rows: 1,
+    swipe: true,
+    swipeToSlide: true,
+    touchThreshold: 5,
+    draggable: true,
+    waitForAnimate: false,
     customPaging: (i) => <button className="custom-dot" aria-label={`Go to slide ${i + 1}`} />,
     dotsClass: 'slick-dots custom-dots',
     responsive: [{ breakpoint: 768, settings: { slidesToShow: Math.min(sponsors.length, 4) } }],
