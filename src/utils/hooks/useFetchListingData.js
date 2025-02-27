@@ -31,8 +31,6 @@ const useFetchEventData = ({
         abortControllerRef.current = new AbortController();
         const { signal } = abortControllerRef.current;
 
-        console.log(signal);
-
         const url = generateUrl({
           ...widgetProps,
           searchEntityType: entityTypes.EVENTS,
