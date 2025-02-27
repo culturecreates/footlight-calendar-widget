@@ -1,11 +1,9 @@
-import { createContext, useCallback, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { entityTypes } from '../constants/generalConstants';
 import { getDefaultSessionStorageVariableNames } from '../constants/sessionStorageVariableNames';
-import { generateUrl, generateWidgetUrl } from '../utils/generateUrl';
-import { transformData } from '../utils/transformData';
-import { useDebounce } from '../utils/useDebounce';
 import { searchDateFormatter } from '../utils/dateRangeFormatter';
+import useFetchEventData from '../utils/hooks/useFetchListingData';
+import { generateWidgetUrl } from '../utils/generateUrl';
 
 const WidgetContext = createContext(undefined);
 
@@ -30,34 +28,30 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
     return value !== null && value !== 'null' ? value : fallback;
   };
 
-  const [data, setData] = useState([]);
-  const [lastPageFlag, setLastPageFlag] = useState(false);
   const [pageNumber, setPageNumber] = useState(pageNumberSearchParam ?? 1);
-  const [displayFiltersFlag, setDisplayFiltersFlag] = useState(false);
-  const [totalCount, setTotalCount] = useState();
-  const [error, setError] = useState(false);
-  const [searchKeyWord, setSearchKeyWord] = useState(
-    searchKeyWordSearchParam || getSessionValue('WidgetSearchKeyWord'),
-  );
-  const [searchDate, setSearchDate] = useState(
-    searchDateFormatter(getSessionValue('WidgetSearchDate')),
-  );
+  const [isSingleDate, setIsSingleDate] = useState(isSingleDateSearchParam || false);
+  const [selectedFilters, setSelectedFilters] = useState(selectedFiltersSearchParam ?? {});
   const [startDateSpan, setStartDateSpan] = useState(
     startDateSpanSearchParam ?? getSessionValue('WidgetStartDate'),
   );
   const [endDateSpan, setEndDateSpan] = useState(
     endDateSpanSearchParam ?? getSessionValue('WidgetEndDate'),
   );
+  const [searchKeyWord, setSearchKeyWord] = useState(
+    searchKeyWordSearchParam || getSessionValue('WidgetSearchKeyWord'),
+  );
 
-  const [isSingleDate, setIsSingleDate] = useState(isSingleDateSearchParam || false);
+  const [data, setData] = useState([]);
+  const [displayFiltersFlag, setDisplayFiltersFlag] = useState(false);
+  const [error, setError] = useState(false);
   const [calendarModalToggle, setCalendarModalToggle] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const [calendarData, setCalendarData] = useState([]);
-  const [selectedFilters, setSelectedFilters] = useState(selectedFiltersSearchParam ?? {});
+
+  const [searchDate, setSearchDate] = useState(
+    searchDateFormatter(getSessionValue('WidgetSearchDate')),
+  );
 
   const { i18n } = useTranslation();
-
-  const filterUndefinedArray = (arr) => arr?.filter((value) => value !== undefined) ?? [];
 
   const resetFilters = () => {
     setSelectedFilters({});
@@ -70,47 +64,16 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
     setError(false);
   };
 
-  const getData = useCallback(
-    async (pageNumber) => {
-      try {
-        const url = generateUrl({
-          ...widgetProps,
-          searchEntityType: entityTypes.EVENTS,
-          searchKeyWord,
-          startDateSpan,
-          endDateSpan,
-          pageNumber,
-          ...(selectedFilters?.EventType && {
-            eventType: filterUndefinedArray(selectedFilters.EventType),
-          }),
-          ...(selectedFilters?.Audience && {
-            audience: filterUndefinedArray(selectedFilters.Audience),
-          }),
-          ...(selectedFilters?.place && { place: filterUndefinedArray(selectedFilters.place) }),
-        });
-
-        setIsLoading(true);
-        const response = await fetch(url);
-        if (!response.ok) {
-          setError(true);
-        }
-        const { data, meta } = await response.json();
-
-        setData((prevData) => [
-          ...prevData,
-          ...transformData({ data, locale: widgetProps?.locale || 'en' }),
-        ]);
-        setTotalCount(meta?.totalCount);
-        setLastPageFlag(meta?.currentPage < meta?.pageCount);
-        setPageNumber(meta?.currentPage);
-        setIsLoading(false);
-      } catch (error) {
-        setError(true);
-        console.error('Error fetching data:', error);
-      }
-    },
-    [widgetProps, searchKeyWord, startDateSpan, endDateSpan, selectedFilters],
-  );
+  const { isLoading, totalCount, lastPageFlag, getData } = useFetchEventData({
+    setData,
+    setError,
+    setPageNumber,
+    widgetProps,
+    searchKeyWord,
+    startDateSpan,
+    endDateSpan,
+    selectedFilters,
+  });
 
   const fetchCalendarData = async (calendar) => {
     try {
@@ -123,13 +86,6 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
       console.error('Error fetching calendar data:', error);
     }
   };
-
-  const getDataDebounced = useDebounce(getData, 500);
-
-  useEffect(() => {
-    setData([]);
-    if (!error) getDataDebounced();
-  }, [widgetProps, searchKeyWord, startDateSpan, endDateSpan, selectedFilters]);
 
   useEffect(() => {
     if (startDateSpan) {
