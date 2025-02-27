@@ -17,10 +17,10 @@ import {
   TwitterShareButton,
   WhatsappShareButton,
   WhatsappIcon,
-  TwitterIcon,
   FacebookIcon,
   RedditShareButton,
   RedditIcon,
+  XIcon,
 } from 'react-share';
 import { generateDeeplinkUrl } from '../../utils/hooks/useGenerateDeeplinkUrl';
 import { ReactComponent as CopyLink } from '../../assets/copyLink.svg';
@@ -33,7 +33,6 @@ const ShareTooltip = ({ children, styles = {}, eventId }) => {
   const tooltipRef = useRef(null);
   const { t } = useTranslation();
 
-  // eslint-disable-next-line no-unused-vars
   const [copyState, setCopyState] = useState(false);
   const url = generateDeeplinkUrl({ eventId });
 
@@ -76,7 +75,7 @@ const ShareTooltip = ({ children, styles = {}, eventId }) => {
             <FacebookIcon size={32} round={true} />
           </FacebookShareButton>
           <TwitterShareButton url={url}>
-            <TwitterIcon size={32} round={true} />
+            <XIcon size={32} round={true} />
           </TwitterShareButton>
           <WhatsappShareButton url={url}>
             <WhatsappIcon size={32} round={true} />
