@@ -415,9 +415,9 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                       {eventDetails?.organizers.map((organizer, index) => (
                         <PresenterCard
                           key={index}
-                          name={organizer.name}
-                          website={organizer.website}
-                          image={organizer.logo}
+                          name={organizer?.name}
+                          website={organizer?.website}
+                          image={organizer?.logo ?? organizer?.image}
                         />
                       ))}
                     </Stack>
