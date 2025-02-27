@@ -22,7 +22,7 @@ const useFetchEventData = ({
   const filterUndefinedArray = (arr) => arr?.filter((value) => value !== undefined) ?? [];
 
   const fetchData = useCallback(
-    async (page) => {
+    async (page, fullDataResetFlag) => {
       try {
         // Abort any ongoing request before making a new one
         if (abortControllerRef.current) {
@@ -54,7 +54,7 @@ const useFetchEventData = ({
         const { data, meta } = await response.json();
 
         setData((prevData) => [
-          ...prevData,
+          ...(fullDataResetFlag ? [] : prevData),
           ...transformData({ data, locale: widgetProps?.locale || 'en' }),
         ]);
         setTotalCount(meta?.totalCount);
@@ -77,7 +77,7 @@ const useFetchEventData = ({
   useEffect(() => {
     setIsLoading(true);
     setData([]);
-    getDataDebounced(1);
+    getDataDebounced(1, true);
   }, [getDataDebounced, widgetProps, searchKeyWord, startDateSpan, endDateSpan, selectedFilters]);
 
   // Cleanup on unmount
