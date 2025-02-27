@@ -22,14 +22,16 @@ const useFetchEventData = ({
   const filterUndefinedArray = (arr) => arr?.filter((value) => value !== undefined) ?? [];
 
   const fetchData = useCallback(
-    async (page) => {
+    async (page, fullDataResetFlag) => {
       try {
         // Abort any ongoing request before making a new one
         if (abortControllerRef.current) {
           abortControllerRef.current.abort();
         }
+
         abortControllerRef.current = new AbortController();
         const { signal } = abortControllerRef.current;
+        if (fullDataResetFlag) setData(() => []);
 
         const url = generateUrl({
           ...widgetProps,
@@ -54,7 +56,7 @@ const useFetchEventData = ({
         const { data, meta } = await response.json();
 
         setData((prevData) => [
-          ...prevData,
+          ...(fullDataResetFlag ? [] : prevData),
           ...transformData({ data, locale: widgetProps?.locale || 'en' }),
         ]);
         setTotalCount(meta?.totalCount);
@@ -66,6 +68,8 @@ const useFetchEventData = ({
           setError(true);
           console.error('Error fetching data:', error);
         }
+      } finally {
+        setIsLoading(false);
       }
     },
     [widgetProps, searchKeyWord, startDateSpan, endDateSpan, selectedFilters],
@@ -77,7 +81,7 @@ const useFetchEventData = ({
   useEffect(() => {
     setIsLoading(true);
     setData([]);
-    getDataDebounced(1);
+    getDataDebounced(1, true);
   }, [getDataDebounced, widgetProps, searchKeyWord, startDateSpan, endDateSpan, selectedFilters]);
 
   // Cleanup on unmount
