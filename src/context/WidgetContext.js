@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { entityTypes } from '../constants/generalConstants';
 import { getDefaultSessionStorageVariableNames } from '../constants/sessionStorageVariableNames';
 import { generateUrl, generateWidgetUrl } from '../utils/generateUrl';
-import { useSize } from '../utils/hooks/useSize';
 import { transformData } from '../utils/transformData';
 import { useDebounce } from '../utils/useDebounce';
 import { searchDateFormatter } from '../utils/dateRangeFormatter';
@@ -56,7 +55,6 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   const [calendarData, setCalendarData] = useState([]);
   const [selectedFilters, setSelectedFilters] = useState(selectedFiltersSearchParam ?? {});
 
-  const displayType = useSize();
   const { i18n } = useTranslation();
 
   const filterUndefinedArray = (arr) => arr?.filter((value) => value !== undefined) ?? [];
@@ -191,7 +189,6 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
         startDateSpan,
         endDateSpan,
         isSingleDate,
-        displayType,
         isLoading,
         calendarModalToggle,
         indexedSessionStorageVariableNames,

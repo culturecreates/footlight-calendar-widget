@@ -8,7 +8,6 @@ import { ReactComponent as PrevButton } from '../../assets/chevronLeft.svg';
 import { ReactComponent as Prev2Button } from '../../assets/chevronDoubleLeft.svg';
 import { ReactComponent as Next2Button } from '../../assets/chevronDoubleRight.svg';
 import { ReactComponent as NextButton } from '../../assets/chevronRight.svg';
-import { displayTypes } from '../../constants/generalConstants';
 import { getDefaultSessionStorageVariableNames } from '../../constants/sessionStorageVariableNames';
 
 const dateConverter = (date) => {
@@ -29,7 +28,6 @@ export const CustomCalendar = () => {
     setEndDateSpan,
     isSingleDate,
     widgetProps,
-    displayType,
     calendarModalToggle,
     setCalendarModalToggle,
     indexedSessionStorageVariableNames,
@@ -113,10 +111,7 @@ export const CustomCalendar = () => {
   };
 
   return (
-    <div
-      className="custom-calendar-wrapper"
-      style={displayType === displayTypes.MOBILE ? { borderRadius: '4px 4px 8px 8px' } : {}}
-    >
+    <div className="custom-calendar-wrapper">
       <CalendarControl
         setCalendarKey={setCalendarKey}
         setView={setView}
