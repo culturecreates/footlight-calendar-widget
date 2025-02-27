@@ -5,7 +5,6 @@ import { ReactComponent as SpotifyIcon } from '../../../assets/spotify.svg';
 import { ReactComponent as YouTubeIcon } from '../../../assets/youtube.svg';
 import { ReactComponent as TwitterIcon } from '../../../assets/twitter.svg';
 import './performerCard.css';
-import { cleanDescription } from '../../../utils/cleanDescription';
 import ShowMoreTrigger from '../../showMoreTrigger/ShowMoreTrigger';
 import { useRef, useState } from 'react';
 import { getLocalized } from '../../../utils/getLocalized';
@@ -37,7 +36,7 @@ const PerformerCard = ({
   name,
   website,
   occupation,
-  description,
+  description = '',
   socialLinks = [],
   locale,
 }) => {
@@ -98,20 +97,20 @@ const PerformerCard = ({
         </HStack>
 
         <Box>
-          <Text
+          <Box
             className={`clamped-text-performer-description ${flag ? 'expanded' : ''}`}
             ref={descriptionRef}
             onClick={() => {
               setFlag(!flag);
             }}
-          >
-            {cleanDescription(description)}
-          </Text>
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
+
           <ShowMoreTrigger
             setFlag={setFlag}
             flag={flag}
             handleShowMoreButtonState={(status) => setShowMoreButtonState(status)}
-            containerData={cleanDescription(description)}
+            containerData={description}
             showMoreDisplayStatus={showMoreDisplayStatus}
             ref={descriptionRef}
           />
