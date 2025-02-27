@@ -28,8 +28,10 @@ const useFetchEventData = ({
         if (abortControllerRef.current) {
           abortControllerRef.current.abort();
         }
+
         abortControllerRef.current = new AbortController();
         const { signal } = abortControllerRef.current;
+        if (fullDataResetFlag) setData(() => []);
 
         const url = generateUrl({
           ...widgetProps,
@@ -66,6 +68,8 @@ const useFetchEventData = ({
           setError(true);
           console.error('Error fetching data:', error);
         }
+      } finally {
+        setIsLoading(false);
       }
     },
     [widgetProps, searchKeyWord, startDateSpan, endDateSpan, selectedFilters],
