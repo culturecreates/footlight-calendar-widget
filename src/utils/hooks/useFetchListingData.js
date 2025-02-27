@@ -80,6 +80,15 @@ const useFetchEventData = ({
     getDataDebounced(1);
   }, [getDataDebounced, widgetProps, searchKeyWord, startDateSpan, endDateSpan, selectedFilters]);
 
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
+  }, []);
+
   return {
     isLoading,
     totalCount,
