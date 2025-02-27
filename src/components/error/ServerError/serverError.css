@@ -1,44 +1,41 @@
 #calendar-widget .error-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   height: 100%;
-  width: 100%;
+  background-color: var(--primary-white-opaque);
   text-align: center;
-  background: var(--dynamic-color-50);
-  color: var(--primary-black);
-  padding: 20px;
+  gap: 18px;
+  padding: 24px;
 }
 
 #calendar-widget .error-heading {
-  font-size: 32px;
-  font-weight: bold;
+  font-size: 48px;
+  color: var(--primary-black);
+  font-weight: 700;
 }
 
-#calendar-widget .error-subtext {
-  font-size: 24px;
+#calendar-widget .error-text {
+  font-size: 16px;
   font-weight: 400;
-  margin-bottom: 20px;
+  color: var(--primary-grey);
 }
 
 #calendar-widget .error-button {
-  all: unset; /* Resetting default styles */
   display: inline-block;
-  color: var(--primary-white-opaque);
+  padding: 8px 16px;
+  margin-top: 20px;
   background-color: var(--main-dynamic-color);
+  color: var(--primary-white-opaque);
+  text-decoration: none;
+  border-radius: 5px;
   font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  border: 2px solid var(--main-dynamic-color);
-  transition: all 0.3s ease-in-out;
-  text-align: center;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
 }
 
 #calendar-widget .error-button:hover {
   color: var(--primary-blue);
-  border-color: var(--primary-hover-white);
   background-color: var(--primary-hover-white);
 }

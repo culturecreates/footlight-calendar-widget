@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { ReactComponent as InformationCircle } from '../../assets/informationCircle.svg';
 import { redirectionHandler } from '../../utils/redirectionHandler';
+import { useTranslation } from 'react-i18next';
 
 const MapComponent = ({
   mapUrl,
@@ -14,6 +15,8 @@ const MapComponent = ({
   locality,
   street,
 }) => {
+  const { t } = useTranslation();
+
   const [updatedMapUrl, setUpdatedMapUrl] = useState(mapUrl);
   const [imageError, setImageError] = useState(false);
 
@@ -82,7 +85,7 @@ const MapComponent = ({
           className="fallback-map-error-component"
         >
           <InformationCircle size={40} color="#888" />
-          <p style={{ color: '#666', marginTop: '8px' }}>Map preview unavailable</p>
+          <p style={{ color: '#666', marginTop: '8px' }}>{t('map.errorMessage')}</p>
         </div>
       )}
     </div>
