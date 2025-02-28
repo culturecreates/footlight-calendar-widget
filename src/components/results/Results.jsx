@@ -29,6 +29,7 @@ const Results = () => {
             eventIdSearchParam={eventIdSearchParam}
             redirectionMode={redirectionMode}
             calendar={calendar}
+            altText={item?.imageCredit?.description || ''}
           />
         ))}
       </div>

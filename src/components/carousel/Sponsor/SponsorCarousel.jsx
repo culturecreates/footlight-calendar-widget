@@ -51,11 +51,7 @@ const SponsorsCarousel = ({ sponsors = [] }) => {
             style={styles.slideItem}
             onClick={() => sponsor.website && window.open(sponsor.website)}
           >
-            <img
-              src={sponsor.logo ?? sponsor.image}
-              alt={sponsor.name}
-              style={styles.sponsorLogo}
-            />
+            <img src={sponsor?.image} alt={sponsor.name} style={styles.sponsorLogo} />
           </div>
         ))}
       </Slider>

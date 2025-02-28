@@ -12,16 +12,7 @@ import {
   useDisclosure,
   Icon,
 } from '@chakra-ui/react';
-import {
-  FacebookShareButton,
-  TwitterShareButton,
-  WhatsappShareButton,
-  WhatsappIcon,
-  FacebookIcon,
-  RedditShareButton,
-  RedditIcon,
-  XIcon,
-} from 'react-share';
+import { FacebookShareButton, TwitterShareButton, FacebookIcon, XIcon } from 'react-share';
 import { generateDeeplinkUrl } from '../../utils/hooks/useGenerateDeeplinkUrl';
 import { ReactComponent as CopyLink } from '../../assets/copyLink.svg';
 import './shareTooltip.css';
@@ -32,8 +23,6 @@ import WidgetContext from '../../context/WidgetContext';
 const socialPlatforms = [
   { name: 'Facebook', Component: FacebookShareButton, Icon: FacebookIcon },
   { name: 'X', Component: TwitterShareButton, Icon: XIcon },
-  { name: 'WhatsApp', Component: WhatsappShareButton, Icon: WhatsappIcon },
-  { name: 'Reddit', Component: RedditShareButton, Icon: RedditIcon },
 ];
 
 const generateShareUrl = (platform, baseUrl) => {
@@ -87,7 +76,7 @@ const ShareTooltip = ({ children, styles = {}, eventId }) => {
         <VStack
           style={{
             position: 'absolute',
-            background: 'white',
+            background: 'var(--primary-white-opaque)',
             boxShadow: 'var(--secondary-box-shadow)',
             padding: '8px',
             borderRadius: '8px',
