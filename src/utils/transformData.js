@@ -88,9 +88,10 @@ export const transformData = ({ data, locale }) => {
             description: getLocalized(description, locale),
           }),
         ),
-        organizers: organizer?.map(({ name, logo, socialMediaLinks, type, url }) => ({
+        organizers: organizer?.map(({ name, logo, image, socialMediaLinks, type, url }) => ({
           name: getLocalized(name, locale),
           logo: logo?.thumbnail,
+          image: image?.thumbnail,
           socialMediaLinks,
           type,
           website: url,

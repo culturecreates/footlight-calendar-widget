@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import './serverError.css';
 import { useTranslation } from 'react-i18next';
 import WidgetContext from '../../../context/WidgetContext';
+import { ReactComponent as Error404 } from '../../../assets/error404.svg';
 
 const ServerError = () => {
   const { t } = useTranslation();
@@ -9,9 +10,13 @@ const ServerError = () => {
 
   return (
     <div className="error-container">
-      <p className="error-heading">{t('errorPage.heading')}</p>
-      <p className="error-subtext">{t('errorPage.subtext')}</p>
-
+      <Error404 style={{ maxWidth: '240px' }} />
+      <h1 className="error-heading">
+        {t('errorPage.primaryHeading')}
+        <br />
+        {t('errorPage.secondaryHeading')}
+      </h1>
+      <p className="error-text">{t('errorPage.subtext')}</p>
       <button className="error-button" onClick={resetFilters}>
         {t('errorPage.homeButton')}
       </button>

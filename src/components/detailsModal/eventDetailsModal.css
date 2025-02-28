@@ -87,9 +87,10 @@
 }
 
 #calendar-widget .calendar-widget-details-modal .close-button-wrapper button {
+  position: absolute;
   z-index: 2;
-  left: 2px;
-  top: 4px;
+  left: 10px;
+  top: 5px;
 }
 
 #calendar-widget .calendar-widget-details-modal .image-credit-info-icon {

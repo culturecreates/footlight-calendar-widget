@@ -30,8 +30,12 @@ export const ja = {
     clearAll: 'すべてクリア',
   },
   errorPage: {
-    heading: 'So sorry,',
-    subtext: "We couldn't find what you were looking for",
-    homeButton: 'Back to home',
+    primaryHeading: 'Oops, something',
+    secondaryHeading: 'went wrong!',
+    subtext: 'The page you are looking for cannot be found.',
+    homeButton: 'Go to home page',
+  },
+  map: {
+    errorMessage: 'Map preview unavailable.',
   },
 };

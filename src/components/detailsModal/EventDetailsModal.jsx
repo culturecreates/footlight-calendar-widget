@@ -23,7 +23,6 @@ import { ReactComponent as calendaricon } from '../../assets/calendar.svg';
 import { ReactComponent as StageIcon } from '../../assets/locationPin.svg';
 import { ReactComponent as ShareIcon } from '../../assets/share.svg';
 import { ReactComponent as InformationCircle } from '../../assets/informationCircle.svg';
-import { cleanDescription } from '../../utils/cleanDescription';
 import EventTypeBadge from '../badge/EventTypeBadge/EventTypeBadge';
 import { redirectionHandler } from '../../utils/redirectionHandler';
 import { useTranslation } from 'react-i18next';
@@ -251,14 +250,15 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                             }}
                           />
                         </Box>
-                        <Text
+                        <Box
                           className={`clamped-text-img-credit ${
                             showFullImageCreditDescription ? 'expanded' : ''
                           }`}
                           ref={imageCreditRef}
-                        >
-                          {cleanDescription(eventDetails?.imageCredit?.caption)}
-                        </Text>
+                          dangerouslySetInnerHTML={{
+                            __html: eventDetails?.imageCredit?.caption || '',
+                          }}
+                        />
                         <ShowMoreTrigger
                           setFlag={setShowFullImageCreditDescription}
                           flag={showFullImageCreditDescription}
@@ -290,11 +290,9 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                 <Box>
                   <Box>
                     <Flex direction="column" gap={2}>
-                      <Text
+                      <Box
                         ref={descriptionRef}
-                        onClick={() => {
-                          setShowFullDescription(!showFullDescription);
-                        }}
+                        onClick={() => setShowFullDescription(!showFullDescription)}
                         style={{
                           maxHeight: showFullDescription ? '1000px' : '84px',
                           transition: 'max-height 0.3s ease-in-out',
@@ -309,9 +307,10 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                         className={`clamped-text-description ${
                           showFullDescription ? 'expanded' : ''
                         }`}
-                      >
-                        {cleanDescription(eventDetails?.description)}
-                      </Text>
+                        dangerouslySetInnerHTML={{
+                          __html: eventDetails?.description || '',
+                        }}
+                      />
                       <ShowMoreTrigger
                         setFlag={setShowFullDescription}
                         flag={showFullDescription}
@@ -415,9 +414,9 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                       {eventDetails?.organizers.map((organizer, index) => (
                         <PresenterCard
                           key={index}
-                          name={organizer.name}
-                          website={organizer.website}
-                          image={organizer.logo}
+                          name={organizer?.name}
+                          website={organizer?.website}
+                          image={organizer?.logo ?? organizer?.image}
                         />
                       ))}
                     </Stack>
