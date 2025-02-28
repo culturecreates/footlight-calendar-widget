@@ -12,16 +12,7 @@ import {
   useDisclosure,
   Icon,
 } from '@chakra-ui/react';
-import {
-  FacebookShareButton,
-  TwitterShareButton,
-  WhatsappShareButton,
-  WhatsappIcon,
-  FacebookIcon,
-  RedditShareButton,
-  RedditIcon,
-  XIcon,
-} from 'react-share';
+import { FacebookShareButton, TwitterShareButton, FacebookIcon, XIcon } from 'react-share';
 import { generateDeeplinkUrl } from '../../utils/hooks/useGenerateDeeplinkUrl';
 import { ReactComponent as CopyLink } from '../../assets/copyLink.svg';
 import './shareTooltip.css';
@@ -77,12 +68,6 @@ const ShareTooltip = ({ children, styles = {}, eventId }) => {
           <TwitterShareButton url={url}>
             <XIcon size={32} round={true} />
           </TwitterShareButton>
-          <WhatsappShareButton url={url}>
-            <WhatsappIcon size={32} round={true} />
-          </WhatsappShareButton>
-          <RedditShareButton url={url}>
-            <RedditIcon size={32} round={true} />
-          </RedditShareButton>
 
           <Popover isOpen={isPopoverOpen} onClose={closePopover} placement="left">
             <PopoverTrigger>
