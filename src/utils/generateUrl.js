@@ -1,3 +1,5 @@
+import { trackListEvents } from './googleAnalytics';
+
 export const generateUrl = (urlComponents) => {
   const baseUrl = process.env.REACT_APP_API_URL + 'calendars/';
   const calendar = urlComponents.calendar;
@@ -43,6 +45,7 @@ export const generateUrl = (urlComponents) => {
     apiUrl.search += `&${filters}`;
   }
 
+  trackListEvents(calendar, apiUrl.search);
   return apiUrl.toString();
 };
 

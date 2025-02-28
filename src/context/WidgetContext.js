@@ -4,6 +4,7 @@ import { getDefaultSessionStorageVariableNames } from '../constants/sessionStora
 import { searchDateFormatter } from '../utils/dateRangeFormatter';
 import useFetchEventData from '../utils/hooks/useFetchListingData';
 import { generateWidgetUrl } from '../utils/generateUrl';
+import { trackListEvents } from '../utils/googleAnalytics';
 
 const WidgetContext = createContext(undefined);
 
@@ -78,6 +79,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   const fetchCalendarData = async (calendar) => {
     try {
       const url = generateWidgetUrl(calendar);
+      trackListEvents(calendar, ' ');
       const response = await fetch(url);
       const data = await response.json();
       setCalendarData(data);
