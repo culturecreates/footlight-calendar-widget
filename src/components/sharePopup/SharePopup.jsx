@@ -23,8 +23,6 @@ import WidgetContext from '../../context/WidgetContext';
 const socialPlatforms = [
   { name: 'Facebook', Component: FacebookShareButton, Icon: FacebookIcon },
   { name: 'X', Component: TwitterShareButton, Icon: XIcon },
-  { name: 'WhatsApp', Component: WhatsappShareButton, Icon: WhatsappIcon },
-  { name: 'Reddit', Component: RedditShareButton, Icon: RedditIcon },
 ];
 
 const generateShareUrl = (platform, baseUrl) => {
@@ -78,7 +76,7 @@ const ShareTooltip = ({ children, styles = {}, eventId }) => {
         <VStack
           style={{
             position: 'absolute',
-            background: 'white',
+            background: 'var(--primary-white-opaque)',
             boxShadow: 'var(--secondary-box-shadow)',
             padding: '8px',
             borderRadius: '8px',
