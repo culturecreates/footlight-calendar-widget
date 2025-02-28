@@ -7,84 +7,118 @@ import i18next from 'i18next';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
+// Helper function to get time format based on locale
+function getTimeFormat(locale) {
+  switch (locale) {
+    case 'fr':
+      return 'HH:mm';
+    case 'ja':
+      return 'HH:mm';
+    default:
+      return 'h:mm a';
+  }
+}
+
+// Helper function to get date format based on locale and time component
+function getDateFormat({ locale, hasTimeComponent }) {
+  const timeComponent = hasTimeComponent ? getTimeFormat(locale) : '';
+  switch (locale) {
+    case 'fr':
+      return `DD MMM YYYY ${timeComponent}`;
+    case 'ja':
+      return `YYYY年MM月DD日 ${timeComponent}`;
+    default:
+      return `DD MMM YYYY ${timeComponent}`;
+  }
+}
+
+// Helper function to parse a date string into a Day.js object
+function getDateObject(date, scheduleTimezone) {
+  // Check if the date has a time component by checking the format
+  const hasTime = date.includes('T') || date.includes(' ');
+  const dateTimeObj = hasTime ? dayjs.utc(date).tz(scheduleTimezone) : dayjs(date);
+  return { hasTime, dateTimeObj };
+}
+
 export function dateRangeFormatter({ startDate, endDate, scheduleTimezone = 'Canada/Eastern' }) {
-  // Check if the startdate has a time component by checking the format
-  const hasStartTime = startDate.includes('T') || startDate.includes(' ');
-  const isStartAndEndDaySame = dayjs(startDate).isSame(dayjs(endDate), 'day');
-
   const locale = i18next.language;
+  const dateTimeFormat = getDateFormat({ locale, hasTimeComponent: true });
+  const dateFormat = getDateFormat({ locale, hasTimeComponent: false });
 
-  const dateTimeFormat =
-    locale === 'fr'
-      ? 'DD MMM YYYY | HH:mm'
-      : locale === 'ja'
-        ? 'YYYY年MM月DD日 HH:mm'
-        : 'DD MMM YYYY | h:mm a';
+  const { hasTime: hasStartTime, dateTimeObj: startDateTimeObj } = getDateObject(
+    startDate,
+    scheduleTimezone,
+  );
+  if (!startDateTimeObj.isValid()) return 'Invalid date format';
 
-  const dateFormat =
-    locale === 'fr' ? 'DD MMM YYYY' : locale === 'ja' ? 'YYYY年MM月DD日 ' : 'DD MMM YYYY';
-
-  const startDateTimeObj = hasStartTime
-    ? dayjs.utc(startDate).tz(scheduleTimezone)
-    : dayjs(startDate);
   const noEndDateFlag = !endDate || endDate === '' || endDate == null;
 
-  if (!startDateTimeObj.isValid()) {
-    return 'Invalid date format';
-  }
-
   // Format start date based on whether it has a time component
-  const formattedStartDate = noEndDateFlag
-    ? hasStartTime
+  let formattedStartDateTime;
+  if (noEndDateFlag) {
+    formattedStartDateTime = hasStartTime
       ? startDateTimeObj.format(dateTimeFormat)
-      : startDateTimeObj.format(dateFormat)
-    : startDateTimeObj.format(dateFormat);
-
-  if (!noEndDateFlag) {
+      : startDateTimeObj.format(dateFormat);
+    return formattedStartDateTime?.toUpperCase();
+  } else {
     // Check if the enddate has a time component by checking the format
-    const hasEndTime = endDate.includes('T') || endDate.includes(' ');
-    let endDateObj = hasEndTime ? dayjs.utc(endDate).tz(scheduleTimezone) : dayjs(endDate);
+    const { dateTimeObj: endDateObj } = getDateObject(endDate, scheduleTimezone);
+    formattedStartDateTime = startDateTimeObj.format(dateTimeFormat);
+    const formattedEndTime = endDateObj.format(getTimeFormat(locale));
+    const displayEndTime = formattedEndTime ? ` - ${formattedEndTime}` : '';
+    const isStartAndEndTimeOnSameDay = dayjs(startDateTimeObj).isSame(endDateObj, 'day');
 
-    if (!endDateObj.isValid()) {
-      return 'Invalid end date format';
-    }
+    if (!endDateObj.isValid()) return 'Invalid end date format';
 
-    // Check if enddate is within 24 hours of startDateTimeObj
-    const diffInHours = endDateObj.diff(startDateTimeObj, 'hour');
-    const formattedStartDateTime = startDateTimeObj.format(dateFormat);
-    const formattedEndDate = endDateObj.format(dateFormat);
+    // overnight events
+    const isOvernightEvent =
+      endDateObj.diff(startDateTimeObj, 'hour') <= 24 && !isStartAndEndTimeOnSameDay;
 
-    // Check if startdate and enddate are on the same day
-    if (isStartAndEndDaySame) {
-      return formattedStartDateTime.toUpperCase();
-    }
-
-    if (diffInHours <= 24) {
-      const formattedEndTime = endDateObj.format('hh:mm A');
-
-      return formattedEndTime ? (
+    if (isOvernightEvent) {
+      return (
         <>
-          {formattedStartDateTime.toUpperCase()} - {formattedEndTime}
-          {<sup style={{ fontSize: 'smaller' }}>+1</sup>}
+          {formattedStartDateTime?.toUpperCase()}
+          {displayEndTime}
+          {isOvernightEvent && (
+            <sup
+              style={{
+                fontSize: 'smaller',
+                display: 'flex',
+                alignItems: 'center',
+                paddingLeft: '4px',
+              }}
+            >
+              +1
+            </sup>
+          )}
         </>
-      ) : (
-        formattedStartDateTime.toUpperCase()
       );
     }
 
-    if (formattedEndDate.toUpperCase() === formattedStartDate.toUpperCase()) {
-      return formattedStartDate.toUpperCase();
+    let formattedEndDate = endDateObj.format(dateTimeFormat);
+
+    // if start and end dateTime is the same
+    if (formattedEndDate?.toUpperCase() == formattedStartDateTime?.toUpperCase()) {
+      return formattedStartDateTime;
+    }
+    if (isStartAndEndTimeOnSameDay) {
+      return (
+        <>
+          {formattedStartDateTime?.toUpperCase()}
+          {displayEndTime}
+        </>
+      );
     }
 
+    formattedStartDateTime = startDateTimeObj.format(dateFormat);
+    formattedEndDate = endDateObj.format(dateFormat);
     return (
       <>
-        {formattedStartDate.toUpperCase()} <Translation>{(t) => t('to')}</Translation>{' '}
-        {formattedEndDate.toUpperCase()}
+        {formattedStartDateTime?.toUpperCase()} <Translation>{(t) => t('to')}</Translation>{' '}
+        {formattedEndDate?.toUpperCase()}
       </>
     );
   }
-
-  return formattedStartDate.toUpperCase();
 }
 
 export const searchDateFormatter = (date) => {
