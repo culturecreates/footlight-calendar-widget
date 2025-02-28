@@ -9,6 +9,7 @@ import EventDetailsModal from '../../detailsModal/EventDetailsModal';
 import { redirectionModes, urlTypes } from '../../../constants/generalConstants';
 import { getRedirectionUrl, redirectionHandler } from '../../../utils/redirectionHandler';
 import i18next from 'i18next';
+import { trackEventClick } from '../../../utils/googleAnalytics';
 
 const EventCard = React.memo(
   ({
@@ -28,6 +29,21 @@ const EventCard = React.memo(
     const redirectionFlag = redirectionMode === redirectionModes.EXTERNAL;
     const locale = i18next.language;
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const onClickHandler = () => {
+      redirectionFlag
+        ? () => {
+            redirectionHandler({
+              url: getRedirectionUrl({
+                id: id,
+                type: urlTypes.EVENT,
+                locale,
+                calendar,
+              }),
+            });
+          }
+        : onOpen();
+      trackEventClick(calendar, id);
+    };
 
     useEffect(() => {
       if (eventIdSearchParam && eventIdSearchParam === id) onOpen();
@@ -35,23 +51,7 @@ const EventCard = React.memo(
 
     return (
       <>
-        <div
-          className="event-card"
-          onClick={
-            redirectionFlag
-              ? () => {
-                  redirectionHandler({
-                    url: getRedirectionUrl({
-                      id: id,
-                      type: urlTypes.EVENT,
-                      locale,
-                      calendar,
-                    }),
-                  });
-                }
-              : onOpen
-          }
-        >
+        <div className="event-card" onClick={onClickHandler}>
           <img src={image} alt={altText} style={{ width: '100%', display: 'block' }} />
 
           <div style={{ padding: '16px', backgroundColor: 'var(--bg-grey)', height: '100%' }}>

@@ -40,7 +40,7 @@ import SocialMediaPopup from '../sharePopup/SharePopup';
 
 const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const { widgetProps, setError } = useContext(WidgetContext);
-  const { locale } = widgetProps;
+  const { locale, calendar } = widgetProps;
 
   const { t } = useTranslation();
 
@@ -369,6 +369,8 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                         locale={locale}
                         description={performer?.description}
                         socialLinks={performer?.socialMediaLinks}
+                        calendar={calendar}
+                        eventId={eventId}
                       />
                     ))}
                   </Stack>
