@@ -155,6 +155,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                       setShowFullImageCreditDescription(!showFullImageCreditDescription);
                     }
                   }}
+                  alt={eventDetails?.imageCredit.description || ''}
                   src={eventDetails?.image?.large}
                   width="100%"
                 />
