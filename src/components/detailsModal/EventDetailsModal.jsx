@@ -362,7 +362,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     {eventDetails?.performers?.map((performer, index) => (
                       <PerformerCard
                         key={index}
-                        image={performer?.image?.thumbnail}
+                        image={performer?.image}
                         name={performer?.name}
                         website={performer?.website}
                         occupation={performer?.occupation}
@@ -416,7 +416,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                           key={index}
                           name={organizer?.name}
                           website={organizer?.website}
-                          image={organizer?.logo ?? organizer?.image}
+                          image={organizer?.image}
                         />
                       ))}
                     </Stack>

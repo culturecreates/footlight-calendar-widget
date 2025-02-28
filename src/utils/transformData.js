@@ -1,3 +1,4 @@
+import { entityTypes } from '../constants/generalConstants';
 import { getLocalized } from './getLocalized';
 
 // Helper function to remove empty values
@@ -10,6 +11,11 @@ const removeEmptyKeys = (obj) => {
     }
   }
   return result;
+};
+
+const imageSelector = ({ logo, image, type }) => {
+  if (type === entityTypes.ORGANIZATION) return logo?.thumbnail || image?.thumbnail || '';
+  if (type === entityTypes.PERSON) return image?.thumbnail || logo?.thumbnail || '';
 };
 
 export const transformData = ({ data, locale }) => {
@@ -78,9 +84,9 @@ export const transformData = ({ data, locale }) => {
         disciplines: discipline?.map((d) => getLocalized(d?.name, locale)),
         languages: inLanguage?.map((lang) => getLocalized(lang?.name, locale)),
         performers: performer?.map(
-          ({ name, image, socialMediaLinks, type, url, description, occupation }) => ({
+          ({ name, image, socialMediaLinks, type, logo, url, description, occupation }) => ({
             name: getLocalized(name, locale),
-            image,
+            image: imageSelector({ image, logo, type }),
             socialMediaLinks,
             type,
             occupation,
@@ -90,19 +96,17 @@ export const transformData = ({ data, locale }) => {
         ),
         organizers: organizer?.map(({ name, logo, image, socialMediaLinks, type, url }) => ({
           name: getLocalized(name, locale),
-          logo: logo?.thumbnail,
-          image: image?.thumbnail,
+          image: imageSelector({ image, logo, type }),
           socialMediaLinks,
           type,
           website: url,
         })),
         sponsor: supporter?.map(({ name, logo, socialMediaLinks, type, url, image }) => ({
           name: getLocalized(name, locale),
-          logo: logo?.thumbnail,
           socialMediaLinks,
           type,
           website: url,
-          image: image?.thumbnail,
+          image: imageSelector({ image, logo, type }),
         })),
         offers: offers?.map(({ name, price = 0, priceCurrency, url }) => ({
           name: getLocalized(name, locale),
