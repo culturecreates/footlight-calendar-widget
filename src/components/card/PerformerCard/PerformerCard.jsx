@@ -8,6 +8,7 @@ import './performerCard.css';
 import ShowMoreTrigger from '../../showMoreTrigger/ShowMoreTrigger';
 import { useRef, useState } from 'react';
 import { getLocalized } from '../../../utils/getLocalized';
+import { trackArtistUrl } from '../../../utils/googleAnalytics';
 
 const socialIcons = {
   Facebook: FacebookIcon,
@@ -39,6 +40,8 @@ const PerformerCard = ({
   description = '',
   socialLinks = [],
   locale,
+  calendar,
+  eventId,
 }) => {
   const [flag, setFlag] = useState(false);
   const [showMoreDisplayStatus, setShowMoreButtonState] = useState(false);
@@ -65,6 +68,7 @@ const PerformerCard = ({
             </Text>
             <Link
               href={website}
+              onClick={() => trackArtistUrl(calendar, eventId, website)}
               color="var(--dynamic-color-700)"
               isExternal
               style={{ fontSize: 'var(--performer-website-font-size)' }}
@@ -126,7 +130,7 @@ const PerformerCard = ({
                   key={index}
                   as={Link}
                   href={uri}
-                  icon={<IconComponent />}
+                  icon={<IconComponent onClick={() => trackArtistUrl(calendar, eventId, uri)} />}
                   aria-label={type}
                   variant="ghost"
                   isExternal

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import {
   Popover,
   PopoverTrigger,
@@ -17,6 +17,32 @@ import { generateDeeplinkUrl } from '../../utils/hooks/useGenerateDeeplinkUrl';
 import { ReactComponent as CopyLink } from '../../assets/copyLink.svg';
 import './shareTooltip.css';
 import { useTranslation } from 'react-i18next';
+import { trackEventShare, trackListShare } from '../../utils/googleAnalytics';
+import WidgetContext from '../../context/WidgetContext';
+
+const socialPlatforms = [
+  { name: 'Facebook', Component: FacebookShareButton, Icon: FacebookIcon },
+  { name: 'X', Component: TwitterShareButton, Icon: XIcon },
+  { name: 'WhatsApp', Component: WhatsappShareButton, Icon: WhatsappIcon },
+  { name: 'Reddit', Component: RedditShareButton, Icon: RedditIcon },
+];
+
+const generateShareUrl = (platform, baseUrl) => {
+  const encodedUrl = encodeURIComponent(baseUrl);
+
+  switch (platform) {
+    case 'Facebook':
+      return `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+    case 'X':
+      return `https://x.com/intent/tweet?url=${encodedUrl}`;
+    case 'WhatsApp':
+      return `https://api.whatsapp.com/send?text=${encodedUrl}`;
+    case 'Reddit':
+      return `https://www.reddit.com/web/submit?url=${encodedUrl}`;
+    default:
+      return baseUrl;
+  }
+};
 
 const ShareTooltip = ({ children, styles = {}, eventId }) => {
   const { isOpen, onToggle, onClose } = useDisclosure();
@@ -26,6 +52,8 @@ const ShareTooltip = ({ children, styles = {}, eventId }) => {
 
   const [copyState, setCopyState] = useState(false);
   const url = generateDeeplinkUrl({ eventId });
+  const { widgetProps } = useContext(WidgetContext);
+  const { calendar } = widgetProps;
 
   useOutsideClick({
     ref: tooltipRef,
@@ -62,12 +90,22 @@ const ShareTooltip = ({ children, styles = {}, eventId }) => {
             ...styles,
           }}
         >
-          <FacebookShareButton url={url}>
-            <FacebookIcon size={32} round={true} />
-          </FacebookShareButton>
-          <TwitterShareButton url={url}>
-            <XIcon size={32} round={true} />
-          </TwitterShareButton>
+          {socialPlatforms.map(({ name, Component, Icon }) => {
+            const finalUrl = generateShareUrl(name, url);
+            const searchParams = new URL(finalUrl).search;
+            return (
+              <Component
+                key={name}
+                url={url}
+                onClick={() => {
+                  if (eventId) trackEventShare(calendar, eventId, finalUrl);
+                  else trackListShare(calendar, searchParams, finalUrl);
+                }}
+              >
+                <Icon size={32} round />
+              </Component>
+            );
+          })}
 
           <Popover isOpen={isPopoverOpen} onClose={closePopover} placement="left">
             <PopoverTrigger>

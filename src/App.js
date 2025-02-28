@@ -8,12 +8,13 @@ import Footer from './components/footer/Footer';
 import ResultPanel from './components/panel/Panel';
 import Search from './components/search/Search';
 import { Heading } from '@chakra-ui/react';
+import { initGoogleAnalytics } from './utils/googleAnalytics';
 
 require('dayjs/locale/en');
 require('dayjs/locale/fr');
 
 function App(props) {
-  const { color, font, headerTitle, ...widgetProps } = props;
+  const { color, font, headerTitle, gtagId, ...widgetProps } = props;
   const locale = widgetProps.locale;
   const [loading, setLoading] = useState(true);
 
@@ -37,6 +38,10 @@ function App(props) {
   useEffect(() => {
     dynamicFontInjector(font);
   }, [font]);
+
+  useEffect(() => {
+    initGoogleAnalytics(gtagId);
+  }, []);
 
   if (loading)
     return (
