@@ -3,8 +3,6 @@ import { redirectionModes } from '../constants/generalConstants';
 export function extractPropsFromSearchParams(dataAttributes) {
   const searchParams = new URLSearchParams(window.location.search);
 
-  const calendarName = dataAttributes?.calendarName || searchParams.get('calendarName');
-  const calendarLogo = dataAttributes?.calendarLogo || searchParams.get('logo');
   const locale = dataAttributes?.locale || searchParams.get('locale');
   const calendar = dataAttributes?.calendar || searchParams.get('calendar');
   const color = dataAttributes?.color || searchParams.get('color');
@@ -55,12 +53,10 @@ export function extractPropsFromSearchParams(dataAttributes) {
     extractedProps: {
       font,
       index,
-      calendarLogo,
       limit,
       color,
       height,
       locale,
-      calendarName,
       calendar,
       searchEventsFilters,
       redirectionMode,
