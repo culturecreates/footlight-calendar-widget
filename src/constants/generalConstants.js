@@ -1,5 +1,7 @@
 export const entityTypes = {
   EVENTS: 'events',
+  PERSON: 'Person',
+  ORGANIZATION: 'Organization',
 };
 
 export const redirectionModes = {

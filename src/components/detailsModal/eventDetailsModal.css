@@ -91,6 +91,7 @@
   z-index: 2;
   left: 10px;
   top: 5px;
+  padding: 0 3px;
 }
 
 #calendar-widget .calendar-widget-details-modal .image-credit-info-icon {
@@ -192,7 +193,7 @@
 }
 
 #calendar-widget .calendar-widget-details-modal .close-button-wrapper button:hover {
-  background-color: var(--secondary-grey);
+  background-color: #ada8a8;
   color: var(--primary-black);
 }
 

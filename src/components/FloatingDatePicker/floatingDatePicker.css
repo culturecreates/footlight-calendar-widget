@@ -22,6 +22,8 @@
 
 #calendar-widget > .widget-layout .floating-datepicker {
   border-radius: 100%;
+  width: 40px;
+  height: 40px;
 }
 
 #calendar-widget > .widget-layout .floating-datepicker:hover {
@@ -30,6 +32,10 @@
 
 #calendar-widget > .widget-layout .floating-datepicker .button-container {
   position: relative;
+  display: grid;
+  place-content: center;
+  height: 100%;
+  width: 100%;
 }
 
 #calendar-widget > .widget-layout .floating-datepicker .has-date {
@@ -38,8 +44,8 @@
 
 #calendar-widget > .widget-layout .floating-datepicker .has-date .dot {
   position: absolute;
-  top: -7px;
-  right: -5px;
+  top: -1px;
+  right: 3px;
   width: 9px;
   height: 9px;
   background-color: var(--main-dynamic-color);
