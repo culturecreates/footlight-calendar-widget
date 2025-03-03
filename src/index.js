@@ -9,27 +9,14 @@ import {
 } from './utils/extractPropsFromSearchParms';
 import { ChakraProvider } from '@chakra-ui/react';
 import Error from './components/error/Error';
+import { widgetParams } from './constants/props';
 
 const calendarWidget = document.getElementById('calendar-widget');
 
-const dataAttributes = {
-  api: calendarWidget.dataset?.api,
-  locale: calendarWidget.dataset?.locale,
-  calendar: calendarWidget.dataset?.calendar,
-  color: calendarWidget.dataset?.color,
-  limit: calendarWidget.dataset?.limit,
-  searchEventsFilters: calendarWidget.dataset?.searchEventsFilter,
-  height: calendarWidget.dataset?.height,
-  index: calendarWidget.dataset?.index,
-  font: calendarWidget.dataset?.font,
-  redirectionMode: calendarWidget.dataset?.redirectionMode,
-
-  showFooter: calendarWidget.dataset?.showFooter,
-  alwaysOnDatePicker: calendarWidget.dataset?.alwaysOnDatePicker,
-  headerTitle: calendarWidget.dataset?.headerTitle,
-  disableGrouping: calendarWidget.dataset?.disableGrouping,
-  filterOptions: calendarWidget.dataset?.filterOptions,
-};
+const dataAttributes = widgetParams.reduce((acc, key) => {
+  acc[key] = calendarWidget.dataset?.[key];
+  return acc;
+}, {});
 
 let { extractedProps, isSuccess, missingParams } = extractPropsFromSearchParams(dataAttributes);
 let { internalStateSearchParam, corruptInternalStateFlag } = handleInternalStateSearchParam();

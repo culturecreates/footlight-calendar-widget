@@ -1,71 +1,42 @@
 import { redirectionModes } from '../constants/generalConstants';
+import { requiredParams } from '../constants/props';
 
 export function extractPropsFromSearchParams(dataAttributes) {
   const searchParams = new URLSearchParams(window.location.search);
 
-  const locale = dataAttributes?.locale || searchParams.get('locale');
-  const calendar = dataAttributes?.calendar || searchParams.get('calendar');
-  const color = dataAttributes?.color || searchParams.get('color');
-  const limit = dataAttributes?.limit || searchParams.get('limit');
-  const font = dataAttributes?.font || searchParams.get('font');
-  const redirectionMode =
-    dataAttributes?.redirectionMode ||
-    searchParams.get('redirectionMode') ||
-    redirectionModes.EXTERNAL;
-  const height = dataAttributes?.height || searchParams.get('height');
-  const filterOptions = dataAttributes?.filterOptions || searchParams.get('filterOptions');
+  const getParam = (key, defaultValue) =>
+    dataAttributes?.[key] ?? searchParams.get(key) ?? defaultValue;
 
-  // ------------ Boolean values --------------- //
-  const showFooter = JSON.parse(dataAttributes?.showFooter || searchParams.get('showFooter'));
-  const alwaysOnDatePicker = JSON.parse(
-    dataAttributes?.alwaysOnDatePicker || searchParams.get('alwaysOnDatePicker'),
-  );
-  const disableGrouping = JSON.parse(
-    dataAttributes?.disableGrouping || searchParams.get('disableGrouping'),
-  );
-
-  // Optional parameters
-  const headerTitle = dataAttributes?.headerTitle || searchParams.get('headerTitle');
-  const index = dataAttributes?.index || searchParams.get('index');
-  const searchEventsFilters =
-    dataAttributes?.searchEventsFilters || searchParams.get('searchEventsFilters');
-
-  // Required parameters
-  const requiredParams = {
-    locale,
-    calendar,
-    color,
-    limit,
-    font,
-    redirectionMode,
-    showFooter,
-    // alwaysOnDatePicker,
-    disableGrouping,
-    filterOptions,
+  const extractedProps = {
+    locale: getParam('locale'),
+    calendar: getParam('calendar'),
+    color: getParam('color'),
+    limit: getParam('limit'),
+    font: getParam('font'),
+    redirectionMode: getParam('redirectionMode', redirectionModes.EXTERNAL),
+    height: getParam('height'),
+    filterOptions: getParam('filterOptions'),
+    headerTitle: getParam('headerTitle'),
+    index: getParam('index'),
+    searchEventsFilters: getParam('searchEventsFilters'),
   };
 
-  // Find missing required parameters
-  const missingParams = Object.keys(requiredParams).filter((key) => requiredParams[key] == null);
+  // ------------ Boolean values --------------- //
+  Object.assign(
+    extractedProps,
+    ['showFooter', 'alwaysOnDatePicker', 'disableGrouping'].reduce((acc, key) => {
+      const value = getParam(key);
+      acc[key] = value ? JSON.parse(value) : null;
+      return acc;
+    }, {}),
+  );
 
+  // Find missing required parameters
+  const missingParams = requiredParams.filter((key) => extractedProps[key] == null);
   const isSuccess = missingParams.length === 0;
 
   return {
-    extractedProps: {
-      font,
-      index,
-      limit,
-      color,
-      height,
-      locale,
-      calendar,
-      searchEventsFilters,
-      redirectionMode,
-      headerTitle,
-      showFooter,
-      alwaysOnDatePicker,
-      disableGrouping,
-      filterOptions,
-    },
+    extractedProps,
     isSuccess,
     missingParams,
   };
