@@ -202,14 +202,14 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                   marginTop: creditDisplayFlag ? '0' : '-50px',
                   width: '100%',
                   zIndex: 1,
-                  height: '100%',
-                  maxHeight: '100%',
+                  height: 'auto',
+                  maxHeight: 'fit-content',
                   paddingLeft: '2rem',
                   paddingRight: '2rem',
                   backgroundColor: 'var(--primary-white-opaque)',
                   boxShadow: '0px 4px 6px #00000029',
                   position: 'relative',
-                  overflowY: 'auto',
+                  overflowY: 'visible',
                 }}
               >
                 <Flex style={{ paddingTop: '0.5rem' }}>
