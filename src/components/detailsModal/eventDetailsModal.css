@@ -42,10 +42,21 @@
   width: 0;
 }
 
+#calendar-widget .calendar-widget-details-modal .clamped-text-img-credit.expanded,
+#calendar-widget .calendar-widget-details-modal .clamped-text-description.expanded {
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  display: flex;
+  flex-direction: column;
+  max-height: 1000px;
+}
+
 #calendar-widget .calendar-widget-details-modal .clamped-text-img-credit,
 #calendar-widget .calendar-widget-details-modal .clamped-text-description {
-  display: -webkit-box;
+  display: flex;
+  flex-direction: column;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   transition: max-height 0.8s cubic-bezier(0.25, 1, 0.5, 1);
@@ -53,14 +64,8 @@
 }
 
 #calendar-widget .calendar-widget-details-modal .clamped-text-description {
+  line-clamp: unset;
   -webkit-line-clamp: 4;
-}
-
-#calendar-widget .calendar-widget-details-modal .clamped-text-img-credit.expanded,
-#calendar-widget .calendar-widget-details-modal .clamped-text-description.expanded {
-  -webkit-line-clamp: unset;
-  display: block;
-  max-height: 1000px;
 }
 
 #calendar-widget .calendar-widget-details-modal .clamped-text-img-credit,
@@ -70,6 +75,17 @@
   color: var(--secondary-black);
   overflow-y: scroll;
   max-height: 84px;
+}
+
+#calendar-widget .calendar-widget-details-modal .clamped-text-description p > a,
+#calendar-widget .calendar-widget-details-modal .clamped-text-img-credit p > a {
+  -webkit-text-decoration-skip: objects;
+  background-color: initial;
+  color: #1890ff;
+  cursor: pointer;
+  outline: none;
+  text-decoration: underline;
+  transition: color 0.3s;
 }
 
 /* ----------------------------------------------------------------------------- */

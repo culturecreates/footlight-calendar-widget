@@ -182,7 +182,8 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                       width: '63px',
                       height: '63px',
                       borderRadius: '50%',
-                      transition: 'top 0.5s ease-in-out, border-radius 0.5s ease-in-out',
+                      transition:
+                        'top 0.8s cubic-bezier(0.25, 1, 0.5, 1), border-radius 0.8s cubic-bezier(0.25, 1, 0.5, 1)',
                       top: creditDisplayFlag ? '-39px' : '-78px',
                     }}
                   />
@@ -196,7 +197,8 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                   gap: '0.75rem',
                   borderTopLeftRadius: creditDisplayFlag ? '0' : '54px',
                   borderTopRightRadius: creditDisplayFlag ? '0' : '54px',
-                  transition: 'margin-top 0.5s ease-in-out, border-radius 0.5s ease-in-out',
+                  transition:
+                    'margin-top 0.8s cubic-bezier(0.25, 1, 0.5, 1), border-radius 0.8s cubic-bezier(0.25, 1, 0.5, 1)',
                   marginTop: creditDisplayFlag ? '0' : '-50px',
                   width: '100%',
                   zIndex: 1,
@@ -217,7 +219,8 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                       opacity: creditDisplayFlag ? 1 : 0,
                       overflow: 'hidden',
                       maxHeight: creditDisplayFlag ? '110px' : '0px',
-                      transition: 'all 0.4s ease-in-out, opacity 0.3s ease-in-out',
+                      transition:
+                        'all 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1)',
                     }}
                     className="image-credit"
                   >
@@ -296,7 +299,6 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                         onClick={() => setShowFullDescription(!showFullDescription)}
                         style={{
                           maxHeight: showFullDescription ? '1000px' : '84px',
-                          transition: 'max-height 0.3s ease-in-out',
                           fontSize: '14px',
                           fontWeight: 400,
                           lineHeight: '21.14px',
