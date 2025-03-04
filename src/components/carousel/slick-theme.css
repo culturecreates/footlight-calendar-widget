@@ -1,0 +1,174 @@
+#calendar-widget .slick-prev,
+#calendar-widget .slick-next {
+  font-size: 0;
+  line-height: 0;
+
+  position: absolute;
+  top: 50%;
+
+  display: block;
+
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  -webkit-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+
+  cursor: pointer;
+
+  color: transparent;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+#calendar-widget .slick-prev:hover,
+#calendar-widget .slick-prev:focus,
+#calendar-widget .slick-next:hover,
+#calendar-widget .slick-next:focus {
+  color: transparent;
+  outline: none;
+  background: transparent;
+}
+
+#calendar-widget .slick-prev:hover:before,
+#calendar-widget .slick-prev:focus:before,
+#calendar-widget .slick-next:hover:before,
+#calendar-widget .slick-next:focus:before {
+  opacity: 1;
+}
+
+#calendar-widget .slick-prev.slick-disabled:before,
+#calendar-widget .slick-next.slick-disabled:before {
+  opacity: 0.25;
+}
+
+#calendar-widget .slick-prev:before,
+#calendar-widget .slick-next:before {
+  font-family: 'slick';
+  font-size: 20px;
+  line-height: 1;
+
+  opacity: 0.75;
+  color: white;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#calendar-widget .slick-prev {
+  left: -25px;
+}
+[dir='rtl'] #calendar-widget .slick-prev {
+  right: -25px;
+  left: auto;
+}
+#calendar-widget .slick-prev:before {
+  content: '←';
+}
+[dir='rtl'] #calendar-widget .slick-prev:before {
+  content: '→';
+}
+
+#calendar-widget .slick-next {
+  right: -25px;
+}
+[dir='rtl'] #calendar-widget .slick-next {
+  right: auto;
+  left: -25px;
+}
+#calendar-widget .slick-next:before {
+  content: '→';
+}
+[dir='rtl'] #calendar-widget .slick-next:before {
+  content: '←';
+}
+
+/* Dots */
+#calendar-widget .slick-dotted.slick-slider {
+  margin-bottom: 30px;
+}
+
+#calendar-widget .slick-dots {
+  position: absolute;
+  bottom: -25px;
+
+  display: block;
+
+  width: 100%;
+  padding: 0;
+  margin: 0;
+
+  list-style: none;
+
+  text-align: center;
+}
+
+#calendar-widget .slick-dots li {
+  position: relative;
+
+  display: inline-block;
+
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+  padding: 0;
+
+  cursor: pointer;
+}
+
+#calendar-widget .slick-dots li button {
+  font-size: 0;
+  line-height: 0;
+
+  display: block;
+
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+
+  cursor: pointer;
+
+  color: transparent;
+  border: 0;
+  outline: none;
+  background: transparent;
+}
+
+#calendar-widget .slick-dots li button:hover,
+#calendar-widget .slick-dots li button:focus {
+  outline: none;
+}
+
+#calendar-widget .slick-dots li button:hover:before,
+#calendar-widget .slick-dots li button:focus:before {
+  opacity: 1;
+}
+
+#calendar-widget .slick-dots li button:before {
+  font-family: 'slick';
+  font-size: 6px;
+  line-height: 20px;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 20px;
+  height: 20px;
+
+  content: '•';
+  text-align: center;
+
+  opacity: 0.25;
+  color: black;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#calendar-widget .slick-dots li.slick-active button:before {
+  opacity: 0.75;
+  color: black;
+}

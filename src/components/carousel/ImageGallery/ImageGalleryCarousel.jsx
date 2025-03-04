@@ -1,9 +1,9 @@
 import React from 'react';
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import '../slick.css';
+import '../slick-theme.css';
 import './imageGalleryCarousel.css';
-import ImageCard from '../../card/ImageGalleryCard/ImageGalleryCard'; // Import the ImageCard component
+import ImageCard from '../../card/ImageGalleryCard/ImageGalleryCard';
 
 const ImageGalleryCarousel = ({ images }) => {
   const canScroll = images.length > 2;
@@ -11,14 +11,14 @@ const ImageGalleryCarousel = ({ images }) => {
     dots: canScroll,
     infinite: false,
     speed: 1000,
-    slidesToShow: images.length >= 2 ? 2 : 1, // Show 2 images at a time
+    slidesToShow: images.length >= 2 ? 2 : 1,
     slidesToScroll: 1,
     autoplay: false,
     autoplaySpeed: 3000,
     arrows: false,
     customPaging: (i) => <button className="custom-dot" aria-label={`Go to slide ${i + 1}`} />,
     dotsClass: 'slick-dots custom-dots',
-    responsive: [{ breakpoint: 768, settings: { slidesToShow: 2 } }], // Show 2 images on mobile as well
+    responsive: [{ breakpoint: 768, settings: { slidesToShow: 2 } }],
   };
   return (
     <div style={getResponsiveStyles().carouselContainer}>
@@ -46,7 +46,6 @@ const getResponsiveStyles = () => {
       margin: 'intial',
       textAlign: 'center',
       padding: '16px 0',
-      // maxHeight: '98px',
     },
   };
 };
