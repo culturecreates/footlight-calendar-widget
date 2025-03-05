@@ -94,14 +94,9 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
       if (endDateSpan !== undefined && endDateSpan !== '' && isSingleDate && endDateSpan != null) {
         // Date range case (both start and end dates are valid)
         setSearchDate([startDateSpan, endDateSpan]);
-        sessionStorage.setItem(
-          indexedSessionStorageVariableNames.WidgetSearchDate,
-          JSON.stringify([startDateSpan, endDateSpan]),
-        );
       } else {
         // Single date case
         setSearchDate(startDateSpan);
-        sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetSearchDate, startDateSpan);
       }
     } else {
       // If no valid start date, clear searchDate

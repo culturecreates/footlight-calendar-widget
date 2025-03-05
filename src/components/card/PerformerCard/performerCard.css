@@ -4,13 +4,17 @@
 
 #calendar-widget .calendar-widget-details-modal .clamped-text-performer-description.expanded {
   -webkit-line-clamp: unset;
-  display: block;
+  line-clamp: unset;
+  display: flex;
+  flex-direction: column;
   max-height: 1000px;
 }
 
 #calendar-widget .calendar-widget-details-modal .clamped-text-performer-description {
-  display: -webkit-box;
+  display: flex;
+  flex-direction: column;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   transition: max-height 0.8s cubic-bezier(0.25, 1, 0.5, 1);
@@ -19,6 +23,16 @@
   font-weight: 300;
   color: var(--secondary-black);
   cursor: pointer;
+}
+
+#calendar-widget .calendar-widget-details-modal .clamped-text-performer-description p > a {
+  -webkit-text-decoration-skip: objects;
+  background-color: initial;
+  color: #1890ff;
+  cursor: pointer;
+  outline: none;
+  text-decoration: underline;
+  transition: color 0.3s;
 }
 
 @media (min-width: 768px) {

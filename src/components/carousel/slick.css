@@ -1,0 +1,115 @@
+/* Slider */
+#calendar-widget .slick-slider {
+  position: relative;
+
+  display: block;
+  box-sizing: border-box;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  -webkit-touch-callout: none;
+  -khtml-user-select: none;
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#calendar-widget .slick-list {
+  position: relative;
+
+  display: block;
+  overflow: hidden;
+
+  margin: 0;
+  padding: 0;
+}
+
+#calendar-widget .slick-list:focus {
+  outline: none;
+}
+
+#calendar-widget .slick-list.dragging {
+  cursor: pointer;
+  cursor: hand;
+}
+
+#calendar-widget .slick-slider .slick-track,
+#calendar-widget .slick-slider .slick-list {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+#calendar-widget .slick-track {
+  position: relative;
+  top: 0;
+  left: 0;
+
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#calendar-widget .slick-track:before,
+#calendar-widget .slick-track:after {
+  display: table;
+
+  content: '';
+}
+
+#calendar-widget .slick-track:after {
+  clear: both;
+}
+
+#calendar-widget .slick-loading .slick-track {
+  visibility: hidden;
+}
+
+#calendar-widget .slick-slide {
+  display: none;
+  float: left;
+
+  height: 100%;
+  min-height: 1px;
+}
+
+[dir='rtl'] #calendar-widget .slick-slide {
+  float: right;
+}
+
+#calendar-widget .slick-slide img {
+  display: block;
+}
+
+#calendar-widget .slick-slide.slick-loading img {
+  display: none;
+}
+
+#calendar-widget .slick-slide.dragging img {
+  pointer-events: none;
+}
+
+#calendar-widget .slick-initialized .slick-slide {
+  display: block;
+}
+
+#calendar-widget .slick-loading .slick-slide {
+  visibility: hidden;
+}
+
+#calendar-widget .slick-vertical .slick-slide {
+  display: block;
+
+  height: auto;
+
+  border: 1px solid transparent;
+}
+
+#calendar-widget .slick-arrow.slick-hidden {
+  display: none;
+}
