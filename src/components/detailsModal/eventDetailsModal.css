@@ -19,9 +19,6 @@
 
 #calendar-widget .calendar-widget-details-modal .image-description-display-icon-wrapper svg {
   opacity: 1;
-  transition:
-    all 0.4s ease-in-out,
-    opacity 0.3s ease-in-out;
   padding-right: 8px;
 }
 
@@ -32,17 +29,15 @@
 #calendar-widget .calendar-widget-details-modal .image-description-info-icon {
   height: 25px;
   width: 25px;
-  transition:
-    all 0.4s ease-in-out,
-    opacity 0.3s ease-in-out;
 }
 
 #calendar-widget .calendar-widget-details-modal .image-description-info-icon-hidden {
   height: 0;
-  width: 0;
+  transition:
+    opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+    height 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-#calendar-widget .calendar-widget-details-modal .clamped-text-img-credit.expanded,
 #calendar-widget .calendar-widget-details-modal .clamped-text-description.expanded {
   -webkit-line-clamp: unset;
   line-clamp: unset;
@@ -51,7 +46,6 @@
   max-height: 1000px;
 }
 
-#calendar-widget .calendar-widget-details-modal .clamped-text-img-credit,
 #calendar-widget .calendar-widget-details-modal .clamped-text-description {
   display: flex;
   flex-direction: column;
@@ -68,13 +62,11 @@
   -webkit-line-clamp: 4;
 }
 
-#calendar-widget .calendar-widget-details-modal .clamped-text-img-credit,
-#calendar-widget .calendar-widget-details-modal .clamped-text-img-credit.expanded {
+#calendar-widget .calendar-widget-details-modal .clamped-text-img-credit {
   font-size: 14px;
   font-weight: 400;
   color: var(--secondary-black);
-  overflow-y: scroll;
-  max-height: 84px;
+  max-width: 100%;
 }
 
 #calendar-widget .calendar-widget-details-modal .clamped-text-description p > a,
