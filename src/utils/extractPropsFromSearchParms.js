@@ -1,5 +1,6 @@
 import { redirectionModes } from '../constants/generalConstants';
 import { requiredParams } from '../constants/props';
+import { searchDateFormatter } from './dateRangeFormatter';
 
 export function extractPropsFromSearchParams(dataAttributes) {
   const searchParams = new URLSearchParams(window.location.search);
@@ -49,20 +50,21 @@ export function handleInternalStateSearchParam() {
   const paramKeys = [
     'footlight-startDateSpan',
     'footlight-endDateSpan',
-    'footlight-isSingleDate',
+    'footlight-isDateRange',
     'footlight-place',
     'footlight-Audience',
     'footlight-EventType',
     'footlight-searchKeyWord',
     'footlight-pageNumber',
     'footlight-eventId',
+    'footlight-searchDate',
   ];
 
   // Extract parameters
   const internalStateSearchParam = {
     startDateSpan: searchParams.get('footlight-startDateSpan'),
     endDateSpan: searchParams.get('footlight-endDateSpan'),
-    isSingleDate: searchParams.get('footlight-isSingleDate') === 'true',
+    isDateRange: searchParams.get('footlight-isDateRange') === 'true',
     selectedFilters: {
       place: searchParams.get('footlight-place')?.split(',') || [],
       Audience: searchParams.get('footlight-Audience')?.split(',') || [],
@@ -71,6 +73,7 @@ export function handleInternalStateSearchParam() {
     searchKeyWord: searchParams.get('footlight-searchKeyWord'),
     pageNumber: parseInt(searchParams.get('footlight-pageNumber'), 10) || 1,
     eventId: searchParams.get('footlight-eventId'),
+    searchDate: searchDateFormatter(searchParams.get('footlight-searchDate')),
   };
 
   // Remove parameters
