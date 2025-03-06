@@ -8,9 +8,9 @@ const CalendarControl = ({ setCalendarKey, setView, setActiveStartDate }) => {
     setSearchDate,
     searchDate,
     setStartDateSpan,
-    setIsSingleDate,
+    setIsDateRange,
     setEndDateSpan,
-    isSingleDate,
+    isDateRange,
     indexedSessionStorageVariableNames,
   } = useContext(WidgetContext);
 
@@ -24,7 +24,7 @@ const CalendarControl = ({ setCalendarKey, setView, setActiveStartDate }) => {
     sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetSearchDate, '');
     sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetStartDate, '');
     sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetEndDate, '');
-    setIsSingleDate(e.target.checked);
+    setIsDateRange(e.target.checked);
     setStartDateSpan('');
     setEndDateSpan('');
     setView('month');
@@ -32,7 +32,7 @@ const CalendarControl = ({ setCalendarKey, setView, setActiveStartDate }) => {
   };
 
   const handleDateErase = () => {
-    if (isSingleDate && !Array.isArray(searchDate)) {
+    if (isDateRange && !Array.isArray(searchDate)) {
       setCalendarKey((prevState) => prevState + 1); // So reset button can reset date when in the middle of selection.
     }
     setSearchDate(null);
@@ -53,7 +53,7 @@ const CalendarControl = ({ setCalendarKey, setView, setActiveStartDate }) => {
             type="checkbox"
             id="single-date-control"
             style={{ height: '24px', width: '24px' }}
-            checked={isSingleDate}
+            checked={isDateRange}
             onChange={(e) => handleDateSelectionTypeChange(e)}
           />
           <span></span>
