@@ -8,14 +8,22 @@ export const generateDeeplinkUrl = ({ eventId }) => {
   // Convert URLSearchParams to an object
   const currentParams = Object.fromEntries(new URLSearchParams(window.location.search));
 
-  const { startDateSpan, endDateSpan, isSingleDate, selectedFilters, searchKeyWord, pageNumber } =
-    useContext(WidgetContext);
+  const {
+    startDateSpan,
+    endDateSpan,
+    isDateRange,
+    selectedFilters,
+    searchKeyWord,
+    pageNumber,
+    searchDate,
+  } = useContext(WidgetContext);
 
   // Filter out empty or undefined values
   const widgetState = filterValidState({
     startDateSpan,
     endDateSpan,
-    isSingleDate,
+    searchDate,
+    isDateRange,
     ...selectedFilters,
     searchKeyWord,
     pageNumber,

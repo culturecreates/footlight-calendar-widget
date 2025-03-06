@@ -26,7 +26,7 @@ export const CustomCalendar = () => {
     setSearchDate,
     setStartDateSpan,
     setEndDateSpan,
-    isSingleDate,
+    isDateRange,
     widgetProps,
     calendarModalToggle,
     setCalendarModalToggle,
@@ -65,7 +65,7 @@ export const CustomCalendar = () => {
     setSearchDate(value);
 
     setCalendarModalToggle(!calendarModalToggle);
-    if (!isSingleDate) {
+    if (!isDateRange) {
       const selectedDate = dateConverter(new Date(value));
       setStartDateSpan(selectedDate);
       sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetStartDate, selectedDate);
@@ -128,7 +128,7 @@ export const CustomCalendar = () => {
         onActiveStartDateChange={({ activeStartDate }) => handleNavigation(activeStartDate)}
         goToRangeStartOnSelect={true}
         view={view}
-        selectRange={isSingleDate}
+        selectRange={isDateRange}
         formatShortWeekday={formatShortWeekday}
         className="react-calendar-wrapper"
         locale={locale}
