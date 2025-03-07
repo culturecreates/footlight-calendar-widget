@@ -16,7 +16,8 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   const {
     startDateSpan: startDateSpanSearchParam,
     endDateSpan: endDateSpanSearchParam,
-    isSingleDate: isSingleDateSearchParam,
+    searchDate: searchDateSearchParam,
+    isDateRange: isDateRangeSearchParam,
     selectedFilters: selectedFiltersSearchParam,
     searchKeyWord: searchKeyWordSearchParam,
     pageNumber: pageNumberSearchParam,
@@ -30,7 +31,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   };
 
   const [pageNumber, setPageNumber] = useState(pageNumberSearchParam ?? 1);
-  const [isSingleDate, setIsSingleDate] = useState(isSingleDateSearchParam || false);
+  const [isDateRange, setIsDateRange] = useState(isDateRangeSearchParam || false);
   const [selectedFilters, setSelectedFilters] = useState(selectedFiltersSearchParam ?? {});
   const [startDateSpan, setStartDateSpan] = useState(
     startDateSpanSearchParam ?? getSessionValue('WidgetStartDate'),
@@ -49,7 +50,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   const [calendarData, setCalendarData] = useState([]);
 
   const [searchDate, setSearchDate] = useState(
-    searchDateFormatter(getSessionValue('WidgetSearchDate')),
+    searchDateSearchParam || searchDateFormatter(getSessionValue('WidgetSearchDate')),
   );
 
   const { i18n } = useTranslation();
@@ -60,7 +61,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
     setSearchDate('');
     setStartDateSpan('');
     setEndDateSpan('');
-    setIsSingleDate();
+    setIsDateRange();
     setPageNumber(1);
     setError(false);
   };
@@ -88,22 +89,6 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
       console.error('Error fetching calendar data:', error);
     }
   };
-
-  useEffect(() => {
-    if (startDateSpan) {
-      if (endDateSpan !== undefined && endDateSpan !== '' && isSingleDate && endDateSpan != null) {
-        // Date range case (both start and end dates are valid)
-        setSearchDate([startDateSpan, endDateSpan]);
-      } else {
-        // Single date case
-        setSearchDate(startDateSpan);
-      }
-    } else {
-      // If no valid start date, clear searchDate
-      setSearchDate('');
-      sessionStorage.removeItem(indexedSessionStorageVariableNames.WidgetSearchDate);
-    }
-  }, []);
 
   useEffect(() => {
     if (widgetProps?.filterOptions) {
@@ -141,7 +126,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
         searchDate,
         startDateSpan,
         endDateSpan,
-        isSingleDate,
+        isDateRange,
         isLoading,
         calendarModalToggle,
         indexedSessionStorageVariableNames,
@@ -154,7 +139,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
         setSearchDate,
         setStartDateSpan,
         setEndDateSpan,
-        setIsSingleDate,
+        setIsDateRange,
         setCalendarModalToggle,
         resetFilters,
       }}

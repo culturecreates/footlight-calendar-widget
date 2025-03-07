@@ -42,79 +42,47 @@ function getDateObject(date, scheduleTimezone) {
 
 export function dateRangeFormatter({ startDate, endDate, scheduleTimezone = 'Canada/Eastern' }) {
   const locale = i18next.language;
-  const dateTimeFormat = getDateFormat({ locale, hasTimeComponent: true });
   const dateFormat = getDateFormat({ locale, hasTimeComponent: false });
-
-  const { hasTime: hasStartTime, dateTimeObj: startDateTimeObj } = getDateObject(
-    startDate,
-    scheduleTimezone,
-  );
-  if (!startDateTimeObj.isValid()) return 'Invalid date format';
 
   const noEndDateFlag = !endDate || endDate === '' || endDate == null;
 
-  // Format start date based on whether it has a time component
-  let formattedStartDateTime;
   if (noEndDateFlag) {
-    formattedStartDateTime = hasStartTime
-      ? startDateTimeObj.format(dateTimeFormat)
-      : startDateTimeObj.format(dateFormat);
-    return formattedStartDateTime?.toUpperCase();
-  } else {
-    // Check if the enddate has a time component by checking the format
-    const { dateTimeObj: endDateObj } = getDateObject(endDate, scheduleTimezone);
-    formattedStartDateTime = startDateTimeObj.format(dateTimeFormat);
-    const formattedEndTime = endDateObj.format(getTimeFormat(locale));
-    const displayEndTime = formattedEndTime ? ` - ${formattedEndTime}` : '';
-    const isStartAndEndTimeOnSameDay = dayjs(startDateTimeObj).isSame(endDateObj, 'day');
-
-    if (!endDateObj.isValid()) return 'Invalid end date format';
-
-    // overnight events
-    const isOvernightEvent =
-      endDateObj.diff(startDateTimeObj, 'hour') <= 24 && !isStartAndEndTimeOnSameDay;
-
-    if (isOvernightEvent) {
-      return (
-        <>
-          {formattedStartDateTime?.toUpperCase()}
-          {displayEndTime}
-          {isOvernightEvent && (
-            <sup
-              style={{
-                fontSize: 'smaller',
-                display: 'flex',
-                alignItems: 'center',
-                paddingLeft: '4px',
-              }}
-            >
-              +1
-            </sup>
-          )}
-        </>
-      );
-    }
-
-    let formattedEndDate = endDateObj.format(dateTimeFormat);
-
-    // if start and end dateTime is the same
-    if (formattedEndDate?.toUpperCase() == formattedStartDateTime?.toUpperCase()) {
-      return formattedStartDateTime;
-    }
-    if (isStartAndEndTimeOnSameDay) {
-      return (
-        <>
-          {formattedStartDateTime?.toUpperCase()}
-          {displayEndTime}
-        </>
-      );
-    }
-
-    formattedStartDateTime = startDateTimeObj.format(dateFormat);
-    formattedEndDate = endDateObj.format(dateFormat);
+    const { hasTime: hasStartTime, dateTimeObj: startDateTimeObj } = getDateObject(
+      startDate,
+      scheduleTimezone,
+    );
+    if (!startDateTimeObj.isValid()) return 'Invalid date format';
+    const formattedStartDate = startDateTimeObj.format(dateFormat);
+    const formattedStartTime = hasStartTime ? startDateTimeObj.format(getTimeFormat(locale)) : '';
     return (
       <>
-        {formattedStartDateTime?.toUpperCase()} <Translation>{(t) => t('to')}</Translation>{' '}
+        {formattedStartDate?.toUpperCase()} | {formattedStartTime}
+      </>
+    );
+  } else {
+    const { hasTime: hasStartTime, dateTimeObj: startDateTimeObj } = getDateObject(
+      startDate,
+      scheduleTimezone,
+    );
+    const { dateTimeObj: endDateObj } = getDateObject(endDate, scheduleTimezone);
+
+    if (!startDateTimeObj.isValid()) return 'Invalid start date format';
+    if (!endDateObj.isValid()) return 'Invalid end date format';
+
+    const formattedStartDate = startDateTimeObj.format(dateFormat);
+    const formattedStartTime = hasStartTime ? startDateTimeObj.format(getTimeFormat(locale)) : '';
+    const formattedEndDate = endDateObj.format(dateFormat);
+
+    if (formattedEndDate == formattedStartDate) {
+      return (
+        <>
+          {formattedStartDate?.toUpperCase()} | {formattedStartTime}
+        </>
+      );
+    }
+    return (
+      <>
+        {formattedStartDate?.toUpperCase()} <Translation>{(t) => t('to')}</Translation>{' '}
         {formattedEndDate?.toUpperCase()}
       </>
     );

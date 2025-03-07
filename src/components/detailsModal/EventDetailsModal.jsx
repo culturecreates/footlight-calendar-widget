@@ -217,7 +217,8 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     direction="column"
                     style={{
                       opacity: creditDisplayFlag ? 1 : 0,
-                      overflow: 'hidden',
+                      overflow: 'auto',
+                      width: '100%',
                       maxHeight: creditDisplayFlag ? '110px' : '0px',
                       transition:
                         'all 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1)',
@@ -229,6 +230,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                         style={{
                           fontSize: '12px',
                           marginLeft: '24px',
+                          maxWidth: 'calc(100% - 90px)',
                           fontWeight: 400,
                           marginBottom: '0.5rem',
                           color: 'var(--secondary-black)',
@@ -238,7 +240,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                       </Text>
                     )}
                     {eventDetails?.imageCredit?.caption && (
-                      <Flex>
+                      <Flex style={{ maxWidth: 'calc(100% - 90px)' }}>
                         <Box
                           className={creditDisplayFlag && 'image-description-display-icon-wrapper'}
                         >

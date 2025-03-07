@@ -51,7 +51,7 @@ const SponsorsCarousel = ({ sponsors = [] }) => {
             style={styles.slideItem}
             onClick={() => sponsor.website && window.open(sponsor.website)}
           >
-            <img src={sponsor?.image} alt={sponsor.name} style={styles.sponsorLogo} />
+            <img src={sponsor?.image} alt={sponsor.name} />
           </div>
         ))}
       </Slider>
@@ -84,10 +84,6 @@ const styles = {
     alignItems: 'center',
     margin: 'auto',
     maxHeight: '100px',
-  },
-  sponsorLogo: {
-    height: '65px',
-    width: '75px',
   },
 };
 
