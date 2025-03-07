@@ -218,6 +218,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     style={{
                       opacity: creditDisplayFlag ? 1 : 0,
                       overflow: 'auto',
+                      width: '100%',
                       maxHeight: creditDisplayFlag ? '110px' : '0px',
                       transition:
                         'all 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1)',
