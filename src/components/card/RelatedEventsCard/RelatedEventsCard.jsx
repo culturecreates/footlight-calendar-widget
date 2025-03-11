@@ -1,4 +1,4 @@
-import React, { memo, useContext, useEffect } from 'react';
+import React, { memo, useContext, useEffect, useState } from 'react';
 import WidgetContext from '../../../context/WidgetContext';
 import { generateUrl } from '../../../utils/generateUrl';
 import { entityTypes, redirectionModes } from '../../../constants/generalConstants';
@@ -6,11 +6,13 @@ import { transformData } from '../../../utils/transformData';
 import EventCard from '../EventCard/EventCard';
 import useSize from '../../../utils/hooks/useSize';
 import './relatedEventsCard.css';
+import LoadingCard from '../LoadingCard/LoadingCard';
 
 const RelatedEventsCard = memo(
   ({ dependencyIds = [], relationType, relationParam }) => {
     const { widgetProps, setError, relatedEventsData, setRelatedEventsData } =
       useContext(WidgetContext);
+    const [isLoading, setIsLoading] = useState(true);
 
     let relatedEventsLimit = useSize('#calendar-widget .calendar-widget-details-modal', 550)
       ? 2
@@ -20,6 +22,7 @@ const RelatedEventsCard = memo(
       if (!dependencyIds.length) return;
 
       const fetchData = async () => {
+        setIsLoading(true);
         const dynamicFilters = dependencyIds.reduce((acc, id) => {
           acc[relationParam] = id;
           return acc;
@@ -38,6 +41,7 @@ const RelatedEventsCard = memo(
             return;
           }
           const { data } = await response.json();
+          setIsLoading(false);
           setRelatedEventsData((prev) => ({
             ...prev,
             [relationType]: {
@@ -48,6 +52,7 @@ const RelatedEventsCard = memo(
         } catch (error) {
           console.error('Error fetching related events:', error);
           setError(true);
+          setIsLoading(false);
         }
       };
 
@@ -56,6 +61,7 @@ const RelatedEventsCard = memo(
 
     return (
       <div className="related-events-card-section">
+        {isLoading && <LoadingCard count={relatedEventsLimit} />}
         {relatedEventsData[relationType].data?.map((data, index) => {
           return (
             <EventCard
