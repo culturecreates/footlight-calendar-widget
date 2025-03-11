@@ -60,7 +60,7 @@ const RelatedEventsCard = memo(
       };
 
       fetchData();
-    }, []);
+    }, [dependencyIds]);
 
     return (
       <div className="related-events-card-section">

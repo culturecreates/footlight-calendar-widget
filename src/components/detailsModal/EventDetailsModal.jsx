@@ -37,7 +37,7 @@ import MapComponent from '../googleMap/MapComponent';
 import ImageGalleryCarousel from '../carousel/ImageGallery/ImageGalleryCarousel';
 import VideoIframe from '../card/VideoCard/VideoIframe';
 import SocialMediaPopup from '../sharePopup/SharePopup';
-import RelatedEventsCard from '../card/RelatedEventsCard/RelatedEventsCard';
+import RelatedEventsCard from '../card/relatedEventsCard/RelatedEventsCard';
 
 const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const { widgetProps, setError } = useContext(WidgetContext);
