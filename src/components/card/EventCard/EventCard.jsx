@@ -31,16 +31,14 @@ const EventCard = React.memo(
     const { isOpen, onOpen, onClose } = useDisclosure();
     const onClickHandler = () => {
       redirectionFlag
-        ? () => {
-            redirectionHandler({
-              url: getRedirectionUrl({
-                id: id,
-                type: urlTypes.EVENT,
-                locale,
-                calendar,
-              }),
-            });
-          }
+        ? redirectionHandler({
+            url: getRedirectionUrl({
+              id: id,
+              type: urlTypes.EVENT,
+              locale,
+              calendar,
+            }),
+          })
         : onOpen();
       trackEventClick(calendar, id);
     };
@@ -54,7 +52,7 @@ const EventCard = React.memo(
         <div className="event-card" onClick={onClickHandler}>
           <img src={image} alt={altText} style={{ width: '100%', display: 'block' }} />
 
-          <div style={{ padding: '16px', backgroundColor: 'var(--bg-grey)', height: '100%' }}>
+          <div style={{ padding: '16px', backgroundColor: 'var(--bg-grey)', height: 'auto' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <h3
                 style={{
@@ -90,6 +88,7 @@ const EventCard = React.memo(
                     alignItems: 'center',
                     gap: '4px',
                     marginLeft: '2px',
+                    width: '100%',
                   }}
                 >
                   <Icon as={StageIcon} alt="Stage icon" style={{ width: '14px', height: '14px' }} />
