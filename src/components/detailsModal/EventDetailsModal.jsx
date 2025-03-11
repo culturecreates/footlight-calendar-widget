@@ -472,9 +472,6 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                 )}
 
                 <Box style={{ marginTop: '1rem', width: '100%' }}>
-                  <Heading as="h3" className="section-headings">
-                    {t('detailsModal.alsoPlaying')}
-                  </Heading>
                   <RelatedEventsCard
                     dependencyIds={relatedPerformersIds}
                     relationType="performerRelatedEvents"

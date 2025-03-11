@@ -7,12 +7,15 @@ import EventCard from '../EventCard/EventCard';
 import useSize from '../../../utils/hooks/useSize';
 import './relatedEventsCard.css';
 import LoadingCard from '../LoadingCard/LoadingCard';
+import { Heading } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 
 const RelatedEventsCard = memo(
   ({ dependencyIds = [], relationType, relationParam }) => {
     const { widgetProps, setError, relatedEventsData, setRelatedEventsData } =
       useContext(WidgetContext);
     const [isLoading, setIsLoading] = useState(true);
+    const { t } = useTranslation();
 
     let relatedEventsLimit = useSize('#calendar-widget .calendar-widget-details-modal', 550)
       ? 2
@@ -61,25 +64,29 @@ const RelatedEventsCard = memo(
 
     return (
       <div className="related-events-card-section">
+        <Heading as="h3" className="section-headings">
+          {t('detailsModal.alsoPlaying')}
+        </Heading>
         {isLoading && <LoadingCard count={relatedEventsLimit} />}
-        {relatedEventsData[relationType].data?.map((data, index) => {
-          return (
-            <EventCard
-              key={index}
-              image={data?.image?.thumbnail}
-              eventName={data?.title}
-              stageName={data?.place}
-              eventType={data?.eventTypes}
-              startDate={data?.startDate}
-              endDate={data?.endDate}
-              scheduleTimezone={data?.scheduleTimezone}
-              id={data?.id}
-              redirectionMode={redirectionModes.NONE}
-              calendar={widgetProps?.calendar}
-              altText={data?.imageCredit?.description || ''}
-            />
-          );
-        })}
+        {!isLoading &&
+          relatedEventsData[relationType].data?.map((data, index) => {
+            return (
+              <EventCard
+                key={index}
+                image={data?.image?.thumbnail}
+                eventName={data?.title}
+                stageName={data?.place}
+                eventType={data?.eventTypes}
+                startDate={data?.startDate}
+                endDate={data?.endDate}
+                scheduleTimezone={data?.scheduleTimezone}
+                id={data?.id}
+                redirectionMode={redirectionModes.NONE}
+                calendar={widgetProps?.calendar}
+                altText={data?.imageCredit?.description || ''}
+              />
+            );
+          })}
       </div>
     );
   },
