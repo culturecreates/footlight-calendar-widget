@@ -37,6 +37,7 @@ import MapComponent from '../googleMap/MapComponent';
 import ImageGalleryCarousel from '../carousel/ImageGallery/ImageGalleryCarousel';
 import VideoIframe from '../card/VideoCard/VideoIframe';
 import SocialMediaPopup from '../sharePopup/SharePopup';
+import RelatedEventsCard from '../card/RelatedEventsCard/RelatedEventsCard';
 
 const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const { widgetProps, setError } = useContext(WidgetContext);
@@ -55,6 +56,15 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const containerRef = useRef(null);
   const descriptionRef = useRef(null);
   const imageCreditRef = useRef(null);
+
+  let relatedPerformersIds = [];
+
+  useEffect(() => {
+    if (!eventDetails) return;
+    eventDetails?.performers?.forEach((element) => {
+      relatedPerformersIds.push(element.id);
+    });
+  }, [eventDetails]);
 
   useEffect(() => {
     if (!eventId || !isOpen) return;
@@ -440,7 +450,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                   </Box>
                 )}
                 {eventDetails?.mapUrl && (
-                  <Box style={{ marginTop: '1rem', width: '100%', height: '248px' }}>
+                  <Box style={{ marginTop: '1rem', width: '100%' }}>
                     <Heading as="h3" className="section-headings">
                       {t('detailsModal.eventLocation')}
                     </Heading>
@@ -460,6 +470,17 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     </Box>
                   </Box>
                 )}
+
+                <Box style={{ marginTop: '1rem', width: '100%' }}>
+                  <Heading as="h3" className="section-headings">
+                    {t('detailsModal.alsoPlaying')}
+                  </Heading>
+                  <RelatedEventsCard
+                    dependencyIds={relatedPerformersIds}
+                    relationType="performerRelatedEvents"
+                    relationParam="performer"
+                  />
+                </Box>
               </Stack>
             </Box>
           )}

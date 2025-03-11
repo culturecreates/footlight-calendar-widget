@@ -15,6 +15,8 @@ export const generateUrl = (urlComponents) => {
   const place = urlComponents?.place;
   const disableGrouping = urlComponents?.disableGrouping;
 
+  const dynamicFilters = urlComponents?.dynamicFilters || {}; // used to search for related events in detail page
+
   const queryParams = new URLSearchParams({
     page: pageNumber,
     limit,
@@ -22,6 +24,10 @@ export const generateUrl = (urlComponents) => {
     'start-date-range': startDateSpan,
     'end-date-range': startDateSpan && startDateSpan != '' ? endDateSpan : '',
     'disable-grouping': disableGrouping,
+  });
+
+  Object.entries(dynamicFilters).forEach(([key, value]) => {
+    queryParams.append(key, value);
   });
 
   [

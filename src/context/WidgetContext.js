@@ -44,6 +44,9 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
   );
 
   const [data, setData] = useState([]);
+  const [relatedEventsData, setRelatedEventsData] = useState({
+    performerRelatedEvents: { ids: null, data: [] },
+  });
   const [displayFiltersFlag, setDisplayFiltersFlag] = useState(false);
   const [error, setError] = useState(false);
   const [calendarModalToggle, setCalendarModalToggle] = useState(false);
@@ -123,6 +126,8 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
         setError,
         searchKeyWord,
         displayFiltersFlag,
+        relatedEventsData,
+        setRelatedEventsData,
         searchDate,
         startDateSpan,
         endDateSpan,
