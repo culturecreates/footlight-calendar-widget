@@ -57,15 +57,6 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const descriptionRef = useRef(null);
   const imageCreditRef = useRef(null);
 
-  let relatedPerformersIds = [];
-
-  useEffect(() => {
-    if (!eventDetails) return;
-    eventDetails?.performers?.forEach((element) => {
-      relatedPerformersIds.push(element.id);
-    });
-  }, [eventDetails]);
-
   useEffect(() => {
     if (!eventId || !isOpen) return;
 
@@ -473,7 +464,9 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
 
                 <Box style={{ marginTop: '1rem', width: '100%' }}>
                   <RelatedEventsCard
-                    dependencyIds={relatedPerformersIds}
+                    dependencyIds={
+                      eventDetails ? eventDetails.performers?.map((p) => p.id) || [] : undefined
+                    }
                     relationType="performerRelatedEvents"
                     relationParam="performer"
                   />

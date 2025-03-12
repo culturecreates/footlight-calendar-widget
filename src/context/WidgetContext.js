@@ -45,7 +45,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
 
   const [data, setData] = useState([]);
   const [relatedEventsData, setRelatedEventsData] = useState({
-    performerRelatedEvents: { ids: null, data: [] },
+    performerRelatedEvents: { ids: [], data: [] },
   });
   const [displayFiltersFlag, setDisplayFiltersFlag] = useState(false);
   const [error, setError] = useState(false);
