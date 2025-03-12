@@ -12,7 +12,6 @@ import {
   Box,
   Icon,
   Flex,
-  Image,
   IconButton,
   Heading,
 } from '@chakra-ui/react';
@@ -38,6 +37,7 @@ import ImageGalleryCarousel from '../carousel/ImageGallery/ImageGalleryCarousel'
 import VideoIframe from '../card/VideoCard/VideoIframe';
 import SocialMediaPopup from '../sharePopup/SharePopup';
 import RelatedEventsCard from '../card/RelatedEventsCard/RelatedEventsCard';
+import ProgressiveImage from '../progressiveImage/ProgressiveImage';
 
 const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const { widgetProps, setError } = useContext(WidgetContext);
@@ -148,7 +148,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
           ) : (
             <Box style={{ paddingBottom: '1rem', height: '100%' }}>
               <Box className="sticky-image-wrapper" style={{ position: 'sticky', top: 0 }}>
-                <Image
+                <ProgressiveImage
                   onClick={(e) => {
                     e.stopPropagation();
                     if (eventDetails?.imageCredit) {
@@ -157,7 +157,8 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     }
                   }}
                   alt={eventDetails?.imageCredit?.description || ''}
-                  src={eventDetails?.image?.large}
+                  highRes={eventDetails?.image?.large}
+                  thumbnail={eventDetails?.image?.thumbnail}
                   width="100%"
                 />
               </Box>
