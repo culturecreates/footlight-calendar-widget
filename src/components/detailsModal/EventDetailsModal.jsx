@@ -38,6 +38,8 @@ import VideoIframe from '../card/VideoCard/VideoIframe';
 import SocialMediaPopup from '../sharePopup/SharePopup';
 import RelatedEventsCard from '../card/RelatedEventsCard/RelatedEventsCard';
 import ProgressiveImage from '../progressiveImage/ProgressiveImage';
+import FeatureFlag from '../../layout/FeatureFlag';
+import { featureFlags } from '../../utils/featureFlag';
 
 const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const { widgetProps, setError } = useContext(WidgetContext);
@@ -462,17 +464,18 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     </Box>
                   </Box>
                 )}
-
-                <Box style={{ marginTop: '1rem', width: '100%' }}>
-                  <RelatedEventsCard
-                    dependencyIds={
-                      eventDetails ? eventDetails.performers?.map((p) => p.id) || [] : undefined
-                    }
-                    relationType="performerRelatedEvents"
-                    relationParam="performer"
-                    currentEventId={eventId}
-                  />
-                </Box>
+                <FeatureFlag isFeatureEnabled={featureFlags.relatedEvents}>
+                  <Box style={{ marginTop: '1rem', width: '100%' }}>
+                    <RelatedEventsCard
+                      dependencyIds={
+                        eventDetails ? eventDetails.performers?.map((p) => p.id) || [] : undefined
+                      }
+                      relationType="performerRelatedEvents"
+                      relationParam="performer"
+                      currentEventId={eventId}
+                    />
+                  </Box>
+                </FeatureFlag>
               </Stack>
             </Box>
           )}
