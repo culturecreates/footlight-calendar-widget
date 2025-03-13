@@ -31,6 +31,7 @@ export const fr = {
     presenters: 'Diffuseurs',
     eventLocation: "Lieu de l'événement",
     alsoPlaying: 'Également en vedette',
+    similarEvents: 'Événements Similaires',
   },
   showLess: 'Afficher moins',
   loadMore: 'Afficher plus',

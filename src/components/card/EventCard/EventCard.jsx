@@ -10,6 +10,8 @@ import { redirectionModes, urlTypes } from '../../../constants/generalConstants'
 import { getRedirectionUrl, redirectionHandler } from '../../../utils/redirectionHandler';
 import i18next from 'i18next';
 import { trackEventClick } from '../../../utils/googleAnalytics';
+import ProgressiveImage from '../../progressiveImage/ProgressiveImage';
+import { ReactComponent as defaultImage } from '../../../assets/defaultImage.svg';
 
 const EventCard = React.memo(
   ({
@@ -50,7 +52,14 @@ const EventCard = React.memo(
     return (
       <>
         <div className="event-card" onClick={onClickHandler}>
-          <img src={image} alt={altText} style={{ width: '100%', display: 'block' }} />
+          <ProgressiveImage
+            highRes={image}
+            alt={altText}
+            style={{ width: '100%', display: 'block' }}
+            onErrorPlaceholder={defaultImage}
+            aspectRatioType="thumbnail"
+            parentCalssName=".event-card"
+          />
 
           <div style={{ padding: '16px', backgroundColor: 'var(--bg-grey)', height: 'auto' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
