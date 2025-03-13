@@ -22,8 +22,15 @@ export const fr = {
   },
   detailsModal: {
     descriptionHeader: "A propos de l'événement :",
-    Performers: 'interprète',
     place: 'Lieu',
+    Performers: 'Interprète',
+    showOnMap: 'Afficher sur la carte',
+    sponsor: 'Commanditaire',
+    sponsors: 'Commanditaires',
+    presenter: 'Diffuseur',
+    presenters: 'Diffuseurs',
+    eventLocation: "Lieu de l'événement",
+    alsoPlaying: 'Également en vedette',
   },
   showLess: 'Afficher moins',
   loadMore: 'Afficher plus',
@@ -32,12 +39,12 @@ export const fr = {
     clearAll: 'Tout effacer',
   },
   errorPage: {
-    primaryHeading: 'Oups, quelque ',
-    secondaryHeading: "chose s'est mal passé!",
-    subtext: 'La page que vous recherchez semble introuvable.',
+    primaryHeading: 'Oups, quelque chose',
+    secondaryHeading: "s'est mal passé\\!",
+    subtext: 'La page que vous cherchez est introuvable.',
     homeButton: 'Aller à la page d’accueil',
   },
   map: {
-    errorMessage: "L'aperçu de la carte n'est pas disponible.",
+    errorMessage: 'Aperçu de la carte non disponible.',
   },
 };

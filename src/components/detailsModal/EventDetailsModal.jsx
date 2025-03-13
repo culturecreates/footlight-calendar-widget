@@ -12,7 +12,6 @@ import {
   Box,
   Icon,
   Flex,
-  Image,
   IconButton,
   Heading,
 } from '@chakra-ui/react';
@@ -37,6 +36,10 @@ import MapComponent from '../googleMap/MapComponent';
 import ImageGalleryCarousel from '../carousel/ImageGallery/ImageGalleryCarousel';
 import VideoIframe from '../card/VideoCard/VideoIframe';
 import SocialMediaPopup from '../sharePopup/SharePopup';
+import RelatedEventsCard from '../card/RelatedEventsCard/RelatedEventsCard';
+import ProgressiveImage from '../progressiveImage/ProgressiveImage';
+import FeatureFlag from '../../layout/FeatureFlag';
+import { featureFlags } from '../../utils/featureFlag';
 
 const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const { widgetProps, setError } = useContext(WidgetContext);
@@ -147,7 +150,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
           ) : (
             <Box style={{ paddingBottom: '1rem', height: '100%' }}>
               <Box className="sticky-image-wrapper" style={{ position: 'sticky', top: 0 }}>
-                <Image
+                <ProgressiveImage
                   onClick={(e) => {
                     e.stopPropagation();
                     if (eventDetails?.imageCredit) {
@@ -156,7 +159,8 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     }
                   }}
                   alt={eventDetails?.imageCredit?.description || ''}
-                  src={eventDetails?.image?.large}
+                  highRes={eventDetails?.image?.large}
+                  thumbnail={eventDetails?.image?.thumbnail}
                   width="100%"
                 />
               </Box>
@@ -440,7 +444,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                   </Box>
                 )}
                 {eventDetails?.mapUrl && (
-                  <Box style={{ marginTop: '1rem', width: '100%', height: '248px' }}>
+                  <Box style={{ marginTop: '1rem', width: '100%' }}>
                     <Heading as="h3" className="section-headings">
                       {t('detailsModal.eventLocation')}
                     </Heading>
@@ -460,6 +464,18 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     </Box>
                   </Box>
                 )}
+                <FeatureFlag isFeatureEnabled={featureFlags.relatedEvents}>
+                  <Box style={{ marginTop: '1rem', width: '100%' }}>
+                    <RelatedEventsCard
+                      dependencyIds={
+                        eventDetails ? eventDetails.performers?.map((p) => p.id) || [] : undefined
+                      }
+                      relationType="performerRelatedEvents"
+                      relationParam="performer"
+                      currentEventId={eventId}
+                    />
+                  </Box>
+                </FeatureFlag>
               </Stack>
             </Box>
           )}

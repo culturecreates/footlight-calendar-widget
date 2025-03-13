@@ -84,8 +84,9 @@ export const transformData = ({ data, locale }) => {
         disciplines: discipline?.map((d) => getLocalized(d?.name, locale)),
         languages: inLanguage?.map((lang) => getLocalized(lang?.name, locale)),
         performers: performer?.map(
-          ({ name, image, socialMediaLinks, type, logo, url, description, occupation }) => ({
+          ({ name, image, socialMediaLinks, type, logo, url, description, occupation, id }) => ({
             name: getLocalized(name, locale),
+            id,
             image: imageSelector({ image, logo, type }),
             socialMediaLinks,
             type,

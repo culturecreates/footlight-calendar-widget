@@ -1,0 +1,39 @@
+#calendar-widget .related-events-card-section .card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  width: 100%;
+  height: fit-content;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 550px) {
+  #calendar-widget .related-events-card-section .card-container {
+    flex: 1;
+  }
+  #calendar-widget .related-events-card-section .card-container .event-card {
+    width: 100%;
+  }
+}
+
+@media (min-width: 550px) {
+  #calendar-widget .related-events-card-section .card-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: auto;
+    gap: 16px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    height: fit-content;
+  }
+
+  #calendar-widget .related-events-card-section .card-container .event-card {
+    max-height: 379px;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+}
