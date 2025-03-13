@@ -470,6 +470,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     }
                     relationType="performerRelatedEvents"
                     relationParam="performer"
+                    currentEventId={eventId}
                   />
                 </Box>
               </Stack>

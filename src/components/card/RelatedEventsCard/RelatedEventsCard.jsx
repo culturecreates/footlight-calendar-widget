@@ -10,7 +10,7 @@ import LoadingCard from '../LoadingCard/LoadingCard';
 import { Heading } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 
-const RelatedEventsCard = ({ dependencyIds, relationType, relationParam }) => {
+const RelatedEventsCard = ({ dependencyIds, relationType, relationParam, currentEventId }) => {
   const { widgetProps, setError, relatedEventsData, setRelatedEventsData } =
     useContext(WidgetContext);
   const [isLoading, setIsLoading] = useState(true);
@@ -45,12 +45,14 @@ const RelatedEventsCard = ({ dependencyIds, relationType, relationParam }) => {
           return;
         }
         const { data } = await response.json();
+        const filteredData = data.filter((event) => event.id !== currentEventId);
+
         setIsLoading(false);
         setRelatedEventsData((prev) => ({
           ...prev,
           [relationType]: {
             ids: dependencyIds,
-            data: transformData({ data, locale: widgetProps?.locale || 'en' }),
+            data: transformData({ data: filteredData, locale: widgetProps?.locale || 'en' }),
           },
         }));
       } catch (error) {
@@ -98,29 +100,31 @@ const RelatedEventsCard = ({ dependencyIds, relationType, relationParam }) => {
         </Heading>
       )}
 
-      {isLoading && Array.isArray(dependencyIds) && dependencyIds.length === 0 && (
-        <LoadingCard count={relatedEventsLimit} />
-      )}
+      <div className="card-container">
+        {isLoading && Array.isArray(dependencyIds) && dependencyIds.length === 0 && (
+          <LoadingCard count={relatedEventsLimit} />
+        )}
 
-      {!isLoading &&
-        Array.isArray(dependencyIds) &&
-        dependencyIds.length > 0 &&
-        relatedEventsData[relationType]?.data?.map((data, index) => (
-          <EventCard
-            key={index}
-            image={data?.image?.thumbnail}
-            eventName={data?.title}
-            stageName={data?.place}
-            eventType={data?.eventTypes}
-            startDate={data?.startDate}
-            endDate={data?.endDate}
-            scheduleTimezone={data?.scheduleTimezone}
-            id={data?.id}
-            redirectionMode={redirectionModes.NONE}
-            calendar={widgetProps?.calendar}
-            altText={data?.imageCredit?.description || ''}
-          />
-        ))}
+        {!isLoading &&
+          Array.isArray(dependencyIds) &&
+          dependencyIds.length > 0 &&
+          relatedEventsData[relationType]?.data?.map((data, index) => (
+            <EventCard
+              key={index}
+              image={data?.image?.thumbnail}
+              eventName={data?.title}
+              stageName={data?.place}
+              eventType={data?.eventTypes}
+              startDate={data?.startDate}
+              endDate={data?.endDate}
+              scheduleTimezone={data?.scheduleTimezone}
+              id={data?.id}
+              redirectionMode={redirectionModes.NONE}
+              calendar={widgetProps?.calendar}
+              altText={data?.imageCredit?.description || ''}
+            />
+          ))}
+      </div>
     </div>
   );
 };
