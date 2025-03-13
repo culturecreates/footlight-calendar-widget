@@ -94,7 +94,7 @@ const RelatedEventsCard = ({ dependencyIds, relationType, relationParam, current
 
   return (
     <div className="related-events-card-section">
-      {(isLoading || (Array.isArray(dependencyIds) && dependencyIds.length > 0)) && (
+      {(isLoading || (Array.isArray(dependencyIds) && dependencyIds.length > 1)) && (
         <Heading as="h3" className="section-headings">
           {t('detailsModal.similarEvents')}
         </Heading>
