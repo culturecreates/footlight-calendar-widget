@@ -10,15 +10,17 @@ export const generateUrl = (urlComponents) => {
   const filters = decodeURIComponent(urlComponents?.searchEventsFilters);
 
   const queryParams = new URLSearchParams({
-    page: 1,
     limit,
-    query,
-    'start-date-range': startDateSpan,
     'end-date-range': endDateSpan,
+    'start-date-range': startDateSpan,
+    query,
+    page: 1,
   });
 
   const apiUrl = new URL(`${baseUrl}${calendar}/${searchEntityType}`);
   apiUrl.search = queryParams.toString();
-  apiUrl.search += filters;
+  if (filters && filters !== 'null' && filters !== 'undefined') {
+    apiUrl.search += `&${filters}`;
+  }
   return apiUrl.toString();
 };
