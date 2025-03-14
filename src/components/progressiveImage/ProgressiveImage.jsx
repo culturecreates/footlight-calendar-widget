@@ -92,7 +92,14 @@ const ProgressiveImage = ({
     );
   }
 
-  return <img src={imageSrc} alt={alt} {...rest} onError={handleError} />;
+  return (
+    <div
+      className="progressive-image-wrapper"
+      style={{ width: '100%', height: defaultImageHeight }}
+    >
+      <img src={imageSrc} alt={alt} {...rest} onError={handleError} />;
+    </div>
+  );
 };
 
 export default ProgressiveImage;

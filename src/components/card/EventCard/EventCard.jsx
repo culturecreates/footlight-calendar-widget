@@ -55,7 +55,7 @@ const EventCard = React.memo(
           <ProgressiveImage
             highRes={image}
             alt={altText}
-            style={{ width: '100%', display: 'block' }}
+            style={{ width: '100%', height: '100%', display: 'block' }}
             onErrorPlaceholder={defaultImage}
             aspectRatioType="thumbnail"
             parentCalssName=".event-card"

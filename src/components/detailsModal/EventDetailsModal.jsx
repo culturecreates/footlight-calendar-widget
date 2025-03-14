@@ -164,7 +164,6 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                   thumbnail={eventDetails?.image?.thumbnail}
                   onErrorPlaceholder={defaultImage}
                   errorPlaceHolderStyle={{ marginTop: '-50px' }}
-                  width="100%"
                 />
               </Box>
               <Box
