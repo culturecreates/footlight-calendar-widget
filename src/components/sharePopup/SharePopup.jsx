@@ -61,6 +61,11 @@ const ShareTooltip = ({ children, styles = {}, eventId }) => {
   const handleCopy = () => {
     setCopyState(true);
     navigator.clipboard.writeText(url);
+    if (eventId) trackEventShare(calendar, eventId, url);
+    else {
+      const searchParams = new URL(url).search;
+      trackListShare(calendar, searchParams, url);
+    }
     openPopover();
 
     setTimeout(() => {
