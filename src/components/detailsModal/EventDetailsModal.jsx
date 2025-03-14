@@ -164,7 +164,6 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                   thumbnail={eventDetails?.image?.thumbnail}
                   onErrorPlaceholder={defaultImage}
                   errorPlaceHolderStyle={{ marginTop: '-50px' }}
-                  width="100%"
                 />
               </Box>
               <Box
@@ -470,9 +469,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                 <FeatureFlag isFeatureEnabled={featureFlags.relatedEvents}>
                   <Box style={{ marginTop: '1rem', width: '100%' }}>
                     <RelatedEventsCard
-                      dependencyIds={
-                        eventDetails ? eventDetails.performers?.map((p) => p.id) || [] : undefined
-                      }
+                      dependencyIds={eventDetails.performers?.map((p) => p.id) || []}
                       relationType="performerRelatedEvents"
                       relationParam="performer"
                       currentEventId={eventId}
