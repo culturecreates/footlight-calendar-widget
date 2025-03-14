@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import WidgetContext from '../../context/WidgetContext';
+import './progressiveImage.css';
 
 /**
  * ProgressiveImage Component
@@ -83,7 +84,7 @@ const ProgressiveImage = ({
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: 'var(--tertiary-grey)',
+          backgroundColor: '#E0E0E0',
         }}
       >
         <ErrorPlaceholder width="50%" height="50%" style={errorPlaceHolderStyle} />
