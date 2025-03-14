@@ -19,8 +19,7 @@ const RelatedEventsCard = ({ dependencyIds, relationType, relationParam, current
   let relatedEventsLimit = useSize('#calendar-widget .calendar-widget-details-modal', 550) ? 2 : 4;
 
   useEffect(() => {
-    if (!Array.isArray(dependencyIds)) return;
-    if (!dependencyIds.length) {
+    if (!Array.isArray(dependencyIds) || !dependencyIds.length) {
       setIsLoading(false);
       return;
     }
@@ -66,6 +65,7 @@ const RelatedEventsCard = ({ dependencyIds, relationType, relationParam, current
       setIsLoading(false);
       return;
     }
+
     fetchData();
   }, [dependencyIds]);
 
@@ -94,20 +94,16 @@ const RelatedEventsCard = ({ dependencyIds, relationType, relationParam, current
 
   return (
     <div className="related-events-card-section">
-      {(isLoading || (Array.isArray(dependencyIds) && dependencyIds.length > 0)) && (
+      {(isLoading || relatedEventsData[relationType]?.data.length > 0) && (
         <Heading as="h3" className="section-headings">
-          {t('detailsModal.alsoPlaying')}
+          {t('detailsModal.similarEvents')}
         </Heading>
       )}
 
       <div className="card-container">
-        {isLoading && Array.isArray(dependencyIds) && dependencyIds.length === 0 && (
-          <LoadingCard count={relatedEventsLimit} />
-        )}
+        {isLoading && <LoadingCard count={relatedEventsLimit} />}
 
         {!isLoading &&
-          Array.isArray(dependencyIds) &&
-          dependencyIds.length > 0 &&
           relatedEventsData[relationType]?.data?.map((data, index) => (
             <EventCard
               key={index}

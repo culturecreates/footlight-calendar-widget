@@ -31,6 +31,7 @@ export const ja = {
     presenters: 'プレゼンター',
     eventLocation: '開催場所',
     alsoPlaying: 'このアーティストも演奏しています',
+    similarEvents: '類似イベント',
   },
   share: {
     copy: 'リンクをコピー',

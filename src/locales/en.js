@@ -31,6 +31,7 @@ export const en = {
     presenters: 'Presenters',
     eventLocation: 'Event Location',
     alsoPlaying: 'This artist is also playing',
+    similarEvents: 'Similar Events',
   },
   share: {
     copy: 'Copy link',

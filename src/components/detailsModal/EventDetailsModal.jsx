@@ -21,6 +21,7 @@ import './eventDetailsModal.css';
 import { ReactComponent as calendaricon } from '../../assets/calendar.svg';
 import { ReactComponent as StageIcon } from '../../assets/locationPin.svg';
 import { ReactComponent as ShareIcon } from '../../assets/share.svg';
+import { ReactComponent as defaultImage } from '../../assets/defaultImage.svg';
 import { ReactComponent as InformationCircle } from '../../assets/informationCircle.svg';
 import EventTypeBadge from '../badge/EventTypeBadge/EventTypeBadge';
 import { redirectionHandler } from '../../utils/redirectionHandler';
@@ -161,7 +162,8 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                   alt={eventDetails?.imageCredit?.description || ''}
                   highRes={eventDetails?.image?.large}
                   thumbnail={eventDetails?.image?.thumbnail}
-                  width="100%"
+                  onErrorPlaceholder={defaultImage}
+                  errorPlaceHolderStyle={{ marginTop: '-50px' }}
                 />
               </Box>
               <Box
@@ -467,9 +469,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                 <FeatureFlag isFeatureEnabled={featureFlags.relatedEvents}>
                   <Box style={{ marginTop: '1rem', width: '100%' }}>
                     <RelatedEventsCard
-                      dependencyIds={
-                        eventDetails ? eventDetails.performers?.map((p) => p.id) || [] : undefined
-                      }
+                      dependencyIds={eventDetails.performers?.map((p) => p.id) || []}
                       relationType="performerRelatedEvents"
                       relationParam="performer"
                       currentEventId={eventId}
