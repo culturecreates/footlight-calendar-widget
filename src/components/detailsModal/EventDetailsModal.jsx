@@ -470,9 +470,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                 <FeatureFlag isFeatureEnabled={featureFlags.relatedEvents}>
                   <Box style={{ marginTop: '1rem', width: '100%' }}>
                     <RelatedEventsCard
-                      dependencyIds={
-                        eventDetails ? eventDetails.performers?.map((p) => p.id) || [] : undefined
-                      }
+                      dependencyIds={eventDetails.performers?.map((p) => p.id) || []}
                       relationType="performerRelatedEvents"
                       relationParam="performer"
                       currentEventId={eventId}
