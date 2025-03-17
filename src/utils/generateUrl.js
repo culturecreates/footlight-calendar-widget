@@ -10,11 +10,11 @@ export const generateUrl = (urlComponents) => {
   const filters = decodeURIComponent(urlComponents?.searchEventsFilters);
 
   const queryParams = new URLSearchParams({
-    limit,
     'end-date-range': endDateSpan,
     'start-date-range': startDateSpan,
     query,
     page: 1,
+    limit,
   });
 
   const apiUrl = new URL(`${baseUrl}${calendar}/${searchEntityType}`);
