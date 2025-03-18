@@ -37,12 +37,14 @@ const ProgressiveImage = ({
   const [imageSrc, setImageSrc] = useState(thumbnail || highRes);
   const [hasError, setHasError] = useState(false);
   const [defaultImageHeight, setDefaultImageHeight] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const img = new Image();
     img.src = highRes;
     img.onload = () => {
       setImageSrc(highRes);
+      setIsLoading(false);
     };
     img.onerror = () => {
       setHasError(true);
@@ -97,7 +99,13 @@ const ProgressiveImage = ({
       className="progressive-image-wrapper"
       style={{ width: '100%', height: defaultImageHeight }}
     >
-      <img src={imageSrc} alt={alt} {...rest} onError={handleError} />
+      <img
+        src={imageSrc}
+        alt={alt}
+        className={`progressive-image ${isLoading ? 'blur' : 'loaded'}`}
+        {...rest}
+        onError={handleError}
+      />
     </div>
   );
 };
