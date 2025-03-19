@@ -70,14 +70,14 @@ Note: ONLY one widget per webpage because the id must be unique in the webpage.
 
 How to Update to a New Version
 
-Each new major release of the widget will be available under a new version directory. For example, if you are currently using version v0 and a new version v1 is released, follow these steps:
+Each new major release of the widget will be available under a new version directory. For example, if you are currently using version v1 and a new version v2 is released, follow these steps:
 
 ### For div method
 * Update the JavaScript and CSS file references to point to the new major version:
 ```
 <head>
   <script defer="defer" src="https://listing-widget.footlight.io/v2/static/js/widget.js"></script>
-  <link href="https://listing-widget.footlight.io/v1/static/css/widget.css" rel="stylesheet" />
+  <link href="https://listing-widget.footlight.io/v2/static/css/widget.css" rel="stylesheet" />
 </head>
 ```
 
