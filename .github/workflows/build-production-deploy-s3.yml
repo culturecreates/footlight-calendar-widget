@@ -23,4 +23,9 @@ jobs:
           major_version=$(echo $current_version | cut -d. -f1)
 
           aws s3 sync ./build s3://${{env.WEBHOSTING_BUCKET_NAME}}/v${major_version}/ --acl public-read --cache-control max-age=3600 --delete 
-
+      # Invalidate CloudFront (this action)
+      - name: Invalidate CloudFront
+        uses: chetan/invalidate-cloudfront-action@v2
+        env:
+          DISTRIBUTION: E3S97I9K4Q2UXB
+          PATHS: "/*"
