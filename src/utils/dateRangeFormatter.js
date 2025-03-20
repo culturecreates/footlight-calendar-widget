@@ -51,12 +51,14 @@ export function dateRangeFormatter({ startDate, endDate, scheduleTimezone = 'Can
       startDate,
       scheduleTimezone,
     );
+
     if (!startDateTimeObj.isValid()) return 'Invalid date format';
     const formattedStartDate = startDateTimeObj.format(dateFormat);
     const formattedStartTime = hasStartTime ? startDateTimeObj.format(getTimeFormat(locale)) : '';
     return (
       <>
-        {formattedStartDate?.toUpperCase()} | {formattedStartTime}
+        {formattedStartDate?.toUpperCase()}
+        {formattedStartTime ? ` | ${formattedStartTime}` : ''}
       </>
     );
   } else {
