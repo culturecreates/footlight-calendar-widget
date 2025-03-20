@@ -1,4 +1,5 @@
-name: Build and deploy develop branch to S3 Staging
+name: CI CD widget main branch
+run-name: Build and Deploy the widget main branch to the production environment
 on:
   push:
     branches:
