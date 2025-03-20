@@ -1,5 +1,5 @@
 name: CI CD widget main branch
-run-name: Build and Deploy the widget main branch to the production environment
+run-name: Build and Deploy the main branch to S3 (production)
 on:
   push:
     branches:
