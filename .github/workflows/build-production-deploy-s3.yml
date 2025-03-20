@@ -1,6 +1,7 @@
 name: CI CD widget main branch
 run-name: Build and Deploy the main branch to S3 (production)
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
