@@ -12,7 +12,7 @@ The following attributes can be passed to the widget as a data attribute (div me
 | data-locale          | Language code for the widget interface and content ( en, fr, ja). | YES               |
 | data-color             | Primary color for the widget interface.         | YES   |                 
 | data-limit             | Maximum number of events displayed in the widget.      | YES |    
-| data-height            | ONLY FOR IFRAME. Height of the widget. Accepts any valid CSS height value. Default `600px`     | NO |    
+| data-height            | ONLY FOR IFRAME. Height of the widget. Accepts any valid CSS height value. Default `1000px`     | NO |    
 | data-font              | Font family used in the widget. | YES |   
 | data-header-title      | Header of the widget.                               | NO |
 | data-show-footer       | Specifies whether to display the footer or not. Values: `true`\|`false`.        | Yes|
@@ -61,7 +61,7 @@ Note: ONLY one widget per webpage because the id must be unique in the webpage.
 <iframe
   src="https://listing-widget.footlight.io/v1/index.html"
   width="100%"
-  height="600px"
+  height="1000px"
   frameborder="0">
 </iframe>
 ```
