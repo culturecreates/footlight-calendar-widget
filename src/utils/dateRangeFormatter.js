@@ -58,7 +58,7 @@ export function dateRangeFormatter({ startDate, endDate, scheduleTimezone = 'Can
     return (
       <>
         {formattedStartDate?.toUpperCase()}
-        {formattedStartTime ? ` | ${formattedStartTime}` : ''}
+        {formattedStartTime ? `  ${formattedStartTime}` : ''}
       </>
     );
   } else {
@@ -78,7 +78,7 @@ export function dateRangeFormatter({ startDate, endDate, scheduleTimezone = 'Can
     if (formattedEndDate == formattedStartDate) {
       return (
         <>
-          {formattedStartDate?.toUpperCase()} | {formattedStartTime}
+          {formattedStartDate?.toUpperCase()} {` ${formattedStartTime}`}
         </>
       );
     }
