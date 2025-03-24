@@ -2,7 +2,7 @@ name: Build and deploy develop branch to S3 Staging
 on:
   push:
     branches:
-      - develop-v1
+      - develop*
 jobs:
   deploy:
     env:
