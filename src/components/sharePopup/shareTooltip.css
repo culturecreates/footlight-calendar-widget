@@ -2,6 +2,11 @@
   fill: var(--main-dynamic-color);
 }
 
-#toast-footlite-share-popup-toast {
+#calendar-widget #toast-footlite-share-popup-toast {
   background-color: var(--main-dynamic-color);
+}
+
+#calendar-widget #share-tooltip-icon-container *,
+#calendar-widget .share-tooltip {
+  z-index: 1;
 }

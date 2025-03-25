@@ -77,8 +77,9 @@ const ShareTooltip = ({ children, styles = {}, eventId }) => {
   return (
     <Box position="relative" display="inline-block" ref={tooltipRef} className="share-tooltip">
       <Box onClick={onToggle}>{children}</Box>
-      <Collapse in={isOpen} animateOpacity>
+      <Collapse in={isOpen}>
         <VStack
+          className="share-tooltip-icon-container"
           style={{
             position: 'absolute',
             background: 'var(--primary-white-opaque)',
@@ -89,6 +90,7 @@ const ShareTooltip = ({ children, styles = {}, eventId }) => {
             display: 'flex',
             flexDirection: 'column',
             border: '1px solid var(--bg-grey)',
+            zIndex: '1',
             gap: '8px',
             ...styles,
           }}
