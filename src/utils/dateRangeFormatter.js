@@ -20,8 +20,8 @@ function getTimeFormat(locale) {
 }
 
 // Helper function to get date format based on locale and time component
-function getDateFormat({ locale, hasTimeComponent }) {
-  const timeComponent = hasTimeComponent ? getTimeFormat(locale) : '';
+function getDateFormat({ locale, hasTimeComponent, includeTimeComponent }) {
+  const timeComponent = hasTimeComponent && includeTimeComponent ? getTimeFormat(locale) : '';
   switch (locale) {
     case 'fr':
       return `DD MMM YYYY ${timeComponent}`;
@@ -40,7 +40,12 @@ function getDateObject(date, scheduleTimezone) {
   return { hasTime, dateTimeObj };
 }
 
-export function dateRangeFormatter({ startDate, endDate, scheduleTimezone = 'Canada/Eastern' }) {
+export function dateRangeFormatter({
+  startDate,
+  endDate,
+  scheduleTimezone = 'Canada/Eastern',
+  includeTimeComponent = true,
+}) {
   const locale = i18next.language;
   const dateFormat = getDateFormat({ locale, hasTimeComponent: false });
 
@@ -54,7 +59,8 @@ export function dateRangeFormatter({ startDate, endDate, scheduleTimezone = 'Can
 
     if (!startDateTimeObj.isValid()) return 'Invalid date format';
     const formattedStartDate = startDateTimeObj.format(dateFormat);
-    const formattedStartTime = hasStartTime ? startDateTimeObj.format(getTimeFormat(locale)) : '';
+    const formattedStartTime =
+      hasStartTime && includeTimeComponent ? startDateTimeObj.format(getTimeFormat(locale)) : '';
     return (
       <>
         {formattedStartDate?.toUpperCase()}
@@ -72,7 +78,8 @@ export function dateRangeFormatter({ startDate, endDate, scheduleTimezone = 'Can
     if (!endDateObj.isValid()) return 'Invalid end date format';
 
     const formattedStartDate = startDateTimeObj.format(dateFormat);
-    const formattedStartTime = hasStartTime ? startDateTimeObj.format(getTimeFormat(locale)) : '';
+    const formattedStartTime =
+      hasStartTime && includeTimeComponent ? startDateTimeObj.format(getTimeFormat(locale)) : '';
     const formattedEndDate = endDateObj.format(dateFormat);
 
     if (formattedEndDate == formattedStartDate) {
