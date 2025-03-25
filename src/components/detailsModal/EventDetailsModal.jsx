@@ -346,7 +346,9 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                         <DateBadge
                           startDate={dateRangeFormatter({
                             startDate: eventDetails?.startDate,
+                            endDate: eventDetails?.endDate,
                             scheduleTimezone: eventDetails?.scheduleTimezone,
+                            includeTimeComponent: false,
                           })}
                           color="var(--primary-black)"
                           bgcolor="transparent"
