@@ -2,6 +2,11 @@
   background: transparent;
 }
 
+#calendar-widget .social-icon-Instagram svg {
+  width: 28px;
+  height: 28px;
+}
+
 #calendar-widget .calendar-widget-details-modal .clamped-text-performer-description.expanded {
   -webkit-line-clamp: unset;
   line-clamp: unset;
