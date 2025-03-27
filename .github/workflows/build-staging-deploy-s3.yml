@@ -1,5 +1,7 @@
-name: Build and deploy develop branch to S3 Staging
+name: CI CD widget develop branch
+run-name: Build and Deploy develop branch to S3 (staging)
 on:
+  workflow_dispatch:
   push:
     branches:
       - develop*
