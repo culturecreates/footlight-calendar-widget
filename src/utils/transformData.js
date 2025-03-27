@@ -1,4 +1,5 @@
 import { entityTypes } from '../constants/generalConstants';
+import { findFirstUpcomingStartdate } from './dateRangeFormatter';
 import { getLocalized } from './getLocalized';
 
 // Helper function to remove empty values
@@ -57,6 +58,13 @@ export const transformData = ({ data, locale }) => {
           ? subEventDetails?.nextUpcomingSubEventDateTime
           : subEventDetails?.nextUpcomingSubEventDate;
 
+      const processedEndDate =
+        Object.keys(subEventDetails || {}).length != 0 &&
+        subEventDetails?.upcomingSubEventCount == 1
+          ? subEventDetails?.nextUpcomingSubEventDateTime ||
+            subEventDetails?.nextUpcomingSubEventDate
+          : endDateTime || endDate;
+
       const imageCredit = (() => {
         const entries = ['description', 'caption', 'creditText']
           .map((key) => [key, getLocalized(image?.[key], locale)])
@@ -70,8 +78,8 @@ export const transformData = ({ data, locale }) => {
         slug: getLocalized(slug, locale),
         description: getLocalized(description, locale),
         scheduleTimezone,
-        startDate: startDateOfSubEvent || startDate || startDateTime,
-        endDate: endDate || endDateTime,
+        startDate: startDateOfSubEvent || findFirstUpcomingStartdate(startDate || startDateTime),
+        endDate: processedEndDate,
         image: { thumbnail: image?.thumbnail, original: image?.original, large: image?.large },
         imageCredit,
         place: getLocalized(place?.name, locale),
