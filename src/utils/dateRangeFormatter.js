@@ -64,7 +64,7 @@ export function dateRangeFormatter({
     return (
       <>
         {formattedStartDate?.toUpperCase()}
-        {formattedStartTime ? ` | ${formattedStartTime}` : ''}
+        {formattedStartTime ? `  ${formattedStartTime}` : ''}
       </>
     );
   } else {
@@ -85,7 +85,7 @@ export function dateRangeFormatter({
     if (formattedEndDate == formattedStartDate) {
       return (
         <>
-          {formattedStartDate?.toUpperCase()} | {formattedStartTime}
+          {formattedStartDate?.toUpperCase()} {` ${formattedStartTime}`}
         </>
       );
     }

@@ -4,6 +4,7 @@ import { ReactComponent as FacebookIcon } from '../../../assets/facebook.svg';
 import { ReactComponent as SpotifyIcon } from '../../../assets/spotify.svg';
 import { ReactComponent as YouTubeIcon } from '../../../assets/youtube.svg';
 import { ReactComponent as TwitterIcon } from '../../../assets/twitter.svg';
+import { ReactComponent as InstagramIcon } from '../../../assets/instagram.svg';
 import './performerCard.css';
 import ShowMoreTrigger from '../../showMoreTrigger/ShowMoreTrigger';
 import { useRef, useState } from 'react';
@@ -16,6 +17,7 @@ const socialIcons = {
   Spotify: SpotifyIcon,
   YouTube: YouTubeIcon,
   AppleMusic: AppleMusicIcon,
+  Instagram: InstagramIcon,
 };
 
 const cardStyles = {
@@ -126,7 +128,7 @@ const PerformerCard = ({
               const IconComponent = socialIcons[type];
               return (
                 <IconButton
-                  className="social-icon"
+                  className={`social-icon social-icon-${type}`}
                   key={index}
                   as={Link}
                   href={uri}
