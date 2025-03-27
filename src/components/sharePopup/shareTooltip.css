@@ -8,5 +8,5 @@
 
 #calendar-widget #share-tooltip-icon-container *,
 #calendar-widget .share-tooltip {
-  z-index: 1;
+  z-index: 2;
 }
