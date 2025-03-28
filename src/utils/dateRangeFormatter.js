@@ -107,3 +107,12 @@ export const searchDateFormatter = (date) => {
     }
   }
 };
+
+export const findFirstUpcomingStartdate = (date) => {
+  if (!date) return dayjs().format('YYYY-MM-DD');
+
+  const givenDate = dayjs(date);
+  const today = dayjs().startOf('day');
+
+  return givenDate.isBefore(today) ? today.format('YYYY-MM-DD') : givenDate.format('YYYY-MM-DD');
+};
