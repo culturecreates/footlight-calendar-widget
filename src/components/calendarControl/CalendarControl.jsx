@@ -27,7 +27,6 @@ const CalendarControl = ({ setCalendarKey, setView, setActiveStartDate }) => {
     setActiveStartDate(new Date());
   };
 
-
   const handleDateErase = () => {
     if (isDateRange && !Array.isArray(searchDate)) {
       setCalendarKey((prevState) => prevState + 1); // So reset button can reset date when in the middle of selection.
