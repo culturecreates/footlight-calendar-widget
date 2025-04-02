@@ -116,7 +116,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
     const googleMapsUrl = getGoogleMapsUrl({
       latitude: eventDetails.latitude,
       longitude: eventDetails.longitude,
-      formattedAddress,
+      formattedAddress: eventDetails.streetAddress ? formattedAddress : null,
       fallbackUrl: eventDetails.mapUrl,
     });
 
