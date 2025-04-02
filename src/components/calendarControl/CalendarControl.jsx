@@ -20,22 +20,13 @@ const CalendarControl = ({ setCalendarKey, setView, setActiveStartDate }) => {
     if (e.target.checked && !Array.isArray(searchDate)) {
       setCalendarKey((prevState) => prevState + 1); // So reset button can reset date when in the middle of selection.
     }
-    if (e.target.checked && !Array.isArray(searchDate) && searchDate != null) {
-      setSearchDate(searchDate);
-      sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetSearchDate, searchDate);
-    } else {
-      setSearchDate(null);
-      setStartDateSpan('');
-      setEndDateSpan('');
-      sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetSearchDate, '');
-      sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetStartDate, '');
-      sessionStorage.setItem(indexedSessionStorageVariableNames.WidgetEndDate, '');
-    }
+    setSearchDate(null);
 
     setIsDateRange(e.target.checked);
     setView('month');
     setActiveStartDate(new Date());
   };
+
 
   const handleDateErase = () => {
     if (isDateRange && !Array.isArray(searchDate)) {
