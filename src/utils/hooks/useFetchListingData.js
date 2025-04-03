@@ -13,6 +13,9 @@ const useFetchEventData = ({
   startDateSpan,
   endDateSpan,
   selectedFilters,
+  isDeeplinkInitiatedCall,
+  setIsDeeplinkInitiatedCall,
+  pageNumberSearchParam,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
@@ -22,7 +25,7 @@ const useFetchEventData = ({
   const filterUndefinedArray = (arr) => arr?.filter((value) => value !== undefined) ?? [];
 
   const fetchData = useCallback(
-    async (page, fullDataResetFlag) => {
+    async (page, fullDataResetFlag, limit) => {
       try {
         // Abort any ongoing request before making a new one
         if (abortControllerRef.current) {
@@ -38,6 +41,8 @@ const useFetchEventData = ({
           searchEntityType: entityTypes.EVENTS,
           searchKeyWord,
           startDateSpan,
+          isDeeplinkInitiatedCall,
+          limit: limit || widgetProps?.limit,
           endDateSpan,
           pageNumber: page,
           ...(selectedFilters?.EventType && {
@@ -59,9 +64,17 @@ const useFetchEventData = ({
           ...(fullDataResetFlag ? [] : prevData),
           ...transformData({ data, locale: widgetProps?.locale || 'en' }),
         ]);
+
         setTotalCount(meta?.totalCount);
-        setLastPageFlag(meta?.currentPage < meta?.pageCount);
-        setPageNumber(meta?.currentPage);
+        if (isDeeplinkInitiatedCall) {
+          const pageCount = Math.ceil(meta?.totalCount / widgetProps?.limit);
+          setIsDeeplinkInitiatedCall(false);
+          setPageNumber(pageNumberSearchParam);
+          setLastPageFlag(meta?.currentPage < pageCount);
+        } else {
+          setLastPageFlag(meta?.currentPage < meta?.pageCount);
+          setPageNumber(meta?.currentPage);
+        }
         setIsLoading(false);
       } catch (error) {
         if (error.name !== 'AbortError') {
@@ -72,17 +85,26 @@ const useFetchEventData = ({
         setIsLoading(false);
       }
     },
-    [widgetProps, searchKeyWord, startDateSpan, endDateSpan, selectedFilters],
+    [
+      widgetProps,
+      searchKeyWord,
+      isDeeplinkInitiatedCall,
+      startDateSpan,
+      endDateSpan,
+      selectedFilters,
+    ],
   );
 
   const getDataDebounced = useDebounce(fetchData, 500);
 
   // Call API when dependencies change
   useEffect(() => {
+    if (isDeeplinkInitiatedCall) return;
+
     setIsLoading(true);
     setData([]);
     getDataDebounced(1, true);
-  }, [getDataDebounced, widgetProps, searchKeyWord, startDateSpan, endDateSpan, selectedFilters]);
+  }, [widgetProps, searchKeyWord, startDateSpan, endDateSpan, selectedFilters]);
 
   // Cleanup on unmount
   useEffect(() => {
