@@ -45,7 +45,7 @@ const MapComponent = ({
     const googleMapsUrl = getGoogleMapsUrl({
       latitude,
       longitude,
-      formattedAddress,
+      formattedAddress: street ? formattedAddress : null,
       fallbackUrl: mapUrl,
     });
 
