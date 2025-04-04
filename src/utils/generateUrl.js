@@ -1,15 +1,22 @@
 import { trackListEvents } from './googleAnalytics';
 
 export const generateUrl = (urlComponents) => {
+  let limitFormatted = urlComponents?.limit || 10;
+
+  const pageNumber = !urlComponents?.isDeeplinkInitiatedCall ? urlComponents?.pageNumber : 1;
+
+  if (urlComponents?.isDeeplinkInitiatedCall && typeof pageNumber === 'number') {
+    limitFormatted = limitFormatted * urlComponents?.pageNumber;
+  }
+
   const baseUrl = process.env.REACT_APP_API_URL + 'calendars/';
   const calendar = urlComponents.calendar;
   const searchEntityType = urlComponents?.searchEntityType;
-  const limit = urlComponents?.limit || 10;
+  const limit = limitFormatted;
   const query = urlComponents?.searchKeyWord || '';
   const startDateSpan = urlComponents?.startDateSpan || '';
   const endDateSpan = urlComponents?.endDateSpan || '';
   const filters = decodeURIComponent(urlComponents?.searchEventsFilters || '');
-  const pageNumber = urlComponents?.pageNumber || 1;
   const type = urlComponents?.eventType;
   const audience = urlComponents?.audience;
   const place = urlComponents?.place;

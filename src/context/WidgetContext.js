@@ -18,6 +18,7 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
     endDateSpan: endDateSpanSearchParam,
     searchDate: searchDateSearchParam,
     isDateRange: isDateRangeSearchParam,
+    initialLimit: initialLimitSearchParam,
     selectedFilters: selectedFiltersSearchParam,
     searchKeyWord: searchKeyWordSearchParam,
     pageNumber: pageNumberSearchParam,
@@ -30,7 +31,10 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
     return value !== null && value !== 'null' ? value : fallback;
   };
 
-  const [pageNumber, setPageNumber] = useState(pageNumberSearchParam ?? 1);
+  const [isDeeplinkInitiatedCall, setIsDeeplinkInitiatedCall] = useState(
+    pageNumberSearchParam ? true : false,
+  );
+  const [pageNumber, setPageNumber] = useState(1);
   const [isDateRange, setIsDateRange] = useState(isDateRangeSearchParam || false);
   const [selectedFilters, setSelectedFilters] = useState(selectedFiltersSearchParam ?? {});
   const [startDateSpan, setStartDateSpan] = useState(
@@ -73,11 +77,14 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
     setData,
     setError,
     setPageNumber,
+    pageNumberSearchParam,
     widgetProps,
     searchKeyWord,
     startDateSpan,
     endDateSpan,
     selectedFilters,
+    isDeeplinkInitiatedCall,
+    setIsDeeplinkInitiatedCall,
   });
 
   const fetchCalendarData = async (calendar) => {
@@ -92,6 +99,13 @@ export const WidgetContextProvider = ({ widgetProps, children }) => {
       console.error('Error fetching calendar data:', error);
     }
   };
+
+  useEffect(() => {
+    if (isDeeplinkInitiatedCall) {
+      setPageNumber(pageNumberSearchParam);
+      getData(pageNumberSearchParam, true, initialLimitSearchParam);
+    }
+  }, [pageNumberSearchParam, isDeeplinkInitiatedCall]);
 
   useEffect(() => {
     if (widgetProps?.filterOptions) {

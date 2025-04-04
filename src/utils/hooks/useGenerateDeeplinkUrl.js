@@ -16,6 +16,7 @@ export const generateDeeplinkUrl = ({ eventId }) => {
     searchKeyWord,
     pageNumber,
     searchDate,
+    widgetProps,
   } = useContext(WidgetContext);
 
   // Filter out empty or undefined values
@@ -23,6 +24,7 @@ export const generateDeeplinkUrl = ({ eventId }) => {
     startDateSpan,
     endDateSpan,
     searchDate,
+    initialLimit: widgetProps?.limit,
     isDateRange,
     ...selectedFilters,
     searchKeyWord,
