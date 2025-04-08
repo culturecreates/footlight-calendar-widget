@@ -5,4 +5,5 @@ function checkFeatureFlag(flag) {
 
 export const featureFlags = {
   relatedEvents: checkFeatureFlag(process.env.REACT_APP_FEATURE_FLAG_RELATED_EVENTS),
+  mapPreview: checkFeatureFlag(process.env.REACT_APP_FEATURE_FLAG_MAP_PREVIEW),
 };
