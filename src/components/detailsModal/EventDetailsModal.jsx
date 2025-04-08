@@ -447,27 +447,29 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     <SponsorsCarousel sponsors={eventDetails?.sponsor} />
                   </Box>
                 )}
-                {eventDetails?.mapUrl && (
-                  <Box style={{ marginTop: '1rem', width: '100%' }}>
-                    <Heading as="h3" className="section-headings">
-                      {t('detailsModal.eventLocation')}
-                    </Heading>
-                    <Box style={{ marginTop: '0.5rem' }}>
-                      <MapComponent
-                        mapUrl={eventDetails?.mapUrl}
-                        latitude={eventDetails?.latitude}
-                        longitude={eventDetails?.longitude}
-                        country={eventDetails?.addressCountry}
-                        region={eventDetails?.addressRegion}
-                        postalCode={eventDetails?.postalCode}
-                        locality={eventDetails?.place}
-                        street={eventDetails?.streetAddress}
-                        getFormattedAddress={getFormattedAddress}
-                        getGoogleMapsUrl={getGoogleMapsUrl}
-                      />
+                <FeatureFlag isFeatureEnabled={featureFlags.mapPreview}>
+                  {eventDetails?.mapUrl && (
+                    <Box style={{ marginTop: '1rem', width: '100%' }}>
+                      <Heading as="h3" className="section-headings">
+                        {t('detailsModal.eventLocation')}
+                      </Heading>
+                      <Box style={{ marginTop: '0.5rem' }}>
+                        <MapComponent
+                          mapUrl={eventDetails?.mapUrl}
+                          latitude={eventDetails?.latitude}
+                          longitude={eventDetails?.longitude}
+                          country={eventDetails?.addressCountry}
+                          region={eventDetails?.addressRegion}
+                          postalCode={eventDetails?.postalCode}
+                          locality={eventDetails?.place}
+                          street={eventDetails?.streetAddress}
+                          getFormattedAddress={getFormattedAddress}
+                          getGoogleMapsUrl={getGoogleMapsUrl}
+                        />
+                      </Box>
                     </Box>
-                  </Box>
-                )}
+                  )}
+                </FeatureFlag>
                 <FeatureFlag isFeatureEnabled={featureFlags.relatedEvents}>
                   <Box style={{ marginTop: '1rem', width: '100%' }}>
                     <RelatedEventsCard
