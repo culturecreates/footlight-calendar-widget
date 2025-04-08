@@ -55,6 +55,7 @@ export function handleInternalStateSearchParam() {
     'footlight-Audience',
     'footlight-EventType',
     'footlight-searchKeyWord',
+    'footlight-initialLimit',
     'footlight-pageNumber',
     'footlight-eventId',
     'footlight-searchDate',
@@ -64,6 +65,7 @@ export function handleInternalStateSearchParam() {
   const internalStateSearchParam = {
     startDateSpan: searchParams.get('footlight-startDateSpan'),
     endDateSpan: searchParams.get('footlight-endDateSpan'),
+    initialLimit: parseInt(searchParams.get('footlight-initialLimit'), 10),
     isDateRange: searchParams.get('footlight-isDateRange') === 'true',
     selectedFilters: {
       place: searchParams.get('footlight-place')?.split(',') || [],
@@ -71,7 +73,7 @@ export function handleInternalStateSearchParam() {
       EventType: searchParams.get('footlight-EventType')?.split(',') || [],
     },
     searchKeyWord: searchParams.get('footlight-searchKeyWord'),
-    pageNumber: parseInt(searchParams.get('footlight-pageNumber'), 10) || 1,
+    pageNumber: parseInt(searchParams.get('footlight-pageNumber'), 10),
     eventId: searchParams.get('footlight-eventId'),
     searchDate: searchDateFormatter(searchParams.get('footlight-searchDate')),
   };
