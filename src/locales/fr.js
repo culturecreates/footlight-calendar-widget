@@ -33,7 +33,7 @@ export const fr = {
     alsoPlaying: 'Également en vedette',
     similarEvents: 'Événements Similaires',
     buyTickets: {
-      noOffer: 'En savior plus',
+      noOffer: 'En savoir plus',
       paid: 'Billets',
       free: 'Gratuit',
       registration: 'Réserver',
