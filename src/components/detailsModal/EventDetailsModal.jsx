@@ -149,7 +149,14 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
               <Loader />
             </div>
           ) : (
-            <Box style={{ paddingBottom: '1rem', height: '100%' }}>
+            <Box
+              style={{
+                paddingBottom: '1rem',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
               <Box className="sticky-image-wrapper" style={{ position: 'sticky', top: 0 }}>
                 <ProgressiveImage
                   onClick={(e) => {
@@ -208,14 +215,13 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                   marginTop: creditDisplayFlag ? '0' : '-50px',
                   width: '100%',
                   zIndex: 1,
-                  height: 'auto',
-                  maxHeight: 'fit-content',
                   paddingLeft: '2rem',
                   paddingRight: '2rem',
                   backgroundColor: 'var(--primary-white-opaque)',
                   boxShadow: '0px 4px 6px #00000029',
                   position: 'relative',
                   overflowY: 'visible',
+                  flexGrow: 1,
                 }}
               >
                 <Flex style={{ paddingTop: '0.5rem' }}>
