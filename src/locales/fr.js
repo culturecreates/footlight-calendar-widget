@@ -32,6 +32,12 @@ export const fr = {
     eventLocation: "Lieu de l'événement",
     alsoPlaying: 'Également en vedette',
     similarEvents: 'Événements Similaires',
+    buyTickets: {
+      noOffer: 'En savior plus',
+      paid: 'Billets',
+      free: 'Gratuit',
+      registration: 'Réserver',
+    },
   },
   showLess: 'Afficher moins',
   loadMore: 'Afficher plus',
