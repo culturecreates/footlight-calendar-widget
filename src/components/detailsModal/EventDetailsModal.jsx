@@ -152,7 +152,6 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
           ) : (
             <Box
               style={{
-                paddingBottom: '1rem',
                 height: '100%',
                 display: 'flex',
                 flexDirection: 'column',
