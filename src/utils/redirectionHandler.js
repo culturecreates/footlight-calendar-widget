@@ -1,5 +1,5 @@
 export const redirectionHandler = ({ url }) => {
-  window.open(url, '_blank');
+  window.open(url, '_blank', 'noopener,noreferrer');
 };
 
 export const getRedirectionUrl = ({ id, type = 'searchEventsUrl', calendar, locale }) => {
