@@ -80,7 +80,7 @@ export const transformData = ({ data, locale }) => {
         slug: getLocalized(slug, locale),
         description: getLocalized(description, locale),
         scheduleTimezone,
-        startDate: startDateOfSubEvent || findFirstUpcomingStartdate(startDate || startDateTime),
+        startDate: startDateOfSubEvent || findFirstUpcomingStartdate(startDateTime || startDate),
         endDate: processedEndDate,
         image: { thumbnail: image?.thumbnail, original: image?.original, large: image?.large },
         imageCredit,
