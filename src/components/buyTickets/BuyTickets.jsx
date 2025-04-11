@@ -21,19 +21,20 @@ const BuyTickets = ({ eventDetails }) => {
   const type = offer?.additionalType;
 
   if (offers.length === 0) label = t('detailsModal.buyTickets.noOffer');
-
-  switch (type) {
-    case OFFER_TYPES.PAID:
-      label = t('detailsModal.buyTickets.paid');
-      redirectionUrl = getOfferUrl('PAID') || redirectionUrl;
-      break;
-    case OFFER_TYPES.FREE:
-      label = t('detailsModal.buyTickets.free');
-      break;
-    case OFFER_TYPES.REGISTRATION:
-      label = t('detailsModal.buyTickets.registration');
-      redirectionUrl = getOfferUrl('REGISTRATION') || redirectionUrl;
-      break;
+  else {
+    switch (type) {
+      case OFFER_TYPES.PAID:
+        label = t('detailsModal.buyTickets.paid');
+        redirectionUrl = getOfferUrl('PAID') || redirectionUrl;
+        break;
+      case OFFER_TYPES.FREE:
+        label = t('detailsModal.buyTickets.free');
+        break;
+      case OFFER_TYPES.REGISTRATION:
+        label = t('detailsModal.buyTickets.registration');
+        redirectionUrl = getOfferUrl('REGISTRATION') || redirectionUrl;
+        break;
+    }
   }
 
   if (!redirectionUrl) return null;
