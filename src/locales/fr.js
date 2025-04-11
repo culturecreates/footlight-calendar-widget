@@ -5,7 +5,7 @@ export const fr = {
   footer: {
     text: 'Voir tous les événements',
     noItems: 'Aucun résultat trouvé',
-    providedBy: 'Liste fourni par',
+    providedBy: 'Propulsé par Name',
   },
   datepicker: {
     rangeSelectLabel: 'Rechercher dans une période',

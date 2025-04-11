@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
 import { getLocalized } from '../../utils/getLocalized';
+import { getRedirectionUrl, redirectionHandler } from '../../utils/redirectionHandler';
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -13,6 +14,11 @@ const Footer = () => {
 
   if (!showFooter) return null;
 
+  const onLogoClickHandler = () => {
+    const { calendar } = widgetProps;
+    const url = getRedirectionUrl({ calendar, locale });
+    redirectionHandler({ url });
+  };
   return (
     <Box
       display="flex"
@@ -44,8 +50,8 @@ const Footer = () => {
               {calendarName}
             </Text>
           </Box>
-          <Box display="flex" justifyContent="center">
-            <Image src={logo} alt="Calendar Logo" height="27px" />
+          <Box display="flex" style={{ cursor: 'pointer' }} justifyContent="center">
+            <Image src={logo} onClick={onLogoClickHandler} alt="Calendar Logo" height="27px" />
           </Box>
         </Flex>
       </Flex>
