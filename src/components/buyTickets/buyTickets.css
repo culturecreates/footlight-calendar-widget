@@ -1,0 +1,13 @@
+.calendar-widget-details-modal .buy-tickets-button {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+}
+
+.calendar-widget-details-modal .buy-tickets-button:hover {
+  background-color: var(--dynamic-color-600) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}

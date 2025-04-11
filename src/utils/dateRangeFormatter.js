@@ -114,5 +114,12 @@ export const findFirstUpcomingStartdate = (date) => {
   const givenDate = dayjs(date);
   const today = dayjs().startOf('day');
 
-  return givenDate.isBefore(today) ? today.format('YYYY-MM-DD') : givenDate.format('YYYY-MM-DD');
+  const hasTime = /T\d{2}:\d{2}:\d{2}/.test(date);
+  const hasOffset = /[+-]\d{2}:\d{2}|Z$/.test(date);
+
+  if (givenDate.isBefore(today)) return today.format('YYYY-MM-DD');
+
+  if (hasTime && hasOffset) return givenDate.toISOString();
+
+  return givenDate.format('YYYY-MM-DD');
 };

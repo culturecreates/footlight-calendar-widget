@@ -32,6 +32,12 @@ export const en = {
     eventLocation: 'Event Location',
     alsoPlaying: 'This artist is also playing',
     similarEvents: 'Similar Events',
+    buyTickets: {
+      noOffer: 'Find out more',
+      paid: 'Tickets',
+      free: 'Free',
+      registration: 'Reserve',
+    },
   },
   share: {
     copy: 'Copy link',

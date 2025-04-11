@@ -61,7 +61,14 @@ const EventCard = React.memo(
             parentCalssName=".event-card"
           />
 
-          <div style={{ padding: '16px', backgroundColor: 'var(--bg-grey)', height: 'auto' }}>
+          <div
+            style={{
+              padding: '16px',
+              backgroundColor: 'var(--bg-grey)',
+              height: 'auto',
+              flex: '1',
+            }}
+          >
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <h3
                 style={{

@@ -41,6 +41,7 @@ import RelatedEventsCard from '../card/RelatedEventsCard/RelatedEventsCard';
 import ProgressiveImage from '../progressiveImage/ProgressiveImage';
 import FeatureFlag from '../../layout/FeatureFlag';
 import { featureFlags } from '../../utils/featureFlag';
+import BuyTickets from '../buyTickets/BuyTickets';
 
 const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const { widgetProps, setError } = useContext(WidgetContext);
@@ -151,7 +152,6 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
           ) : (
             <Box
               style={{
-                paddingBottom: '1rem',
                 height: '100%',
                 display: 'flex',
                 flexDirection: 'column',
@@ -376,6 +376,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     </Flex>
                   </Stack>
                 </Box>
+                <BuyTickets eventDetails={eventDetails} />
                 {eventDetails?.performers?.length && (
                   <Stack>
                     {eventDetails?.performers?.map((performer, index) => (

@@ -47,6 +47,8 @@ export const transformData = ({ data, locale }) => {
         keywords,
         video,
         imageGallery,
+        url: eventUrl,
+        facebookUrl,
       } = eventData || {};
 
       const place = Array.isArray(location) ? location[0] || {} : location;
@@ -78,7 +80,7 @@ export const transformData = ({ data, locale }) => {
         slug: getLocalized(slug, locale),
         description: getLocalized(description, locale),
         scheduleTimezone,
-        startDate: startDateOfSubEvent || findFirstUpcomingStartdate(startDate || startDateTime),
+        startDate: startDateOfSubEvent || findFirstUpcomingStartdate(startDateTime || startDate),
         endDate: processedEndDate,
         image: { thumbnail: image?.thumbnail, original: image?.original, large: image?.large },
         imageCredit,
@@ -87,6 +89,8 @@ export const transformData = ({ data, locale }) => {
         streetAddress: getLocalized(streetAddress, locale),
         latitude,
         longitude,
+        eventUrl,
+        facebookUrl,
         mapUrl: url,
         eventTypes: additionalType?.map((type) => getLocalized(type?.name, locale)),
         disciplines: discipline?.map((d) => getLocalized(d?.name, locale)),
@@ -117,11 +121,13 @@ export const transformData = ({ data, locale }) => {
           website: url,
           image: imageSelector({ image, logo, type }),
         })),
-        offers: offers?.map(({ name, price = 0, priceCurrency, url }) => ({
+        offers: offers?.map(({ name, price = 0, priceCurrency, url, type, additionalType }) => ({
           name: getLocalized(name, locale),
           price,
           currency: priceCurrency,
           url,
+          type,
+          additionalType,
         })),
         eventStatus,
         eventAttendanceMode,
