@@ -222,6 +222,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                   position: 'relative',
                   overflowY: 'visible',
                   flexGrow: 1,
+                  paddingBottom: '1rem',
                 }}
               >
                 <Flex style={{ paddingTop: '0.5rem' }}>
