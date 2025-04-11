@@ -31,3 +31,9 @@ export const dynamicColorVariableNames = {
 };
 
 export const MAIN_DYNAMIC_COLOR = '--main-dynamic-color';
+
+export const OFFER_TYPES = {
+  PAID: 'PAID',
+  FREE: 'FREE',
+  REGISTRATION: 'REGISTRATION',
+};

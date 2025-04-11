@@ -5,6 +5,7 @@ import './buyTickets.css';
 import { ReactComponent as TicketIcon } from '../../assets/tickets.svg';
 import { useTranslation } from 'react-i18next';
 import { redirectionHandler } from '../../utils/redirectionHandler';
+import { OFFER_TYPES } from '../../constants/generalConstants';
 
 const BuyTickets = ({ eventDetails }) => {
   const { t } = useTranslation();
@@ -16,18 +17,24 @@ const BuyTickets = ({ eventDetails }) => {
   let redirectionUrl = eventUrl || facebookUrl;
 
   const getOfferUrl = (type) => offers.find((offer) => offer.additionalType === type)?.url;
-  const checkOfferConfiguration = (type) => offers.some((offer) => offer.additionalType === type);
+  const offer = offers.find((offer) => offer.additionalType);
+  const type = offer?.additionalType;
 
-  if (offers.length === 0) {
-    label = t('detailsModal.buyTickets.noOffer');
-  } else if (checkOfferConfiguration('PAID')) {
-    label = t('detailsModal.buyTickets.paid');
-    redirectionUrl = getOfferUrl('PAID') || redirectionUrl;
-  } else if (checkOfferConfiguration('FREE')) {
-    label = t('detailsModal.buyTickets.free');
-  } else if (checkOfferConfiguration('REGISTRATION')) {
-    label = t('detailsModal.buyTickets.registration');
-    redirectionUrl = getOfferUrl('REGISTRATION') || redirectionUrl;
+  if (offers.length === 0) label = t('detailsModal.buyTickets.noOffer');
+  else {
+    switch (type) {
+      case OFFER_TYPES.PAID:
+        label = t('detailsModal.buyTickets.paid');
+        redirectionUrl = getOfferUrl('PAID') || redirectionUrl;
+        break;
+      case OFFER_TYPES.FREE:
+        label = t('detailsModal.buyTickets.free');
+        break;
+      case OFFER_TYPES.REGISTRATION:
+        label = t('detailsModal.buyTickets.registration');
+        redirectionUrl = getOfferUrl('REGISTRATION') || redirectionUrl;
+        break;
+    }
   }
 
   if (!redirectionUrl) return null;
