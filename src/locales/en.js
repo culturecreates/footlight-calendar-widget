@@ -4,7 +4,7 @@ export const en = {
   },
   footer: {
     text: 'See all events',
-    providedBy: 'Powered by Name',
+    providedBy: 'Powered by',
     noItems: 'No results found',
   },
   datepicker: {
