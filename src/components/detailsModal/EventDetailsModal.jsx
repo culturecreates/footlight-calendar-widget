@@ -222,6 +222,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                   position: 'relative',
                   overflowY: 'visible',
                   flexGrow: 1,
+                  paddingBottom: '1rem',
                 }}
               >
                 <Flex style={{ paddingTop: '0.5rem' }}>
@@ -376,7 +377,9 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                     </Flex>
                   </Stack>
                 </Box>
-                <BuyTickets eventDetails={eventDetails} />
+                <FeatureFlag isFeatureEnabled={featureFlags.buyTicketsButton}>
+                  <BuyTickets eventDetails={eventDetails} />
+                </FeatureFlag>
                 {eventDetails?.performers?.length && (
                   <Stack>
                     {eventDetails?.performers?.map((performer, index) => (
