@@ -47,6 +47,7 @@ const PerformerCard = ({
 }) => {
   const [flag, setFlag] = useState(false);
   const [showMoreDisplayStatus, setShowMoreButtonState] = useState(false);
+  const [imageLoadError, setImageLoadError] = useState(false);
   const descriptionRef = useRef(null);
 
   const filteredSocialLinks = socialLinks.filter(({ type }) => socialIcons[type]);
@@ -54,9 +55,19 @@ const PerformerCard = ({
   return (
     <Box className="performer-card" style={cardStyles}>
       <VStack align="start" spacing={2} flex={1} style={{ marginLeft: '16px', width: '100%' }}>
-        <HStack spacing={3} style={{ marginTop: '8px' }}>
+        <HStack spacing={!imageLoadError ? 3 : 0} style={{ marginTop: '8px' }}>
           <Box>
-            <Image src={image} alt={name} borderRadius="full" boxSize="88px" objectFit="cover" />
+            <Image
+              onError={(e) => {
+                e.target.style.display = 'none';
+                setImageLoadError(true);
+              }}
+              src={image}
+              alt={name}
+              borderRadius="full"
+              boxSize="88px"
+              objectFit="contain"
+            />
           </Box>
           <VStack align="start" spacing={1}>
             <Text
