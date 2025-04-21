@@ -3,7 +3,14 @@ import React from 'react';
 function PresenterCard({ name, website, image }) {
   return (
     <div style={styles.container}>
-      <img src={image} alt={name} style={styles.image} />
+      <img
+        src={image}
+        alt={name}
+        style={styles.image}
+        onError={(e) => {
+          e.target.style.display = 'none';
+        }}
+      />
       <div style={styles.textContainer}>
         <p style={styles.name}>{name}</p>
         {website?.trim() && (
@@ -27,7 +34,7 @@ const styles = {
     borderRadius: '50px',
     width: '46px',
     height: '46px',
-    objectFit: 'cover',
+    objectFit: 'contain',
   },
   textContainer: {
     display: 'flex',
