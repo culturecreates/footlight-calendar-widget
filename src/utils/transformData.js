@@ -55,6 +55,8 @@ export const transformData = ({ data, locale }) => {
       const { address = {}, geo = {} } = place;
       const { addressLocality, streetAddress, addressRegion, addressCountry, postalCode } = address;
       const { latitude, longitude, url } = geo;
+      const upcomingSubEventCount =
+        subEventDetails?.upcomingSubEventCount > 1 && subEventDetails?.upcomingSubEventCount;
       const startDateOfSubEvent =
         Object.keys(subEventDetails || {}).length != 0 && subEventDetails?.upcomingSubEventCount
           ? subEventDetails?.nextUpcomingSubEventDateTime
@@ -80,6 +82,7 @@ export const transformData = ({ data, locale }) => {
         slug: getLocalized(slug, locale),
         description: getLocalized(description, locale),
         scheduleTimezone,
+        upcomingSubEventCount,
         startDate: startDateOfSubEvent || findFirstUpcomingStartdate(startDateTime || startDate),
         endDate: processedEndDate,
         image: { thumbnail: image?.thumbnail, original: image?.original, large: image?.large },

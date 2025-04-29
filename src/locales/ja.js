@@ -13,6 +13,7 @@ export const ja = {
   },
   date: '日付',
   to: 'から',
+  occurrences: ' 回',
   noResults: '結果が見つかりませんでした',
   events: 'イベント',
   resultHeader: {

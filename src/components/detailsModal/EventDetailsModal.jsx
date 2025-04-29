@@ -356,6 +356,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                             endDate: eventDetails?.endDate,
                             scheduleTimezone: eventDetails?.scheduleTimezone,
                             includeTimeComponent: false,
+                            upcomingSubEventCount: eventDetails?.upcomingSubEventCount,
                           })}
                           color="var(--primary-black)"
                           bgcolor="transparent"
