@@ -86,7 +86,7 @@ export function dateRangeFormatter({
     if (formattedEndDate == formattedStartDate) {
       return (
         <>
-          {formattedStartDate?.toUpperCase()} {formattedStartTime}{' '}
+          {formattedStartDate?.toUpperCase()} {' ' + formattedStartTime}{' '}
           {upcomingSubEventCount ? (
             <span style={{ textTransform: 'lowercase', marginLeft: '4px' }}>
               ({upcomingSubEventCount} <Translation>{(t) => t('occurrences')}</Translation>)
