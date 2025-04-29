@@ -56,7 +56,16 @@ const PerformerCard = ({
     <Box className="performer-card" style={cardStyles}>
       <VStack align="start" spacing={2} flex={1} style={{ marginLeft: '16px', width: '100%' }}>
         <HStack spacing={!imageLoadError ? 3 : 0} style={{ marginTop: '8px' }}>
-          <Box>
+          <Box
+            style={{
+              width: '50px',
+              height: '50px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: '100%',
+            }}
+          >
             <Image
               onError={(e) => {
                 e.target.style.display = 'none';
@@ -64,8 +73,8 @@ const PerformerCard = ({
               }}
               src={image}
               alt={name}
-              borderRadius="full"
-              boxSize="88px"
+              width={'80%'}
+              height={'80%'}
               objectFit="contain"
             />
           </Box>
