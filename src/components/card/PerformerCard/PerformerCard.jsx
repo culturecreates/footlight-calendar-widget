@@ -1,4 +1,4 @@
-import { Box, Image, Text, Badge, Link, HStack, VStack, IconButton, Stack } from '@chakra-ui/react';
+import { Box, Image, Text, Badge, Link, HStack, VStack, IconButton } from '@chakra-ui/react';
 import { ReactComponent as AppleMusicIcon } from '../../../assets/appleMusic.svg';
 import { ReactComponent as FacebookIcon } from '../../../assets/facebook.svg';
 import { ReactComponent as SpotifyIcon } from '../../../assets/spotify.svg';
@@ -55,7 +55,7 @@ const PerformerCard = ({
   return (
     <Box className="performer-card" style={cardStyles}>
       <VStack align="start" spacing={2} flex={1} style={{ marginLeft: '16px', width: '100%' }}>
-        <HStack spacing={!imageLoadError ? 3 : 0} style={{ marginTop: '8px' }}>
+        <HStack spacing={!imageLoadError ? 3 : 0} style={{ marginTop: '8px', width: '100%' }}>
           <Box
             style={{
               width: '50px',
@@ -78,7 +78,7 @@ const PerformerCard = ({
               objectFit="contain"
             />
           </Box>
-          <VStack align="start" spacing={1}>
+          <VStack style={{ flex: 1 }} align="start" spacing={1}>
             <Text
               style={{
                 fontSize: 'var(--performer-name-font-size)',
@@ -98,7 +98,7 @@ const PerformerCard = ({
               {website}
             </Link>
 
-            <Stack>
+            <HStack style={{ width: '100%', display: 'flex', flexWrap: 'wrap', padding: '8px 0' }}>
               {occupation?.map((item, index) => {
                 return (
                   <Badge
@@ -118,7 +118,7 @@ const PerformerCard = ({
                   </Badge>
                 );
               })}
-            </Stack>
+            </HStack>
           </VStack>
         </HStack>
 
