@@ -45,6 +45,7 @@ export function dateRangeFormatter({
   endDate,
   scheduleTimezone = 'Canada/Eastern',
   includeTimeComponent = true,
+  upcomingSubEventCount,
 }) {
   const locale = i18next.language;
   const dateFormat = getDateFormat({ locale, hasTimeComponent: false });
@@ -85,14 +86,24 @@ export function dateRangeFormatter({
     if (formattedEndDate == formattedStartDate) {
       return (
         <>
-          {formattedStartDate?.toUpperCase()} {` ${formattedStartTime}`}
+          {formattedStartDate?.toUpperCase()} {' ' + formattedStartTime}{' '}
+          {upcomingSubEventCount ? (
+            <span style={{ textTransform: 'lowercase', marginLeft: '4px' }}>
+              ({upcomingSubEventCount} <Translation>{(t) => t('occurrences')}</Translation>)
+            </span>
+          ) : null}
         </>
       );
     }
     return (
       <>
         {formattedStartDate?.toUpperCase()} <Translation>{(t) => t('to')}</Translation>{' '}
-        {formattedEndDate?.toUpperCase()}
+        {formattedEndDate?.toUpperCase()}{' '}
+        {upcomingSubEventCount ? (
+          <span style={{ textTransform: 'lowercase', marginLeft: '4px' }}>
+            ({upcomingSubEventCount} <Translation>{(t) => t('occurrences')}</Translation>)
+          </span>
+        ) : null}
       </>
     );
   }

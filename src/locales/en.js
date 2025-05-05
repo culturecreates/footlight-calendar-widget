@@ -13,6 +13,7 @@ export const en = {
   },
   date: 'Date',
   to: ' to ',
+  occurrences: ' occurrences',
   noResults: 'No result found.',
   events: 'events',
   resultHeader: {

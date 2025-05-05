@@ -1,4 +1,4 @@
-import { Box, Image, Text, Badge, Link, HStack, VStack, IconButton, Stack } from '@chakra-ui/react';
+import { Box, Image, Text, Badge, Link, HStack, VStack, IconButton } from '@chakra-ui/react';
 import { ReactComponent as AppleMusicIcon } from '../../../assets/appleMusic.svg';
 import { ReactComponent as FacebookIcon } from '../../../assets/facebook.svg';
 import { ReactComponent as SpotifyIcon } from '../../../assets/spotify.svg';
@@ -47,6 +47,7 @@ const PerformerCard = ({
 }) => {
   const [flag, setFlag] = useState(false);
   const [showMoreDisplayStatus, setShowMoreButtonState] = useState(false);
+  const [imageLoadError, setImageLoadError] = useState(false);
   const descriptionRef = useRef(null);
 
   const filteredSocialLinks = socialLinks.filter(({ type }) => socialIcons[type]);
@@ -54,11 +55,31 @@ const PerformerCard = ({
   return (
     <Box className="performer-card" style={cardStyles}>
       <VStack align="start" spacing={2} flex={1} style={{ marginLeft: '16px', width: '100%' }}>
-        <HStack spacing={3} style={{ marginTop: '8px' }}>
-          <Box>
-            <Image src={image} alt={name} borderRadius="full" boxSize="88px" objectFit="cover" />
+        <HStack spacing={!imageLoadError ? 3 : 0} style={{ marginTop: '8px', width: '100%' }}>
+          <Box
+            style={{
+              width: '88px',
+              height: '88px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: '100%',
+            }}
+          >
+            <Image
+              onError={(e) => {
+                e.target.style.display = 'none';
+                setImageLoadError(true);
+              }}
+              src={image}
+              alt={name}
+              width="88px"
+              height="88px"
+              objectFit="contain"
+              borderRadius="100%"
+            />
           </Box>
-          <VStack align="start" spacing={1}>
+          <VStack style={{ flex: 1 }} align="start" spacing={1}>
             <Text
               style={{
                 fontSize: 'var(--performer-name-font-size)',
@@ -78,7 +99,7 @@ const PerformerCard = ({
               {website}
             </Link>
 
-            <Stack>
+            <HStack style={{ width: '100%', display: 'flex', flexWrap: 'wrap', padding: '8px 0' }}>
               {occupation?.map((item, index) => {
                 return (
                   <Badge
@@ -98,7 +119,7 @@ const PerformerCard = ({
                   </Badge>
                 );
               })}
-            </Stack>
+            </HStack>
           </VStack>
         </HStack>
 

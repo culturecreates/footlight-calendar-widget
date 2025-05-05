@@ -3,7 +3,16 @@ import React from 'react';
 function PresenterCard({ name, website, image }) {
   return (
     <div style={styles.container}>
-      <img src={image} alt={name} style={styles.image} />
+      <div style={styles.imageWrapper}>
+        <img
+          src={image}
+          alt={name}
+          style={styles.image}
+          onError={(e) => {
+            e.target.style.display = 'none';
+          }}
+        />
+      </div>
       <div style={styles.textContainer}>
         <p style={styles.name}>{name}</p>
         {website?.trim() && (
@@ -23,11 +32,19 @@ const styles = {
     gap: '12px',
     marginTop: '8px',
   },
+  imageWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '100%',
+    width: '50px',
+    height: '50px',
+  },
   image: {
-    borderRadius: '50px',
+    objectFit: 'cover',
     width: '46px',
     height: '46px',
-    objectFit: 'cover',
+    borderRadius: '100%',
   },
   textContainer: {
     display: 'flex',
