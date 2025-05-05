@@ -41,9 +41,10 @@ const styles = {
     height: '50px',
   },
   image: {
-    width: '80%',
-    height: '80%',
-    objectFit: 'contain',
+    objectFit: 'cover',
+    width: '46px',
+    height: '46px',
+    borderRadius: '100%',
   },
   textContainer: {
     display: 'flex',

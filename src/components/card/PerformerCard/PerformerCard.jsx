@@ -58,8 +58,8 @@ const PerformerCard = ({
         <HStack spacing={!imageLoadError ? 3 : 0} style={{ marginTop: '8px', width: '100%' }}>
           <Box
             style={{
-              width: '50px',
-              height: '50px',
+              width: '88px',
+              height: '88px',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
@@ -73,9 +73,10 @@ const PerformerCard = ({
               }}
               src={image}
               alt={name}
-              width={'80%'}
-              height={'80%'}
+              width="88px"
+              height="88px"
               objectFit="contain"
+              borderRadius="100%"
             />
           </Box>
           <VStack style={{ flex: 1 }} align="start" spacing={1}>
