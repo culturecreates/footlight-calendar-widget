@@ -9,6 +9,7 @@
   width: 75px;
   display: grid;
   place-content: center;
+  min-width: 75px;
 }
 
 #calendar-widget > .widget-layout .card .image-column > img {
