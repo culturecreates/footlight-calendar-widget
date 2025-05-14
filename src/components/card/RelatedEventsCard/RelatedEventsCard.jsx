@@ -27,7 +27,7 @@ const RelatedEventsCard = ({ dependencyIds, relationType, relationParam, current
 
     const fetchData = async () => {
       setIsLoading(true);
-      const dynamicFilters = dependencyIds?.reduce((acc, id) => {
+      const dynamicFilters = dependencyIds.reduce((acc, id) => {
         acc[relationParam] = id;
         return acc;
       }, {});
@@ -41,6 +41,7 @@ const RelatedEventsCard = ({ dependencyIds, relationType, relationParam, current
       try {
         const response = await fetch(url);
         if (!response?.ok) {
+          setIsLoading(false);
           setError(true);
           return;
         }
