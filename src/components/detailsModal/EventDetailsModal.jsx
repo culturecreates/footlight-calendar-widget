@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import React, { useContext, useEffect, useState, useRef, useMemo } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -60,6 +60,11 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
   const containerRef = useRef(null);
   const descriptionRef = useRef(null);
   const imageCreditRef = useRef(null);
+
+  let dependencyIds = useMemo(
+    () => [...(eventDetails?.performers?.map((p) => p.id) || [])],
+    [eventDetails?.performers],
+  );
 
   useEffect(() => {
     if (!eventId || !isOpen) return;
@@ -484,7 +489,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                 <FeatureFlag isFeatureEnabled={featureFlags.relatedEvents}>
                   <Box style={{ marginTop: '1rem', width: '100%' }}>
                     <RelatedEventsCard
-                      dependencyIds={eventDetails.performers?.map((p) => p.id) || []}
+                      dependencyIds={dependencyIds}
                       relationType="performerRelatedEvents"
                       relationParam="performer"
                       currentEventId={eventId}
