@@ -19,7 +19,8 @@ const RelatedEventsCard = ({ dependencyIds, relationType, relationParam, current
   let relatedEventsLimit = useSize('#calendar-widget .calendar-widget-details-modal', 550) ? 2 : 4;
 
   useEffect(() => {
-    if (!Array.isArray(dependencyIds) || !dependencyIds.length) {
+    if (!Array.isArray(dependencyIds) || !dependencyIds?.length) {
+      setRelatedEventsData([]);
       setIsLoading(false);
       return;
     }
@@ -39,12 +40,13 @@ const RelatedEventsCard = ({ dependencyIds, relationType, relationParam, current
 
       try {
         const response = await fetch(url);
-        if (!response.ok) {
+        if (!response?.ok) {
+          setIsLoading(false);
           setError(true);
           return;
         }
         const { data } = await response.json();
-        const filteredData = data.filter((event) => event.id !== currentEventId);
+        const filteredData = data?.filter((event) => event?.id !== currentEventId);
 
         setIsLoading(false);
         setRelatedEventsData((prev) => ({
@@ -70,7 +72,7 @@ const RelatedEventsCard = ({ dependencyIds, relationType, relationParam, current
   }, [dependencyIds]);
 
   function haveSameElements(arr1, arr2) {
-    if (arr1.length !== arr2.length) return false;
+    if (arr1?.length !== arr2?.length) return false;
 
     let countOccurrences = (arr) => {
       let map = new Map();
