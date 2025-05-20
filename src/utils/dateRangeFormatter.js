@@ -119,18 +119,20 @@ export const searchDateFormatter = (date) => {
   }
 };
 
-export const findFirstUpcomingStartdate = (date) => {
+export const findFirstUpcomingStartdate = (date, endDate) => {
   if (!date) return dayjs().format('YYYY-MM-DD');
 
   const givenDate = dayjs(date);
+  const endDateObj = dayjs(endDate);
   const today = dayjs().startOf('day');
 
   const hasTime = /T\d{2}:\d{2}:\d{2}/.test(date);
   const hasOffset = /[+-]\d{2}:\d{2}|Z$/.test(date);
 
-  if (givenDate.isBefore(today)) return today.format('YYYY-MM-DD');
-
-  if (hasTime && hasOffset) return givenDate.toISOString();
-
-  return givenDate.format('YYYY-MM-DD');
+  if (endDate && givenDate.isBefore(today) && endDateObj.isAfter(today))
+    return today.format('YYYY-MM-DD');
+  else {
+    if (hasTime && hasOffset) return givenDate.toISOString();
+    else return givenDate.format('YYYY-MM-DD');
+  }
 };
