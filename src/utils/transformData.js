@@ -57,10 +57,16 @@ export const transformData = ({ data, locale }) => {
       const { latitude, longitude, url } = geo;
       const upcomingSubEventCount =
         subEventDetails?.upcomingSubEventCount > 1 && subEventDetails?.upcomingSubEventCount;
-      const startDateOfSubEvent =
-        Object.keys(subEventDetails || {}).length != 0 && subEventDetails?.upcomingSubEventCount
-          ? subEventDetails?.nextUpcomingSubEventDateTime
-          : subEventDetails?.nextUpcomingSubEventDate;
+      let startDateOfSubEvent;
+
+      if (
+        Object.keys(subEventDetails || {}).length != 0 &&
+        subEventDetails?.upcomingSubEventCount > 0
+      ) {
+        startDateOfSubEvent =
+          subEventDetails?.nextUpcomingSubEventDateTime ||
+          subEventDetails?.nextUpcomingSubEventDate;
+      }
 
       const processedEndDate =
         Object.keys(subEventDetails || {}).length != 0 &&
