@@ -3,8 +3,8 @@ export const redirectionHandler = ({ url }) => {
 };
 
 export const getRedirectionUrl = ({ id, type = 'searchEventsUrl', calendar, locale }) => {
-  if ('eventUrl' === type)
-    return `${process.env.REACT_APP_API_URL}resource/${id}?calendar=${calendar}&locale=${locale}`;
+  const apiUrl = import.meta.env.VITE_APP_API_URL;
+  if ('eventUrl' === type) return `${apiUrl}resource/${id}?calendar=${calendar}&locale=${locale}`;
 
-  return `${process.env.REACT_APP_API_URL}calendars/${calendar}/events/redirect?locale=${locale}`;
+  return `${apiUrl}calendars/${calendar}/events/redirect?locale=${locale}`;
 };

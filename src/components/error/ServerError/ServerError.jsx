@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import './serverError.css';
 import { useTranslation } from 'react-i18next';
 import WidgetContext from '../../../context/WidgetContext';
-import { ReactComponent as Error404 } from '../../../assets/error404.svg';
+import Error404 from '../../../assets/error404.svg?react';
 
 const ServerError = () => {
   const { t } = useTranslation();

@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { ReactComponent as InformationCircle } from '../../assets/informationCircle.svg';
+import InformationCircle from '../../assets/informationCircle.svg?react';
 import { redirectionHandler } from '../../utils/redirectionHandler';
 import { useTranslation } from 'react-i18next';
 

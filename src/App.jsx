@@ -10,8 +10,8 @@ import Search from './components/search/Search';
 import { Heading } from '@chakra-ui/react';
 import { initGoogleAnalytics } from './utils/googleAnalytics';
 
-require('dayjs/locale/en');
-require('dayjs/locale/fr');
+import 'dayjs/locale/en';
+import 'dayjs/locale/fr';
 
 function App(props) {
   const { color, font, headerTitle, gtagId, ...widgetProps } = props;

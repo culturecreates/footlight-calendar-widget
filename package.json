@@ -12,14 +12,12 @@
     "@testing-library/user-event": "^13.5.0",
     "@vis.gl/react-google-maps": "^1.5.1",
     "dayjs": "^1.11.10",
-    "env-cmd": "^10.1.0",
     "framer-motion": "^11.14.0",
     "i18next": "^23.7.11",
     "react": "^18.2.0",
     "react-calendar": "^4.7.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^14.0.0",
-    "react-scripts": "5.0.1",
     "react-share": "^5.2.1",
     "react-slick": "^0.30.3",
     "slick-carousel": "^1.8.1",
@@ -29,17 +27,16 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "start:staging": "env-cmd -f .env.staging react-app-rewired start",
-    "start:production": "env-cmd -f .env.production react-app-rewired start",
-    "build:staging": "env-cmd -f .env.staging react-app-rewired build",
-    "build:production": "env-cmd -f .env.production react-app-rewired build",
-    "test": "react-app-rewired test",
-    "eject": "react-scripts eject",
+    "dev": "vite",
+    "dev:staging": "vite --mode staging",
+    "dev:production": "vite --mode production",
+    "build": "vite build",
+    "build:staging": "vite build --mode staging",
+    "build:production": "vite build --mode production",
+    "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
-    "lint:fix-all": "eslint --fix . && prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}'",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}'"
   },
   "eslintConfig": {
     "extends": [
@@ -48,7 +45,7 @@
     ]
   },
   "engines": {
-    "node": "^14.17.0"
+    "node": ">=20"
   },
   "browserslist": {
     "production": [
@@ -63,12 +60,13 @@
     ]
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.5.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.2",
     "eslint-plugin-react": "^7.33.2",
     "prettier": "^3.1.1",
-    "react-app-rewired": "^2.2.1",
-    "webpack-bundle-analyzer": "^4.10.2"
+    "vite": "^6.3.5",
+    "vite-plugin-svgr": "^4.3.0"
   }
 }

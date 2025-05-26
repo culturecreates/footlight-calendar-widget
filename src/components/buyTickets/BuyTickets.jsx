@@ -2,7 +2,7 @@ import React from 'react';
 import PrimaryButton from '../button/PrimaryButton';
 import { useBreakpointValue } from '@chakra-ui/react';
 import './buyTickets.css';
-import { ReactComponent as TicketIcon } from '../../assets/tickets.svg';
+import TicketIcon from '../../assets/tickets.svg?react';
 import { useTranslation } from 'react-i18next';
 import { redirectionHandler } from '../../utils/redirectionHandler';
 import { OFFER_TYPES } from '../../constants/generalConstants';

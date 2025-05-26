@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import EventTypeBadge from '../../badge/EventTypeBadge/EventTypeBadge';
 import DateBadge from '../../badge/DateBadge/DateBadge';
-import { ReactComponent as StageIcon } from '../../../assets/locationPin.svg';
 import { dateRangeFormatter } from '../../../utils/dateRangeFormatter';
 import './eventCard.css';
 import { Icon, useDisclosure } from '@chakra-ui/react';
@@ -11,7 +10,8 @@ import { getRedirectionUrl, redirectionHandler } from '../../../utils/redirectio
 import i18next from 'i18next';
 import { trackEventClick } from '../../../utils/googleAnalytics';
 import ProgressiveImage from '../../progressiveImage/ProgressiveImage';
-import { ReactComponent as defaultImage } from '../../../assets/defaultImage.svg';
+import StageIcon from '../../../assets/locationPin.svg?react';
+import defaultImage from '../../../assets/defaultImage.svg?react';
 
 const EventCard = React.memo(
   ({

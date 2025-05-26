@@ -9,7 +9,7 @@ export const generateUrl = (urlComponents) => {
     limitFormatted = limitFormatted * urlComponents?.pageNumber;
   }
 
-  const baseUrl = process.env.REACT_APP_API_URL + 'calendars/';
+  const baseUrl = import.meta.env.VITE_APP_API_URL + 'calendars/';
   const calendar = urlComponents.calendar;
   const searchEntityType = urlComponents?.searchEntityType;
   const limit = limitFormatted;
@@ -63,7 +63,7 @@ export const generateUrl = (urlComponents) => {
 };
 
 export const generateWidgetUrl = (slug) => {
-  const apiUrl = new URL(`${process.env.REACT_APP_API_URL}/calendars/${slug}/widget-config`);
+  const apiUrl = new URL(`${import.meta.env.VITE_APP_API_URL}/calendars/${slug}/widget-config`);
   return apiUrl.toString();
 };
 
