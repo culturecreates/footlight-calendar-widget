@@ -8,4 +8,13 @@ export default defineConfig({
   server: {
     port: 3001,
   },
+  build: {
+    outDir: 'build',
+    rollupOptions: {
+      output: {
+        assetFileNames: 'widget.[ext]',
+        entryFileNames: 'widget.js',
+      },
+    },
+  },
 });
