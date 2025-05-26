@@ -7,6 +7,7 @@ export default defineConfig({
   server: {
     port: 3001,
   },
+  base: './',
   build: {
     outDir: 'build',
     rollupOptions: {
@@ -15,6 +16,5 @@ export default defineConfig({
         entryFileNames: 'widget.js',
       },
     },
-    base: './',
   },
 });
