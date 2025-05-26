@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Text, Icon } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-import { ReactComponent as ShareIcon } from '../../assets/share.svg';
+import ShareIcon from '../../assets/share.svg?react';
 import './resultHeader.css';
 import SocialMediaPopup from '../sharePopup/SharePopup';
 

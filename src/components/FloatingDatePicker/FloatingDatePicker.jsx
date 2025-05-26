@@ -3,7 +3,7 @@ import { Box, IconButton } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
 import { CustomCalendar } from '../customCalendar/CustomCalendar';
 import './floatingDatePicker.css';
-import { ReactComponent as Date } from '../../assets/frame.svg';
+import Date from '../../assets/frame.svg?react';
 
 const FloatingDatePicker = () => {
   const calendarModalRef = useRef(null);

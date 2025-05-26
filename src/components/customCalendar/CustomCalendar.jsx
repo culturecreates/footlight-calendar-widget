@@ -4,10 +4,10 @@ import WidgetContext from '../../context/WidgetContext';
 import './customCalendar.css';
 import 'react-calendar/dist/Calendar.css';
 import CalendarControl from '../calendarControl/CalendarControl';
-import { ReactComponent as PrevButton } from '../../assets/chevronLeft.svg';
-import { ReactComponent as Prev2Button } from '../../assets/chevronDoubleLeft.svg';
-import { ReactComponent as Next2Button } from '../../assets/chevronDoubleRight.svg';
-import { ReactComponent as NextButton } from '../../assets/chevronRight.svg';
+import PrevButton from '../../assets/chevronLeft.svg?react';
+import Prev2Button from '../../assets/chevronDoubleLeft.svg?react';
+import Next2Button from '../../assets/chevronDoubleRight.svg?react';
+import NextButton from '../../assets/chevronRight.svg?react';
 import { getDefaultSessionStorageVariableNames } from '../../constants/sessionStorageVariableNames';
 
 const dateConverter = (date) => {

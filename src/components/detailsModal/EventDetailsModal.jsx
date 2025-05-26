@@ -18,11 +18,11 @@ import {
 import WidgetContext from '../../context/WidgetContext';
 import { transformData } from '../../utils/transformData';
 import './eventDetailsModal.css';
-import { ReactComponent as calendaricon } from '../../assets/calendar.svg';
-import { ReactComponent as StageIcon } from '../../assets/locationPin.svg';
-import { ReactComponent as ShareIcon } from '../../assets/share.svg';
-import { ReactComponent as defaultImage } from '../../assets/defaultImage.svg';
-import { ReactComponent as InformationCircle } from '../../assets/informationCircle.svg';
+import calendaricon from '../../assets/calendar.svg?react';
+import StageIcon from '../../assets/locationPin.svg?react';
+import ShareIcon from '../../assets/share.svg?react';
+import defaultImage from '../../assets/defaultImage.svg?react';
+import InformationCircle from '../../assets/informationCircle.svg?react';
 import EventTypeBadge from '../badge/EventTypeBadge/EventTypeBadge';
 import { redirectionHandler } from '../../utils/redirectionHandler';
 import { useTranslation } from 'react-i18next';
@@ -73,7 +73,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}events/${eventId}`);
+        const response = await fetch(`${import.meta.env.VITE_APP_API_URL}events/${eventId}`);
         if (!response.ok) {
           setError(true);
         }

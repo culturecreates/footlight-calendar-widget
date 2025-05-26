@@ -32,7 +32,7 @@ const AppContent = (
   </ChakraProvider>
 );
 
-if (process.env.NODE_ENV == 'production') {
+if (import.meta.env.NODE_ENV == 'production') {
   root.render(AppContent);
 } else {
   root.render(<React.StrictMode>{AppContent}</React.StrictMode>);

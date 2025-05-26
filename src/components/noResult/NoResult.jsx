@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Box, Text, Icon } from '@chakra-ui/react';
-import { ReactComponent as Avatar } from '../../assets/avatar.svg';
+import Avatar from '../../assets/avatar.svg?react';
 import './noResult.css';
 
 const NoResult = () => {
