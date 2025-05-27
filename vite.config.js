@@ -12,8 +12,8 @@ export default defineConfig({
     outDir: 'build',
     rollupOptions: {
       output: {
-        assetFileNames: 'widget.[ext]',
-        entryFileNames: 'widget.js',
+        assetFileNames: 'static/css/widget.[ext]',
+        entryFileNames: 'static/js/widget.js',
       },
     },
   },
