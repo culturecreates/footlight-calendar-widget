@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import WidgetContext from '../../context/WidgetContext';
 import { useTranslation } from 'react-i18next';
-import { ReactComponent as ArrowDownIcon } from '../../assets/arrowDown.svg';
+import ArrowDownIcon from '../../assets/arrowDown.svg?react';
 import { onLoadMoreClick } from '../../utils/onLoadMoreClick';
 import './results.css';
 import EventCard from '../card/EventCard/EventCard';

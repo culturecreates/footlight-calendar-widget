@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { FacebookShareButton, TwitterShareButton, FacebookIcon, XIcon } from 'react-share';
 import { generateDeeplinkUrl } from '../../utils/hooks/useGenerateDeeplinkUrl';
-import { ReactComponent as CopyLink } from '../../assets/copyLink.svg';
+import CopyLink from '../../assets/copyLink.svg?react';
 import './shareTooltip.css';
 import { useTranslation } from 'react-i18next';
 import { trackEventShare, trackListShare } from '../../utils/googleAnalytics';

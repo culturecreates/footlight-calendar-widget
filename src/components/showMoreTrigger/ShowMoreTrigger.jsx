@@ -1,7 +1,7 @@
 import { Box, Button, Text } from '@chakra-ui/react';
 import React, { useEffect, forwardRef } from 'react';
-import { ReactComponent as ChevronDownIcon } from '../../assets/arrowDown.svg';
-import { ReactComponent as ChevronUpIcon } from '../../assets/upChevron.svg';
+import ChevronDownIcon from '../../assets/arrowDown.svg?react';
+import ChevronUpIcon from '../../assets/upChevron.svg?react';
 import { useTranslation } from 'react-i18next';
 
 const ShowMoreTrigger = forwardRef(

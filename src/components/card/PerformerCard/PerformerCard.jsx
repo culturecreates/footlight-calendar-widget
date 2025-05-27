@@ -1,10 +1,10 @@
 import { Box, Image, Text, Badge, Link, HStack, VStack, IconButton } from '@chakra-ui/react';
-import { ReactComponent as AppleMusicIcon } from '../../../assets/appleMusic.svg';
-import { ReactComponent as FacebookIcon } from '../../../assets/facebook.svg';
-import { ReactComponent as SpotifyIcon } from '../../../assets/spotify.svg';
-import { ReactComponent as YouTubeIcon } from '../../../assets/youtube.svg';
-import { ReactComponent as TwitterIcon } from '../../../assets/twitter.svg';
-import { ReactComponent as InstagramIcon } from '../../../assets/instagram.svg';
+import AppleMusicIcon from '../../../assets/appleMusic.svg?react';
+import FacebookIcon from '../../../assets/facebook.svg?react';
+import SpotifyIcon from '../../../assets/spotify.svg?react';
+import YouTubeIcon from '../../../assets/youtube.svg?react';
+import TwitterIcon from '../../../assets/twitter.svg?react';
+import InstagramIcon from '../../../assets/instagram.svg?react';
 import './performerCard.css';
 import ShowMoreTrigger from '../../showMoreTrigger/ShowMoreTrigger';
 import { useRef, useState } from 'react';

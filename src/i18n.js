@@ -6,7 +6,7 @@ import { ja } from './locales/ja';
 
 i18n.use(initReactI18next).init({
   resources: { en: { translation: en }, fr: { translation: fr }, ja: { translation: ja } },
-  debug: process.env.NODE_ENV === 'development',
+  debug: import.meta.env.MODE === 'staging',
   lng: 'en',
   fallbackLng: 'en',
   interpolation: {

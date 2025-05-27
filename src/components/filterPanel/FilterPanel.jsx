@@ -3,8 +3,8 @@ import { Box, Button, Collapse, VStack, Checkbox, IconButton, HStack } from '@ch
 import WidgetContext from '../../context/WidgetContext';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
-import { ReactComponent as FilterIcon } from '../../assets/filter.svg';
-import { ReactComponent as Arrow } from '../../assets/arrowDown.svg';
+import FilterIcon from '../../assets/filter.svg?react';
+import Arrow from '../../assets/arrowDown.svg?react';
 import './filterPanel.css';
 
 const FilterDropdown = ({
