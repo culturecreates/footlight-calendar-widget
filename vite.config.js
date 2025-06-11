@@ -1,18 +1,33 @@
+/* eslint-disable no-undef */
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
+import { resolve } from 'path';
 
-export default defineConfig({
+export default defineConfig(() => ({
   plugins: [react(), svgr()],
-  server: {
-    port: 3001,
-  },
+  base: './',
   define: {
     'process.env': {},
   },
-  base: './',
   build: {
     outDir: 'build',
+    emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        // Used for iframe-based embedding
+        main: resolve(__dirname, 'index.html'),
+      },
+      output: {
+        assetFileNames: (chunkInfo) => {
+          if (chunkInfo.name && chunkInfo.name.endsWith('.css')) {
+            return 'static/css/widget.[ext]';
+          }
+          return 'static/js/widget.[ext]';
+        },
+        entryFileNames: 'static/js/widget.js',
+      },
+    },
     minify: 'terser',
     terserOptions: {
       compress: {
@@ -20,15 +35,13 @@ export default defineConfig({
       },
     },
     lib: {
-      entry: 'src/index.jsx',
+      entry: resolve(__dirname, 'src/index.jsx'),
       name: 'CalendarWidget',
       formats: ['iife'],
-    },
-    rollupOptions: {
-      output: {
-        assetFileNames: 'static/css/widget.[ext]',
-        entryFileNames: 'static/js/widget.js',
-      },
+      fileName: () => `widget.js`,
     },
   },
-});
+  server: {
+    port: 3001,
+  },
+}));
