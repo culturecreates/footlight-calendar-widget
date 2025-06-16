@@ -47,6 +47,8 @@ export function dateRangeFormatter({
   includeTimeComponent = true,
   upcomingSubEventCount,
 }) {
+  console.log(startDate, endDate);
+
   const locale = i18next.language;
   const dateFormat = getDateFormat({ locale, hasTimeComponent: false });
 
@@ -95,6 +97,29 @@ export function dateRangeFormatter({
         </>
       );
     }
+
+    const isSameCalendarDay = startDateTimeObj.isSame(endDateObj, 'day');
+    const durationInHours = endDateObj.diff(startDateTimeObj, 'hour', true);
+    const isOvernightShortEvent = !isSameCalendarDay && durationInHours < 24;
+
+    if (isOvernightShortEvent) {
+      return (
+        <>
+          {formattedStartDate?.toUpperCase()} {' ' + formattedStartTime}{' '}
+          <span
+            style={{
+              position: 'absolute',
+              marginLeft: '4px',
+              right: '3px',
+              top: '-1px',
+            }}
+          >
+            +
+          </span>
+        </>
+      );
+    }
+
     return (
       <>
         {formattedStartDate?.toUpperCase()} <Translation>{(t) => t('to')}</Translation>{' '}
