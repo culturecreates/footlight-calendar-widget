@@ -14,6 +14,8 @@ export const widgetParams = [
   'headerTitle',
   'disableGrouping',
   'filterOptions',
+  'footerText',
+  'showFooterLogo',
 ];
 
 // Required parameters for the widget

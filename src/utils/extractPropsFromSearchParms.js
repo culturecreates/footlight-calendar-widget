@@ -20,12 +20,13 @@ export function extractPropsFromSearchParams(dataAttributes) {
     headerTitle: getParam('headerTitle'),
     index: getParam('index'),
     searchEventsFilters: getParam('searchEventsFilters'),
+    footerText: getParam('footerText'),
   };
 
   // ------------ Boolean values --------------- //
   Object.assign(
     extractedProps,
-    ['showFooter', 'alwaysOnDatePicker', 'disableGrouping'].reduce((acc, key) => {
+    ['showFooter', 'alwaysOnDatePicker', 'disableGrouping', 'showFooterLogo'].reduce((acc, key) => {
       const value = getParam(key);
       acc[key] = value ? JSON.parse(value) : null;
       return acc;
