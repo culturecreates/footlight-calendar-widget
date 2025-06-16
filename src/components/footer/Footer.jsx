@@ -21,30 +21,30 @@ const Footer = () => {
       display="flex"
       justifyContent="center"
       alignItems="center"
+      height="auto"
       flexDirection="column"
       gap={2}
-      py={3}
-      maxH={100}
+      px={5}
       backgroundColor="var(--bg-grey)"
     >
-      <Flex direction="column" gap={2} textAlign="center">
-        <Flex gap={2} alignItems="center" justifyContent="center">
-          <Box>
-            <Text
-              fontSize="14px"
-              lineHeight="17.07px"
-              fontWeight="600"
-              color="var(--secondary-black)"
-            >
-              {footerText || ''}
-            </Text>
+      <Flex
+        direction="column"
+        gap={2}
+        py={2}
+        align="center"
+        textAlign="center"
+        width="fit-content"
+        mx="auto"
+      >
+        <Text fontSize="14px" lineHeight="17.07px" fontWeight="600" color="var(--secondary-black)">
+          {footerText || ''}
+        </Text>
+
+        {showFooterLogo && (
+          <Box display="flex" alignItems="center" cursor="pointer" onClick={onLogoClickHandler}>
+            <Image src={logo} alt="Calendar Logo" height="27px" />
           </Box>
-          {showFooterLogo && (
-            <Box display="flex" style={{ cursor: 'pointer' }} justifyContent="center">
-              <Image src={logo} onClick={onLogoClickHandler} alt="Calendar Logo" height="27px" />
-            </Box>
-          )}
-        </Flex>
+        )}
       </Flex>
     </Box>
   );
