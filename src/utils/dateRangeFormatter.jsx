@@ -106,16 +106,6 @@ export function dateRangeFormatter({
       return (
         <>
           {formattedStartDate?.toUpperCase()} {' ' + formattedStartTime}{' '}
-          <span
-            style={{
-              position: 'absolute',
-              marginLeft: '4px',
-              right: '3px',
-              top: '-1px',
-            }}
-          >
-            +
-          </span>
         </>
       );
     }
