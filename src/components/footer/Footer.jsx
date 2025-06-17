@@ -5,11 +5,11 @@ import { getRedirectionUrl, redirectionHandler } from '../../utils/redirectionHa
 
 const Footer = () => {
   const { widgetProps, calendarData } = useContext(WidgetContext);
-  const { showFooter, locale, footerText, showFooterLogo } = widgetProps;
+  const { locale, footerText, showFooterLogo } = widgetProps;
 
   const { logo } = calendarData;
 
-  if (!showFooter) return null;
+  if (!showFooterLogo && (footerText == '' || !footerText)) return null;
 
   const onLogoClickHandler = () => {
     const { calendar } = widgetProps;

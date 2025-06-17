@@ -26,7 +26,7 @@ export function extractPropsFromSearchParams(dataAttributes) {
   // ------------ Boolean values --------------- //
   Object.assign(
     extractedProps,
-    ['showFooter', 'alwaysOnDatePicker', 'disableGrouping', 'showFooterLogo'].reduce((acc, key) => {
+    ['alwaysOnDatePicker', 'disableGrouping', 'showFooterLogo'].reduce((acc, key) => {
       const value = getParam(key);
       acc[key] = value ? JSON.parse(value) : null;
       return acc;

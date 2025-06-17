@@ -9,7 +9,6 @@ export const widgetParams = [
   'index',
   'font',
   'redirectionMode',
-  'showFooter',
   'alwaysOnDatePicker',
   'headerTitle',
   'disableGrouping',
@@ -26,7 +25,6 @@ export const requiredParams = [
   'limit',
   'font',
   'redirectionMode',
-  'showFooter',
   'disableGrouping',
   'filterOptions',
 ];

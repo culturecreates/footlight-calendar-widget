@@ -47,8 +47,6 @@ export function dateRangeFormatter({
   includeTimeComponent = true,
   upcomingSubEventCount,
 }) {
-  console.log(startDate, endDate);
-
   const locale = i18next.language;
   const dateFormat = getDateFormat({ locale, hasTimeComponent: false });
 
