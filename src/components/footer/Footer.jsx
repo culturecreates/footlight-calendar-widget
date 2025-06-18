@@ -1,18 +1,15 @@
 import React, { useContext } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import WidgetContext from '../../context/WidgetContext';
-import { getLocalized } from '../../utils/getLocalized';
 import { getRedirectionUrl, redirectionHandler } from '../../utils/redirectionHandler';
 
 const Footer = () => {
-  const { t } = useTranslation();
   const { widgetProps, calendarData } = useContext(WidgetContext);
-  const { showFooter, locale } = widgetProps;
-  const { logo, name } = calendarData;
-  const calendarName = getLocalized(name, locale);
+  const { locale, footerText, showFooterLogo } = widgetProps;
 
-  if (!showFooter) return null;
+  const { logo } = calendarData;
+
+  if (!showFooterLogo && (footerText == '' || !footerText)) return null;
 
   const onLogoClickHandler = () => {
     const { calendar } = widgetProps;
@@ -24,36 +21,30 @@ const Footer = () => {
       display="flex"
       justifyContent="center"
       alignItems="center"
+      height="auto"
       flexDirection="column"
       gap={2}
-      py={3}
-      maxH={100}
+      px={5}
       backgroundColor="var(--bg-grey)"
     >
-      <Flex direction="column" gap={2} textAlign="center">
-        <Text
-          fontWeight="300"
-          lineHeight="17.07px"
-          textUnderlinePosition="from-font"
-          color="var(--secondary-black)"
-        >
-          {t('footer.providedBy')}
+      <Flex
+        direction="column"
+        gap={2}
+        py={2}
+        align="center"
+        textAlign="center"
+        width="fit-content"
+        mx="auto"
+      >
+        <Text fontSize="14px" lineHeight="17.07px" fontWeight="600" color="var(--secondary-black)">
+          {footerText || ''}
         </Text>
-        <Flex gap={2} alignItems="center" justifyContent="center">
-          <Box>
-            <Text
-              fontSize="14px"
-              lineHeight="17.07px"
-              fontWeight="600"
-              color="var(--secondary-black)"
-            >
-              {calendarName}
-            </Text>
+
+        {showFooterLogo && (
+          <Box display="flex" alignItems="center" cursor="pointer" onClick={onLogoClickHandler}>
+            <Image src={logo} alt="Calendar Logo" height="27px" />
           </Box>
-          <Box display="flex" style={{ cursor: 'pointer' }} justifyContent="center">
-            <Image src={logo} onClick={onLogoClickHandler} alt="Calendar Logo" height="27px" />
-          </Box>
-        </Flex>
+        )}
       </Flex>
     </Box>
   );

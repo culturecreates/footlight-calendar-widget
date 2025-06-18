@@ -9,13 +9,14 @@ const DateBadge = ({ startDate, color, bgcolor }) => (
       color: color ?? 'var(--primary-white-opaque)',
       backgroundColor: bgcolor ?? 'var(--main-dynamic-color)',
       borderRadius: '5px',
-      paddingLeft: '8px',
-      paddingRight: '8px',
+      paddingLeft: '12px',
+      paddingRight: '12px',
       paddingTop: '4px',
       paddingBottom: '4px',
       display: 'inline-flex',
       alignSelf: 'flex-start',
       textWrap: 'auto',
+      position: 'relative',
     }}
   >
     {startDate}

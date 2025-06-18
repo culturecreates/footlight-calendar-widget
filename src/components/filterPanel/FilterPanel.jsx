@@ -120,7 +120,11 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef, t }) => 
   }, []);
 
   return (
-    <Collapse in={isFilterOpen} animateOpacity>
+    <Collapse
+      transition={{ exit: { delay: 0 }, enter: { duration: 0 } }}
+      in={isFilterOpen}
+      animateOpacity
+    >
       <Box
         ref={panelRef}
         style={{

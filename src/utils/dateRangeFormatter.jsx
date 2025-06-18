@@ -95,6 +95,19 @@ export function dateRangeFormatter({
         </>
       );
     }
+
+    const isSameCalendarDay = startDateTimeObj.isSame(endDateObj, 'day');
+    const durationInHours = endDateObj.diff(startDateTimeObj, 'hour', true);
+    const isOvernightShortEvent = !isSameCalendarDay && durationInHours < 24;
+
+    if (isOvernightShortEvent) {
+      return (
+        <>
+          {formattedStartDate?.toUpperCase()} {' ' + formattedStartTime}{' '}
+        </>
+      );
+    }
+
     return (
       <>
         {formattedStartDate?.toUpperCase()} <Translation>{(t) => t('to')}</Translation>{' '}
