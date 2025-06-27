@@ -6,81 +6,46 @@
     <title>Listing Widget Integration</title>
 
     <!-- Include the widget's JavaScript and CSS files -->
-    <link href="https://listing-widget.footlight.io/v0/static/css/widget.css" rel="stylesheet" />
-
-    <!-- Custom Styles -->
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-      header {
-        background-color: #333;
-        color: #fff;
-        padding: 20px;
-        text-align: center;
-      }
-      footer {
-        background-color: #333;
-        color: #fff;
-        padding: 10px;
-        text-align: center;
-        position: fixed;
-        bottom: 0;
-        height: 100px;
-        width: 100%;
-      }
-      .content {
-        padding: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 80vh;
-      }
-      #calendar-widget {
-        width: 100%;
-        max-width: 1200px;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-      }
-    </style>
+    <link href="./static/css/widget.css" rel="stylesheet" />
   </head>
   <body>
-    <!-- Header -->
-    <header>
-      <h1>Event Listing Widget</h1>
-      <p>Embed and display events from Footlight CMS</p>
-    </header>
-
     <!-- Main Content -->
+    <script>
+      const YT = 'YT';
+      console.log('variable YT initialized', YT);
+    </script>
+    <script></script>
+
     <div class="content">
-      <!-- <div id="calendar-widget" data-calendar="signe-laval" data-redirection-mode="EXTERNAL"></div> -->
+      <!-- Embedded YouTube video -->
+      <div style="margin-bottom: 20px">
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ"
+          title="Big Buck Bunny"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+
+      <!-- Widget container -->
       <div
         id="calendar-widget"
-        data-calendar="signe-laval"
-        data-calendar-name="Tout culture"
-        data-locale="fr"
-        data-color="#1e90ff"
-        data-limit="12"
-        data-logo="https://cdn.footlight.io/iiif/3/tout-culture-logo.png/0,0,1620,1080/400,0/default.png"
-        data-search-events-filter="&place=1234&region=5678"
-        data-redirection-mode="EXTERNAL"
-        data-font="Montserrat"
+        data-calendar="nac-osaka"
+        data-locale="en"
+        data-redirection-mode="NONE"
+        data-color="#e60013"
+        data-limit="6"
+        data-font="SuisseIntl, sans-serif"
+        data-show-footer="false"
+        data-always-on-date-picker="false"
+        data-disable-grouping="true"
+        data-filter-options="DATES|PLACE|66fa7b17eb00ea006325fc4c"
       ></div>
     </div>
 
-    <iframe
-      src="../build/index.html?width=1000&font=Montserrat&redirectionMode=EXTERNAL&limit=9&calendar=tout-culture&calendarName=Tout+culture&logo=https%3A%2F%2Fcdn.footlight.io%2Fiiif%2F3%2Ftout-culture-logo.png%2F0%2C0%2C1620%2C1080%2F400%2C%2F0%2Fdefault.png&searchEventsFilters=&locale=fr&color=%23607EFC&height=600"
-      width="100%"
-      style="max-width: 1000px; border: none"
-      height="600px"
-    ></iframe>
-
-    <!-- Footer -->
-    <footer>
-      <p>&copy; 2025 Footlight. All Rights Reserved.</p>
-    </footer>
-    <script src="../build/static/js/widget.js"></script>
+    <script src="./static/js/widget.js"></script>
   </body>
 </html>
