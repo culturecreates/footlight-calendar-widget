@@ -3,49 +3,143 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Listing Widget Integration</title>
-
-    <!-- Include the widget's JavaScript and CSS files -->
+    <title>Listing Widget Integration Test</title>
     <link href="./static/css/widget.css" rel="stylesheet" />
+    <style>
+      .tab {
+        display: none;
+      }
+      .tab.active {
+        display: block;
+      }
+      .tab-controls {
+        margin: 20px 0;
+        padding: 10px;
+        background: #f5f5f5;
+      }
+      .tab-controls button {
+        padding: 8px 16px;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+      .debug-console {
+        margin-top: 20px;
+        padding: 15px;
+        background: #f0f0f0;
+        border: 1px solid #ddd;
+        font-family: monospace;
+      }
+    </style>
   </head>
   <body>
-    <!-- Main Content -->
-    <script>
-      const YT = 'YT';
-      console.log('variable YT initialized', YT);
-    </script>
-    <script></script>
+    <div class="tab-controls">
+      <button onclick="switchTab('tab1')">Tab 1 (Widget)</button>
+      <button onclick="switchTab('tab2')">Tab 2 (Other Content)</button>
+      <button onclick="reloadWidget()">Reload Widget</button>
+    </div>
 
-    <div class="content">
-      <!-- Embedded YouTube video -->
-      <div style="margin-bottom: 20px">
-        <iframe
-          width="560"
-          height="315"
-          src="https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ"
-          title="Big Buck Bunny"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe>
+    <div id="tab1" class="tab active">
+      <script>
+        const YT = 'YT';
+        console.log('variable YT initialized', YT);
+      </script>
+
+      <div class="content">
+        <!-- Embedded YouTube video -->
+        <div style="margin-bottom: 20px">
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ"
+            title="Big Buck Bunny"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <!-- Widget container -->
+        <div
+          id="calendar-widget"
+          data-calendar="nac-osaka"
+          data-locale="en"
+          data-redirection-mode="NONE"
+          data-color="#e60013"
+          data-limit="6"
+          data-font="SuisseIntl, sans-serif"
+          data-show-footer="false"
+          data-always-on-date-picker="false"
+          data-disable-grouping="true"
+          data-filter-options="DATES|PLACE|66fa7b17eb00ea006325fc4c"
+        ></div>
       </div>
+    </div>
 
-      <!-- Widget container -->
-      <div
-        id="calendar-widget"
-        data-calendar="nac-osaka"
-        data-locale="en"
-        data-redirection-mode="NONE"
-        data-color="#e60013"
-        data-limit="6"
-        data-font="SuisseIntl, sans-serif"
-        data-show-footer="false"
-        data-always-on-date-picker="false"
-        data-disable-grouping="true"
-        data-filter-options="DATES|PLACE|66fa7b17eb00ea006325fc4c"
-      ></div>
+    <div id="tab2" class="tab">
+      <h2>Other Content Tab</h2>
+      <p>This simulates navigating away from the widget tab.</p>
+      <p>When you switch back to Tab 1, we can observe if the widget reloads properly.</p>
+    </div>
+
+    <div class="debug-console">
+      <h3>Debug Console</h3>
+      <div id="debug-output"></div>
     </div>
 
     <script src="./static/js/widget.js"></script>
+
+    <script>
+      // Debug logging
+      function logDebug(message) {
+        const debugOutput = document.getElementById('debug-output');
+        debugOutput.innerHTML += `<div>${new Date().toLocaleTimeString()}: ${message}</div>`;
+        console.log(message);
+      }
+
+      // Track visibility changes
+      document.addEventListener('visibilitychange', () => {
+        logDebug(`Document visibility changed to: ${document.visibilityState}`);
+      });
+
+      // Track page show/hide events
+      window.addEventListener('pageshow', (event) => {
+        logDebug(`Page shown - persisted: ${event.persisted}`);
+      });
+
+      window.addEventListener('pagehide', (event) => {
+        logDebug(`Page hidden - persisted: ${event.persisted}`);
+      });
+
+      // Tab switching function
+      function switchTab(tabId) {
+        document.querySelectorAll('.tab').forEach((tab) => {
+          tab.classList.remove('active');
+        });
+        document.getElementById(tabId).classList.add('active');
+        logDebug(`Switched to ${tabId}`);
+
+        if (tabId === 'tab1') {
+          logDebug('Widget tab activated - checking widget state');
+          // You might want to add widget state verification here
+        }
+      }
+
+      // Widget reload function
+      function reloadWidget() {
+        logDebug('Attempting to reload widget...');
+        const widgetContainer = document.getElementById('calendar-widget');
+        const originalHTML = widgetContainer.innerHTML;
+
+        // Clear and re-set the HTML to force reinitialization
+        widgetContainer.innerHTML = '';
+        setTimeout(() => {
+          widgetContainer.innerHTML = originalHTML;
+          logDebug('Widget container reset - check if it reloaded properly');
+        }, 100);
+      }
+
+      // Initial debug log
+      logDebug('Page loaded - widget should initialize');
+    </script>
   </body>
 </html>

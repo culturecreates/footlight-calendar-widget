@@ -11,29 +11,99 @@ import { ChakraProvider } from '@chakra-ui/react';
 import Error from './components/error/Error';
 import { widgetParams } from './constants/props';
 
-const calendarWidget = document.getElementById('calendar-widget');
+// Store roots to prevent memory leaks
+const widgetRoots = new WeakMap();
 
-const dataAttributes = widgetParams.reduce((acc, key) => {
-  acc[key] = calendarWidget.dataset?.[key];
-  return acc;
-}, {});
+function initializeWidget(container) {
+  if (widgetRoots.has(container)) return;
 
-let { extractedProps, isSuccess, missingParams } = extractPropsFromSearchParams(dataAttributes);
-let { internalStateSearchParam, corruptInternalStateFlag } = handleInternalStateSearchParam();
+  const dataAttributes = widgetParams.reduce((acc, key) => {
+    acc[key] = container.dataset?.[key];
+    return acc;
+  }, {});
 
-const root = createRoot(calendarWidget);
-const AppContent = (
-  <ChakraProvider>
-    {isSuccess && !corruptInternalStateFlag ? (
-      <App {...extractedProps} internalStateSearchParam={internalStateSearchParam} />
-    ) : (
-      <Error missingParams={missingParams} />
-    )}
-  </ChakraProvider>
-);
+  let { extractedProps, isSuccess, missingParams } = extractPropsFromSearchParams(dataAttributes);
+  let { internalStateSearchParam, corruptInternalStateFlag } = handleInternalStateSearchParam();
 
-if (import.meta.env.MODE == 'production') {
-  root.render(AppContent);
-} else {
-  root.render(<React.StrictMode>{AppContent}</React.StrictMode>);
+  const root = createRoot(container);
+  widgetRoots.set(container, root);
+
+  console.log(root, 'widgetRoots', widgetRoots);
+
+  const AppContent = (
+    <ChakraProvider>
+      {isSuccess && !corruptInternalStateFlag ? (
+        <App {...extractedProps} internalStateSearchParam={internalStateSearchParam} />
+      ) : (
+        <Error missingParams={missingParams} />
+      )}
+    </ChakraProvider>
+  );
+
+  if (import.meta.env.MODE === 'production') {
+    root.render(AppContent);
+  } else {
+    root.render(<React.StrictMode>{AppContent}</React.StrictMode>);
+  }
 }
+
+function cleanupWidget(container) {
+  if (widgetRoots.has(container)) {
+    setTimeout(() => {
+      widgetRoots.get(container).unmount();
+      widgetRoots.delete(container);
+    }, 0);
+  }
+}
+
+function setupObserver() {
+  const target = document.getElementById('calendar-widget');
+  if (target) initializeWidget(target);
+
+  console.log('Initial widget check:', target);
+
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.removedNodes.forEach((node) => {
+        if (node.nodeType === 1 && node.id === 'calendar-widget') {
+          cleanupWidget(node);
+        }
+        if (node.nodeType === 1 && node.querySelector('#calendar-widget')) {
+          node.querySelectorAll('#calendar-widget').forEach(cleanupWidget);
+        }
+      });
+
+      mutation.addedNodes.forEach((node) => {
+        if (node.nodeType === 1 && node.id === 'calendar-widget') {
+          initializeWidget(node);
+        }
+        if (node.nodeType === 1 && node.querySelector('#calendar-widget')) {
+          node.querySelectorAll('#calendar-widget').forEach(initializeWidget);
+        }
+      });
+    });
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
+
+  return observer;
+}
+
+// Self-executing IIFE wrapper
+(function initWidget() {
+  if (window.__calendarWidgetInitialized) return;
+
+  window.__calendarWidgetInitialized = true;
+
+  const observer = setupObserver();
+
+  window.__calendarWidgetCleanup = function () {
+    observer.disconnect();
+    const widget = document.getElementById('calendar-widget');
+    if (widget) cleanupWidget(widget);
+    delete window.__calendarWidgetInitialized;
+  };
+})();
