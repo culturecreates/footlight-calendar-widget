@@ -28,8 +28,6 @@ function initializeWidget(container) {
   const root = createRoot(container);
   widgetRoots.set(container, root);
 
-  console.log(root, 'widgetRoots', widgetRoots);
-
   const AppContent = (
     <ChakraProvider>
       {isSuccess && !corruptInternalStateFlag ? (
