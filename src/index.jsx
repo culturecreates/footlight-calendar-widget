@@ -58,8 +58,6 @@ function setupObserver() {
   const target = document.getElementById('calendar-widget');
   if (target) initializeWidget(target);
 
-  console.log('Initial widget check:', target);
-
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       mutation.removedNodes.forEach((node) => {
