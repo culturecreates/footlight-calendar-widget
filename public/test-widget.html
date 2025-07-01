@@ -1,64 +1,75 @@
 <!doctype html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Listing Widget Integration Test</title>
-    <link href="./static/css/widget.css" rel="stylesheet" />
+    <title>SSR + Tab Switching Widget Test</title>
     <style>
+      /* Hydration warning */
+      #hydration-warning {
+        display: none;
+        background: #ffeb3b;
+        padding: 10px;
+        margin: 10px 0;
+      }
+      .hydrated #hydration-warning {
+        display: block;
+      }
+
+      /* Tab system */
       .tab {
         display: none;
+        padding: 20px;
+        border: 1px solid #ddd;
+        margin-top: 10px;
       }
       .tab.active {
         display: block;
       }
-      .tab-controls {
+      .tab-buttons {
         margin: 20px 0;
-        padding: 10px;
-        background: #f5f5f5;
       }
-      .tab-controls button {
+      .tab-buttons button {
         padding: 8px 16px;
-        margin-right: 10px;
+        margin-right: 5px;
         cursor: pointer;
       }
-      .debug-console {
+
+      /* Debug console */
+      #debug-console {
         margin-top: 20px;
         padding: 15px;
-        background: #f0f0f0;
+        background: #f5f5f5;
         border: 1px solid #ddd;
         font-family: monospace;
+        max-height: 200px;
+        overflow-y: auto;
       }
     </style>
   </head>
   <body>
-    <div class="tab-controls">
-      <button onclick="switchTab('tab1')">Tab 1 (Widget)</button>
-      <button onclick="switchTab('tab2')">Tab 2 (Other Content)</button>
+    <h1>SSR + Tab Switching Test</h1>
+
+    <!-- Tab Controls -->
+    <div class="tab-buttons">
+      <button onclick="switchTab('widget-tab')">Widget Tab</button>
+      <button onclick="switchTab('other-tab')">Other Tab</button>
       <button onclick="reloadWidget()">Reload Widget</button>
     </div>
 
-    <div id="tab1" class="tab active">
-      <script>
-        const YT = 'YT';
-        console.log('variable YT initialized', YT);
-      </script>
-
-      <div class="content">
-        <!-- Embedded YouTube video -->
-        <div style="margin-bottom: 20px">
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ"
-            title="Big Buck Bunny"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </div>
-
-        <!-- Widget container -->
+    <!-- SSR Content -->
+    <div id="widget-tab" class="tab active">
+      <!-- Embedded YouTube video -->
+      <div style="margin-bottom: 20px">
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ"
+          title="Big Buck Bunny"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div id="app">
         <div
           id="calendar-widget"
           data-calendar="nac-osaka"
@@ -66,51 +77,55 @@
           data-redirection-mode="NONE"
           data-color="#e60013"
           data-limit="6"
-          data-font="SuisseIntl, sans-serif"
+          data-font="Roboto"
           data-show-footer="false"
           data-always-on-date-picker="false"
           data-disable-grouping="true"
           data-filter-options="DATES|PLACE|66fa7b17eb00ea006325fc4c"
-        ></div>
+        >
+          <div class="loading-spinner">Loading widget...</div>
+        </div>
       </div>
     </div>
 
-    <div id="tab2" class="tab">
-      <h2>Other Content Tab</h2>
-      <p>This simulates navigating away from the widget tab.</p>
-      <p>When you switch back to Tab 1, we can observe if the widget reloads properly.</p>
+    <div id="other-tab" class="tab">
+      <h2>Other Content</h2>
+      <p>This tab simulates navigating away from the widget.</p>
+      <p>When you return to the Widget Tab, we'll check if the widget survived.</p>
     </div>
 
-    <div class="debug-console">
-      <h3>Debug Console</h3>
-      <div id="debug-output"></div>
+    <div id="hydration-warning">
+      Warning: Client-side hydration has occurred. Check if widget survived.
     </div>
 
-    <script src="./static/js/widget.js"></script>
+    <div id="debug-console"></div>
+
+    <!-- Load widget after hydration simulation -->
+    <script src="./static/js/widget.js" defer></script>
 
     <script>
       // Debug logging
       function logDebug(message) {
-        const debugOutput = document.getElementById('debug-output');
-        debugOutput.innerHTML += `<div>${new Date().toLocaleTimeString()}: ${message}</div>`;
-        console.log(message);
+        const console = document.getElementById('debug-console');
+        console.innerHTML += `<div>${new Date().toLocaleTimeString()}: ${message}</div>`;
+        console.scrollTop = console.scrollHeight;
       }
 
-      // Track visibility changes
-      document.addEventListener('visibilitychange', () => {
-        logDebug(`Document visibility changed to: ${document.visibilityState}`);
-      });
+      // Track hydration state
+      let isHydrated = false;
 
-      // Track page show/hide events
-      window.addEventListener('pageshow', (event) => {
-        logDebug(`Page shown - persisted: ${event.persisted}`);
-      });
+      // Simulate framework hydration
+      function simulateHydration() {
+        setTimeout(() => {
+          document.body.classList.add('hydrated');
+          isHydrated = true;
+          logDebug('Hydration complete');
 
-      window.addEventListener('pagehide', (event) => {
-        logDebug(`Page hidden - persisted: ${event.persisted}`);
-      });
+          checkWidgetState();
+        }, 1000);
+      }
 
-      // Tab switching function
+      // Tab switching
       function switchTab(tabId) {
         document.querySelectorAll('.tab').forEach((tab) => {
           tab.classList.remove('active');
@@ -118,28 +133,87 @@
         document.getElementById(tabId).classList.add('active');
         logDebug(`Switched to ${tabId}`);
 
-        if (tabId === 'tab1') {
-          logDebug('Widget tab activated - checking widget state');
-          // You might want to add widget state verification here
+        if (tabId === 'widget-tab') {
+          checkWidgetState();
         }
       }
 
-      // Widget reload function
-      function reloadWidget() {
-        logDebug('Attempting to reload widget...');
-        const widgetContainer = document.getElementById('calendar-widget');
-        const originalHTML = widgetContainer.innerHTML;
+      // Widget state checker
+      function checkWidgetState() {
+        const widget = document.getElementById('calendar-widget');
+        if (!widget) {
+          logDebug('ERROR: Widget container missing');
+          return;
+        }
 
-        // Clear and re-set the HTML to force reinitialization
-        widgetContainer.innerHTML = '';
-        setTimeout(() => {
-          widgetContainer.innerHTML = originalHTML;
-          logDebug('Widget container reset - check if it reloaded properly');
-        }, 100);
+        logDebug(`Widget state: 
+        Children: ${widget.children.length}
+        Height: ${widget.offsetHeight}px
+        Visible: ${isElementVisible(widget)}`);
       }
 
-      // Initial debug log
-      logDebug('Page loaded - widget should initialize');
+      // Visibility check
+      function isElementVisible(el) {
+        return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+      }
+
+      function reloadWidget() {
+        logDebug('Starting widget reload process...');
+
+        const widget = document.getElementById('calendar-widget');
+        if (!widget) {
+          logDebug('Widget container not found');
+          return;
+        }
+
+        // 1. Completely reset widget container
+        const originalAttributes = {};
+        Array.from(widget.attributes).forEach((attr) => {
+          originalAttributes[attr.name] = attr.value;
+        });
+
+        const parent = widget.parentNode;
+        const newWidget = document.createElement('div');
+        newWidget.id = 'calendar-widget';
+
+        // Restore original attributes
+        Object.keys(originalAttributes).forEach((attr) => {
+          newWidget.setAttribute(attr, originalAttributes[attr]);
+        });
+
+        // 2. Replace DOM node completely
+        parent.replaceChild(newWidget, widget);
+        logDebug('Widget container completely replaced');
+
+        // 3. Force reinitialization with cleanup
+        if (window.YourWidget) {
+          // Add cleanup if available
+          if (typeof window.YourWidget.destroy === 'function') {
+            window.YourWidget.destroy();
+            logDebug('Previous widget instance destroyed');
+          }
+
+          // Delay initialization to ensure DOM is ready
+          setTimeout(() => {
+            window.YourWidget.init();
+            logDebug('Widget reinitialized with fresh instance');
+            checkWidgetState();
+          }, 50);
+        } else {
+          logDebug('YourWidget not found in global scope');
+        }
+      }
+
+      // Initial setup
+      logDebug('Page loaded - simulating SSR');
+      simulateHydration();
+
+      // Periodically check widget state
+      setInterval(() => {
+        if (document.querySelector('#widget-tab.active')) {
+          checkWidgetState();
+        }
+      }, 3000);
     </script>
   </body>
 </html>
