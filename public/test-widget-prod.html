@@ -2,6 +2,10 @@
 <html>
   <head>
     <title>SSR + Tab Switching Widget Test</title>
+    <link
+      href="https://s3.ca-central-1.amazonaws.com/cms-widget.footlight.io/v2/static/css/widget.css"
+      rel="stylesheet"
+    />
     <style>
       /* Hydration warning */
       #hydration-warning {
@@ -44,7 +48,6 @@
         overflow-y: auto;
       }
     </style>
-    <link href="./static/css/widget.css" rel="stylesheet" />
   </head>
   <body>
     <h1>SSR + Tab Switching Test</h1>
@@ -102,7 +105,10 @@
     <div id="debug-console"></div>
 
     <!-- Load widget after hydration simulation -->
-    <script src="./static/js/widget.js" defer></script>
+    <script
+      src="https://s3.ca-central-1.amazonaws.com/cms-widget.footlight.io/v2/static/js/widget.js"
+      defer
+    ></script>
 
     <script>
       // Debug logging
