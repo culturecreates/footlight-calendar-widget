@@ -19,19 +19,7 @@ const ResultPanel = () => {
         {!isLoading ? (
           <Box className="results">{totalCount > 0 ? <Results /> : <NoResult />}</Box>
         ) : (
-          <Box
-            className="loader-wrapper"
-            style={{
-              display: 'flex',
-              width: '100%',
-              justifyContent: 'center',
-              minHeight: '100px',
-              height: '100%',
-              gap: '8px',
-              flex: '1 1 0%',
-              padding: '0px 24px',
-            }}
-          >
+          <Box className="loader-wrapper">
             <div>
               <LoadingCard count={widgetProps?.limit || 5} />
             </div>
