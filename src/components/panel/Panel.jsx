@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
 import WidgetContext from '../../context/WidgetContext';
-import Loader from '../loader/Loader';
 import NoResult from '../noResult/NoResult';
 import ResultHeader from '../resultHeader/ResultHeader';
 import Results from '../results/Results';
 import './panel.css';
 import { Box } from '@chakra-ui/react';
 import ServerError from '../error/ServerError/ServerError';
+import LoadingCard from '../card/LoadingCard/LoadingCard';
 
 const ResultPanel = () => {
-  const { totalCount, isLoading, error } = useContext(WidgetContext);
+  const { totalCount, isLoading, error, widgetProps } = useContext(WidgetContext);
   if (error) return <ServerError />;
   return (
     <Box className="result-panel-wrapper">
@@ -23,12 +23,18 @@ const ResultPanel = () => {
             className="loader-wrapper"
             style={{
               display: 'flex',
+              width: '100%',
               justifyContent: 'center',
-              alignItems: 'center',
-              height: '100px',
+              minHeight: '100px',
+              height: '100%',
+              gap: '8px',
+              flex: '1 1 0%',
+              padding: '0px 24px',
             }}
           >
-            <Loader />
+            <div>
+              <LoadingCard count={widgetProps?.limit || 5} />
+            </div>
           </Box>
         )}
       </Box>

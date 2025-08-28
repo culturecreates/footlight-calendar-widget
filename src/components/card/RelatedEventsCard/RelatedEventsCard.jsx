@@ -103,7 +103,20 @@ const RelatedEventsCard = ({ dependencyIds, relationType, relationParam, current
       )}
 
       <div className="card-container">
-        {isLoading && <LoadingCard count={relatedEventsLimit} />}
+        {isLoading && (
+          <LoadingCard
+            count={relatedEventsLimit}
+            styles={{
+              wrapper: {
+                width: '100%',
+                padding: '16px',
+                boxShadow: 'var(--primary-box-shadow)',
+                borderRadius: 'lg',
+                backgroundColor: 'var(--primary-white-opaque)',
+              },
+            }}
+          />
+        )}
 
         {!isLoading &&
           relatedEventsData[relationType]?.data?.map((data, index) => (

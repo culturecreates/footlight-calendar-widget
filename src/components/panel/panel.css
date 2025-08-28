@@ -23,7 +23,34 @@
 
 #calendar-widget > .widget-layout .result-panel-wrapper .loader-wrapper {
   width: 100%;
-  min-height: 100%;
   display: grid;
   place-content: center;
+}
+
+#calendar-widget > .widget-layout .loader-wrapper > div {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 32px;
+}
+
+#calendar-widget > .widget-layout .loader-wrapper .skeleton-card-wrapper {
+  width: 248px;
+  height: 320px;
+  margin: 0px 8px 32px 8px;
+  padding: 16px;
+  box-shadow: var(--primary-box-shadow);
+  border-radius: lg;
+  background-color: var(--primary-white-opaque);
+}
+
+@media (max-width: 550px) {
+  #calendar-widget > .widget-layout .loader-wrapper .skeleton-card-wrapper {
+    width: 371px;
+    margin: 0px 0px 16px 0px;
+  }
+
+  #calendar-widget > .widget-layout .loader-wrapper > div {
+    padding: 0px;
+  }
 }
