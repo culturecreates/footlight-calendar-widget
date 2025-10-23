@@ -400,6 +400,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                         socialLinks={performer?.socialMediaLinks}
                         calendar={calendar}
                         eventId={eventId}
+                        isTransparent={performer?.isTransparent}
                       />
                     ))}
                   </Stack>
@@ -448,6 +449,7 @@ const EventDetailsModal = ({ isOpen, onClose, eventId }) => {
                           name={organizer?.name}
                           website={organizer?.website}
                           image={organizer?.image}
+                          isTransparent={organizer?.isTransparent}
                         />
                       ))}
                     </Stack>

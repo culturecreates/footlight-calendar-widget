@@ -57,6 +57,9 @@ const SponsorsCarousel = ({ sponsors = [] }) => {
               }}
               src={sponsor?.image}
               alt={sponsor.name}
+              style={{
+                ...(sponsor?.isTransparent && { backgroundColor: 'var(--quaternary-grey)' }),
+              }}
             />
           </div>
         ))}
