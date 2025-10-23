@@ -44,6 +44,7 @@ const PerformerCard = ({
   locale,
   calendar,
   eventId,
+  isTransparent,
 }) => {
   const [flag, setFlag] = useState(false);
   const [showMoreDisplayStatus, setShowMoreButtonState] = useState(false);
@@ -77,6 +78,7 @@ const PerformerCard = ({
               height="88px"
               objectFit="contain"
               borderRadius="100%"
+              backgroundColor={isTransparent ? 'var(--quaternary-grey)' : undefined}
             />
           </Box>
           <VStack style={{ flex: 1 }} align="start" spacing={1}>
