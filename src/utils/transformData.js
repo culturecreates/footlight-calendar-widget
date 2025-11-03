@@ -109,6 +109,7 @@ export const transformData = ({ data, locale }) => {
             name: getLocalized(name, locale),
             id,
             image: imageSelector({ image, logo, type }),
+            isTransparent: type === entityTypes.ORGANIZATION && !!logo?.isTransparent,
             socialMediaLinks,
             type,
             occupation,
@@ -119,6 +120,7 @@ export const transformData = ({ data, locale }) => {
         organizers: organizer?.map(({ name, logo, image, socialMediaLinks, type, url }) => ({
           name: getLocalized(name, locale),
           image: imageSelector({ image, logo, type }),
+          isTransparent: type === entityTypes.ORGANIZATION && !!logo?.isTransparent,
           socialMediaLinks,
           type,
           website: url,
@@ -129,6 +131,7 @@ export const transformData = ({ data, locale }) => {
           type,
           website: url,
           image: imageSelector({ image, logo, type }),
+          isTransparent: type === entityTypes.ORGANIZATION && !!logo?.isTransparent,
         })),
         offers: offers?.map(({ name, price = 0, priceCurrency, url, type, additionalType }) => ({
           name: getLocalized(name, locale),

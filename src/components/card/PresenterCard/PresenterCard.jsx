@@ -1,6 +1,47 @@
+import { background } from '@chakra-ui/react';
 import React from 'react';
 
-function PresenterCard({ name, website, image }) {
+function PresenterCard({ name, website, image, isTransparent }) {
+  const styles = {
+    container: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '12px',
+      marginTop: '8px',
+    },
+    imageWrapper: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: '100%',
+      width: '50px',
+      height: '50px',
+    },
+    image: {
+      objectFit: 'cover',
+      width: '46px',
+      height: '46px',
+      borderRadius: '100%',
+      ...(isTransparent && { backgroundColor: 'var(--quaternary-grey)' }),
+    },
+    textContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    },
+    name: {
+      fontSize: 'var(--presenter-font-size)',
+      fontWeight: 'var(--presenter-font-weight)',
+      color: 'var(--secondary-black)',
+      margin: '0px',
+    },
+    link: {
+      fontSize: 'var(--presenter-link-size)',
+      fontWeight: 'var(--presenter-link-weight)',
+      color: 'var(--presenter-link-color)',
+      textDecoration: 'none',
+    },
+  };
   return (
     <div style={styles.container}>
       <div style={styles.imageWrapper}>
@@ -24,45 +65,5 @@ function PresenterCard({ name, website, image }) {
     </div>
   );
 }
-
-const styles = {
-  container: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    marginTop: '8px',
-  },
-  imageWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: '100%',
-    width: '50px',
-    height: '50px',
-  },
-  image: {
-    objectFit: 'cover',
-    width: '46px',
-    height: '46px',
-    borderRadius: '100%',
-  },
-  textContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-  },
-  name: {
-    fontSize: 'var(--presenter-font-size)',
-    fontWeight: 'var(--presenter-font-weight)',
-    color: 'var(--secondary-black)',
-    margin: '0px',
-  },
-  link: {
-    fontSize: 'var(--presenter-link-size)',
-    fontWeight: 'var(--presenter-link-weight)',
-    color: 'var(--presenter-link-color)',
-    textDecoration: 'none',
-  },
-};
 
 export default PresenterCard;
