@@ -17,6 +17,15 @@ function App(props) {
   const { color, font, headerTitle, gtagId, ...widgetProps } = props;
   const locale = widgetProps.locale;
   const [loading, setLoading] = useState(true);
+  const heightValue = widgetProps.height;
+  const isNumericHeight =
+    typeof heightValue === 'number' || (typeof heightValue === 'string' && /^\d+$/.test(heightValue));
+  const resolvedHeight =
+    heightValue != null && heightValue !== ''
+      ? isNumericHeight
+        ? `${heightValue}px`
+        : heightValue
+      : '1000px';
 
   useEffect(() => {
     try {
@@ -52,7 +61,7 @@ function App(props) {
 
   return (
     <WidgetContextProvider widgetProps={{ ...widgetProps, font }}>
-      <div className="widget-layout" style={{ height: widgetProps.height + 'px' }}>
+      <div className="widget-layout" style={{ height: resolvedHeight }}>
         <Suspense fallback={<Loader />}>
           {headerTitle && (
             <Heading
