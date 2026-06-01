@@ -14,7 +14,7 @@ const Results = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <div className="grid-container">
+      <div className={`grid-container ${data?.length === 1 ? 'single-event-grid' : ''}`}>
         {data?.map((item, index) => (
           <EventCard
             key={index}
