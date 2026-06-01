@@ -134,8 +134,8 @@ const FilterPanel = ({ isFilterOpen, filters, setIsFilterOpen, iconRef, t }) => 
           boxShadow: 'md',
           padding: '12px',
           borderRadius: 'md',
-          minWidth: '350px',
-          maxWidth: '350px',
+          width: 'min(350px, calc(100vw - 24px))',
+          maxWidth: 'calc(100vw - 24px)',
         }}
       >
         {selectedFilters &&

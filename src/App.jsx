@@ -13,10 +13,35 @@ import { initGoogleAnalytics } from './utils/googleAnalytics';
 import 'dayjs/locale/en';
 import 'dayjs/locale/fr';
 
+const DEFAULT_WIDGET_HEIGHT = '1000px';
+
+function resolveWidgetHeight(height) {
+  if (typeof height === 'number') {
+    return Number.isFinite(height) ? `${height}px` : DEFAULT_WIDGET_HEIGHT;
+  }
+
+  if (typeof height === 'string') {
+    const normalizedHeight = height.trim();
+
+    if (!normalizedHeight) {
+      return DEFAULT_WIDGET_HEIGHT;
+    }
+
+    if (/^(?:\d+|\d*\.\d+)$/.test(normalizedHeight)) {
+      return `${normalizedHeight}px`;
+    }
+
+    return normalizedHeight;
+  }
+
+  return DEFAULT_WIDGET_HEIGHT;
+}
+
 function App(props) {
   const { color, font, headerTitle, gtagId, ...widgetProps } = props;
   const locale = widgetProps.locale;
   const [loading, setLoading] = useState(true);
+  const resolvedHeight = resolveWidgetHeight(widgetProps.height);
 
   useEffect(() => {
     try {
@@ -52,7 +77,7 @@ function App(props) {
 
   return (
     <WidgetContextProvider widgetProps={{ ...widgetProps, font }}>
-      <div className="widget-layout" style={{ height: widgetProps.height + 'px' }}>
+      <div className="widget-layout" style={{ height: resolvedHeight }}>
         <Suspense fallback={<Loader />}>
           {headerTitle && (
             <Heading

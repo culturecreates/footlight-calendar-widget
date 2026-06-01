@@ -1,8 +1,8 @@
 #calendar-widget > .widget-layout .event-card {
-  flex: 1 1 auto;
-  max-width: 371px;
-  min-width: 246px;
-  border-radius: 10px;
+  flex: 1 1 100%;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -26,21 +26,21 @@
 
 @media (max-width: 550px) {
   #calendar-widget > .widget-layout .event-card {
-    width: 371px;
+    width: 100%;
   }
 }
 @media (min-width: 550px) and (max-width: 768px) {
   #calendar-widget > .widget-layout .event-card {
-    width: 246px;
+    width: 100%;
   }
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   #calendar-widget > .widget-layout .event-card {
-    width: 246px;
+    width: 100%;
   }
 }
 @media (min-width: 1025px) {
   #calendar-widget > .widget-layout .event-card {
-    width: 246px;
+    max-width: 371px;
   }
 }
