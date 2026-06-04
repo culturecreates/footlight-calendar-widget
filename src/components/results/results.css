@@ -8,26 +8,43 @@
 
 #calendar-widget > .widget-layout .grid-container {
   display: grid;
+  width: 100%;
+  max-width: 1008px;
+  margin: 0 auto;
   justify-content: center;
   gap: 8px;
-  grid-template-columns: 1fr;
-  justify-items: center;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: stretch;
 }
 
 @media (min-width: 550px) and (max-width: 820px) {
   #calendar-widget > .widget-layout .grid-container {
     grid-template-columns: repeat(2, 246px);
+    justify-items: stretch;
   }
 }
 
 @media (min-width: 820px) and (max-width: 1060px) {
   #calendar-widget > .widget-layout .grid-container {
     grid-template-columns: repeat(3, 246px);
+    justify-items: stretch;
   }
 }
 
 @media (min-width: 1060px) {
   #calendar-widget > .widget-layout .grid-container {
     grid-template-columns: repeat(4, 246px);
+    justify-items: stretch;
+  }
+}
+
+#calendar-widget > .widget-layout .grid-container.single-event-grid {
+  grid-template-columns: minmax(min(100%, 246px), 246px);
+  justify-content: center;
+}
+
+@media (max-width: 550px) {
+  #calendar-widget > .widget-layout .grid-container.single-event-grid {
+    grid-template-columns: minmax(min(100%, 371px), 371px);
   }
 }
