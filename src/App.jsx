@@ -14,17 +14,28 @@ import 'dayjs/locale/en';
 import 'dayjs/locale/fr';
 
 const DEFAULT_WIDGET_HEIGHT = '1000px';
+const DIV_DEFAULT_WIDGET_HEIGHT = 'auto';
 
-function resolveWidgetHeight(height) {
+function isEmbeddedInIframe() {
+  try {
+    return window.self !== window.top;
+  } catch {
+    return true;
+  }
+}
+
+function resolveWidgetHeight(height, isIframe) {
+  const fallbackHeight = isIframe ? DEFAULT_WIDGET_HEIGHT : DIV_DEFAULT_WIDGET_HEIGHT;
+
   if (typeof height === 'number') {
-    return Number.isFinite(height) ? `${height}px` : DEFAULT_WIDGET_HEIGHT;
+    return Number.isFinite(height) ? `${height}px` : fallbackHeight;
   }
 
   if (typeof height === 'string') {
     const normalizedHeight = height.trim();
 
     if (!normalizedHeight) {
-      return DEFAULT_WIDGET_HEIGHT;
+      return fallbackHeight;
     }
 
     if (/^(?:\d+|\d*\.\d+)$/.test(normalizedHeight)) {
@@ -34,14 +45,14 @@ function resolveWidgetHeight(height) {
     return normalizedHeight;
   }
 
-  return DEFAULT_WIDGET_HEIGHT;
+  return fallbackHeight;
 }
 
 function App(props) {
   const { color, font, headerTitle, gtagId, ...widgetProps } = props;
   const locale = widgetProps.locale;
   const [loading, setLoading] = useState(true);
-  const resolvedHeight = resolveWidgetHeight(widgetProps.height);
+  const resolvedHeight = resolveWidgetHeight(widgetProps.height, isEmbeddedInIframe());
 
   useEffect(() => {
     try {

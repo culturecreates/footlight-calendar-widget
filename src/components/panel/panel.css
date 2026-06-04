@@ -34,7 +34,7 @@
   margin: 0px 8px 32px 8px;
   padding: 16px;
   box-shadow: var(--primary-box-shadow);
-  border-radius: lg;
+  border-radius: 12px;
   background-color: var(--primary-white-opaque);
 }
 
@@ -51,7 +51,7 @@
 @media (min-width: 550px) and (max-width: 820px) {
   #calendar-widget > .widget-layout .loader-wrapper > div {
     grid-template-columns: repeat(2, 246px);
-    justify-items: initial;
+    justify-items: stretch;
   }
 }
 
@@ -79,13 +79,13 @@
 @media (min-width: 820px) and (max-width: 1060px) {
   #calendar-widget > .widget-layout .loader-wrapper > div {
     grid-template-columns: repeat(3, 246px);
-    justify-items: initial;
+    justify-items: stretch;
   }
 }
 
 @media (min-width: 1060px) {
   #calendar-widget > .widget-layout .loader-wrapper > div {
     grid-template-columns: repeat(4, 246px);
-    justify-items: initial;
+    justify-items: stretch;
   }
 }
